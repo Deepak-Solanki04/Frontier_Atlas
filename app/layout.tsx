@@ -30,7 +30,6 @@ export default function RootLayout({
           <div className="main-wrapper">
             <Header />
             {children}
-            <Footer />
           </div>
         </div>
       </body>
