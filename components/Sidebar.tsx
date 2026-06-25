@@ -7,17 +7,24 @@ import { usePathname } from 'next/navigation';
 export default function Sidebar() {
   const pathname = usePathname();
   
-  const isActive = (path: string) => pathname === path ? 'active' : '';
+  const isActive = (path: string) => {
+    if (path === '/' && (pathname === '/' || pathname === '/trending')) return 'active';
+    return pathname === path ? 'active' : '';
+  };
 
   return (
     <aside className="sidebar-full">
+      <Link href="/" className="sidebar-logo">Frontier Atlas</Link>
+
       <div className="sidebar-nav">
         <div className="nav-section">
           <div className="nav-title">DISCOVER</div>
-          <Link href="/trending" className={`nav-item ${isActive('/trending')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#f97316', width: '18px', height: '18px'}}>
-              <path fillRule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clipRule="evenodd" />
-            </svg>
+          <Link href="/" className={`nav-item ${isActive('/')}`}>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#ef4444'}}><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+          </Link>
+          <Link href="/trending" className={`nav-item ${isActive('/trending') === 'active' && pathname !== '/trending' ? '' : isActive('/trending')}`}>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#f97316'}}><path fillRule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clipRule="evenodd" /></svg>
             Trending Papers
           </Link>
           <Link href="/latest-papers" className={`nav-item ${isActive('/latest-papers')}`}>
@@ -41,15 +48,15 @@ export default function Sidebar() {
             Reasoning
           </Link>
           <Link href="/language-modeling" className={`nav-item ${isActive('/language-modeling')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#10b981'}}><path d="M4 4h16v12H4z"/><path d="M6 6h12v2H6z"/><path d="M6 10h8v2H6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#10b981'}}><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
             Language Modeling
           </Link>
           <Link href="/coding-agents" className={`nav-item ${isActive('/coding-agents')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#3b82f6'}}><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
             Coding Agents
           </Link>
           <Link href="/computer-use" className={`nav-item ${isActive('/computer-use')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#6366f1'}}><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg>
             Computer Use
           </Link>
           <Link href="/world-models" className={`nav-item ${isActive('/world-models')}`}>
@@ -57,7 +64,7 @@ export default function Sidebar() {
             World Models
           </Link>
           <Link href="/robotics" className={`nav-item ${isActive('/robotics')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#ec4899'}}><path d="M19 8h-2V6c0-1.1-.9-2-2-2h-2V2h-2v2H9C7.9 4 7 4.9 7 6v2H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM9 6h6v2H9V6zm10 10H5v-4h14v4z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M19 8h-2V6c0-1.1-.9-2-2-2h-2V2h-2v2H9C7.9 4 7 4.9 7 6v2H5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h2v2c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-2h2c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2zM9 6h6v2H9V6zm10 10H5v-4h14v4z"/></svg>
             Robotics
           </Link>
         </div>
@@ -65,31 +72,31 @@ export default function Sidebar() {
         <div className="nav-section">
           <div className="nav-title">METHODS</div>
           <Link href="/transformer" className={`nav-item ${isActive('/transformer')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm4 6H8v-1.2c0-1.6 3.2-2.4 4-2.4s4 .8 4 2.4V18z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#3b82f6'}}><circle cx="9" cy="12" r="6" fillOpacity="0.4"/><circle cx="15" cy="12" r="6" fillOpacity="0.4"/></svg>
             Transformer
           </Link>
           <Link href="/chain-of-thought" className={`nav-item ${isActive('/chain-of-thought')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#3b82f6'}}><path d="M17 11V8c0-2.21-1.79-4-4-4S9 5.79 9 8v3H8c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-6c0-1.1-.9-2-2-2h-1zm-5 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#a855f7'}}><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
             Chain of Thought
           </Link>
           <Link href="/react" className={`nav-item ${isActive('/react')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#f97316'}}><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#6b7280'}}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
             ReAct
           </Link>
           <Link href="/lora" className={`nav-item ${isActive('/lora')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#10b981'}}><path d="M17 3H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7V5h10v14z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#f97316'}}><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
             LoRA
           </Link>
           <Link href="/rlhf" className={`nav-item ${isActive('/rlhf')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#ef4444'}}><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#10b981'}}><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
             RLHF
           </Link>
           <Link href="/dpo" className={`nav-item ${isActive('/dpo')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#ec4899'}}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#ef4444'}}><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
             DPO
           </Link>
           <Link href="/mcp" className={`nav-item ${isActive('/mcp')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#06b6d4'}}><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/><circle cx="12" cy="12" r="2"/></svg>
             MCP
           </Link>
         </div>
@@ -97,7 +104,7 @@ export default function Sidebar() {
         <div className="nav-section">
           <div className="nav-title">GENERATION</div>
           <Link href="/text-generation" className={`nav-item ${isActive('/text-generation')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#0ea5e9'}}><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#3b82f6'}}><path d="M5 4v3h5.5v12h3V7H19V4z"/></svg>
             Text Generation
           </Link>
           <Link href="/image-generation" className={`nav-item ${isActive('/image-generation')}`}>
@@ -105,18 +112,38 @@ export default function Sidebar() {
             Image Generation
           </Link>
           <Link href="/video-generation" className={`nav-item ${isActive('/video-generation')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
             Video Generation
           </Link>
           <Link href="/audio-generation" className={`nav-item ${isActive('/audio-generation')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#f59e0b'}}><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#ec4899'}}><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
             Audio Generation
           </Link>
         </div>
 
+        <div className="nav-section">
+          <div className="nav-title">LIBRARY</div>
+          <Link href="/organizations" className={`nav-item ${isActive('/organizations')}`}>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#3b82f6'}}><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
+            Organizations
+          </Link>
+          <Link href="/collections" className={`nav-item ${isActive('/collections')}`}>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#eab308'}}><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 10l-2.5-1.5L15 12V4h5v8z"/></svg>
+            Collections
+          </Link>
+        </div>
 
-        
-
+        <div className="nav-section">
+          <div className="nav-title">PERSONAL</div>
+          <Link href="/bookmarks" className={`nav-item ${isActive('/bookmarks')}`}>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#3b82f6'}}><path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+            Bookmarks
+          </Link>
+          <Link href="/reading-list" className={`nav-item ${isActive('/reading-list')}`}>
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#8b5cf6'}}><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+            Reading List
+          </Link>
+        </div>
       </div>
 
       <div className="sidebar-footer">

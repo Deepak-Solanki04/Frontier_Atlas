@@ -25,13 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={plusJakarta.variable}>
-        <div className="app-container">
-          <Header />
-          <div className="layout-body">
-            <Sidebar />
-            <div className="main-wrapper">
-              {children}
-            </div>
+        <div className="layout-wrapper">
+          <Sidebar />
+          <div className="main-wrapper">
+            <Header />
+            {children}
           </div>
         </div>
       </body>
