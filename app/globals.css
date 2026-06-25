@@ -142,7 +142,6 @@ body {
 }
 
 /* ---------------- RIGHT SIDE WRAPPER ---------------- */
-/* ---------------- RIGHT SIDE WRAPPER ---------------- */
 .main-wrapper {
   flex: 1;
   min-width: 0;
@@ -177,7 +176,7 @@ body {
 
 .search-bar svg {
   position: absolute;
-  left: 12px;
+  left: 14px;
   color: var(--text-light);
   width: 16px;
   height: 16px;
@@ -185,9 +184,9 @@ body {
 
 .search-bar input {
   width: 100%;
-  padding: 6px 16px 6px 36px;
+  padding: 8px 16px 8px 38px;
   border: 1px solid var(--border-color);
-  border-radius: 6px;
+  border-radius: 20px;
   background: #ffffff;
   font-size: 13px;
   font-family: var(--font-serif);

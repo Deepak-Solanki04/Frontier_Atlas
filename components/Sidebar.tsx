@@ -7,10 +7,7 @@ import { usePathname } from 'next/navigation';
 export default function Sidebar() {
   const pathname = usePathname();
   
-  const isActive = (path: string) => {
-    if (path === '/' && (pathname === '/' || pathname === '/trending')) return 'active';
-    return pathname === path ? 'active' : '';
-  };
+  const isActive = (path: string) => pathname === path ? 'active' : '';
 
   return (
     <aside className="sidebar-full">
@@ -19,11 +16,7 @@ export default function Sidebar() {
       <div className="sidebar-nav">
         <div className="nav-section">
           <div className="nav-title">DISCOVER</div>
-          <Link href="/" className={`nav-item ${isActive('/')}`}>
-            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#ef4444'}}><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            Home
-          </Link>
-          <Link href="/trending" className={`nav-item ${isActive('/trending') === 'active' && pathname !== '/trending' ? '' : isActive('/trending')}`}>
+          <Link href="/trending" className={`nav-item ${isActive('/trending')}`}>
             <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style={{color: '#f97316'}}><path fillRule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248zM15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z" clipRule="evenodd" /></svg>
             Trending Papers
           </Link>
