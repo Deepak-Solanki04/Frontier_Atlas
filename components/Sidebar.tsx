@@ -11,8 +11,6 @@ export default function Sidebar() {
 
   return (
     <aside className="sidebar-full">
-      <div className="sidebar-logo">Frontier Atlas</div>
-
       <div className="sidebar-nav">
         <div className="nav-section">
           <div className="nav-title">DISCOVER</div>

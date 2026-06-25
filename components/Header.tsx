@@ -1,11 +1,17 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function Header() {
   return (
     <header className="header-top">
-      <div className="search-bar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" placeholder="Search papers, methods, tasks, authors..." />
+      <div className="header-left">
+        <Link href="/trending" className="header-logo">
+          Frontier Atlas
+        </Link>
+        <div className="search-bar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" placeholder="Search papers, methods, tasks, authors..." />
+        </div>
       </div>
 
       <div className="header-actions">
@@ -21,8 +27,11 @@ export default function Header() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
           Saved
         </button>
-        <div className="user-avatar">
-          <img src="https://i.pravatar.cc/150?img=47" alt="User Avatar" />
+        <div className="user-profile">
+          <div className="user-avatar">
+            <img src="https://i.pravatar.cc/150?img=47" alt="User Avatar" />
+          </div>
+          <svg className="dropdown-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </div>
       </div>
     </header>
