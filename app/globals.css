@@ -26,41 +26,36 @@ body {
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; border: none; background: transparent; font-family: inherit; }
 
-/* Global Layout: Independent Scrolling Panes */
+/* Global Layout: Header on top, sidebar + content below */
 body {
-  overflow: hidden; /* Prevent full page body scroll */
+  overflow: hidden;
 }
 
-.layout-wrapper {
+.app-shell {
   display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
 }
 
-/* ---------------- FULL HEIGHT SIDEBAR ---------------- */
+.app-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ---------------- SIDEBAR (below header) ---------------- */
 .sidebar-full {
   width: 240px;
   flex-shrink: 0;
-  height: 100vh;
+  height: 100%;
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   background: #ffffff;
   padding: 16px 8px 12px 8px;
   overflow-y: hidden;
-}
-
-.sidebar-logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: var(--text-dark);
-  font-family: var(--font-serif);
-  letter-spacing: -0.5px;
-  margin-bottom: 20px;
-  padding-left: 8px;
-  text-decoration: none;
-  display: block;
 }
 
 .sidebar-nav {
@@ -145,25 +140,41 @@ body {
 .main-wrapper {
   flex: 1;
   min-width: 0;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   background: #ffffff;
 }
 
-/* ---------------- HEADER ---------------- */
+/* ---------------- HEADER (full width top bar) ---------------- */
 .header-top {
-  height: 64px;
+  height: 56px;
+  flex-shrink: 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 32px;
+  gap: 24px;
+  padding: 0 24px;
   background: #ffffff;
-  position: sticky;
-  top: 0;
   z-index: 100;
   border-bottom: 1px solid var(--border-color);
+}
+
+.header-logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--text-dark);
+  font-family: var(--font-serif);
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: auto;
 }
 
 .search-bar {
@@ -197,11 +208,6 @@ body {
   border-color: var(--color-red);
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
 
 .action-btn {
   display: flex;
