@@ -56,11 +56,10 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 }
 
 .logo-text-fa {
-  font-family: var(--font-comfortaa), var(--font-quicksand), var(--font-righteous), var(--font-outfit), system-ui, sans-serif;
   font-weight: 700;
-  font-size: 19.5px;
+  font-size: 21.5px;
   color: #ff4d00;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
 }
 
 .search-bar {

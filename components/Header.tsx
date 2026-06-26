@@ -1,5 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { Comfortaa } from 'next/font/google';
+
+const comfortaa = Comfortaa({ subsets: ['latin'], weight: ['700'] });
 
 export default function Header() {
   return (
@@ -7,14 +10,14 @@ export default function Header() {
       {/* Logo */}
       <Link href="/" className="header-logo">
         <span className="logo-icon-chip">
-          <svg width="27" height="27" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="7" fill="#ff4d00"/>
-            <path d="M10 3v3M14 3v3M18 3v3M10 22v3M14 22v3M18 22v3M3 10h3M3 14h3M3 18h3M22 10h3M22 14h3M22 18h3" stroke="white" strokeWidth="1.75" strokeLinecap="round"/>
-            <rect x="6" y="6" width="16" height="16" rx="3.5" stroke="white" strokeWidth="1.75" fill="#ff4d00"/>
-            <text x="14" y="17.2" textAnchor="middle" fill="white" fontSize="9.5" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="-0.3px">FA</text>
+          <svg width="29" height="29" viewBox="0 0 30 30" fill="none">
+            <rect width="30" height="30" rx="7.5" fill="#ff4d00"/>
+            <path d="M11 2v4M15 2v4M19 2v4M11 24v4M15 24v4M19 24v4M2 11h4M2 15h4M2 19h4M24 11h4M24 15h4M24 19h4" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+            <rect x="6" y="6" width="18" height="18" rx="4" fill="white"/>
+            <text x="15" y="18.8" textAnchor="middle" fill="#ff4d00" fontSize="10.5" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="-0.5px">FA</text>
           </svg>
         </span>
-        <span className="logo-text-fa">FrontierAtlas</span>
+        <span className={`logo-text-fa ${comfortaa.className}`}>FrontierAtlas</span>
       </Link>
 
       {/* Search */}
