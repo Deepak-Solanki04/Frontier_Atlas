@@ -88,7 +88,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
 
           {/* Card 2 — RISING FAST (light card) */}
           <div className="hcard hcard-light">
-            <div className="hcard-label">📈 RISING FAST</div>
+            <div className="hcard-label"><span className="hero-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24"><defs><linearGradient id="rise-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#ff7a00"/><stop offset="100%" stopColor="#ff3d00"/></linearGradient></defs><path fill="url(#rise-grad)" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></span>RISING FAST</div>
             <div className="rising-number">+540</div>
             <div className="rising-sub">GitHub stars<br/>in the last 8 hours</div>
             <div className="rising-list">
@@ -106,7 +106,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
           {/* Card 3 — NEW SOTA TODAY (light card) */}
           <div className="hcard hcard-light">
             <div className="sota-header">
-              <span className="hcard-label hcard-label-orange">🏆 NEW SOTA TODAY</span>
+              <span className="hcard-label hcard-label-orange"><span className="hero-icon-inline"><svg width="16" height="16" viewBox="0 0 24 24" fill="#ff4d00"><path d="M19 5h-2V3a1 1 0 00-1-1H8a1 1 0 00-1 1v2H5a3 3 0 00-3 3v1c0 2.55 1.92 4.63 4.42 4.94A6.01 6.01 0 0011 18v2H8a1 1 0 000 2h8a1 1 0 000-2h-3v-2a6.01 6.01 0 004.58-4.06C20.08 13.63 22 11.55 22 9V8a3 3 0 00-3-3zm-2 0h-2v4c0 .34-.04.67-.1 1h2.1a1 1 0 001-1V8a1 1 0 00-1-1zM5 9V8a1 1 0 011-1h2.1c-.06.33-.1.66-.1 1v2c0 .34.04.67.1 1H6a1 1 0 01-1-1z"/></svg></span>NEW SOTA TODAY</span>
               <a href="#" className="hcard-link-orange">View all →</a>
             </div>
             <div className="sota-list">
