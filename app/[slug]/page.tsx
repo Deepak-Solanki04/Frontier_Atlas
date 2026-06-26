@@ -60,8 +60,8 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
       {isTrending && (
         <div className="hero-row">
 
-          {/* Card 1 — BREAKTHROUGH TODAY (dark bg, orange accent) */}
-          <div className="hcard hcard-dark">
+          {/* Card 1 — BREAKTHROUGH TODAY (dark bg, orange radial gradient) */}
+          <div className="hcard hcard-dark hcard-orange-gradient">
             <div className="hcard-badges">
               <span className="badge-bt">🔥 BREAKTHROUGH TODAY</span>
               <span className="badge-release">Official Release</span>

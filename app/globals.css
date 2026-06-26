@@ -254,6 +254,13 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
   color: white;
 }
 
+/* Breakthrough Today — orange gradient variant */
+.hcard-dark.hcard-orange-gradient {
+  background:
+    radial-gradient(ellipse at 80% 50%, rgba(249,115,22,0.45) 0%, rgba(234,88,12,0.15) 45%, transparent 70%),
+    linear-gradient(135deg, #1c0e00 0%, #111827 60%);
+}
+
 /* Light card (Rising Fast, SOTA) */
 .hcard-light {
   background: var(--white);
@@ -271,8 +278,8 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 }
 
 .badge-bt {
-  background: rgba(249,115,22,0.2);
-  color: #fb923c;
+  background: rgba(249,115,22,0.25);
+  color: #fdba74;
   font-size: 9px;
   font-weight: 700;
   padding: 2px 7px;
