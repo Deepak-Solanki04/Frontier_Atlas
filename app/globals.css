@@ -134,30 +134,30 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 
 .sidebar-nav {
   flex: 1;
-  padding: 8px 10px 4px;
+  padding: 6px 8px 4px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  gap: 4px;
+  gap: 2px;
 }
 
-.nav-section { display: flex; flex-direction: column; gap: 1px; }
+.nav-section { display: flex; flex-direction: column; gap: 0px; }
 
 .nav-title {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.6px;
   color: var(--text-light);
-  padding: 4px 8px 2px;
+  padding: 3px 6px 1px;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 12px;
+  gap: 6px;
+  padding: 2.5px 6px;
+  border-radius: 5px;
+  font-size: 10.5px;
   font-weight: 500;
   color: #374151;
   transition: all 0.1s;
@@ -189,7 +189,7 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 
 /* Breakthrough Today */
 .hcard-breakthrough {
-  background: radial-gradient(circle at 85% 50%, rgba(255,77,0,0.18) 0%, rgba(255,77,0,0.03) 45%, transparent 65%), #18110b;
+  background: radial-gradient(circle at 85% 50%, rgba(255,77,0,0.26) 0%, rgba(255,77,0,0.05) 50%, transparent 70%), #18110b;
   color: white;
 }
 
