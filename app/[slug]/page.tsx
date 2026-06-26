@@ -163,7 +163,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
               <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
               <span>TRENDING ON X</span>
             </div>
-            {trendingX.map((item, i) => (
+            {trendingX.slice(0, 4).map((item, i) => (
               <div key={i} className="tp-row">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="rgba(255,255,255,0.4)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 <span className="tp-name">{item.handle}</span>
@@ -180,7 +180,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
               </span>
               <span>TRENDING ON REDDIT</span>
             </div>
-            {trendingReddit.map((item, i) => (
+            {trendingReddit.slice(0, 4).map((item, i) => (
               <div key={i} className="tp-row">
                 <span className="reddit-dot" />
                 <span className="tp-name">{item.sub}</span>
