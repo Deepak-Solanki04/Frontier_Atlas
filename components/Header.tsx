@@ -1,8 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Comfortaa } from 'next/font/google';
-
-const comfortaa = Comfortaa({ subsets: ['latin'], weight: ['700'] });
 
 export default function Header() {
   return (
@@ -17,7 +14,7 @@ export default function Header() {
             <text x="15" y="18.8" textAnchor="middle" fill="#ff4d00" fontSize="10.5" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="-0.5px">FA</text>
           </svg>
         </span>
-        <span className={`logo-text-fa ${comfortaa.className}`}>FrontierAtlas</span>
+        <span className="logo-text-fa">FrontierAtlas</span>
       </Link>
 
       {/* Search */}
