@@ -5,16 +5,8 @@ export default function Header() {
   return (
     <header className="header-top">
       {/* Logo */}
-      <Link href="/" className="header-logo">
-        <span className="logo-icon-chip">
-          <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
-            <rect width="32" height="32" rx="8" fill="#ff4d00"/>
-            <path d="M11 3v4M16 3v4M21 3v4M11 25v4M16 25v4M21 25v4M3 11h4M3 16h4M3 21h4M25 11h4M25 16h4M25 21h4" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-            <rect x="7" y="7" width="18" height="18" rx="4" stroke="white" strokeWidth="2" fill="none"/>
-            <text x="16" y="20.2" textAnchor="middle" fill="white" fontSize="11.5" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="-0.5px">FA</text>
-          </svg>
-        </span>
-        <span className="logo-text-fa" style={{ fontFamily: "'Comfortaa', 'Fredoka', 'Righteous', 'Quicksand', 'Outfit', system-ui, sans-serif", fontWeight: 700, fontSize: '23px', color: '#ff4d00', letterSpacing: '-0.5px' }}>FrontierAtlas</span>
+      <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+        <img src="/logo.png" alt="Frontier Atlas" style={{ height: '30px', width: 'auto', objectFit: 'contain' }} />
       </Link>
 
       {/* Search */}
