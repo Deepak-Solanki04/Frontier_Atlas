@@ -174,15 +174,14 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .main-wrapper { flex: 1; min-width: 0; height: 100%; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; }
 
 /* ═══════ PAGE ═══════ */
-.page-layout { flex: 1; min-height: 0; padding: 16px 20px 0; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.page-layout { flex: 1; min-height: 0; padding: 14px 18px 0; overflow: hidden; display: flex; flex-direction: column; }
 
-/* ═══════ HERO ROW — 4 columns ═══════ */
-.hero-row {
-  flex-shrink: 0;
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1fr 330px;
-  gap: 12px;
-}
+/* ═══════ MAIN DASHBOARD GRID (2 COLUMNS) ═══════ */
+.dashboard-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 315px; gap: 14px; align-items: stretch; overflow: hidden; padding-bottom: 12px; }
+
+.dashboard-left-col { display: flex; flex-direction: column; gap: 12px; height: 100%; min-width: 0; overflow: hidden; }
+
+.top-three-cards { flex-shrink: 0; display: grid; grid-template-columns: 1.38fr 1fr 1fr; gap: 12px; }
 
 .hcard { border-radius: 12px; padding: 16px; position: relative; overflow: hidden; }
 
@@ -328,10 +327,12 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .card-bookmark { position: absolute; top: 14px; right: 14px; color: var(--text-light); padding: 4px; }
 .card-bookmark:hover { color: var(--text-dark); }
 
-/* ═══════ RIGHT SIDEBAR TRENDING ═══════ */
-.right-sidebar { height: 100%; overflow: hidden; display: flex; flex-direction: column; gap: 12px; }
+/* ═══════ RIGHT SIDEBAR (GITHUB, X, REDDIT PANELS) ═══════ */
+.dashboard-right-col { display: flex; flex-direction: column; gap: 12px; height: 100%; width: 315px; flex-shrink: 0; overflow: hidden; }
 
-.trending-panel { flex: 1; min-height: 0; background: #18181b; border-radius: 10px; padding: 15px 16px; color: white; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+.gh-panel, .trending-panel { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 13px 15px; overflow: hidden; border-radius: 10px; background: #18181b; color: white; position: relative; }
+
+.gh-panel { background: var(--white); border: 1px solid var(--border); color: var(--text-dark); }
 
 .trending-panel-reddit {
   background: radial-gradient(circle at 0% 0%, rgba(255,69,0,0.22) 0%, rgba(255,69,0,0.05) 40%, transparent 70%), #18181b;
