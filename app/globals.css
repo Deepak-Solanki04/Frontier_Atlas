@@ -171,15 +171,14 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .nav-item.active svg { opacity: 1; }
 
 /* ═══════ MAIN WRAPPER ═══════ */
-.main-wrapper { flex: 1; min-width: 0; height: 100%; overflow-y: auto; background: var(--bg); }
-.main-wrapper::-webkit-scrollbar { width: 5px; }
-.main-wrapper::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+.main-wrapper { flex: 1; min-width: 0; height: 100%; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; }
 
 /* ═══════ PAGE ═══════ */
-.page-layout { padding: 16px 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+.page-layout { flex: 1; min-height: 0; padding: 16px 20px 0; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
 
 /* ═══════ HERO ROW — 4 columns ═══════ */
 .hero-row {
+  flex-shrink: 0;
   display: grid;
   grid-template-columns: 1.3fr 1fr 1fr 310px;
   gap: 12px;
@@ -264,7 +263,7 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .gh-view-all-light:hover { color: var(--text-dark); }
 
 /* ═══════ TIME FILTERS ═══════ */
-.time-filters { display: flex; gap: 6px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.time-filters { flex-shrink: 0; display: flex; gap: 6px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
 
 .time-filter {
   padding: 6px 14px;
@@ -278,10 +277,12 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .time-filter.active { background: var(--white); color: var(--brand-orange); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid var(--border); }
 
 /* ═══════ PAPERS + RIGHT SIDEBAR ═══════ */
-.papers-and-sidebar { display: grid; grid-template-columns: 1fr 310px; gap: 14px; align-items: start; }
+.papers-and-sidebar { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 310px; gap: 14px; align-items: start; overflow: hidden; padding-bottom: 12px; }
 
 /* Paper list */
-.paper-list { display: flex; flex-direction: column; gap: 10px; }
+.paper-list { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
+.paper-list::-webkit-scrollbar { width: 5px; }
+.paper-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 
 .paper-card {
   background: var(--white);
@@ -326,7 +327,8 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .card-bookmark:hover { color: var(--text-dark); }
 
 /* ═══════ RIGHT SIDEBAR TRENDING ═══════ */
-.right-sidebar { display: flex; flex-direction: column; gap: 12px; }
+.right-sidebar { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 2px; }
+.right-sidebar::-webkit-scrollbar { width: 0px; }
 
 .trending-panel { background: #18181b; border-radius: 12px; padding: 14px; color: white; position: relative; overflow: hidden; }
 
