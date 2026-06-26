@@ -252,13 +252,13 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .sota-bench { font-size: 10.5px; color: var(--text-gray); }
 
 /* GitHub Trending light */
-.gh-header-light { display: flex; align-items: center; gap: 7px; margin-bottom: 12px; }
+.gh-header-light { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; }
 .gh-title-light { font-size: 10px; font-weight: 700; color: #4b5563; letter-spacing: 0.5px; }
-.gh-row-light { display: flex; align-items: center; gap: 6px; padding: 5px 0; border-bottom: 1px solid #f3f4f6; font-size: 11.5px; }
+.gh-row-light { display: flex; align-items: center; gap: 6px; padding: 3.5px 0; border-bottom: 1px solid #f3f4f6; font-size: 11px; }
 .gh-row-light:last-of-type { border-bottom: none; }
 .gh-repo-light { flex: 1; color: #374151; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .gh-stars-light { color: #6b7280; font-size: 11px; }
-.gh-view-all-light { display: block; margin-top: 10px; font-size: 11px; font-weight: 600; color: #4b5563; }
+.gh-view-all-light { display: block; margin-top: 6px; font-size: 10.5px; font-weight: 600; color: #4b5563; }
 .gh-view-all-light:hover { color: var(--text-dark); }
 
 /* ═══════ TIME FILTERS ═══════ */
@@ -328,28 +328,30 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .card-bookmark:hover { color: var(--text-dark); }
 
 /* ═══════ RIGHT SIDEBAR (GITHUB, X, REDDIT PANELS) ═══════ */
-.dashboard-right-col { display: flex; flex-direction: column; gap: 12px; height: 100%; width: 315px; flex-shrink: 0; overflow: hidden; }
+.dashboard-right-col { display: flex; flex-direction: column; gap: 10px; height: 100%; width: 315px; flex-shrink: 0; overflow-y: auto; padding-right: 2px; padding-bottom: 18px; }
+.dashboard-right-col::-webkit-scrollbar { width: 4px; }
+.dashboard-right-col::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
 
-.gh-panel, .trending-panel { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 13px 15px; overflow: hidden; border-radius: 10px; background: #18181b; color: white; position: relative; }
+.gh-panel, .trending-panel { flex: 1; min-height: 168px; display: flex; flex-direction: column; justify-content: space-between; padding: 10px 14px; overflow: hidden; border-radius: 10px; background: #18181b; color: white; position: relative; }
 
-.gh-panel { background: var(--white); border: 1px solid var(--border); color: var(--text-dark); }
+.gh-panel { flex: 1.12; background: var(--white); border: 1px solid var(--border); color: var(--text-dark); }
 
 .trending-panel-reddit {
   background: radial-gradient(circle at 0% 0%, rgba(255,69,0,0.22) 0%, rgba(255,69,0,0.05) 40%, transparent 70%), #18181b;
 }
 
-.tp-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; color: #e4e4e7; }
+.tp-header { display: flex; align-items: center; gap: 7px; margin-bottom: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; color: #e4e4e7; }
 
 .reddit-clean-logo { display: flex; align-items: center; justify-content: center; }
 
-.tp-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 11.5px; }
+.tp-row { display: flex; align-items: center; gap: 7px; padding: 3.5px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 11px; }
 .tp-row:last-of-type { border-bottom: none; }
 
 .reddit-dot { width: 6px; height: 6px; background: #ff4500; border-radius: 50%; flex-shrink: 0; }
 .tp-name { flex: 1; color: #d4d4d8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tp-stat { font-weight: 600; color: #a1a1aa; font-size: 11px; }
 
-.tp-all { display: block; margin-top: 10px; font-size: 11px; font-weight: 600; color: #a1a1aa; }
+.tp-all { display: block; margin-top: 6px; font-size: 10.5px; font-weight: 600; color: #a1a1aa; }
 .tp-all:hover { color: white; }
 
 /* ═══════ FOOTER ═══════ */
