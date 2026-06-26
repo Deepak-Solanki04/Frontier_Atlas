@@ -6,8 +6,15 @@ export default function Header() {
     <header className="header-top">
       {/* Logo */}
       <Link href="/" className="header-logo">
-        <span className="logo-icon">&lt;/&gt;</span>
-        <span className="logo-text">Frontier Atlas</span>
+        <span className="logo-icon-chip">
+          <svg width="27" height="27" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="7" fill="#ff4d00"/>
+            <path d="M10 3v3M14 3v3M18 3v3M10 22v3M14 22v3M18 22v3M3 10h3M3 14h3M3 18h3M22 10h3M22 14h3M22 18h3" stroke="white" strokeWidth="1.75" strokeLinecap="round"/>
+            <rect x="6" y="6" width="16" height="16" rx="3.5" stroke="white" strokeWidth="1.75" fill="#ff4d00"/>
+            <text x="14" y="17.2" textAnchor="middle" fill="white" fontSize="9.5" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="-0.3px">FA</text>
+          </svg>
+        </span>
+        <span className="logo-text-fa">FrontierAtlas</span>
       </Link>
 
       {/* Search */}

@@ -44,20 +44,24 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
   z-index: 200;
 }
 
-.header-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.header-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; }
 
-.logo-icon {
-  background: var(--brand-orange);
-  color: white;
-  font-weight: 800;
-  font-size: 12px;
-  padding: 4px 7px;
-  border-radius: 6px;
-  font-family: monospace;
-  letter-spacing: -0.5px;
+.logo-icon-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(255,77,0,0.25);
+  border-radius: 7px;
 }
 
-.logo-text { font-weight: 700; font-size: 15px; color: var(--text-dark); letter-spacing: -0.3px; }
+.logo-text-fa {
+  font-family: 'Outfit', 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  color: #ff4d00;
+  letter-spacing: -0.4px;
+}
 
 .search-bar {
   position: relative;
