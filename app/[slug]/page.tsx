@@ -140,20 +140,22 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
         </div>
       )}
 
-      {/* ── TIME FILTER TABS ─────────────────────────────── */}
-      <div className="time-filters">
-        <button className="time-filter active">Today</button>
-        <button className="time-filter">This Week</button>
-        <button className="time-filter">This Month</button>
-        <button className="time-filter">All time</button>
-      </div>
-
       {/* ── PAPERS + RIGHT SIDEBAR ───────────────────────── */}
       <div className="papers-and-sidebar">
-        <div className="paper-list">
-          {data.papers.map((paper: any, i: number) => (
-            <PaperCard key={i} paper={paper} />
-          ))}
+        <div className="papers-column">
+          {/* ── TIME FILTER TABS ─────────────────────────────── */}
+          <div className="time-filters">
+            <button className="time-filter active">Today</button>
+            <button className="time-filter">This Week</button>
+            <button className="time-filter">This Month</button>
+            <button className="time-filter">All time</button>
+          </div>
+
+          <div className="paper-list">
+            {data.papers.map((paper: any, i: number) => (
+              <PaperCard key={i} paper={paper} />
+            ))}
+          </div>
         </div>
 
         {/* RIGHT: X and Reddit trending */}

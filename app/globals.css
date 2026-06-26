@@ -277,10 +277,12 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .time-filter.active { background: var(--white); color: var(--brand-orange); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid var(--border); }
 
 /* ═══════ PAPERS + RIGHT SIDEBAR ═══════ */
-.papers-and-sidebar { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 330px; gap: 12px; align-items: start; overflow: hidden; padding-bottom: 12px; }
+.papers-and-sidebar { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 330px; gap: 12px; align-items: stretch; overflow: hidden; padding-bottom: 12px; }
+
+.papers-column { display: flex; flex-direction: column; gap: 10px; height: 100%; min-height: 0; overflow: hidden; }
 
 /* Paper list */
-.paper-list { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
+.paper-list { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
 .paper-list::-webkit-scrollbar { width: 5px; }
 .paper-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
 
@@ -327,10 +329,9 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .card-bookmark:hover { color: var(--text-dark); }
 
 /* ═══════ RIGHT SIDEBAR TRENDING ═══════ */
-.right-sidebar { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 2px; }
-.right-sidebar::-webkit-scrollbar { width: 0px; }
+.right-sidebar { height: 100%; overflow: hidden; display: flex; flex-direction: column; gap: 12px; }
 
-.trending-panel { background: #18181b; border-radius: 10px; padding: 15px 16px; color: white; position: relative; overflow: hidden; min-height: 188px; display: flex; flex-direction: column; justify-content: space-between; }
+.trending-panel { flex: 1; min-height: 0; background: #18181b; border-radius: 10px; padding: 15px 16px; color: white; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
 
 .trending-panel-reddit {
   background: radial-gradient(circle at 0% 0%, rgba(255,69,0,0.22) 0%, rgba(255,69,0,0.05) 40%, transparent 70%), #18181b;
