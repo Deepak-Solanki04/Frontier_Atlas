@@ -231,6 +231,7 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 /* Light cards (Rising Fast, SOTA, GitHub trending) */
 .hcard-light { background: var(--white); border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
 .hcard-label { font-size: 10px; font-weight: 700; color: #4b5563; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+.hcard-label-orange { color: var(--brand-orange); }
 
 /* Rising Fast */
 .rising-number { font-size: 38px; font-weight: 800; color: var(--brand-orange); line-height: 1; margin-bottom: 4px; }
@@ -328,12 +329,12 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .trending-panel { background: #18181b; border-radius: 12px; padding: 14px; color: white; position: relative; overflow: hidden; }
 
 .trending-panel-reddit {
-  background: radial-gradient(circle at 90% 10%, rgba(255,69,0,0.4) 0%, rgba(255,69,0,0.05) 50%, transparent 70%), #18181b;
+  background: radial-gradient(circle at 100% 0%, #ff4500 0%, rgba(255,69,0,0.3) 45%, transparent 75%), #18181b;
 }
 
 .tp-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.5px; color: #e4e4e7; }
 
-.reddit-circle-logo { width: 20px; height: 20px; background: #ff4500; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.reddit-clean-logo { display: flex; align-items: center; justify-content: center; }
 
 .tp-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 11.5px; }
 .tp-row:last-of-type { border-bottom: none; }
