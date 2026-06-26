@@ -6,7 +6,7 @@ export default function Header() {
     <header className="header-top">
       {/* Logo */}
       <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-        <img src="/logo.png" alt="Frontier Atlas" style={{ height: '42px', width: 'auto', objectFit: 'contain' }} />
+        <img src="/logo.png" alt="Frontier Atlas" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
       </Link>
 
       {/* Search */}
