@@ -14,7 +14,7 @@ export default function Header() {
             <text x="15" y="18.8" textAnchor="middle" fill="#ff4d00" fontSize="10.5" fontWeight="800" fontFamily="system-ui, -apple-system, sans-serif" letterSpacing="-0.5px">FA</text>
           </svg>
         </span>
-        <span className="logo-text-fa">FrontierAtlas</span>
+        <span className="logo-text-fa" style={{ fontFamily: "'Comfortaa', 'Fredoka', 'Quicksand', 'Righteous', 'Varela Round', system-ui, sans-serif", fontWeight: 700, fontSize: '22px', color: '#ff4d00', letterSpacing: '-0.6px' }}>FrontierAtlas</span>
       </Link>
 
       {/* Search */}
