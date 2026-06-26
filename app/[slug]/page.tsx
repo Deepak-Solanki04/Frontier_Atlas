@@ -71,9 +71,9 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
                 <h2 className="hcard-title">OpenAI releases<br/>GPT-4.5 Turbo</h2>
                 <p className="hcard-desc">First-party model in the GPT-4.5 series, now available in OpenAI Studio.</p>
                 <ul className="hcard-bullets">
-                  <li>★ Beats Gemini 1.5 Pro on 7 benchmarks</li>
-                  <li>★ 256K context length</li>
-                  <li>★ Lower latency, higher accuracy</li>
+                  <li><span className="star-orange">★</span> Beats Gemini 1.5 Pro on 7 benchmarks</li>
+                  <li><span className="star-orange">★</span> 256K context length</li>
+                  <li><span className="star-orange">★</span> Lower latency, higher accuracy</li>
                 </ul>
                 <a href="#" className="hcard-link-orange">View paper →</a>
               </div>
