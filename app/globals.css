@@ -24,6 +24,7 @@ html, body {
   height: 100%;
   font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-size: 14px;
+  font-weight: 500;
   color: var(--text-dark);
   background: var(--bg);
   overflow: hidden;
@@ -31,8 +32,8 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-a { color: inherit; text-decoration: none; }
-button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
+a { color: inherit; text-decoration: none; font-weight: inherit; }
+button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; font-weight: 600; }
 
 /* ═══════ SHELL ═══════ */
 .app-shell { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
@@ -338,11 +339,11 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', va
 .card-thumb-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%); }
 
 .card-body { flex: 1; min-width: 0; }
-.card-title { font-size: 17px; font-weight: 700; color: #111827; margin-bottom: 5px; line-height: 1.35; letter-spacing: -0.1px; }
+.card-title { font-size: 17.5px; font-weight: 800; color: #111827; margin-bottom: 5px; line-height: 1.35; letter-spacing: -0.2px; }
 .card-title a:hover { color: var(--brand-orange); }
-.card-meta { font-size: 13px; font-weight: 400; color: #6b7280; margin-bottom: 10px; }
+.card-meta { font-size: 13px; font-weight: 600; color: #4b5563; margin-bottom: 10px; }
 
-.card-abstract { font-size: 13.5px; font-weight: 400; color: #374151; line-height: 1.6; letter-spacing: -0.1px; margin-bottom: 12px; max-width: 100%; min-height: 4.8em; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.card-abstract { font-size: 13.5px; font-weight: 500; color: #1f2937; line-height: 1.6; letter-spacing: -0.1px; margin-bottom: 12px; max-width: 100%; min-height: 4.8em; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
 .card-sota-ranking {
   display: flex;
@@ -351,7 +352,7 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', va
   gap: 6px;
   font-family: var(--font-geist-mono), monospace, system-ui, sans-serif;
   font-size: 12.5px;
-  font-weight: 600;
+  font-weight: 700;
   color: #4b5563;
   margin-bottom: 12px;
   line-height: 1.5;
