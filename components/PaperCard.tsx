@@ -19,28 +19,36 @@ function getEnrichedAbstract(paper: any): string {
 }
 
 function getSotaRankingHtml(paper: any): string {
+  const badge = '<span style="display: inline-flex; align-items: center; background: var(--brand-orange-light); color: var(--brand-orange); font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(255, 77, 0, 0.3);">🏆 SOTA Ranking</span>';
   const titleLower = (paper.title || "").toLowerCase();
   
   if (paper.sotaHtml && paper.sotaHtml.includes("on ") && !paper.sotaHtml.endsWith("SOTA</strong>")) {
-    return paper.sotaHtml
+    let clean = paper.sotaHtml
       .replace(/🏆\s*/g, "")
-      .replace(/>SOTA</g, ">#1<")
+      .replace(/<strong[^>]*>\s*SOTA\s*<\/strong>\s*on/gi, "")
+      .replace(/SOTA\s*on/gi, "")
       .replace(/<span style="[^"]*">\s*\|\s*<\/span>/g, " · ")
-      .replace(/\|\s*/g, " · ");
+      .replace(/\|\s*/g, " · ")
+      .trim();
+    if (clean.startsWith("on ")) clean = clean.substring(3);
+    if (!clean.includes("#")) {
+      clean = '<strong>#1</strong> on ' + clean;
+    }
+    return badge + clean;
   }
 
   if (titleLower.includes("llama") || titleLower.includes("foundation")) {
-    return '<strong>#1</strong> on <a href="#">Open LLM Leaderboard</a> · <strong>#2</strong> on <a href="#">MMLU 5-shot</a> · <strong>#1</strong> on <a href="#">GSM8K</a>';
+    return badge + '<strong>#1</strong> on <a href="#">Open LLM Leaderboard</a> · <strong>#2</strong> on <a href="#">MMLU 5-shot</a> · <strong>#1</strong> on <a href="#">GSM8K</a>';
   } else if (titleLower.includes("instruct") || titleLower.includes("align")) {
-    return '<strong>#1</strong> on <a href="#">HumanEval</a> · <strong>#1</strong> on <a href="#">TruthfulQA</a> · <strong>#2</strong> on <a href="#">MT-Bench</a>';
-  } else if (titleLower.includes("resnet") || titleLower.includes("image")) {
-    return '<strong>#1</strong> on <a href="#">ImageNet (ILSVRC)</a> · <strong>#1</strong> on <a href="#">COCO Object Detection</a> · <strong>#2</strong> on <a href="#">CIFAR-100</a>';
+    return badge + '<strong>#1</strong> on <a href="#">HumanEval</a> · <strong>#1</strong> on <a href="#">TruthfulQA</a> · <strong>#2</strong> on <a href="#">MT-Bench</a>';
+  } else if (titleLower.includes("resnet") || titleLower.includes("image") || titleLower.includes("vision")) {
+    return badge + '<strong>#1</strong> on <a href="#">ImageNet (ILSVRC)</a> · <strong>#1</strong> on <a href="#">COCO Object Detection</a> · <strong>#2</strong> on <a href="#">CIFAR-100</a>';
   } else if (titleLower.includes("attention") || titleLower.includes("transformer")) {
-    return '<strong>#1</strong> on <a href="#">WMT 2014 En-De</a> · <strong>#1</strong> on <a href="#">WMT 2014 En-Fr</a> · <strong>#1</strong> on <a href="#">GLUE Benchmark</a>';
+    return badge + '<strong>#1</strong> on <a href="#">WMT 2014 En-De</a> · <strong>#1</strong> on <a href="#">WMT 2014 En-Fr</a> · <strong>#1</strong> on <a href="#">GLUE Benchmark</a>';
   } else if (titleLower.includes("glm") || titleLower.includes("agent")) {
-    return '<strong>#1</strong> on <a href="#">AIME 2026</a> · <strong>#2</strong> on <a href="#">SWE-bench Verified</a> · <strong>#1</strong> on <a href="#">LiveCodeBench</a>';
+    return badge + '<strong>#1</strong> on <a href="#">AIME 2026</a> · <strong>#2</strong> on <a href="#">SWE-bench Verified</a> · <strong>#1</strong> on <a href="#">LiveCodeBench</a>';
   } else {
-    return '<strong>#1</strong> on <a href="#">PapersWithCode Leaderboard</a> · <strong>#2</strong> on <a href="#">EvalBench v2.1</a> · <strong>#1</strong> on <a href="#">Domain Suite</a>';
+    return badge + '<strong>#1</strong> on <a href="#">PapersWithCode Leaderboard</a> · <strong>#2</strong> on <a href="#">EvalBench v2.1</a> · <strong>#1</strong> on <a href="#">Domain Suite</a>';
   }
 }
 
