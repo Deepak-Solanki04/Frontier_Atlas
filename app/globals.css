@@ -369,12 +369,12 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', va
 .card-methods-row { display: flex; flex-wrap: wrap; gap: 4px; }
 .method-chip { font-size: 11px; color: #4b5563; background: #f3f4f6; border: 1px solid var(--border); border-radius: 6px; padding: 2px 8px; }
 
-.card-metrics { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 8px; flex-shrink: 0; min-width: 70px; margin-right: 24px; border-left: 1px solid #e5e7eb; padding-left: 18px; }
-.metric-item { display: flex; flex-direction: column; align-items: center; gap: 1px; }
-.metric-icon { display: flex; align-items: center; gap: 4px; }
-.metric-value { font-size: 12.5px; font-weight: 700; color: var(--text-dark); }
+.card-metrics { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-around; gap: 22px; flex-shrink: 0; min-width: 75px; margin-right: 24px; border-left: 1px solid #e5e7eb; padding-left: 20px; padding-top: 4px; padding-bottom: 4px; }
+.metric-item { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.metric-icon { display: flex; align-items: center; gap: 5px; }
+.metric-value { font-size: 13.5px; font-weight: 800; color: var(--text-dark); letter-spacing: -0.3px; }
 .metric-value.orange-brand-text { color: var(--brand-orange); }
-.metric-label { font-size: 9.5px; color: var(--text-light); }
+.metric-label { font-size: 10.5px; font-weight: 600; color: #6b7280; }
 
 .card-bookmark { position: absolute; top: 14px; right: 14px; color: var(--text-light); padding: 4px; }
 .card-bookmark:hover { color: var(--text-dark); }
