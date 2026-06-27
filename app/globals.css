@@ -17,7 +17,7 @@
 
 html, body {
   height: 100%;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-size: 14px;
   color: var(--text-dark);
   background: var(--bg);
@@ -25,7 +25,7 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; background: transparent; font-family: inherit; }
+button, input, textarea, select { font-family: inherit !important; }
 
 /* ═══════ SHELL ═══════ */
 .app-shell { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
@@ -56,8 +56,8 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 }
 
 .logo-text-fa {
-  font-family: 'Comfortaa', system-ui, sans-serif !important;
-  font-weight: 700;
+  font-family: inherit !important;
+  font-weight: 800;
   font-size: 22px;
   color: #ff4d00;
   letter-spacing: -0.6px;
