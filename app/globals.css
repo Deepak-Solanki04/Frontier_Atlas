@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: var(--font-inter), 'Inter', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,7 +22,7 @@
 
 html, body {
   height: 100%;
-  font-family: var(--font-inter), 'Inter', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-size: 14px;
   color: var(--text-dark);
   background: var(--bg);
@@ -32,7 +32,7 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; }
-button, input, textarea, select { font-family: var(--font-inter), 'Inter', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
+button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
 
 /* ═══════ SHELL ═══════ */
 .app-shell { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
