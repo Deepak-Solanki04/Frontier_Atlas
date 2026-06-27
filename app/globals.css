@@ -189,17 +189,17 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .main-wrapper { flex: 1; min-width: 0; height: 100%; overflow-y: auto; background: var(--bg); display: flex; flex-direction: column; }
 
 /* ═══════ PAGE ═══════ */
-.page-layout { flex: 1; min-height: 0; padding: 5px 18px 24px; overflow: visible; display: flex; flex-direction: column; gap: 14px; height: auto; }
+.page-layout { flex: 1; min-height: 0; padding: 5px 18px 24px; overflow: visible; display: flex; flex-direction: column; gap: 14px; height: auto; max-width: 1080px; margin: 0 auto; width: 100%; }
 
 /* ═══════ TOP HERO ROW (4 CARDS IDENTICAL HEIGHT) ═══════ */
-.hero-row { flex-shrink: 0; display: grid; grid-template-columns: 1fr 1fr 1fr 315px; gap: 14px; align-items: stretch; }
+.hero-row { flex-shrink: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; align-items: stretch; }
 
 /* ═══════ LOWER DASHBOARD GRID ═══════ */
-.dashboard-lower-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 315px; gap: 14px; align-items: flex-start; overflow: visible; padding-bottom: 12px; height: auto; }
+.dashboard-lower-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 3fr 1fr; gap: 14px; align-items: flex-start; overflow: visible; padding-bottom: 12px; height: auto; }
 
 .papers-column-flex { display: flex; flex-direction: column; gap: 12px; height: auto; min-width: 0; overflow: visible; }
 
-.hcard { height: 215px; border-radius: 12px; padding: 14px 16px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+.hcard { height: 250px; border-radius: 12px; padding: 15px 16px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
 
 /* Breakthrough Today */
 .hcard-breakthrough {
@@ -344,11 +344,11 @@ button { cursor: pointer; border: none; background: transparent; font-family: in
 .card-bookmark:hover { color: var(--text-dark); }
 
 /* ═══════ RIGHT SIDEBAR (X, REDDIT PANELS) ═══════ */
-.sidebar-lower-col { display: flex; flex-direction: column; gap: 12px; height: auto; width: 315px; flex-shrink: 0; overflow: visible; padding-bottom: 12px; }
+.sidebar-lower-col { display: flex; flex-direction: column; gap: 12px; height: auto; width: 100%; flex-shrink: 0; overflow: visible; padding-bottom: 12px; }
 
-.gh-panel, .trending-panel { height: 215px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 12px 14px; overflow: hidden; border-radius: 12px; background: #18181b; color: white; position: relative; }
+.gh-panel, .trending-panel { height: 250px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; padding: 14px 16px; overflow: hidden; border-radius: 12px; background: #18181b; color: white; position: relative; }
 
-.gh-panel { background: #ffffff; border: 1px solid var(--border); color: var(--text-dark); padding: 12px 14px; }
+.gh-panel { background: #faf8f6; border: 1px solid var(--border); color: var(--text-dark); padding: 14px 16px; }
 
 .trending-panel-reddit {
   background: radial-gradient(circle at 0% 0%, rgba(255,69,0,0.22) 0%, rgba(255,69,0,0.05) 40%, transparent 70%), #18181b;
