@@ -86,7 +86,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
           </div>
 
           {/* Card 2 — RISING FAST */}
-          <div className="hcard hcard-light">
+          <div className="hcard hcard-pale">
             <div className="hcard-label"><span className="hero-icon-inline"><svg width="14" height="14" viewBox="0 0 24 24"><defs><linearGradient id="rise-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#ff7a00"/><stop offset="100%" stopColor="#ff3d00"/></linearGradient></defs><path fill="url(#rise-grad)" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></span>RISING FAST</div>
             <div className="rising-number">+540</div>
             <div className="rising-sub">GitHub stars<br/>in the last 8 hours</div>
