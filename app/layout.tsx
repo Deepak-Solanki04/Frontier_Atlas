@@ -6,7 +6,9 @@ import Header from "../components/Header";
 
 const inter = Inter({ 
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"]
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -20,8 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.className}>
-      <body className={inter.className}>
+    <html lang="en" className={`${inter.className} ${inter.variable}`}>
+      <body className={`${inter.className} ${inter.variable}`}>
         <div className="app-shell">
           <Header />
           <div className="app-body">
