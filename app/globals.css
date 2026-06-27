@@ -439,3 +439,45 @@ footer.site-footer-bar {
 .footer-socials { display: flex; align-items: center; gap: 12px; }
 .footer-socials a { color: #a1a1aa; display: flex; align-items: center; }
 .footer-socials a:hover { color: white; }
+
+/* ═══════ MOBILE & TABLET RESPONSIVENESS ═══════ */
+@media (max-width: 1024px) {
+  html, body { overflow: auto !important; height: auto !important; }
+  .app-shell { height: auto !important; width: 100% !important; overflow: visible !important; }
+  .app-body { height: auto !important; overflow: visible !important; flex-direction: column !important; }
+  
+  .sidebar-full { width: 100% !important; height: auto !important; max-height: 70px; border-right: none !important; border-bottom: 1px solid var(--border); overflow-x: auto; overflow-y: hidden; flex-shrink: 0; }
+  .sidebar-nav { flex-direction: row !important; flex-wrap: nowrap; align-items: center; gap: 10px; padding: 10px 14px; overflow-x: auto; overflow-y: hidden; justify-content: flex-start; }
+  .nav-section { flex-direction: row !important; align-items: center; gap: 8px; border-bottom: none !important; border-right: 1px solid #e5e7eb; padding-bottom: 0 !important; padding-right: 12px; margin-right: 4px; }
+  .nav-section:last-of-type { border-right: none; padding-right: 0; }
+  .nav-title { display: none; }
+  .nav-item { padding: 5px 12px; background: #f3f4f6; border-radius: 20px; flex-shrink: 0; }
+  
+  .page-layout { padding: 10px 14px 24px; }
+  .hero-row { grid-template-columns: 1fr 1fr !important; gap: 14px; }
+  
+  .dashboard-lower-grid { grid-template-columns: 1fr !important; }
+  .sidebar-lower-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .header-top { display: flex !important; flex-wrap: wrap !important; justify-content: space-between !important; height: auto !important; padding: 12px 14px !important; gap: 10px !important; }
+  .search-bar { width: 100% !important; max-width: 100% !important; order: 3 !important; margin-top: 4px; }
+  .header-right { gap: 8px !important; }
+  .btn-submit { padding: 6px 12px !important; font-size: 12px !important; }
+  
+  .hero-row { grid-template-columns: 1fr !important; }
+  .hcard { height: auto !important; min-height: 220px !important; }
+  .hcard-bt-body { flex-direction: column !important; }
+  .hcard-logo-box { margin-top: 12px !important; }
+  
+  .sidebar-lower-col { grid-template-columns: 1fr !important; }
+  
+  .paper-card { flex-direction: column !important; align-items: flex-start !important; padding: 14px !important; gap: 12px !important; }
+  .card-thumb { width: 100% !important; height: 160px !important; }
+  .card-metrics { flex-direction: row !important; justify-content: flex-start !important; width: 100% !important; border-left: none !important; border-top: 1px solid #e5e7eb !important; padding-left: 0 !important; padding-top: 12px !important; margin-right: 0 !important; gap: 24px !important; }
+  .metric-item { flex-direction: row !important; align-items: center !important; gap: 6px !important; }
+  
+  footer.site-footer-bar { height: auto !important; flex-direction: column !important; gap: 10px !important; padding: 16px !important; text-align: center; }
+  .footer-left, .footer-nav, .footer-right { flex-wrap: wrap; justify-content: center; }
+}
