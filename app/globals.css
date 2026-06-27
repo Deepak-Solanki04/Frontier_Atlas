@@ -258,6 +258,7 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', va
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin-top: 24px;
   box-shadow: 0 4px 14px rgba(255,77,0,0.45);
 }
 
