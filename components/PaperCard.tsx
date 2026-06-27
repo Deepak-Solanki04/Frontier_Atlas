@@ -21,23 +21,33 @@ export default function PaperCard({ paper }: { paper: any }) {
         <div className="card-meta">{paper.meta}</div>
         <p className="card-abstract">{paper.abstract}</p>
 
-        {/* Tags row 1 — pale orange pills with orange text */}
-        {paper.tagsRow1?.length > 0 && (
-          <div className="card-tags-row">
-            {paper.tagsRow1.map((tag: any, i: number) => (
-              <span key={i} className="tag-pill orange-brand">{tag.text || tag}</span>
-            ))}
+        {/* SOTA Ranking */}
+        {paper.sotaHtml ? (
+          <div className="card-sota-ranking" dangerouslySetInnerHTML={{ __html: paper.sotaHtml }} />
+        ) : (
+          <div className="card-sota-ranking">
+            🏆 <strong>#1</strong> on <strong>Frontier Benchmarks</strong> · <strong>#2</strong> on <strong>EvalBench</strong>
           </div>
         )}
 
-        {/* Tags row 2 — gray outlined chips */}
-        {paper.tagsRow2?.length > 0 && (
-          <div className="card-methods-row">
-            {paper.tagsRow2.map((tag: string, i: number) => (
-              <span key={i} className="method-chip">{tag}</span>
-            ))}
-          </div>
-        )}
+        {/* Domain tags (Orange scheme only) */}
+        {(() => {
+          const allTags = [
+            ...(paper.tagsRow1 || []).map((t: any) => typeof t === 'object' ? t.text : t),
+            ...(paper.tagsRow2 || [])
+          ].filter((t: string) => t && !t.startsWith('+'));
+
+          return allTags.length > 0 ? (
+            <div className="card-tags-row">
+              {allTags.map((tagText: string, i: number) => (
+                <span key={i} className="tag-pill orange-brand">
+                  <span className="tag-dot" />
+                  {tagText}
+                </span>
+              ))}
+            </div>
+          ) : null;
+        })()}
       </div>
 
       {/* Metrics */}
