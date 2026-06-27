@@ -141,8 +141,16 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
       )}
 
       {/* ── LOWER DASHBOARD: PAPERS (LEFT) vs X & REDDIT (RIGHT) ── */}
-      <div className="dashboard-lower-grid">
+      {/* ── LOWER DASHBOARD: PAPERS (LEFT) vs X & REDDIT (RIGHT) ── */}
+      <div className={`dashboard-lower-grid ${!isTrending ? 'full-width-grid' : ''}`}>
         <div className="papers-column-flex">
+          {!isTrending && (
+            <div style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #e5e7eb' }}>
+              <h1 style={{ fontSize: '24px', fontWeight: '800', color: '#111827', marginBottom: '6px', letterSpacing: '-0.3px' }}>{data.title}</h1>
+              <p style={{ fontSize: '14px', color: '#6b7280', lineHeight: '1.5' }}>{data.desc}</p>
+            </div>
+          )}
+
           {/* Time Filter Tabs */}
           <div className="time-filters">
             <button className="time-filter active">Today</button>
@@ -159,40 +167,42 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
           </div>
         </div>
 
-        {/* RIGHT COLUMN: X & Reddit trending */}
-        <div className="sidebar-lower-col">
-          <div className="trending-panel">
-            <div className="tp-header">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              <span>TRENDING ON X</span>
-            </div>
-            {trendingX.map((item, i) => (
-              <div key={i} className="tp-row">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="rgba(255,255,255,0.4)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                <span className="tp-name">{item.handle}</span>
-                <span className="tp-stat">{item.change} ★</span>
+        {/* RIGHT COLUMN: X & Reddit trending (ONLY on Trending page) */}
+        {isTrending && (
+          <div className="sidebar-lower-col">
+            <div className="trending-panel">
+              <div className="tp-header">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span>TRENDING ON X</span>
               </div>
-            ))}
-            <a href="#" className="tp-all">View all trending posts →</a>
-          </div>
+              {trendingX.map((item, i) => (
+                <div key={i} className="tp-row">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="rgba(255,255,255,0.4)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                  <span className="tp-name">{item.handle}</span>
+                  <span className="tp-stat">{item.change} ★</span>
+                </div>
+              ))}
+              <a href="#" className="tp-all">View all trending posts →</a>
+            </div>
 
-          <div className="trending-panel trending-panel-reddit">
-            <div className="tp-header">
-              <span className="reddit-clean-logo">
-                <svg width="17" height="17" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#ff4500"/><path fill="white" d="M16.67 10A1.46 1.46 0 0015.2 8.54a1.46 1.46 0 00-1.01.41 7.42 7.42 0 00-4.37-1.49l.86-4.04 2.8.59a1.07 1.07 0 10.13-.52l-3.13-.66a.35.35 0 00-.41.27l-.95 4.46a7.42 7.42 0 00-4.43 1.48 1.46 1.46 0 00-1.01-.41A1.46 1.46 0 002.2 10a1.46 1.46 0 00.99 1.38 5.75 5.75 0 00-.07.82c0 3.24 3.73 5.86 8.33 5.86s8.33-2.62 8.33-5.86a5.75 5.75 0 00-.07-.82A1.46 1.46 0 0016.67 10zm-9.35 3.32a1.04 1.04 0 112.08 0 1.04 1.04 0 01-2.08 0zm6.81 2.83c-.76.76-2.23.82-2.68.82s-1.92-.06-2.68-.82a.37.37 0 01.53-.53c.48.48 1.49.61 2.15.61.66 0 1.67-.13 2.15-.61a.37.37 0 01.53.53zm-.33-1.79a1.04 1.04 0 112.08 0 1.04 1.04 0 01-2.08 0z"/></svg>
-              </span>
-              <span>TRENDING ON REDDIT</span>
-            </div>
-            {trendingReddit.map((item, i) => (
-              <div key={i} className="tp-row">
-                <span className="reddit-dot" />
-                <span className="tp-name">{item.sub}</span>
-                <span className="tp-stat">{item.change} ★</span>
+            <div className="trending-panel trending-panel-reddit">
+              <div className="tp-header">
+                <span className="reddit-clean-logo">
+                  <svg width="17" height="17" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#ff4500"/><path fill="white" d="M16.67 10A1.46 1.46 0 0015.2 8.54a1.46 1.46 0 00-1.01.41 7.42 7.42 0 00-4.37-1.49l.86-4.04 2.8.59a1.07 1.07 0 10.13-.52l-3.13-.66a.35.35 0 00-.41.27l-.95 4.46a7.42 7.42 0 00-4.43 1.48 1.46 1.46 0 00-1.01-.41A1.46 1.46 0 002.2 10a1.46 1.46 0 00.99 1.38 5.75 5.75 0 00-.07.82c0 3.24 3.73 5.86 8.33 5.86s8.33-2.62 8.33-5.86a5.75 5.75 0 00-.07-.82A1.46 1.46 0 0016.67 10zm-9.35 3.32a1.04 1.04 0 112.08 0 1.04 1.04 0 01-2.08 0zm6.81 2.83c-.76.76-2.23.82-2.68.82s-1.92-.06-2.68-.82a.37.37 0 01.53-.53c.48.48 1.49.61 2.15.61.66 0 1.67-.13 2.15-.61a.37.37 0 01.53.53zm-.33-1.79a1.04 1.04 0 112.08 0 1.04 1.04 0 01-2.08 0z"/></svg>
+                </span>
+                <span>TRENDING ON REDDIT</span>
               </div>
-            ))}
-            <a href="#" className="tp-all">View all trending discussions →</a>
+              {trendingReddit.map((item, i) => (
+                <div key={i} className="tp-row">
+                  <span className="reddit-dot" />
+                  <span className="tp-name">{item.sub}</span>
+                  <span className="tp-stat">{item.change} ★</span>
+                </div>
+              ))}
+              <a href="#" className="tp-all">View all trending discussions →</a>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
     </div>

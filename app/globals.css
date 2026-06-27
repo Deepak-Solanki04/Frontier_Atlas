@@ -203,6 +203,7 @@ button, input, textarea, select { font-family: var(--font-geist-sans), 'Geist', 
 
 /* ═══════ LOWER DASHBOARD GRID ═══════ */
 .dashboard-lower-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 315px; gap: 14px; align-items: flex-start; overflow: visible; padding-bottom: 12px; height: auto; }
+.dashboard-lower-grid.full-width-grid { grid-template-columns: 1fr; }
 
 .papers-column-flex { display: flex; flex-direction: column; gap: 12px; height: auto; min-width: 0; overflow: visible; }
 
@@ -337,7 +338,7 @@ button, input, textarea, select { font-family: var(--font-geist-sans), 'Geist', 
 .card-title a:hover { color: var(--brand-orange); }
 .card-meta { font-size: 13px; font-weight: 400; color: #6b7280; margin-bottom: 10px; }
 
-.card-abstract { font-size: 13.5px; font-weight: 400; color: #374151; line-height: 1.6; letter-spacing: -0.1px; margin-bottom: 12px; max-width: 100%; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.card-abstract { font-size: 13.5px; font-weight: 400; color: #374151; line-height: 1.6; letter-spacing: -0.1px; margin-bottom: 12px; max-width: 100%; min-height: 4.8em; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
 .card-sota-ranking {
   font-family: var(--font-geist-mono), monospace, system-ui, sans-serif;
