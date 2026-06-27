@@ -6,7 +6,13 @@ export default function Header() {
     <header className="header-top">
       {/* Logo */}
       <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-        <img src="/logo.png" alt="Frontier Atlas" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
+        <div style={{ width: '32px', height: '32px', background: '#ff4d00', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800, fontSize: '14px', letterSpacing: '-0.5px', boxShadow: '0 2px 5px rgba(255,77,0,0.3)', flexShrink: 0 }}>
+          FA
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', marginLeft: '9px', fontSize: '21px', fontWeight: 800, letterSpacing: '-0.6px', lineHeight: 1 }}>
+          <span style={{ color: '#0f172a' }}>Frontier</span>
+          <span style={{ color: '#ff4d00' }}>Atlas</span>
+        </div>
       </Link>
 
       {/* Search */}
