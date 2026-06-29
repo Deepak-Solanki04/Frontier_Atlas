@@ -614,14 +614,17 @@ footer.site-footer-bar {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
-  padding: 20px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   transition: all 0.2s ease;
-  min-height: 255px;
-  height: 100%;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
 }
 .benchmark-card:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.06);
@@ -630,27 +633,27 @@ footer.site-footer-bar {
 }
 
 .bench-rank-pill {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .bench-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 .bench-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -659,8 +662,8 @@ footer.site-footer-bar {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 .bench-icon-box svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
 }
 .bench-title-col {
   display: flex;
@@ -668,30 +671,30 @@ footer.site-footer-bar {
   min-width: 0;
 }
 .bench-name {
-  font-size: 16.5px;
+  font-size: 15.5px;
   font-weight: 800;
   color: #111827;
-  line-height: 1.25;
+  line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .bench-sub {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #6b7280;
-  margin-top: 3px;
+  margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .bench-desc {
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 500;
   color: #6b7280;
-  line-height: 1.45;
-  margin-bottom: 16px;
+  line-height: 1.35;
+  margin-bottom: 10px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -701,18 +704,18 @@ footer.site-footer-bar {
 .bench-footer {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   margin-top: auto;
 }
 .bench-sota-label {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 800;
   color: #6b7280;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 .bench-sota-score {
-  font-size: 21px;
+  font-size: 19px;
   font-weight: 800;
   color: #111827;
 }
