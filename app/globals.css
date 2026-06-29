@@ -448,7 +448,7 @@ footer.site-footer-bar {
 .topic-hero-container {
   width: 100%;
   height: 100%;
-  padding: 8px 0 8px;
+  padding: 16px 0 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -459,10 +459,10 @@ footer.site-footer-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: #6b7280;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   flex-shrink: 0;
 }
 .crumb-link { color: #6b7280; transition: color 0.15s; }
@@ -474,7 +474,7 @@ footer.site-footer-bar {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   flex-shrink: 0;
 }
 .topic-task-icon {
@@ -496,31 +496,31 @@ footer.site-footer-bar {
 }
 
 .topic-hero-title {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 800;
   color: #111827;
   letter-spacing: -1px;
-  line-height: 1.1;
-  margin-bottom: 4px;
+  line-height: 1.15;
+  margin-bottom: 8px;
   flex-shrink: 0;
 }
 
 .topic-hero-desc {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 500;
   color: #4b5563;
-  line-height: 1.35;
+  line-height: 1.45;
   max-width: 900px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
   flex-shrink: 0;
 }
 
 .topic-stats-row {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
   flex-wrap: wrap;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
   flex-shrink: 0;
 }
 .topic-stat-item {
@@ -529,13 +529,13 @@ footer.site-footer-bar {
   gap: 6px;
 }
 .topic-stat-count {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 800;
   color: #111827;
 }
 .topic-stat-count.stat-orange { color: #ff4d00; }
 .topic-stat-label {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
   color: #4b5563;
 }
@@ -543,7 +543,7 @@ footer.site-footer-bar {
 .topic-hero-divider {
   border: none;
   border-bottom: 1px solid #e5e7eb;
-  margin: 0 0 8px 0;
+  margin: 0 0 14px 0;
   width: 100%;
   flex-shrink: 0;
 }
@@ -553,7 +553,7 @@ footer.site-footer-bar {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   flex-shrink: 0;
 }
 .topic-related-label {
@@ -573,8 +573,8 @@ footer.site-footer-bar {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: 5px 12px;
+  font-size: 12.5px;
   font-weight: 600;
   color: #374151;
   text-decoration: none;
@@ -591,7 +591,7 @@ footer.site-footer-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   flex-shrink: 0;
 }
 .topic-benchmarks-title {
