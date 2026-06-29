@@ -22,7 +22,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
   // For category / agent pages, render only the dedicated landing section
   if (!isTrending) {
     return (
-      <div className="unified-page-wrapper">
+      <div className="unified-page-wrapper topic-page-wrapper">
         <TopicHero slug={resolvedParams.slug} defaultTitle={data.title} defaultDesc={data.desc} />
       </div>
     );

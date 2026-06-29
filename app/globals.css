@@ -439,9 +439,15 @@ footer.site-footer-bar {
 .footer-socials a:hover { color: white; }
 
 /* ═══════ TOPIC / AGENTS HERO SECTION ═══════ */
+.topic-page-wrapper {
+  height: calc(100vh - 52px);
+  max-height: calc(100vh - 52px);
+  overflow: hidden !important;
+}
+
 .topic-hero-container {
   width: 100%;
-  height: calc(100vh - 52px);
+  height: 100%;
   padding: 8px 0 8px;
   display: flex;
   flex-direction: column;
