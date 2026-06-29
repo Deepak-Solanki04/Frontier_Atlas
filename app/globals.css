@@ -613,24 +613,22 @@ footer.site-footer-bar {
 .topic-benchmarks-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr 1fr;
-  gap: 12px;
-  flex: 1;
-  min-height: 0;
+  gap: 14px;
+  flex-shrink: 0;
 }
 
 .benchmark-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
-  padding: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   transition: all 0.2s ease;
   overflow: hidden;
-  min-height: 0;
+  aspect-ratio: 6 / 5;
 }
 .benchmark-card:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.06);
@@ -734,8 +732,9 @@ footer.site-footer-bar {
 .topic-explore-container {
   display: flex;
   justify-content: center;
-  padding: 8px 0 4px;
+  padding: 10px 0 6px;
   flex-shrink: 0;
+  margin-top: auto;
 }
 
 .topic-explore-btn {
