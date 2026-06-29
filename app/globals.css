@@ -449,10 +449,10 @@ footer.site-footer-bar {
 
 .topic-hero-container {
   width: 100%;
-  max-width: 1320px;
+  max-width: 1720px;
   height: auto;
   margin: 0 auto;
-  padding: 16px 24px 8px;
+  padding: 16px 48px 12px;
   display: flex;
   flex-direction: column;
 }
