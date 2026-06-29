@@ -447,10 +447,10 @@ footer.site-footer-bar {
 
 .topic-hero-container {
   width: 100%;
-  max-width: 100%;
+  max-width: 1400px;
   height: 100%;
-  margin: 0;
-  padding: 10px 36px 10px;
+  margin: 0 auto;
+  padding: 12px 32px 8px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -497,10 +497,10 @@ footer.site-footer-bar {
 }
 
 .topic-hero-title {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 800;
   color: #111827;
-  letter-spacing: -0.8px;
+  letter-spacing: -0.7px;
   line-height: 1.1;
   margin-bottom: 4px;
   flex-shrink: 0;
@@ -613,22 +613,24 @@ footer.site-footer-bar {
 .topic-benchmarks-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 1fr;
   gap: 14px;
-  flex-shrink: 0;
+  flex: 1;
+  min-height: 0;
 }
 
 .benchmark-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
-  padding: 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   transition: all 0.2s ease;
   overflow: hidden;
-  aspect-ratio: 6 / 5;
+  min-height: 0;
 }
 .benchmark-card:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.06);
@@ -732,9 +734,8 @@ footer.site-footer-bar {
 .topic-explore-container {
   display: flex;
   justify-content: center;
-  padding: 10px 0 6px;
+  padding: 6px 0 4px;
   flex-shrink: 0;
-  margin-top: auto;
 }
 
 .topic-explore-btn {
