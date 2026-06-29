@@ -443,12 +443,15 @@ footer.site-footer-bar {
   height: calc(100vh - 52px);
   max-height: calc(100vh - 52px);
   overflow: hidden !important;
+  display: flex;
+  justify-content: center;
 }
 
 .topic-hero-container {
   width: 100%;
+  max-width: 1280px;
   height: 100%;
-  padding: 14px 0 8px;
+  padding: 14px 24px 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -629,6 +632,10 @@ footer.site-footer-bar {
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   transition: all 0.2s ease;
   height: 100%;
+  aspect-ratio: 1 / 1;
+  width: auto;
+  max-width: 100%;
+  margin: 0 auto;
   min-height: 0;
   overflow: hidden;
 }
