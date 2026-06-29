@@ -440,31 +440,34 @@ footer.site-footer-bar {
 
 /* ═══════ TOPIC / AGENTS HERO SECTION ═══════ */
 .topic-page-wrapper {
-  min-height: calc(100vh - 52px);
-  height: auto;
-  overflow-y: auto !important;
-  overflow-x: hidden;
-  padding-bottom: 20px;
+  height: calc(100vh - 52px);
+  max-height: calc(100vh - 52px);
+  overflow: hidden !important;
+  display: flex;
+  justify-content: center;
 }
 
 .topic-hero-container {
   width: 100%;
   max-width: 1720px;
-  height: auto;
+  height: 100%;
   margin: 0 auto;
-  padding: 16px 48px 12px;
+  padding: 14px 48px 8px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
 .topic-breadcrumbs {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 600;
   color: #6b7280;
   margin-bottom: 6px;
+  flex-shrink: 0;
 }
 .crumb-link { color: #6b7280; transition: color 0.15s; }
 .crumb-link:hover { color: #111827; }
@@ -476,6 +479,7 @@ footer.site-footer-bar {
   align-items: center;
   gap: 6px;
   margin-bottom: 6px;
+  flex-shrink: 0;
 }
 .topic-task-icon {
   width: 18px;
@@ -496,12 +500,13 @@ footer.site-footer-bar {
 }
 
 .topic-hero-title {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 800;
   color: #111827;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.8px;
   line-height: 1.15;
   margin-bottom: 6px;
+  flex-shrink: 0;
 }
 
 .topic-hero-desc {
@@ -511,6 +516,7 @@ footer.site-footer-bar {
   line-height: 1.4;
   max-width: 900px;
   margin-bottom: 10px;
+  flex-shrink: 0;
 }
 
 .topic-stats-row {
@@ -519,6 +525,7 @@ footer.site-footer-bar {
   gap: 24px;
   flex-wrap: wrap;
   margin-bottom: 10px;
+  flex-shrink: 0;
 }
 .topic-stat-item {
   display: flex;
@@ -542,6 +549,7 @@ footer.site-footer-bar {
   border-bottom: 1px solid #e5e7eb;
   margin: 0 0 10px 0;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .topic-related-row {
@@ -549,7 +557,8 @@ footer.site-footer-bar {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
 }
 .topic-related-label {
   font-size: 11px;
@@ -586,7 +595,8 @@ footer.site-footer-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 .topic-benchmarks-title {
   font-size: 17px;
@@ -606,23 +616,24 @@ footer.site-footer-bar {
 .topic-benchmarks-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 14px;
+  margin-bottom: 8px;
+  flex: 1;
+  min-height: 0;
 }
 
 .benchmark-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 18px;
+  border-radius: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   transition: all 0.2s ease;
-  aspect-ratio: 1 / 1;
   width: 100%;
-  height: auto;
+  height: 100%;
   min-height: 0;
   overflow: hidden;
 }
@@ -641,18 +652,20 @@ footer.site-footer-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
 .bench-card-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 .bench-icon-box {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -671,7 +684,7 @@ footer.site-footer-bar {
   min-width: 0;
 }
 .bench-name {
-  font-size: 15.5px;
+  font-size: 15px;
   font-weight: 800;
   color: #111827;
   line-height: 1.2;
@@ -694,7 +707,7 @@ footer.site-footer-bar {
   font-weight: 500;
   color: #6b7280;
   line-height: 1.35;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -706,6 +719,7 @@ footer.site-footer-bar {
   flex-direction: column;
   gap: 1px;
   margin-top: auto;
+  flex-shrink: 0;
 }
 .bench-sota-label {
   font-size: 10.5px;
@@ -715,7 +729,7 @@ footer.site-footer-bar {
   text-transform: uppercase;
 }
 .bench-sota-score {
-  font-size: 19px;
+  font-size: 18.5px;
   font-weight: 800;
   color: #111827;
 }
