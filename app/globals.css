@@ -8,17 +8,18 @@
 }
 
 :root {
-  --brand-orange: #ff4d00;
-  --brand-orange-dark: #e64500;
-  --brand-orange-light: #fff1eb;
-  --text-dark: #111827;
-  --text-gray: #6b7280;
-  --text-light: #9ca3af;
-  --border: #e5e7eb;
-  --bg: #faf8f6;
+  --brand-orange: #F55036;
+  --brand-orange-dark: #E0462D;
+  --brand-orange-light: #FFF6F3;
+  --text-dark: #111111;
+  --text-gray: #555555;
+  --text-light: #8B8B8B;
+  --border: #E5E5E0;
+  --bg: #F8F7F2;
   --white: #ffffff;
-  --dark: #18181b;
+  --dark: #111111;
 }
+
 
 html, body {
   height: 100%;
@@ -136,17 +137,14 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', va
 .user-avatar { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; border: 1px solid var(--border); }
 .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-/* ═══════ SIDEBAR — PERFECT FIT NO CUTOFF ═══════ */
 .sidebar-full {
-  width: 225px;
+  width: 100%;
   flex-shrink: 0;
-  height: 100%;
-  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  background: var(--bg);
-  overflow: hidden;
+  background: transparent;
 }
+
 
 .sidebar-nav {
   flex: 1;
@@ -768,3 +766,137 @@ footer.site-footer-bar {
   .topic-stats-row { gap: 16px !important; }
   .topic-hero-title { font-size: 28px !important; }
 }
+
+/* ═══════ UNIFIED PAGE CONTAINER & FEED ROW ═══════ */
+.unified-page-wrapper {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.discovery-feed-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+}
+
+.discovery-sidebar-col {
+  width: 240px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 16px;
+}
+
+.discovery-main-col {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ═══════ FRONTIER ATLAS HOMEPAGE HERO BANNER ═══════ */
+.homepage-hero-banner {
+  width: 100%;
+  background: linear-gradient(180deg, #FFF6F3 0%, #F8F7F2 100%);
+  border: 1px solid #FDECE8;
+  border-radius: 24px;
+  padding: 36px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.home-hero-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+
+.home-hero-subtitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-gray);
+  margin-bottom: 24px;
+}
+
+.home-hero-search-box {
+  width: 100%;
+  max-width: 640px;
+  height: 46px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  gap: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+  transition: box-shadow 0.2s;
+}
+.home-hero-search-box:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.search-icon-gray { color: #737373; flex-shrink: 0; }
+
+.home-hero-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--text-dark);
+  background: transparent;
+  font-weight: 500;
+}
+.home-hero-search-input::placeholder { color: #737373; font-weight: 400; }
+
+.home-hero-kbd {
+  background: var(--bg);
+  border: 1px solid #DCDCD7;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #737373;
+}
+
+.home-hero-pills-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.home-hero-pill {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dark);
+  transition: all 0.15s ease;
+}
+.home-hero-pill:hover {
+  border-color: var(--brand-orange);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+@media (max-width: 1024px) {
+  .discovery-feed-row { flex-direction: column; gap: 20px; }
+  .discovery-sidebar-col { width: 100%; position: relative; top: 0; }
+  .home-hero-title { font-size: 28px; }
+}
+

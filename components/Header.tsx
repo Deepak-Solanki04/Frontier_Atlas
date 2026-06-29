@@ -3,38 +3,33 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="header-top">
+    <header className="header-top" style={{ display: 'flex', justifyContent: 'space-between', padding: '0 24px', height: '52px', background: '#F8F7F2', borderBottom: '1px solid #E5E5E0' }}>
       {/* Logo */}
       <Link href="/" className="header-logo" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-        <img src="/logo.png" alt="Frontier Atlas" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
+        <img src="/logo.png" alt="Frontier Atlas" style={{ height: '44px', width: 'auto', objectFit: 'contain' }} />
       </Link>
 
-      {/* Search */}
-      <div className="search-bar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input type="text" placeholder="Search papers, authors, topics..." />
-        <span className="search-kbd">⌘ K</span>
-      </div>
-
       {/* Actions */}
-      <div className="header-actions">
-        <button className="btn-submit-header">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-          </svg>
+      <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+        <button style={{
+          background: '#F55036',
+          color: 'white',
+          fontSize: '12px',
+          fontWeight: '800',
+          padding: '6px 16px',
+          borderRadius: '6px',
+          border: 'none',
+          cursor: 'pointer',
+          textTransform: 'uppercase',
+          letterSpacing: '0.5px'
+        }}>
           Submit
         </button>
-        <div className="user-profile">
-          <div className="user-avatar">
-            <img src="https://i.pravatar.cc/150?img=47" alt="User" />
-          </div>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
+        <div className="user-profile" style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#EBEBE6', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img src="https://i.pravatar.cc/150?img=47" alt="User" style={{ width: '100%', height: '100%', borderRadius: '50%', objectFit: 'cover' }} />
         </div>
       </div>
     </header>
   );
 }
+

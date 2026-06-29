@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter, Outfit } from "next/font/google";
 import "./globals.css";
-import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -45,14 +44,12 @@ export default function RootLayout({
       <body className={`${plusJakarta.variable} ${outfit.variable} ${inter.variable}`}>
         <div className="app-shell">
           <Header />
-          <div className="app-body">
-            <Sidebar />
-            <div className="main-wrapper">
-              {children}
-            </div>
+          <div className="main-wrapper">
+            {children}
           </div>
         </div>
       </body>
     </html>
   );
 }
+
