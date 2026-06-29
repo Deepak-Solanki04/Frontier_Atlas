@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -23,7 +23,7 @@
 
 html, body {
   height: 100%;
-  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-dark);
@@ -34,7 +34,7 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; font-weight: inherit; }
-button, input, textarea, select { font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; font-weight: 600; }
+button, input, textarea, select { font-family: 'Plus Jakarta Sans', 'Outfit', var(--font-plus-jakarta), var(--font-outfit), var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; font-weight: 600; }
 
 /* ═══════ SHELL ═══════ */
 .app-shell { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }
@@ -440,19 +440,19 @@ footer.site-footer-bar {
 
 /* ═══════ TOPIC / AGENTS HERO SECTION ═══════ */
 .topic-page-wrapper {
-  height: calc(100vh - 52px);
-  max-height: calc(100vh - 52px);
-  overflow: hidden !important;
+  min-height: calc(100vh - 52px);
+  height: auto;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding-bottom: 40px;
 }
 
 .topic-hero-container {
   width: 100%;
-  height: 100%;
-  padding: 16px 0 8px;
+  height: auto;
+  padding: 24px 0 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
 }
 
 .topic-breadcrumbs {
@@ -612,25 +612,22 @@ footer.site-footer-bar {
 .topic-benchmarks-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
-  margin-bottom: 12px;
-  flex: 1;
-  min-height: 0;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .benchmark-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 16px 18px;
+  border-radius: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   transition: all 0.2s ease;
-  height: 100%;
-  min-height: 0;
-  overflow: hidden;
+  min-height: 260px;
+  height: auto;
 }
 .benchmark-card:hover {
   box-shadow: 0 6px 16px rgba(0,0,0,0.06);
@@ -639,27 +636,27 @@ footer.site-footer-bar {
 }
 
 .bench-rank-pill {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
-  padding: 3px 9px;
+  padding: 4px 10px;
   border-radius: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: fit-content;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .bench-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 14px;
+  margin-bottom: 16px;
 }
 .bench-icon-box {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -668,8 +665,8 @@ footer.site-footer-bar {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 .bench-icon-box svg {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 .bench-title-col {
   display: flex;
@@ -677,7 +674,7 @@ footer.site-footer-bar {
   min-width: 0;
 }
 .bench-name {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 800;
   color: #111827;
   line-height: 1.25;
@@ -686,23 +683,23 @@ footer.site-footer-bar {
   text-overflow: ellipsis;
 }
 .bench-sub {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
   color: #6b7280;
-  margin-top: 2px;
+  margin-top: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .bench-desc {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 500;
   color: #6b7280;
-  line-height: 1.4;
-  margin-bottom: 14px;
+  line-height: 1.45;
+  margin-bottom: 20px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -710,17 +707,18 @@ footer.site-footer-bar {
 .bench-footer {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
   margin-top: auto;
 }
 .bench-sota-label {
   font-size: 11px;
   font-weight: 800;
-  color: #9ca3af;
+  color: #6b7280;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 .bench-sota-score {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   color: #111827;
 }
