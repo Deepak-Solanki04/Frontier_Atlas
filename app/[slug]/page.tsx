@@ -1,6 +1,7 @@
 import React from 'react';
 import PaperCard from '../../components/PaperCard';
 import { topicData } from '../../data/topicData';
+import TopicHero from '../../components/TopicHero';
 
 const githubRepos = [
   { repo: 'microsoft/BitNet', stars: '+2.1k' },
@@ -145,16 +146,15 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
         </div>
       )}
 
-      {/* ── LOWER DASHBOARD: PAPERS (LEFT) vs X & REDDIT (RIGHT) ── */}
+      {/* ── TOPIC HERO SECTION (Agents / Category Pages) ── */}
+      {!isTrending && (
+        <TopicHero slug={resolvedParams.slug} defaultTitle={data.title} defaultDesc={data.desc} />
+      )}
+
       {/* ── LOWER DASHBOARD: PAPERS (LEFT) vs X & REDDIT (RIGHT) ── */}
       <div className={`dashboard-lower-grid ${!isTrending ? 'full-width-grid' : ''}`}>
         <div className="papers-column-flex">
-          {!isTrending && (
-            <div style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: '1px solid #e5e7eb' }}>
-              <h1 style={{ fontSize: '24px', fontWeight: '800', color: '#111827', marginBottom: '6px', letterSpacing: '-0.3px' }}>{data.title}</h1>
-              <p style={{ fontSize: '14px', color: '#6b7280', lineHeight: '1.5' }}>{data.desc}</p>
-            </div>
-          )}
+
 
           {/* Time Filter Tabs */}
           <div className="time-filters">
