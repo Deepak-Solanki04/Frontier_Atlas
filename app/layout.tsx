@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter, Outfit } from "next/font/google";
 import "./globals.css";
-import Header from "../components/Header";
+import ConditionalHeader from "../components/ConditionalHeader";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -43,7 +43,7 @@ export default function RootLayout({
       </head>
       <body className={`${plusJakarta.variable} ${outfit.variable} ${inter.variable}`}>
         <div className="app-shell">
-          <Header />
+          <ConditionalHeader />
           <div className="main-wrapper">
             {children}
           </div>
