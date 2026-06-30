@@ -440,15 +440,14 @@ footer.site-footer-bar {
 
 /* ═══════ TOPIC / AGENTS HERO SECTION ═══════ */
 .topic-page-wrapper {
-  height: 100vh;
-  max-height: 100vh;
-  overflow: hidden !important;
+  width: 100%;
 }
 
 .topic-hero-container {
   width: 100%;
   max-width: 1360px;
-  height: 100%;
+  height: 100vh;
+  max-height: 100vh;
   margin: 0 auto;
   padding: 16px 36px 12px;
   display: flex;
