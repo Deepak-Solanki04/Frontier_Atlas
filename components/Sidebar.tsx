@@ -34,6 +34,10 @@ export default function Sidebar() {
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>
             Agents
           </Link>
+          <Link href="/models" className={`nav-item ${isActive('/models')}`}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M15 3v18"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>
+            Models
+          </Link>
           <Link href="/reasoning" className={`nav-item ${isActive('/reasoning')}`}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="7 17 12 12 17 17"/><polyline points="7 11 12 6 17 11"/><polyline points="7 23 12 18 17 23"/></svg>
             Reasoning

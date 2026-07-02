@@ -940,3 +940,46 @@ footer.site-footer-bar {
   .home-hero-title { font-size: 28px; }
 }
 
+/* ═══════ DESIGN SYSTEM UTILITIES (ds-) ═══════ */
+.ds-card {
+  background: #ffffff;
+  border: 1px solid #E5E5E0;
+  border-radius: 16px;
+}
+
+.ds-input {
+  background: #ffffff;
+  border: 1px solid #E5E5E0;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.ds-input:focus {
+  border-color: #FF5A1F;
+}
+
+.ds-button {
+  background: #FF5A1F;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: opacity 0.15s ease;
+}
+.ds-button:hover {
+  opacity: 0.9;
+}
+
+.ds-button-ghost {
+  background: transparent;
+  color: #555555;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.ds-button-ghost:hover:not(:disabled) {
+  background: #EBEBE6;
+  color: #111111;
+}
+
