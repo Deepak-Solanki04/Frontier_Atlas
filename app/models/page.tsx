@@ -10,6 +10,7 @@ import { topicData } from "@/data/topicData";
 
 const TOP_MODELS_BOXES = [
   {
+    id: "claude-3-7-sonnet",
     rank: "1", rankBg: "#ffe4e6", rankColor: "#e11d48",
     iconBg: "#ff4d00",
     name: "Claude 3.7 Sonnet", sub: "Anthropic",
@@ -17,6 +18,7 @@ const TOP_MODELS_BOXES = [
     score: "62.3%"
   },
   {
+    id: "gpt-4o",
     rank: "2", rankBg: "#f3e8ff", rankColor: "#9333ea",
     iconBg: "#a855f7",
     name: "GPT-4o", sub: "OpenAI",
@@ -24,6 +26,7 @@ const TOP_MODELS_BOXES = [
     score: "88.7%"
   },
   {
+    id: "deepseek-r1",
     rank: "3", rankBg: "#ecfccb", rankColor: "#65a30d",
     iconBg: "#84cc16",
     name: "DeepSeek R1", sub: "DeepSeek AI",
@@ -31,6 +34,7 @@ const TOP_MODELS_BOXES = [
     score: "79.8%"
   },
   {
+    id: "gemini-2-0-flash",
     rank: "4", rankBg: "#dbeafe", rankColor: "#2563eb",
     iconBg: "#3b82f6",
     name: "Gemini 2.0 Flash", sub: "Google DeepMind",
@@ -38,6 +42,7 @@ const TOP_MODELS_BOXES = [
     score: "99.8%"
   },
   {
+    id: "llama-3-3-70b",
     rank: "5", rankBg: "#ffedd5", rankColor: "#ea580c",
     iconBg: "#f97316",
     name: "Llama 3.3 70B", sub: "Meta AI",
@@ -45,6 +50,7 @@ const TOP_MODELS_BOXES = [
     score: "93.8%"
   },
   {
+    id: "qwen-2-5-max",
     rank: "6", rankBg: "#ccfbf1", rankColor: "#0d9488",
     iconBg: "#14b8a6",
     name: "Qwen 2.5 Max", sub: "Alibaba Cloud",
@@ -52,6 +58,7 @@ const TOP_MODELS_BOXES = [
     score: "94.5%"
   },
   {
+    id: "grok-3",
     rank: "7", rankBg: "#fce7f3", rankColor: "#db2777",
     iconBg: "#f43f5e",
     name: "Grok 3", sub: "xAI",
@@ -59,6 +66,7 @@ const TOP_MODELS_BOXES = [
     score: "73.4%"
   },
   {
+    id: "qwen-2-5-coder-32b",
     rank: "8", rankBg: "#ffedd5", rankColor: "#ea580c",
     iconBg: "#ff6b00",
     name: "Qwen 2.5 Coder", sub: "Alibaba Cloud",
@@ -66,6 +74,7 @@ const TOP_MODELS_BOXES = [
     score: "51.4%"
   },
   {
+    id: "mistral-large-2",
     rank: "9", rankBg: "#e0e7ff", rankColor: "#4f46e5",
     iconBg: "#6366f1",
     name: "Mistral Large 2", sub: "Mistral AI",
@@ -73,6 +82,7 @@ const TOP_MODELS_BOXES = [
     score: "91.2%"
   },
   {
+    id: "flux-1-schnell",
     rank: "10", rankBg: "#ede9fe", rankColor: "#7c3aed",
     iconBg: "#8b5cf6",
     name: "FLUX.1 [schnell]", sub: "Black Forest Labs",
@@ -265,10 +275,10 @@ export default function ModelsPage() {
         {/* Grid of 10 Model Boxes */}
         <div className="topic-benchmarks-grid">
           {TOP_MODELS_BOXES.map((card, i) => (
-            <div
+            <Link
               key={i}
-              onClick={() => handleBoxClick(card.name)}
-              className="benchmark-card cursor-pointer"
+              href={`/models/${card.id}`}
+              className="benchmark-card cursor-pointer no-underline block hover:border-[#111111] transition-all duration-200"
             >
               <div>
                 <div className="bench-rank-pill" style={{ background: card.rankBg, color: card.rankColor }}>
@@ -291,7 +301,7 @@ export default function ModelsPage() {
                 <span className="bench-sota-label">SOTA EVAL</span>
                 <span className="bench-sota-score">{card.score}</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
