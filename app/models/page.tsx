@@ -461,17 +461,26 @@ export default function ModelsPage() {
               )}
             </div>
 
-            <div className="pt-4 border-t border-[#E5E5E0] flex items-center justify-between">
+            <div className="pt-4 border-t border-[#E5E5E0] flex flex-wrap items-center justify-between gap-3">
               <span className="text-[12px] font-bold text-[#8B8B8B]">
                 Cited in <strong className="text-[#111111]">{inspectedModel.paperCount} research papers</strong>
               </span>
-              <Link
-                href={`/${inspectedModel.area === "Agentic Coding" ? "agents" : "trending"}`}
-                className="px-5 py-2.5 bg-[#FF5A1F] hover:bg-[#E0462D] text-white rounded-xl font-bold text-[13px] transition-colors flex items-center gap-1.5 shadow-sm"
-              >
-                <span>View Related Papers</span>
-                <ExternalLink size={14} />
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/models/${inspectedModel.id}`}
+                  className="px-4 py-2.5 bg-[#111111] hover:bg-[#333333] text-white rounded-xl font-bold text-[13px] transition-colors flex items-center gap-1.5 shadow-sm"
+                >
+                  <span>Full Profile</span>
+                  <ExternalLink size={14} />
+                </Link>
+                <Link
+                  href={`/${inspectedModel.area === "Agentic Coding" ? "agents" : "trending"}`}
+                  className="px-4 py-2.5 bg-[#FF5A1F] hover:bg-[#E0462D] text-white rounded-xl font-bold text-[13px] transition-colors flex items-center gap-1.5 shadow-sm"
+                >
+                  <span>Papers</span>
+                  <ExternalLink size={14} />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

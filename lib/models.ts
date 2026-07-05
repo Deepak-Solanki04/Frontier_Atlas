@@ -351,3 +351,16 @@ export async function getModels(): Promise<ModelItem[]> {
     setTimeout(() => resolve(mockModels), 100);
   });
 }
+
+export function getAllModelIds(): string[] {
+  return mockModels.map((m) => m.id);
+}
+
+export function getModelById(id: string): ModelItem | undefined {
+  const cleanId = id.toLowerCase().trim();
+  return mockModels.find(
+    (m) =>
+      m.id.toLowerCase() === cleanId ||
+      m.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") === cleanId
+  );
+}

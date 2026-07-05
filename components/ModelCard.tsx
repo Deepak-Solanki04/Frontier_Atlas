@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import type { ModelItem } from "@/lib/models";
 
 export default function ModelCard({
@@ -20,12 +21,14 @@ export default function ModelCard({
         </div>
 
         {/* Serif Title */}
-        <h3
-          className="text-[22px] font-medium text-[#111111] leading-tight mb-2.5 group-hover:text-[#F55036] transition-colors"
-          style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-        >
-          {model.name}
-        </h3>
+        <Link href={`/models/${model.id}`}>
+          <h3
+            className="text-[22px] font-medium text-[#111111] leading-tight mb-2.5 group-hover:text-[#F55036] transition-colors"
+            style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
+          >
+            {model.name}
+          </h3>
+        </Link>
 
         {/* Editorial Description */}
         <p
