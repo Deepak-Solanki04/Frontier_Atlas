@@ -182,25 +182,23 @@ export default function ModelDetailPage({
       {/* ── TOP LUXURY NAVIGATION BAR (Glassmorphism + Sticky) ── */}
       <header className="model-sticky-header">
         <div className="model-sticky-inner">
-          <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <Link href="/models" className="model-back-btn" style={{ textDecoration: "none" }}>
               <ArrowLeft size={16} />
               <span>Directory</span>
             </Link>
-            <div className="model-breadcrumbs">
-              <span>/</span>
-              <span className="model-breadcrumbs-org">{model.org}</span>
-              <span>/</span>
-              <span className="model-breadcrumbs-id">{model.id}</span>
+            <div className="topic-breadcrumbs" style={{ margin: 0, fontSize: "13px" }}>
+              <Link href="/" className="crumb-link" style={{ textDecoration: "none" }}>Home</Link>
+              <span className="crumb-sep">&gt;</span>
+              <Link href="/models" className="crumb-link" style={{ textDecoration: "none" }}>Directory</Link>
+              <span className="crumb-sep">&gt;</span>
+              <Link href="/models" className="crumb-link" style={{ textDecoration: "none" }}>Models</Link>
+              <span className="crumb-sep">&gt;</span>
+              <span className="crumb-current">{model.name}</span>
             </div>
           </div>
 
           <div className="model-header-actions">
-            <div className="model-status-pill">
-              <span className="model-status-dot" />
-              <span>Indexed Status: Active</span>
-            </div>
-            
             <button onClick={handleShare} className="model-share-btn">
               <Share2 size={15} />
               <span>{shareCopied ? "Link Copied!" : "Share Profile"}</span>

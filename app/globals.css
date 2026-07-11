@@ -1324,9 +1324,10 @@ footer.site-footer-bar {
   color: #111111;
 }
 .model-tab-btn.active {
-  background: #111111;
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  background: #FFF6F3;
+  color: #F55036;
+  border: 1px solid #FFEDD5;
+  box-shadow: 0 4px 12px rgba(245, 80, 54, 0.12);
 }
 .model-tab-count {
   font-family: monospace;
