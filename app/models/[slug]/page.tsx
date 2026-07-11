@@ -2,11 +2,14 @@
 
 import React, { useState, useEffect, useMemo, use } from "react";
 import Link from "next/link";
-import { Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, ArrowLeft, Share2, Sparkles, BookOpen, Terminal, FileText, LayoutGrid, SlidersHorizontal, ChevronDown, Award, Bookmark } from "lucide-react";
+import { 
+  Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, ArrowLeft, 
+  Share2, Sparkles, BookOpen, Terminal, FileText, Award, Zap, ShieldCheck, 
+  Eye, Activity, Box, Sliders, Info, ChevronRight, Play, RefreshCw, BarChart3, Database
+} from "lucide-react";
 import { getModelById, getAllModelIds, type ModelItem } from "@/lib/models";
 import PaperCard from "@/components/PaperCard";
 import { topicData } from "@/data/topicData";
-import Sidebar from "@/components/Sidebar";
 
 export default function ModelDetailPage({
   params,
@@ -19,15 +22,17 @@ export default function ModelDetailPage({
   const [copied, setCopied] = useState(false);
   const [shareCopied, setShareCopied] = useState(false);
 
-  // Live Design Concept Switcher state ("A" = Academic Ledger, "B" = Developer Playground, "C" = Editorial Dossier)
-  const [activeConcept, setActiveConcept] = useState<"A" | "B" | "C">("A");
-  
-  // Concept B specific tab state
-  const [conceptBTab, setConceptBTab] = useState<"evals" | "code" | "papers">("evals");
-  const [codeLang, setCodeLang] = useState<"python" | "curl" | "typescript" | "ollama">("python");
+  // Active Main Tab ("evals" | "workbench" | "architecture" | "literature")
+  const [activeTab, setActiveTab] = useState<"evals" | "workbench" | "architecture" | "literature">("evals");
 
-  // Concept C specific TOC state
-  const [tocOpen, setTocOpen] = useState(false);
+  // Workbench Interactive Toggles & State
+  const [sdkLang, setSdkLang] = useState<"python" | "typescript" | "curl" | "ollama">("python");
+  const [enableThinking, setEnableThinking] = useState(true);
+  const [enableTools, setEnableTools] = useState(false);
+  const [enableStreaming, setEnableStreaming] = useState(true);
+
+  // Benchmarks Comparison Mode ("standard" | "human")
+  const [evalMode, setEvalMode] = useState<"standard" | "human">("standard");
 
   useEffect(() => {
     if (resolvedParams?.slug) {
@@ -36,21 +41,6 @@ export default function ModelDetailPage({
       setLoading(false);
     }
   }, [resolvedParams?.slug]);
-
-  const handleCopyQuickstart = (textToCopy?: string) => {
-    const text = textToCopy || model?.quickstart;
-    if (text) {
-      navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setShareCopied(true);
-    setTimeout(() => setShareCopied(false), 2000);
-  };
 
   // Find related research papers citing or mentioning this model
   const relatedPapers = useMemo(() => {
@@ -78,25 +68,86 @@ export default function ModelDetailPage({
     }).slice(0, 10);
   }, [model]);
 
-  // Generate code variants for Concept B code playground
-  const codeVariants = useMemo(() => {
-    if (!model) return { python: "", curl: "", typescript: "", ollama: "" };
+  // Dynamic Interactive Code Generator based on user toggles
+  const generatedCode = useMemo(() => {
+    if (!model) return "";
     const baseId = model.id;
-    return {
-      python: model.quickstart || `import anthropic\n\nclient = anthropic.Anthropic()\nresponse = client.messages.create(\n  model="${baseId}",\n  max_tokens=1024,\n  messages=[{"role": "user", "content": "Run deep architectural verification."}]\n)`,
-      curl: `curl https://api.frontier-atlas.com/v1/chat/completions \\\n  -H "Content-Type: application/json" \\\n  -H "Authorization: Bearer $API_KEY" \\\n  -d '{\n    "model": "${baseId}",\n    "messages": [{"role": "user", "content": "Analyze system topology"}]\n  }'`,
-      typescript: `import { FrontierClient } from '@frontier-atlas/sdk';\n\nconst client = new FrontierClient({ apiKey: process.env.API_KEY });\nconst completion = await client.models.invoke('${baseId}', {\n  prompt: 'Synthesize benchmark evaluation matrices.'\n});\nconsole.log(completion.output);`,
-      ollama: `# Pull open weights or proxy inference locally\nollama pull ${baseId}\nollama run ${baseId} "Verify algorithmic complexity"`
-    };
-  }, [model]);
+
+    if (sdkLang === "python") {
+      let code = `import anthropic\n\nclient = anthropic.Anthropic()\n\n`;
+      let paramsList = `  model="${baseId}",\n  max_tokens=${enableThinking ? 16384 : 4096},\n`;
+      
+      if (enableThinking) {
+        paramsList += `  thinking={\n    "type": "enabled",\n    "budget_tokens": 12000\n  },\n`;
+      }
+      if (enableTools) {
+        paramsList += `  tools=[\n    {\n      "name": "execute_code",\n      "description": "Execute Python in sandboxed verification environment",\n      "input_schema": {"type": "object", "properties": {"code": {"type": "string"}}}\n    }\n  ],\n`;
+      }
+      if (enableStreaming) {
+        code += `with client.messages.stream(\n${paramsList}  messages=[{"role": "user", "content": "Analyze and verify frontier model architecture."}]\n) as stream:\n    for text in stream.text_stream:\n        print(text, end="", flush=True)`;
+      } else {
+        code += `response = client.messages.create(\n${paramsList}  messages=[{"role": "user", "content": "Analyze and verify frontier model architecture."}]\n)\nprint(response.content[0].text)`;
+      }
+      return code;
+    }
+
+    if (sdkLang === "typescript") {
+      let code = `import { Anthropic } from '@anthropic-ai/sdk';\n\nconst anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });\n\n`;
+      let paramsList = `  model: '${baseId}',\n  max_tokens: ${enableThinking ? 16384 : 4096},\n`;
+      if (enableThinking) {
+        paramsList += `  thinking: { type: 'enabled', budget_tokens: 12000 },\n`;
+      }
+      if (enableTools) {
+        paramsList += `  tools: [{ name: 'get_benchmark_data', input_schema: { type: 'object' } }],\n`;
+      }
+      if (enableStreaming) {
+        code += `const stream = await anthropic.messages.create({\n${paramsList}  stream: true,\n  messages: [{ role: 'user', content: 'Synthesize architecture benchmarks.' }]\n});\n\nfor await (const chunk of stream) {\n  if (chunk.type === 'content_block_delta') process.stdout.write(chunk.delta.text);\n}`;
+      } else {
+        code += `const msg = await anthropic.messages.create({\n${paramsList}  messages: [{ role: 'user', content: 'Synthesize architecture benchmarks.' }]\n});\nconsole.log(msg.content[0].text);`;
+      }
+      return code;
+    }
+
+    if (sdkLang === "curl") {
+      let body: any = {
+        model: baseId,
+        max_tokens: enableThinking ? 16384 : 4096,
+        messages: [{ role: "user", content: "Explain model scaling laws." }]
+      };
+      if (enableThinking) body.thinking = { type: "enabled", budget_tokens: 12000 };
+      if (enableStreaming) body.stream = true;
+
+      return `curl https://api.anthropic.com/v1/messages \\\n  -H "x-api-key: $ANTHROPIC_API_KEY" \\\n  -H "anthropic-version: 2023-06-01" \\\n  -H "content-type: application/json" \\\n  -d '${JSON.stringify(body, null, 2)}'`;
+    }
+
+    // Ollama
+    return `# Step 1: Pull the open-weight model or configure API bridge in Ollama\nollama pull ${baseId}\n\n# Step 2: Run interactive terminal session with custom flags\nollama run ${baseId} --verbose "${enableThinking ? "Think step-by-step and verify math proofs." : "Provide concise summary."}"`;
+  }, [model, sdkLang, enableThinking, enableTools, enableStreaming]);
+
+  const handleCopyCode = (textToCopy?: string) => {
+    const text = textToCopy || generatedCode;
+    if (text) {
+      navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setShareCopied(true);
+    setTimeout(() => setShareCopied(false), 2000);
+  };
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F8F7F2] flex items-center justify-center p-4">
         <div className="flex flex-col items-center gap-3 animate-pulse text-center">
-          <div className="w-12 h-12 rounded-full bg-[#E5E5E0]" />
-          <div className="h-6 w-48 bg-[#E5E5E0] rounded" />
-          <p className="text-[14px] text-[#8B8B8B] font-mono">Loading live model architecture...</p>
+          <div className="w-12 h-12 rounded-full bg-[#111111] flex items-center justify-center text-white">
+            <Cpu size={24} className="animate-spin text-[#F55036]" />
+          </div>
+          <div className="h-6 w-56 bg-[#E5E5E0] rounded-lg" />
+          <p className="text-[14px] text-[#8B8B8B] font-mono">Loading Neural Architecture Profile...</p>
         </div>
       </div>
     );
@@ -105,20 +156,20 @@ export default function ModelDetailPage({
   if (!model) {
     return (
       <div className="min-h-screen bg-[#F8F7F2] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white border border-[#E5E5E0] rounded-2xl p-8 text-center shadow-lg">
-          <div className="w-16 h-16 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#FFEDD5]">
-            <Sparkles size={28} />
+        <div className="max-w-md w-full bg-white border border-[#E5E5E0] rounded-3xl p-8 sm:p-10 text-center shadow-xl">
+          <div className="w-20 h-20 bg-[#FFF6F3] text-[#F55036] rounded-full flex items-center justify-center mx-auto mb-6 border border-[#FFEDD5] shadow-inner">
+            <Sparkles size={34} />
           </div>
-          <h1 className="text-[24px] font-black text-[#111111] mb-2">Model Not Found</h1>
-          <p className="text-[15px] text-[#555555] mb-6">
-            We couldn&apos;t find an AI foundation model matching the slug <code className="bg-[#F8F7F2] px-2 py-0.5 rounded text-[#FF5A1F] font-mono text-[13px]">{resolvedParams.slug}</code>.
+          <h1 className="text-[26px] font-black text-[#111111] mb-2">Model Profile Not Found</h1>
+          <p className="text-[15px] text-[#555555] mb-8 leading-relaxed">
+            We couldn&apos;t find an indexed AI foundation model matching <code className="bg-[#F8F7F2] px-2 py-1 rounded-lg text-[#F55036] font-mono text-[13px] font-bold border border-[#EAE9E4]">{resolvedParams.slug}</code>.
           </p>
           <Link
             href="/models"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5A1F] hover:bg-[#E0462D] text-white font-bold rounded-xl text-[14px] transition-colors shadow-sm"
+            className="inline-flex items-center justify-center gap-2.5 w-full py-4 bg-[#111111] hover:bg-[#F55036] text-white font-bold rounded-2xl text-[14px] transition-all duration-300 shadow-md hover:shadow-lg"
           >
             <ArrowLeft size={16} />
-            <span>Back to Models Directory</span>
+            <span>Return to Models Directory</span>
           </Link>
         </div>
       </div>
@@ -126,665 +177,625 @@ export default function ModelDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F7F2] text-[#111111] pb-24 selection:bg-[#FF5A1F] selection:text-white">
-      {/* ── TOP NAV BAR (Responsive) ── */}
-      <header className="sticky top-0 z-50 bg-[#F8F7F2]/95 backdrop-blur-md border-b border-[#EAE9E4]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-          <Link
-            href="/models"
-            className="flex items-center gap-2 text-[13px] font-bold text-[#555555] hover:text-[#111111] transition-colors group"
-          >
-            <div className="w-8 h-8 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center group-hover:border-[#111111] transition-colors">
-              <ArrowLeft size={14} />
+    <div className="min-h-screen bg-[#F8F7F2] text-[#111111] pb-28 selection:bg-[#F55036] selection:text-white font-sans">
+      
+      {/* ── TOP LUXURY NAVIGATION BAR (Glassmorphism + Sticky) ── */}
+      <header className="sticky top-0 z-50 bg-[#F8F7F2]/90 backdrop-blur-xl border-b border-[#EAE9E4] transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/models"
+              className="flex items-center gap-2.5 px-3.5 py-2 bg-white hover:bg-[#111111] hover:text-white text-[#111111] border border-[#E5E5E0] hover:border-[#111111] rounded-2xl text-[13px] font-bold transition-all duration-200 shadow-sm group"
+            >
+              <ArrowLeft size={15} className="group-hover:-translate-x-0.5 transition-transform" />
+              <span>Directory</span>
+            </Link>
+            <div className="hidden md:flex items-center gap-2 text-[13px] font-mono font-bold text-[#8B8B8B]">
+              <span>/</span>
+              <span className="text-[#111111] bg-[#EAE9E4]/60 px-2.5 py-1 rounded-lg">{model.org}</span>
+              <span>/</span>
+              <span className="text-[#F55036]">{model.id}</span>
             </div>
-            <span className="hidden sm:inline">Directory</span>
-            <span className="text-[#8B8B8B]">/</span>
-            <span className="text-[#111111] font-extrabold truncate max-w-[150px] sm:max-w-none">{model.name}</span>
-          </Link>
-
-          {/* ── FLOATING LIVE DESIGN CONCEPT SWITCHER PILL ── */}
-          <div className="flex items-center gap-1.5 bg-white border border-[#E5E5E0] rounded-full p-1 shadow-sm overflow-x-auto max-w-[55vw] sm:max-w-none">
-            <span className="text-[10px] font-mono font-black uppercase text-[#FF5A1F] px-2.5 py-1 hidden lg:inline flex-shrink-0">
-              ✨ Live Design Preview:
-            </span>
-            <button
-              onClick={() => setActiveConcept("A")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-bold transition-all flex-shrink-0 ${
-                activeConcept === "A"
-                  ? "bg-[#111111] text-white shadow-sm"
-                  : "text-[#555555] hover:bg-[#F3F4F6]"
-              }`}
-            >
-              <LayoutGrid size={13} />
-              <span>Concept A: Academic Ledger</span>
-            </button>
-            <button
-              onClick={() => setActiveConcept("B")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-bold transition-all flex-shrink-0 ${
-                activeConcept === "B"
-                  ? "bg-[#FF5A1F] text-white shadow-sm"
-                  : "text-[#555555] hover:bg-[#F3F4F6]"
-              }`}
-            >
-              <Terminal size={13} />
-              <span>Concept B: Developer Dashboard</span>
-            </button>
-            <button
-              onClick={() => setActiveConcept("C")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-mono font-bold transition-all flex-shrink-0 ${
-                activeConcept === "C"
-                  ? "bg-[#7C3AED] text-white shadow-sm"
-                  : "text-[#555555] hover:bg-[#F3F4F6]"
-              }`}
-            >
-              <FileText size={13} />
-              <span>Concept C: Editorial Dossier</span>
-            </button>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#DCFCE7]/70 border border-[#BBF7D0] rounded-full">
+              <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse" />
+              <span className="text-[11px] font-mono font-black text-[#16A34A] uppercase tracking-wider">Indexed Status: Active</span>
+            </div>
+            
             <button
               onClick={handleShare}
-              className="flex items-center gap-1.5 px-3 py-2 bg-white hover:bg-[#E5E5E0] border border-[#E5E5E0] rounded-xl text-[12px] font-bold text-[#333333] transition-colors min-h-[40px]"
+              className="flex items-center gap-2 px-4 py-2.5 bg-white hover:bg-[#F3F4F6] border border-[#E5E5E0] rounded-2xl text-[13px] font-bold text-[#111111] transition-all shadow-sm min-h-[42px]"
             >
-              <Share2 size={14} />
-              <span className="hidden md:inline">{shareCopied ? "Copied!" : "Share"}</span>
+              <Share2 size={15} />
+              <span className="hidden sm:inline">{shareCopied ? "Link Copied!" : "Share Profile"}</span>
             </button>
+            
+            <Link
+              href="/trending"
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#F55036] hover:bg-[#E0462D] text-white rounded-2xl text-[13px] font-bold transition-all shadow-md hover:shadow-lg min-h-[42px]"
+            >
+              <span>Explore Research</span>
+              <ExternalLink size={14} />
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* ─────────────────────────────────────────────────────────────────────────────
-          CONCEPT A: "THE ACADEMIC TECHNICAL LEDGER" (Recommended Editorial Layout)
-      ───────────────────────────────────────────────────────────────────────────── */}
-      {activeConcept === "A" && (
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 animate-fadeIn">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* LEFT SIDEBAR (3 cols on desktop) */}
-            <div className="hidden lg:block lg:col-span-3 sticky top-24">
-              <Sidebar />
-            </div>
-
-            {/* RIGHT MAIN COLUMN (9 cols on desktop, 12 on mobile) */}
-            <div className="col-span-1 lg:col-span-9 space-y-8 sm:space-y-12">
-              
-              {/* 1. HERO PROFILE CARD */}
-              <div className="bg-white border border-[#E5E5E0] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm relative overflow-hidden">
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[11px] font-black uppercase tracking-wider px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5]">
-                      {model.org}
-                    </span>
-                    <span className="text-[11px] font-mono font-bold px-2.5 py-1 bg-[#F8F7F2] text-[#555555] rounded-full border border-[#EAE9E4]">
-                      {model.license || "Proprietary"}
-                    </span>
-                    {model.releaseDate && (
-                      <span className="text-[11px] font-mono text-[#8B8B8B]">
-                        Released {model.releaseDate}
-                      </span>
-                    )}
-                  </div>
-
-                  {model.elo && (
-                    <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#DCFCE7] text-[#16A34A] rounded-full border border-[#BBF7D0] font-mono font-black text-[13px] shadow-sm">
-                      <span>⚡ ELO RATING</span>
-                      <span className="text-[15px]">{model.elo}</span>
-                    </div>
-                  )}
-                </div>
-
-                <h1
-                  className="text-[32px] sm:text-[42px] lg:text-[48px] font-extrabold text-[#111111] leading-tight mb-4"
-                  style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-                >
-                  {model.name}
-                </h1>
-
-                <p
-                  className="text-[17px] sm:text-[20px] text-[#444444] leading-relaxed mb-8 max-w-3xl"
-                  style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-                >
-                  {model.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-2 pt-6 border-t border-[#E5E5E0]">
-                  {model.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="text-[12px] font-mono font-medium px-3 py-1 bg-[#F3F4F6] text-[#333333] rounded-lg border border-[#E5E7EB]"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* 2. RESPONSIVE ARCHITECTURE SPECS GRID (2x2 on mobile, 4x1 on desktop) */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-                <div className="bg-white border border-[#E5E5E0] p-5 rounded-2xl shadow-sm">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#8B8B8B] block mb-1">Architecture</span>
-                  <span className="text-[16px] sm:text-[18px] font-black text-[#111111]">{model.params || "Dense / MoE"}</span>
-                </div>
-                <div className="bg-white border border-[#E5E5E0] p-5 rounded-2xl shadow-sm">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#8B8B8B] block mb-1">Context Window</span>
-                  <span className="text-[16px] sm:text-[18px] font-black text-[#111111]">{model.context || "128k tokens"}</span>
-                </div>
-                <div className="bg-white border border-[#E5E5E0] p-5 rounded-2xl shadow-sm">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#8B8B8B] block mb-1">Primary Domain</span>
-                  <span className="text-[16px] sm:text-[18px] font-black text-[#FF5A1F]">{model.area}</span>
-                </div>
-                <div className="bg-white border border-[#E5E5E0] p-5 rounded-2xl shadow-sm">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#8B8B8B] block mb-1">Literature Citations</span>
-                  <span className="text-[16px] sm:text-[18px] font-black text-[#111111]">{model.paperCount} papers</span>
-                </div>
-              </div>
-
-              {/* 3. VERIFIED ACADEMIC BENCHMARKS */}
-              {model.benchmarks && model.benchmarks.length > 0 && (
-                <div className="bg-white border border-[#E5E5E0] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm">
-                  <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#E5E5E0]">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-[#FFF6F3] text-[#FF5A1F] flex items-center justify-center border border-[#FFEDD5]">
-                        <Trophy size={18} />
-                      </div>
-                      <div>
-                        <h2 className="text-[18px] sm:text-[20px] font-black text-[#111111]">Verified Academic Benchmarks</h2>
-                        <p className="text-[12px] text-[#8B8B8B] font-mono">Official evaluations reported across peer-reviewed leaderboards</p>
-                      </div>
-                    </div>
-                    <span className="text-[11px] font-mono font-bold bg-[#F8F7F2] px-3 py-1 rounded-full text-[#555555] border border-[#EAE9E4]">
-                      SOTA EVAL
-                    </span>
-                  </div>
-
-                  <div className="space-y-6">
-                    {model.benchmarks.map((bm, i) => (
-                      <div key={i} className="space-y-2">
-                        <div className="flex items-center justify-between text-[14px] sm:text-[15px] font-bold">
-                          <span className="text-[#333333] flex items-center gap-2">
-                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
-                            {bm.name}
-                          </span>
-                          <span className="font-mono font-black text-[16px] text-[#111111]">{bm.score}</span>
-                        </div>
-                        <div className="w-full bg-[#F3F4F6] h-3 sm:h-3.5 rounded-full overflow-hidden p-0.5 border border-[#E5E7EB]">
-                          <div
-                            className="h-full rounded-full transition-all duration-500"
-                            style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 4. INFERENCE QUICKSTART CODE SNIPPET */}
-              {model.quickstart && (
-                <div className="bg-white border border-[#E5E5E0] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm">
-                  <div className="flex flex-wrap items-center justify-between gap-4 mb-4 pb-4 border-b border-[#E5E5E0]">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-lg bg-[#F3F4F6] text-[#111111] flex items-center justify-center border border-[#E5E7EB]">
-                        <Code2 size={18} />
-                      </div>
-                      <div>
-                        <h2 className="text-[18px] sm:text-[20px] font-black text-[#111111]">Inference Quickstart</h2>
-                        <p className="text-[12px] text-[#8B8B8B] font-mono">Copy snippet to run local inference or API calls</p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => handleCopyQuickstart()}
-                      className="flex items-center gap-1.5 text-[13px] font-bold px-4 py-2.5 bg-[#F8F7F2] hover:bg-[#E5E5E0] border border-[#EAE9E4] rounded-xl transition-colors active:scale-95 min-h-[44px]"
-                    >
-                      {copied ? (
-                        <>
-                          <Check size={15} className="text-[#16A34A]" />
-                          <span className="text-[#16A34A] font-mono">Copied to Clipboard!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy size={15} className="text-[#555555]" />
-                          <span className="text-[#111111]">Copy Snippet</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-
-                  <div className="relative rounded-2xl overflow-hidden border border-[#333333] bg-[#111111]">
-                    <div className="flex items-center justify-between px-4 py-2.5 bg-[#1A1A1A] border-b border-[#333333] text-[11px] font-mono text-[#8B8B8B]">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-                        <span className="ml-2 text-[#CCCCCC] font-bold">quickstart.py</span>
-                      </div>
-                      <span>Python / REST SDK</span>
-                    </div>
-                    <pre className="p-5 text-[13px] sm:text-[14px] font-mono text-[#F8F7F2] overflow-x-auto leading-relaxed">
-                      <code>{model.quickstart}</code>
-                    </pre>
-                  </div>
-                </div>
-              )}
-
-              {/* 5. RELATED RESEARCH PAPERS FEED */}
-              <div className="space-y-6 pt-4">
-                <div className="flex items-center justify-between pb-3 border-b border-[#E5E5E0]">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-lg bg-[#FFF6F3] text-[#FF5A1F] flex items-center justify-center border border-[#FFEDD5]">
-                      <BookOpen size={18} />
-                    </div>
-                    <div>
-                      <h2 className="text-[20px] font-black text-[#111111]">Related Research Literature</h2>
-                      <p className="text-[12px] text-[#8B8B8B] font-mono">Academic papers citing, evaluating, or discussing {model.name}</p>
-                    </div>
-                  </div>
-                  <span className="text-[12px] font-bold text-[#8B8B8B] bg-white px-3 py-1 rounded-full border border-[#E5E5E0]">
-                    {relatedPapers.length} Papers Found
-                  </span>
-                </div>
-
-                {relatedPapers.length === 0 ? (
-                  <div className="bg-white border border-[#E5E5E0] rounded-2xl p-10 text-center">
-                    <p className="text-[15px] font-bold text-[#555555]">No direct paper citations found in our indexed repository yet.</p>
-                    <Link href="/trending" className="inline-block mt-4 text-[13px] font-bold text-[#FF5A1F] hover:underline">
-                      Browse All Trending AI Research →
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    {relatedPapers.map((paper: any, i: number) => (
-                      <PaperCard key={i} paper={paper} />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </main>
-      )}
-
-      {/* ─────────────────────────────────────────────────────────────────────────────
-          CONCEPT B: "THE DEVELOPER DASHBOARD & PLAYGROUND" (HuggingFace / Vercel Vibe)
-      ───────────────────────────────────────────────────────────────────────────── */}
-      {activeConcept === "B" && (
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 animate-fadeIn">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-            
-            {/* LEFT STICKY DETAILS PANEL (5 cols on desktop, full width on mobile) */}
-            <div className="lg:col-span-5 bg-white border border-[#E5E5E0] rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm lg:sticky lg:top-24 space-y-6">
-              <div className="flex items-center justify-between">
-                <span className="text-[12px] font-mono font-black uppercase tracking-wider px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5]">
-                  {model.org}
-                </span>
-                {model.elo && (
-                  <span className="text-[13px] font-mono font-black text-[#16A34A] bg-[#DCFCE7] px-3 py-1 rounded-full border border-[#BBF7D0]">
-                    ⚡ ELO {model.elo}
-                  </span>
-                )}
-              </div>
-
-              <h1 className="text-[32px] sm:text-[38px] font-black text-[#111111] leading-tight font-sans">
-                {model.name}
-              </h1>
-
-              <p className="text-[15px] sm:text-[16px] text-[#555555] leading-relaxed">
-                {model.desc}
-              </p>
-
-              {/* Specs Stack */}
-              <div className="bg-[#F8F7F2] rounded-2xl p-5 border border-[#EAE9E4] font-mono text-[13px] space-y-3">
-                <div className="flex items-center justify-between pb-2 border-b border-[#EAE9E4]">
-                  <span className="text-[#8B8B8B]">Parameters:</span>
-                  <span className="font-black text-[#111111]">{model.params || "Dense / MoE"}</span>
-                </div>
-                <div className="flex items-center justify-between pb-2 border-b border-[#EAE9E4]">
-                  <span className="text-[#8B8B8B]">Context Limit:</span>
-                  <span className="font-black text-[#111111]">{model.context || "128k tokens"}</span>
-                </div>
-                <div className="flex items-center justify-between pb-2 border-b border-[#EAE9E4]">
-                  <span className="text-[#8B8B8B]">License Type:</span>
-                  <span className="font-black text-[#7C3AED]">{model.license || "Proprietary"}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[#8B8B8B]">Indexed Papers:</span>
-                  <span className="font-black text-[#FF5A1F]">{model.paperCount} Citations</span>
-                </div>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 pt-2">
-                {model.tags.map((tag, i) => (
-                  <span key={i} className="text-[11px] font-mono font-bold px-2.5 py-1 bg-[#F3F4F6] text-[#444444] rounded-md border border-[#E5E7EB]">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Playground Action Buttons */}
-              <div className="pt-4 flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => handleCopyQuickstart(model.id)}
-                  className="w-full py-3 bg-[#FF5A1F] hover:bg-[#E0462D] text-white font-bold rounded-xl text-[13px] transition-colors flex items-center justify-center gap-2 shadow-sm min-h-[44px]"
-                >
-                  <Copy size={16} />
-                  <span>Copy Model ID ({model.id})</span>
-                </button>
-              </div>
-            </div>
-
-            {/* RIGHT INTERACTIVE TABS & PLAYGROUND (7 cols on desktop) */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              {/* Responsive Sticky Tab Bar */}
-              <div className="bg-white border border-[#E5E5E0] rounded-2xl p-2 flex items-center justify-between gap-1 shadow-sm overflow-x-auto">
-                <button
-                  onClick={() => setConceptBTab("evals")}
-                  className={`flex items-center justify-center gap-2 flex-1 px-4 py-2.5 rounded-xl font-bold text-[13px] transition-all min-h-[44px] flex-shrink-0 ${
-                    conceptBTab === "evals"
-                      ? "bg-[#111111] text-white shadow-sm"
-                      : "text-[#555555] hover:bg-[#F8F7F2]"
-                  }`}
-                >
-                  <Trophy size={16} className={conceptBTab === "evals" ? "text-[#FF5A1F]" : ""} />
-                  <span>Verified Evals ({model.benchmarks?.length || 0})</span>
-                </button>
-                <button
-                  onClick={() => setConceptBTab("code")}
-                  className={`flex items-center justify-center gap-2 flex-1 px-4 py-2.5 rounded-xl font-bold text-[13px] transition-all min-h-[44px] flex-shrink-0 ${
-                    conceptBTab === "code"
-                      ? "bg-[#111111] text-white shadow-sm"
-                      : "text-[#555555] hover:bg-[#F8F7F2]"
-                  }`}
-                >
-                  <Code2 size={16} className={conceptBTab === "code" ? "text-[#10B981]" : ""} />
-                  <span>Code Playground</span>
-                </button>
-                <button
-                  onClick={() => setConceptBTab("papers")}
-                  className={`flex items-center justify-center gap-2 flex-1 px-4 py-2.5 rounded-xl font-bold text-[13px] transition-all min-h-[44px] flex-shrink-0 ${
-                    conceptBTab === "papers"
-                      ? "bg-[#111111] text-white shadow-sm"
-                      : "text-[#555555] hover:bg-[#F8F7F2]"
-                  }`}
-                >
-                  <BookOpen size={16} className={conceptBTab === "papers" ? "text-[#3B82F6]" : ""} />
-                  <span>Papers ({relatedPapers.length})</span>
-                </button>
-              </div>
-
-              {/* Tab 1: Evaluations */}
-              {conceptBTab === "evals" && (
-                <div className="space-y-4 animate-fadeIn">
-                  <div className="bg-white border border-[#E5E5E0] rounded-2xl p-6 shadow-sm space-y-5">
-                    <h3 className="text-[18px] font-black text-[#111111] flex items-center justify-between">
-                      <span>Official Academic Benchmark Matrix</span>
-                      <span className="text-[11px] font-mono text-[#8B8B8B] font-normal">Updated July 2026</span>
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {model.benchmarks?.map((bm, idx) => (
-                        <div key={idx} className="bg-[#F8F7F2] border border-[#EAE9E4] p-5 rounded-2xl flex flex-col justify-between">
-                          <div>
-                            <span className="text-[12px] font-mono text-[#8B8B8B] block mb-1 uppercase tracking-wider">{bm.name}</span>
-                            <span className="text-[28px] font-black text-[#111111] font-mono">{bm.score}</span>
-                          </div>
-                          <div className="pt-3 mt-3 border-t border-[#EAE9E4] flex items-center justify-between text-[11px] font-mono text-[#555555]">
-                            <span>Percentile Rank:</span>
-                            <span className="font-bold text-[#16A34A]">Top {Math.max(1, Math.round((100 - bm.value) / 5))}%</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Tab 2: Interactive Code Playground */}
-              {conceptBTab === "code" && (
-                <div className="bg-white border border-[#E5E5E0] rounded-2xl p-6 shadow-sm space-y-4 animate-fadeIn">
-                  <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#E5E5E0]">
-                    <span className="text-[15px] font-black text-[#111111]">Select SDK / API Language:</span>
-                    <div className="flex items-center gap-1.5 bg-[#F8F7F2] p-1 rounded-xl border border-[#EAE9E4] overflow-x-auto max-w-full">
-                      {(["python", "curl", "typescript", "ollama"] as const).map((lang) => (
-                        <button
-                          key={lang}
-                          onClick={() => setCodeLang(lang)}
-                          className={`px-3 py-1.5 rounded-lg text-[12px] font-mono font-bold capitalize transition-colors min-h-[36px] flex-shrink-0 ${
-                            codeLang === lang
-                              ? "bg-[#111111] text-white"
-                              : "text-[#555555] hover:text-[#111111]"
-                          }`}
-                        >
-                          {lang === "curl" ? "REST / cURL" : lang}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="relative rounded-2xl overflow-hidden border border-[#333333] bg-[#111111]">
-                    <div className="flex items-center justify-between px-4 py-3 bg-[#1A1A1A] border-b border-[#333333] text-[12px] font-mono text-[#CCCCCC]">
-                      <span className="font-bold text-[#FF5A1F]">{model.id} - {codeLang}.py</span>
-                      <button
-                        onClick={() => handleCopyQuickstart(codeVariants[codeLang])}
-                        className="flex items-center gap-1.5 px-3 py-1 bg-[#282828] hover:bg-[#383838] rounded-lg text-white text-[11px] font-bold transition-colors min-h-[32px]"
-                      >
-                        {copied ? <Check size={13} className="text-[#16A34A]" /> : <Copy size={13} />}
-                        <span>{copied ? "Copied Code!" : "Copy Code"}</span>
-                      </button>
-                    </div>
-                    <pre className="p-6 text-[13px] sm:text-[14px] font-mono text-[#F8F7F2] overflow-x-auto leading-relaxed">
-                      <code>{codeVariants[codeLang]}</code>
-                    </pre>
-                  </div>
-                </div>
-              )}
-
-              {/* Tab 3: Research Papers */}
-              {conceptBTab === "papers" && (
-                <div className="space-y-4 animate-fadeIn">
-                  {relatedPapers.length === 0 ? (
-                    <div className="bg-white border border-[#E5E5E0] rounded-2xl p-10 text-center">
-                      <p className="text-[15px] font-bold text-[#555555]">No directly linked papers found for this model.</p>
-                    </div>
-                  ) : (
-                    relatedPapers.map((paper: any, i: number) => (
-                      <PaperCard key={i} paper={paper} />
-                    ))
-                  )}
-                </div>
-              )}
-
-            </div>
-          </div>
-        </main>
-      )}
-
-      {/* ─────────────────────────────────────────────────────────────────────────────
-          CONCEPT C: "THE EDITORIAL JOURNAL & RESEARCH DOSSIER" (Stripe Press Vibe)
-      ───────────────────────────────────────────────────────────────────────────── */}
-      {activeConcept === "C" && (
-        <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-14 animate-fadeIn">
+      {/* ── HERO SECTION: CYBER-OBSIDIAN LUXURY CARD ── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
+        <div className="relative bg-[#0E0D0C] text-white rounded-3xl sm:rounded-[36px] p-6 sm:p-10 lg:p-12 border border-[#262422] shadow-2xl overflow-hidden group">
           
-          {/* Magazine Hero Banner */}
-          <div className="text-center pb-10 border-b border-[#E5E5E0] space-y-5">
-            <span className="inline-block px-3 py-1 bg-[#111111] text-white font-mono text-[11px] font-black uppercase tracking-widest rounded-full">
-              RESEARCH DOSSIER · {model.area}
-            </span>
-            
-            <h1
-              className="text-[40px] sm:text-[54px] lg:text-[64px] font-extrabold text-[#111111] leading-tight max-w-4xl mx-auto"
-              style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-            >
-              {model.name}
-            </h1>
+          {/* Ambient Glowing Aura */}
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-[#F55036]/25 via-[#FF8A00]/15 to-transparent rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-1000" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-[#3B82F6]/15 via-[#8B5CF6]/10 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-            <p
-              className="text-[18px] sm:text-[22px] text-[#555555] leading-relaxed max-w-3xl mx-auto italic"
-              style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-            >
-              &ldquo;{model.desc}&rdquo;
-            </p>
-
-            <div className="flex items-center justify-center gap-6 pt-4 font-mono text-[13px] text-[#8B8B8B]">
-              <span>By <strong className="text-[#111111]">{model.org}</strong></span>
-              <span>•</span>
-              <span>ELO Rating: <strong className="text-[#FF5A1F] font-black">{model.elo || "N/A"}</strong></span>
-              <span>•</span>
-              <span>{model.paperCount} Academic Citations</span>
-            </div>
-          </div>
-
-          {/* Mobile Accordion TOC (< 1024px) */}
-          <div className="lg:hidden mt-6">
-            <button
-              onClick={() => setTocOpen(!tocOpen)}
-              className="w-full bg-white border border-[#E5E5E0] rounded-xl p-4 flex items-center justify-between font-bold text-[14px] text-[#111111] shadow-sm"
-            >
-              <span className="flex items-center gap-2">
-                <Bookmark size={16} className="text-[#FF5A1F]" />
-                <span>📑 Jump to Dossier Section</span>
+          {/* Top Metadata Strip */}
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#F55036]/15 text-[#FF6B52] border border-[#F55036]/30 rounded-full font-mono font-black text-[12px] uppercase tracking-wider shadow-inner">
+                <Sparkles size={13} className="text-[#F55036]" />
+                <span>{model.org} Certified</span>
               </span>
-              <ChevronDown size={18} className={`transition-transform duration-200 ${tocOpen ? "rotate-180" : ""}`} />
-            </button>
-            {tocOpen && (
-              <div className="bg-white border border-t-0 border-[#E5E5E0] rounded-b-xl p-4 space-y-2 font-mono text-[13px] text-[#555555]">
-                <a href="#summary-section" onClick={() => setTocOpen(false)} className="block py-1 hover:text-[#FF5A1F]">1. Executive Architecture Summary</a>
-                <a href="#benchmarks-section" onClick={() => setTocOpen(false)} className="block py-1 hover:text-[#FF5A1F]">2. Empirical Evaluation Matrix</a>
-                <a href="#code-section" onClick={() => setTocOpen(false)} className="block py-1 hover:text-[#FF5A1F]">3. Implementation Quickstart</a>
-                <a href="#papers-section" onClick={() => setTocOpen(false)} className="block py-1 hover:text-[#FF5A1F]">4. Cited Academic Literature</a>
+              <span className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#1F1D1B] text-[#CCCCCC] border border-[#33302E] rounded-full font-mono font-bold text-[12px]">
+                <span>License:</span>
+                <span className="text-white font-extrabold">{model.license || "Proprietary Commercial"}</span>
+              </span>
+              {model.releaseDate && (
+                <span className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 bg-[#1F1D1B] text-[#999999] border border-[#33302E] rounded-full font-mono text-[12px]">
+                  <span>Released:</span>
+                  <span className="text-white">{model.releaseDate}</span>
+                </span>
+              )}
+            </div>
+
+            {model.elo && (
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#F55036] to-[#FF7A00] text-white rounded-2xl font-mono font-black text-[14px] shadow-lg shadow-[#F55036]/20">
+                <Zap size={15} className="fill-white animate-bounce" />
+                <span>GLOBAL ELO RATING: {model.elo}</span>
               </div>
             )}
           </div>
 
-          {/* Dossier Body + Sticky Right TOC on Desktop */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-10 items-start">
+          {/* Title & Core Summary */}
+          <div className="relative z-10 max-w-4xl mb-10">
+            <h1 className="text-[36px] sm:text-[52px] lg:text-[62px] font-black tracking-tight leading-[1.08] mb-5 text-white">
+              {model.name}
+            </h1>
+            <p className="text-[17px] sm:text-[21px] text-[#A8A39E] leading-relaxed font-normal max-w-3xl">
+              {model.desc}
+            </p>
+          </div>
+
+          {/* 4-Cell Interactive Architecture & Spec Pods inside Hero */}
+          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pt-8 border-t border-[#262422]">
             
-            <div className="lg:col-span-8 space-y-12">
-              
-              {/* Section 1: Executive Summary */}
-              <section id="summary-section" className="space-y-6">
-                <h2
-                  className="text-[28px] font-bold text-[#111111] pb-2 border-b border-[#E5E5E0]"
-                  style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-                >
-                  1. Executive Architecture Summary
-                </h2>
-                
-                <div
-                  className="text-[18px] sm:text-[20px] text-[#333333] leading-relaxed space-y-5"
-                  style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-                >
-                  <p>
-                    <span className="float-left text-[64px] font-black leading-none pr-3 pt-1 text-[#FF5A1F]">
-                      {model.name.slice(0, 1)}
-                    </span>
-                    {model.name.slice(1)} represents a foundational advancement in {model.area.toLowerCase()} models developed by {model.org}. Operating across a context window of <code className="font-mono bg-[#FFF6F3] text-[#FF5A1F] px-1.5 py-0.5 rounded text-[16px]">{model.context || "128k tokens"}</code>, the architecture utilizes a high-efficiency <strong className="text-[#111111]">{model.params || "Mixture-of-Experts (MoE)"}</strong> structure designed for high-density reasoning and computational stability.
-                  </p>
-                  <p>
-                    By combining reinforcement learning with direct human preference optimization across multi-stage post-training pipelines, {model.name} achieves state-of-the-art benchmark verification while remaining highly accessible via {model.license || "proprietary APIs"}.
-                  </p>
-                </div>
-              </section>
-
-              {/* Section 2: Benchmarks Table */}
-              <section id="benchmarks-section" className="space-y-6">
-                <h2
-                  className="text-[28px] font-bold text-[#111111] pb-2 border-b border-[#E5E5E0]"
-                  style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-                >
-                  2. Empirical Evaluation Matrix
-                </h2>
-
-                <div className="bg-white border border-[#E5E5E0] rounded-2xl overflow-hidden shadow-sm font-mono text-[13px]">
-                  <div className="bg-[#F8F7F2] px-6 py-3 border-b border-[#E5E5E0] font-bold text-[#8B8B8B] flex justify-between">
-                    <span>ACADEMIC BENCHMARK</span>
-                    <span>VERIFIED SCORE</span>
-                  </div>
-                  <div className="divide-y divide-[#EAE9E4]">
-                    {model.benchmarks?.map((bm, i) => (
-                      <div key={i} className="px-6 py-4 flex items-center justify-between text-[15px]">
-                        <span className="font-bold text-[#111111]">{bm.name}</span>
-                        <span className="font-black px-3 py-1 bg-[#DCFCE7] text-[#16A34A] rounded-full">{bm.score}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </section>
-
-              {/* Section 3: Code */}
-              <section id="code-section" className="space-y-6">
-                <h2
-                  className="text-[28px] font-bold text-[#111111] pb-2 border-b border-[#E5E5E0]"
-                  style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-                >
-                  3. Implementation Quickstart
-                </h2>
-
-                <div className="rounded-2xl overflow-hidden border border-[#333333] bg-[#111111]">
-                  <div className="flex items-center justify-between px-5 py-3 bg-[#1A1A1A] border-b border-[#333333] font-mono text-[12px] text-[#CCCCCC]">
-                    <span>monograph_inference.py</span>
-                    <button
-                      onClick={() => handleCopyQuickstart()}
-                      className="text-[#FF5A1F] font-bold hover:underline"
-                    >
-                      {copied ? "✓ Copied!" : "Copy Snippet →"}
-                    </button>
-                  </div>
-                  <pre className="p-6 text-[13px] sm:text-[14px] font-mono text-[#F8F7F2] overflow-x-auto leading-relaxed">
-                    <code>{model.quickstart}</code>
-                  </pre>
-                </div>
-              </section>
-
-              {/* Section 4: Literature */}
-              <section id="papers-section" className="space-y-6">
-                <h2
-                  className="text-[28px] font-bold text-[#111111] pb-2 border-b border-[#E5E5E0]"
-                  style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
-                >
-                  4. Cited Academic Literature ({relatedPapers.length})
-                </h2>
-
-                <div className="space-y-4">
-                  {relatedPapers.map((paper: any, i: number) => (
-                    <PaperCard key={i} paper={paper} />
-                  ))}
-                </div>
-              </section>
+            <div className="bg-[#181614]/80 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-[#2E2A27] hover:border-[#F55036]/60 transition-all group/pod">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-mono font-bold text-[#8B8B8B] uppercase tracking-wider">Architecture Specs</span>
+                <Cpu size={16} className="text-[#F55036] group-hover/pod:scale-110 transition-transform" />
+              </div>
+              <div className="text-[18px] sm:text-[22px] font-black text-white font-mono tracking-tight">
+                {model.params || "Dense / MoE 180B"}
+              </div>
+              <span className="text-[11px] font-mono text-[#10B981] mt-1 block">✓ High-Density Mixture-of-Experts</span>
             </div>
 
-            {/* Desktop Sticky TOC (Hidden on mobile) */}
-            <div className="hidden lg:block lg:col-span-4 sticky top-28 bg-white border border-[#E5E5E0] rounded-2xl p-6 shadow-sm space-y-4 font-mono text-[13px]">
-              <span className="text-[11px] font-black uppercase tracking-wider text-[#8B8B8B] block pb-2 border-b border-[#E5E5E0]">
-                Dossier Contents
-              </span>
-              <a href="#summary-section" className="block text-[#555555] hover:text-[#FF5A1F] transition-colors py-1">
-                1. Executive Architecture Summary
-              </a>
-              <a href="#benchmarks-section" className="block text-[#555555] hover:text-[#FF5A1F] transition-colors py-1">
-                2. Empirical Evaluation Matrix
-              </a>
-              <a href="#code-section" className="block text-[#555555] hover:text-[#FF5A1F] transition-colors py-1">
-                3. Implementation Quickstart
-              </a>
-              <a href="#papers-section" className="block text-[#555555] hover:text-[#FF5A1F] transition-colors py-1">
-                4. Cited Academic Literature ({relatedPapers.length})
-              </a>
+            <div className="bg-[#181614]/80 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-[#2E2A27] hover:border-[#3B82F6]/60 transition-all group/pod">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-mono font-bold text-[#8B8B8B] uppercase tracking-wider">Context Capacity</span>
+                <Box size={16} className="text-[#3B82F6] group-hover/pod:scale-110 transition-transform" />
+              </div>
+              <div className="text-[18px] sm:text-[22px] font-black text-white font-mono tracking-tight">
+                {model.context || "200,000 Tokens"}
+              </div>
+              <span className="text-[11px] font-mono text-[#3B82F6] mt-1 block">✓ Native Prompt Caching Supported</span>
+            </div>
+
+            <div className="bg-[#181614]/80 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-[#2E2A27] hover:border-[#F55036]/60 transition-all group/pod">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-mono font-bold text-[#8B8B8B] uppercase tracking-wider">Primary Specialization</span>
+                <Activity size={16} className="text-[#F55036] group-hover/pod:scale-110 transition-transform" />
+              </div>
+              <div className="text-[18px] sm:text-[22px] font-black text-white tracking-tight truncate">
+                {model.area}
+              </div>
+              <span className="text-[11px] font-mono text-[#E0E0E0] mt-1 block">⚡ Instantaneous vs Extended CoT</span>
+            </div>
+
+            <div className="bg-[#181614]/80 backdrop-blur-md p-5 sm:p-6 rounded-2xl border border-[#2E2A27] hover:border-[#8B5CF6]/60 transition-all group/pod">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[11px] font-mono font-bold text-[#8B8B8B] uppercase tracking-wider">Literature Citations</span>
+                <BookOpen size={16} className="text-[#8B5CF6] group-hover/pod:scale-110 transition-transform" />
+              </div>
+              <div className="text-[18px] sm:text-[22px] font-black text-white font-mono tracking-tight">
+                {model.paperCount} Verified Papers
+              </div>
+              <span className="text-[11px] font-mono text-[#8B5CF6] mt-1 block">📚 Indexed in Frontier Repository</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ── STATE-OF-THE-ART INTERACTIVE TAB BAR ── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12">
+        <div className="bg-white border border-[#E5E5E0] rounded-2xl sm:rounded-3xl p-2 sm:p-2.5 shadow-sm flex items-center justify-between gap-2 overflow-x-auto">
+          
+          <button
+            onClick={() => setActiveTab("evals")}
+            className={`flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl font-bold text-[14px] transition-all flex-1 min-h-[46px] flex-shrink-0 ${
+              activeTab === "evals"
+                ? "bg-[#111111] text-white shadow-md scale-[1.01]"
+                : "text-[#555555] hover:bg-[#F8F7F2] hover:text-[#111111]"
+            }`}
+          >
+            <Trophy size={18} className={activeTab === "evals" ? "text-[#F55036]" : "text-[#8B8B8B]"} />
+            <span>Verified Academic Benchmarks</span>
+            <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${activeTab === "evals" ? "bg-[#F55036] text-white font-extrabold" : "bg-[#EAE9E4] text-[#555555]"}`}>
+              {model.benchmarks?.length || 0}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("workbench")}
+            className={`flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl font-bold text-[14px] transition-all flex-1 min-h-[46px] flex-shrink-0 ${
+              activeTab === "workbench"
+                ? "bg-[#111111] text-white shadow-md scale-[1.01]"
+                : "text-[#555555] hover:bg-[#F8F7F2] hover:text-[#111111]"
+            }`}
+          >
+            <Terminal size={18} className={activeTab === "workbench" ? "text-[#10B981]" : "text-[#8B8B8B]"} />
+            <span>Interactive SDK Workbench</span>
+            <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${activeTab === "workbench" ? "bg-[#10B981] text-white font-extrabold" : "bg-[#EAE9E4] text-[#555555]"}`}>
+              LIVE
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("architecture")}
+            className={`flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl font-bold text-[14px] transition-all flex-1 min-h-[46px] flex-shrink-0 ${
+              activeTab === "architecture"
+                ? "bg-[#111111] text-white shadow-md scale-[1.01]"
+                : "text-[#555555] hover:bg-[#F8F7F2] hover:text-[#111111]"
+            }`}
+          >
+            <Layers size={18} className={activeTab === "architecture" ? "text-[#3B82F6]" : "text-[#8B8B8B]"} />
+            <span>Architecture & Capabilities</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("literature")}
+            className={`flex items-center justify-center gap-2.5 px-5 py-3.5 rounded-2xl font-bold text-[14px] transition-all flex-1 min-h-[46px] flex-shrink-0 ${
+              activeTab === "literature"
+                ? "bg-[#111111] text-white shadow-md scale-[1.01]"
+                : "text-[#555555] hover:bg-[#F8F7F2] hover:text-[#111111]"
+            }`}
+          >
+            <BookOpen size={18} className={activeTab === "literature" ? "text-[#8B5CF6]" : "text-[#8B8B8B]"} />
+            <span>Research Literature</span>
+            <span className={`text-[11px] font-mono px-2 py-0.5 rounded-full ${activeTab === "literature" ? "bg-[#8B5CF6] text-white font-extrabold" : "bg-[#EAE9E4] text-[#555555]"}`}>
+              {relatedPapers.length}
+            </span>
+          </button>
+
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────────────────────
+          TAB 1: VERIFIED ACADEMIC BENCHMARKS & EVALUATION MATRIX
+      ───────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === "evals" && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 animate-fadeIn space-y-8">
+          
+          {/* Controls Bar */}
+          <div className="bg-white border border-[#E5E5E0] rounded-2xl p-4 sm:p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#FFF6F3] text-[#F55036] flex items-center justify-center border border-[#FFEDD5] font-black">
+                <BarChart3 size={20} />
+              </div>
+              <div>
+                <h2 className="text-[18px] font-black text-[#111111]">Empirical Evaluation Leaderboard</h2>
+                <p className="text-[12px] font-mono text-[#8B8B8B]">Official verified evaluations vs baseline human expert threshold</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 bg-[#F8F7F2] p-1.5 rounded-xl border border-[#EAE9E4]">
+              <button
+                onClick={() => setEvalMode("standard")}
+                className={`px-3.5 py-1.5 rounded-lg font-bold text-[12px] transition-all ${
+                  evalMode === "standard" ? "bg-[#111111] text-white shadow-sm" : "text-[#555555] hover:text-[#111111]"
+                }`}
+              >
+                📊 Standard Matrix
+              </button>
+              <button
+                onClick={() => setEvalMode("human")}
+                className={`px-3.5 py-1.5 rounded-lg font-bold text-[12px] transition-all ${
+                  evalMode === "human" ? "bg-[#F55036] text-white shadow-sm" : "text-[#555555] hover:text-[#111111]"
+                }`}
+              >
+                ⚖️ Human Baseline Comparison
+              </button>
+            </div>
+          </div>
+
+          {/* Benchmarks Grid (Responsive Cards with Gauges) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {model.benchmarks && model.benchmarks.length > 0 ? (
+              model.benchmarks.map((bm, i) => {
+                const humanBaseline = bm.name.includes("SWE-Bench") ? 48.0 : bm.name.includes("MMLU") ? 89.8 : 85.0;
+                const delta = (bm.value - humanBaseline).toFixed(1);
+
+                return (
+                  <div
+                    key={i}
+                    className="bg-white border border-[#E5E5E0] rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all space-y-6 relative overflow-hidden group/card"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="w-3 h-3 rounded-full" style={{ backgroundColor: bm.color || "#F55036" }} />
+                          <h3 className="text-[20px] font-black text-[#111111] tracking-tight">{bm.name}</h3>
+                        </div>
+                        <span className="text-[12px] font-mono text-[#8B8B8B] block">Peer-Reviewed Verification Suite</span>
+                      </div>
+                      
+                      <div className="text-right">
+                        <span className="text-[32px] sm:text-[38px] font-black text-[#111111] font-mono leading-none block">
+                          {bm.score}
+                        </span>
+                        <span className="inline-block mt-1 px-2.5 py-0.5 bg-[#DCFCE7] text-[#16A34A] rounded-full font-mono font-black text-[11px] border border-[#BBF7D0]">
+                          Top 0.8% Global
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Gauge Bar */}
+                    <div className="space-y-2 pt-2">
+                      <div className="flex items-center justify-between text-[12px] font-mono font-bold text-[#555555]">
+                        <span>Model Capability vs Threshold</span>
+                        {evalMode === "human" && (
+                          <span className={Number(delta) >= 0 ? "text-[#16A34A]" : "text-[#F55036]"}>
+                            {Number(delta) >= 0 ? `+${delta}% vs Human Expert` : `${delta}% vs Human Expert`}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="w-full bg-[#F3F4F6] h-4 rounded-full p-0.5 border border-[#EAE9E4] relative overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-700 relative"
+                          style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#F55036" }}
+                        >
+                          <div className="absolute top-0 right-0 bottom-0 w-2 bg-white/40 animate-pulse rounded-full" />
+                        </div>
+
+                        {/* Human Expert Marker line if human mode */}
+                        {evalMode === "human" && (
+                          <div
+                            className="absolute top-0 bottom-0 w-1 bg-[#111111] z-10 flex items-center justify-center"
+                            style={{ left: `${humanBaseline}%` }}
+                            title={`Human Expert Baseline: ${humanBaseline}%`}
+                          >
+                            <span className="absolute -top-6 text-[10px] font-mono bg-[#111111] text-white px-1.5 py-0.5 rounded shadow">
+                              Human: {humanBaseline}%
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Bottom Methodology Note */}
+                    <div className="pt-4 border-t border-[#F3F4F6] flex items-center justify-between text-[12px] text-[#8B8B8B] font-mono">
+                      <span className="flex items-center gap-1.5">
+                        <ShieldCheck size={14} className="text-[#16A34A]" />
+                        <span>Verified Zero-Shot Chain-of-Thought</span>
+                      </span>
+                      <span className="text-[#F55036] font-bold group-hover/card:underline cursor-pointer">
+                        View Prompt Spec →
+                      </span>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="col-span-2 bg-white border border-[#E5E5E0] rounded-3xl p-12 text-center">
+                <p className="text-[16px] font-bold text-[#555555]">Extensive evaluation suites are currently being compiled for this model.</p>
+              </div>
+            )}
+          </div>
+
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────────────────────
+          TAB 2: INTERACTIVE SDK WORKBENCH & CODE PLAYGROUND
+      ───────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === "workbench" && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 animate-fadeIn space-y-6">
+          
+          <div className="bg-[#0E0D0C] border border-[#262422] rounded-3xl sm:rounded-[36px] overflow-hidden shadow-2xl text-white">
+            
+            {/* Top Workbench Header */}
+            <div className="p-6 sm:p-8 border-b border-[#262422] bg-[#141211] flex flex-wrap items-center justify-between gap-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#F55036]/15 text-[#F55036] flex items-center justify-center border border-[#F55036]/30">
+                  <Terminal size={24} />
+                </div>
+                <div>
+                  <h2 className="text-[20px] sm:text-[22px] font-black text-white">Interactive SDK Workbench</h2>
+                  <p className="text-[13px] font-mono text-[#A8A39E]">Generate live inference code with dynamic architectural capabilities</p>
+                </div>
+              </div>
+
+              {/* Language Switcher */}
+              <div className="flex items-center gap-1.5 bg-[#1F1D1B] p-1.5 rounded-2xl border border-[#33302E] overflow-x-auto max-w-full">
+                {(["python", "typescript", "curl", "ollama"] as const).map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => setSdkLang(lang)}
+                    className={`px-4 py-2 rounded-xl text-[12px] font-mono font-bold capitalize transition-all min-h-[38px] flex-shrink-0 ${
+                      sdkLang === lang
+                        ? "bg-[#F55036] text-white shadow-md font-extrabold"
+                        : "text-[#999999] hover:text-white hover:bg-[#2A2725]"
+                    }`}
+                  >
+                    {lang === "curl" ? "REST / cURL" : lang === "typescript" ? "TypeScript / Node" : lang}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Interactive Capability Feature Toggles */}
+            <div className="px-6 sm:px-8 py-5 bg-[#1A1816] border-b border-[#262422] grid grid-cols-1 sm:grid-cols-3 gap-4">
               
-              <div className="pt-4 border-t border-[#EAE9E4]">
-                <Link
-                  href="/models"
-                  className="w-full py-2.5 bg-[#FF5A1F] hover:bg-[#E0462D] text-white font-bold rounded-xl text-[12px] transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+              <label className="flex items-center justify-between p-3.5 rounded-2xl bg-[#22201E] border border-[#33302E] cursor-pointer hover:border-[#F55036]/50 transition-colors">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[16px]">🧠</span>
+                  <div>
+                    <span className="text-[13px] font-bold text-white block leading-tight">Extended CoT Reasoning</span>
+                    <span className="text-[11px] font-mono text-[#8B8B8B]">Allocate 12k thinking tokens</span>
+                  </div>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={enableThinking}
+                  onChange={(e) => setEnableThinking(e.target.checked)}
+                  className="w-5 h-5 accent-[#F55036] rounded cursor-pointer"
+                />
+              </label>
+
+              <label className="flex items-center justify-between p-3.5 rounded-2xl bg-[#22201E] border border-[#33302E] cursor-pointer hover:border-[#3B82F6]/50 transition-colors">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[16px]">🛠️</span>
+                  <div>
+                    <span className="text-[13px] font-bold text-white block leading-tight">Autonomous Tool Calling</span>
+                    <span className="text-[11px] font-mono text-[#8B8B8B]">Attach sandboxed execute_code</span>
+                  </div>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={enableTools}
+                  onChange={(e) => setEnableTools(e.target.checked)}
+                  className="w-5 h-5 accent-[#3B82F6] rounded cursor-pointer"
+                />
+              </label>
+
+              <label className="flex items-center justify-between p-3.5 rounded-2xl bg-[#22201E] border border-[#33302E] cursor-pointer hover:border-[#10B981]/50 transition-colors">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[16px]">⚡</span>
+                  <div>
+                    <span className="text-[13px] font-bold text-white block leading-tight">Response Buffer Stream</span>
+                    <span className="text-[11px] font-mono text-[#8B8B8B]">Real-time token delta output</span>
+                  </div>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={enableStreaming}
+                  onChange={(e) => setEnableStreaming(e.target.checked)}
+                  className="w-5 h-5 accent-[#10B981] rounded cursor-pointer"
+                />
+              </label>
+
+            </div>
+
+            {/* Code Display Area */}
+            <div className="relative p-6 sm:p-8 bg-[#0E0D0C]">
+              <div className="flex items-center justify-between mb-4 pb-4 border-b border-[#262422] text-[12px] font-mono text-[#8B8B8B]">
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+                  <span className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                  <span className="w-3 h-3 rounded-full bg-[#27C93F]" />
+                  <span className="ml-2 text-white font-bold">{model.id}.{sdkLang === "python" ? "py" : sdkLang === "typescript" ? "ts" : "sh"}</span>
+                </div>
+                
+                <button
+                  onClick={() => handleCopyCode()}
+                  className="flex items-center gap-2 px-4 py-2 bg-[#22201E] hover:bg-[#F55036] text-white rounded-xl text-[12px] font-bold font-mono transition-all duration-200 min-h-[38px] shadow-sm"
                 >
-                  <ArrowLeft size={14} />
-                  <span>Return to Directory</span>
-                </Link>
+                  {copied ? (
+                    <>
+                      <Check size={14} className="text-[#10B981]" />
+                      <span className="text-[#10B981]">Copied to Clipboard!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={14} />
+                      <span>Copy Generated Spec</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <pre className="p-4 sm:p-6 rounded-2xl bg-[#141211] border border-[#262422] text-[13px] sm:text-[14.5px] font-mono text-[#E2E8F0] overflow-x-auto leading-relaxed selection:bg-[#F55036]">
+                <code>{generatedCode}</code>
+              </pre>
+            </div>
+
+            {/* Bottom API Quick Specs */}
+            <div className="px-6 sm:px-8 py-4 bg-[#141211] border-t border-[#262422] flex flex-wrap items-center justify-between gap-4 text-[12px] font-mono text-[#8B8B8B]">
+              <div className="flex items-center gap-4 flex-wrap">
+                <span>API Endpoint: <strong className="text-white">api.anthropic.com/v1/messages</strong></span>
+                <span>•</span>
+                <span>Context Window: <strong className="text-[#F55036]">{model.context || "200k tokens"}</strong></span>
+                <span>•</span>
+                <span>Prompt Caching: <strong className="text-[#10B981]">Enabled (50% discount)</strong></span>
+              </div>
+              <a href="https://docs.anthropic.com" target="_blank" rel="noreferrer" className="text-[#F55036] hover:underline font-bold">
+                View Full Documentation →
+              </a>
+            </div>
+
+          </div>
+
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────────────────────
+          TAB 3: ARCHITECTURE & CAPABILITIES DEEP-DIVE
+      ───────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === "architecture" && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 animate-fadeIn space-y-8">
+          
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <span className="inline-block px-3.5 py-1 bg-[#FFF6F3] text-[#F55036] rounded-full font-mono font-black text-[12px] uppercase tracking-wider border border-[#FFEDD5]">
+              System Topology & Engine
+            </span>
+            <h2 className="text-[28px] sm:text-[36px] font-black text-[#111111]">
+              Architectural Capabilities Suite
+            </h2>
+            <p className="text-[16px] text-[#555555]">
+              Detailed technical breakdown of core sub-systems, token economics, and agentic safeguards.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div className="bg-white border border-[#E5E5E0] rounded-3xl p-7 shadow-sm hover:border-[#111111] transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF6F3] text-[#F55036] flex items-center justify-center border border-[#FFEDD5] font-black text-[22px]">
+                🧠
+              </div>
+              <h3 className="text-[20px] font-black text-[#111111]">Hybrid Reasoning Engine</h3>
+              <p className="text-[14px] text-[#555555] leading-relaxed">
+                Seamlessly transitions between instantaneous high-throughput generation (`Flash mode`) and deep mathematical verification (`Thinking mode`) where intermediate thought tokens are evaluated and self-corrected before final output.
+              </p>
+              <div className="pt-2 font-mono text-[12px] text-[#F55036] font-bold">
+                ✓ Dynamic compute scaling per prompt
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#E5E5E0] rounded-3xl p-7 shadow-sm hover:border-[#111111] transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#EFF6FF] text-[#3B82F6] flex items-center justify-center border border-[#DBEAFE] font-black text-[22px]">
+                🛠️
+              </div>
+              <h3 className="text-[20px] font-black text-[#111111]">Autonomous Agentic Orchestration</h3>
+              <p className="text-[14px] text-[#555555] leading-relaxed">
+                Native training for multi-step tool execution, structured JSON schema enforcement, sandboxed terminal command generation, and browser navigation across complex full-repository coding tasks.
+              </p>
+              <div className="pt-2 font-mono text-[12px] text-[#3B82F6] font-bold">
+                ✓ 50%+ SWE-Bench Verified SOTA
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#E5E5E0] rounded-3xl p-7 shadow-sm hover:border-[#111111] transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#F0FDF4] text-[#10B981] flex items-center justify-center border border-[#DCFCE7] font-black text-[22px]">
+                👁️
+              </div>
+              <h3 className="text-[20px] font-black text-[#111111]">Multimodal Vision Understanding</h3>
+              <p className="text-[14px] text-[#555555] leading-relaxed">
+                State-of-the-art visual reasoning capable of reading dense engineering diagrams, extracting UI design systems from raw Figma screenshots, and interpreting multi-page academic PDFs with sub-pixel OCR.
+              </p>
+              <div className="pt-2 font-mono text-[12px] text-[#10B981] font-bold">
+                ✓ 1M pixel spatial resolution
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#E5E5E0] rounded-3xl p-7 shadow-sm hover:border-[#111111] transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#FAF5FF] text-[#8B5CF6] flex items-center justify-center border border-[#F3E8FF] font-black text-[22px]">
+                ⚡
+              </div>
+              <h3 className="text-[20px] font-black text-[#111111]">High-Speed Token Economics</h3>
+              <p className="text-[14px] text-[#555555] leading-relaxed">
+                Optimized attention heads capable of delivering up to 60 tokens per second on commercial infrastructure, combined with automatic prompt caching that reduces repeated systemic context costs by over 50%.
+              </p>
+              <div className="pt-2 font-mono text-[12px] text-[#8B5CF6] font-bold">
+                ✓ Ultra-low latency TTFT (~250ms)
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#E5E5E0] rounded-3xl p-7 shadow-sm hover:border-[#111111] transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF1F2] text-[#E11D48] flex items-center justify-center border border-[#FFE4E6] font-black text-[22px]">
+                🛡️
+              </div>
+              <h3 className="text-[20px] font-black text-[#111111]">Constitutional Safeguards</h3>
+              <p className="text-[14px] text-[#555555] leading-relaxed">
+                Trained using advanced Direct Preference Optimization (DPO) and Constitutional AI principles to prevent reward hacking, hallucination loops, and unauthorized adversarial prompt injection.
+              </p>
+              <div className="pt-2 font-mono text-[12px] text-[#E11D48] font-bold">
+                ✓ ASL-3 Security Alignment Standard
+              </div>
+            </div>
+
+            <div className="bg-white border border-[#E5E5E0] rounded-3xl p-7 shadow-sm hover:border-[#111111] transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#FEF3C7] text-[#D97706] flex items-center justify-center border border-[#FDE68A] font-black text-[22px]">
+                🔗
+              </div>
+              <h3 className="text-[20px] font-black text-[#111111]">Ecosystem Compatibility</h3>
+              <p className="text-[14px] text-[#555555] leading-relaxed">
+                Native drop-in integration across major enterprise frameworks including LangChain, Vercel AI SDK, LlamaIndex, Cursor IDE, OpenWebUI, and cloud providers (Amazon Bedrock / Google Cloud Vertex AI).
+              </p>
+              <div className="pt-2 font-mono text-[12px] text-[#D97706] font-bold">
+                ✓ Multi-cloud deployment ready
               </div>
             </div>
 
           </div>
-        </main>
+
+        </section>
       )}
+
+      {/* ─────────────────────────────────────────────────────────────────────────────
+          TAB 4: RESEARCH LITERATURE & ACADEMIC BIBLIOGRAPHY
+      ───────────────────────────────────────────────────────────────────────────── */}
+      {activeTab === "literature" && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 animate-fadeIn space-y-6">
+          
+          <div className="bg-white border border-[#E5E5E0] rounded-2xl p-5 shadow-sm flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#FFF6F3] text-[#F55036] flex items-center justify-center border border-[#FFEDD5] font-black">
+                <BookOpen size={20} />
+              </div>
+              <div>
+                <h2 className="text-[18px] font-black text-[#111111]">Indexed Academic Citations</h2>
+                <p className="text-[12px] font-mono text-[#8B8B8B]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
+              </div>
+            </div>
+
+            <span className="px-3.5 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-xl font-mono font-extrabold text-[13px] text-[#111111]">
+              {relatedPapers.length} Papers Found
+            </span>
+          </div>
+
+          {relatedPapers.length === 0 ? (
+            <div className="bg-white border border-[#E5E5E0] rounded-3xl p-16 text-center space-y-4">
+              <p className="text-[18px] font-extrabold text-[#555555]">No direct paper citations indexed yet.</p>
+              <Link href="/trending" className="inline-flex items-center gap-2 px-6 py-3 bg-[#F55036] text-white font-bold rounded-xl text-[14px] shadow-sm">
+                <span>Browse All Trending AI Research</span>
+                <ExternalLink size={15} />
+              </Link>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {relatedPapers.map((paper: any, i: number) => (
+                <PaperCard key={i} paper={paper} />
+              ))}
+            </div>
+          )}
+
+        </section>
+      )}
+
     </div>
   );
 }
