@@ -4,9 +4,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
-import Sidebar from "@/components/Sidebar";
-import PaperCard from "@/components/PaperCard";
-import { topicData } from "@/data/topicData";
 
 const TOP_MODELS_BOXES = [
   {
@@ -118,10 +115,8 @@ const RESEARCH_DOMAINS = [
 
 export default function ModelsPage() {
   const [allModels, setAllModels] = useState<ModelItem[]>([]);
-  const [selectedFilter, setSelectedFilter] = useState<string>("All Models & Architectures");
   const [selectedVendor, setSelectedVendor] = useState<string | null>(null);
   const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
   const [inspectedModel, setInspectedModel] = useState<ModelItem | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -138,82 +133,6 @@ export default function ModelsPage() {
       setAllModels(data);
     });
   }, []);
-
-  // Gather core foundation model, attention, scaling, alignment, and architecture papers
-  const modelPapers = useMemo(() => {
-    const modelTopics = [
-      "language-modeling",
-      "transformer",
-      "lora",
-      "rlhf",
-      "dpo",
-      "world-models",
-      "text-generation",
-      "image-generation",
-      "video-generation"
-    ];
-
-    const collected: any[] = [];
-    const seen = new Set<string>();
-
-    modelTopics.forEach((key) => {
-      const topicObj = topicData[key];
-      if (topicObj && topicObj.papers) {
-        topicObj.papers.forEach((p: any) => {
-          if (p && p.title && !seen.has(p.title)) {
-            // Strictly exclude papers whose primary topic is agent autonomy or browser agents
-            const titleLower = p.title.toLowerCase();
-            const abstractLower = (p.abstract || "").toLowerCase();
-            if (!titleLower.includes("agent") && !titleLower.includes("autogpt") && !titleLower.includes("chatdev")) {
-              seen.add(p.title);
-              collected.push(p);
-            }
-          }
-        });
-      }
-    });
-
-    return collected.filter((paper: any) => {
-      const q = search.toLowerCase();
-      const title = (paper.title || "").toLowerCase();
-      const abstract = (paper.abstract || "").toLowerCase();
-
-      // Check search filter
-      if (q && !title.includes(q) && !abstract.includes(q)) {
-        return false;
-      }
-
-      // Check tab filter
-      if (selectedFilter === "Transformers & Attention") {
-        return title.includes("attention") || title.includes("transformer") || abstract.includes("attention");
-      }
-      if (selectedFilter === "Post-Training & RLHF") {
-        return title.includes("rlhf") || title.includes("feedback") || title.includes("preference") || title.includes("dpo") || abstract.includes("reward");
-      }
-      if (selectedFilter === "Efficient Adaptation (LoRA)") {
-        return title.includes("lora") || title.includes("adaptation") || title.includes("parameter-efficient") || abstract.includes("low-rank");
-      }
-      if (selectedFilter === "World & Multimodal Models") {
-        return title.includes("world model") || title.includes("image") || title.includes("video") || title.includes("diffusion") || abstract.includes("multimodal");
-      }
-
-      return true;
-    });
-  }, [search, selectedFilter]);
-
-  const scrollToFeed = () => {
-    const el = document.getElementById("models-feed-section");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleBoxClick = (name: string) => {
-    const found = allModels.find((m) => m.name.toLowerCase().includes(name.toLowerCase()));
-    if (found) {
-      setInspectedModel(found);
-    } else {
-      scrollToFeed();
-    }
-  };
 
   const handleCopyQuickstart = () => {
     if (inspectedModel?.quickstart) {
@@ -392,70 +311,6 @@ export default function ModelsPage() {
               </div>
             </Link>
           ))}
-        </div>
-
-        {/* Explore All Button */}
-        <div className="topic-explore-container">
-          <button onClick={scrollToFeed} className="topic-explore-btn">
-            Explore model architecture papers & scaling research <span style={{ marginLeft: "4px", fontSize: "14px" }}>→</span>
-          </button>
-        </div>
-      </div>
-
-      {/* ── 2-COLUMN DISCOVERY FEED ROW BELOW HERO (Specific to Models topic) ── */}
-      <div id="models-feed-section" className="discovery-feed-row" style={{ marginTop: "24px", paddingBottom: "60px" }}>
-        <div className="discovery-sidebar-col">
-          <Sidebar />
-        </div>
-
-        <div className="discovery-main-col">
-          {/* Models Topic Filter Tabs */}
-          <div className="time-filters flex flex-wrap items-center justify-between gap-4" style={{ marginBottom: "16px", borderBottom: "1px solid var(--border)", paddingBottom: "0" }}>
-            <div className="flex items-center gap-1 flex-wrap">
-              {["All Models & Architectures", "Transformers & Attention", "Post-Training & RLHF", "Efficient Adaptation (LoRA)", "World & Multimodal Models"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setSelectedFilter(tab)}
-                  className={`time-filter ${selectedFilter === tab ? "active" : ""}`}
-                  style={{
-                    borderBottom: selectedFilter === tab ? "2px solid var(--brand-orange)" : "none",
-                    fontWeight: selectedFilter === tab ? "700" : "600",
-                    color: selectedFilter === tab ? "var(--text-dark)" : "var(--text-light)",
-                    padding: "10px 14px"
-                  }}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative w-full sm:w-[240px] mb-2 sm:mb-0">
-              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8B8B8B]" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search architecture papers..."
-                className="ds-input w-full pl-8 pr-3 h-8 text-[12px] font-medium"
-              />
-            </div>
-          </div>
-
-          {/* Spacious Research Papers List Feed for Models */}
-          <div className="paper-list">
-            {modelPapers.length === 0 ? (
-              <div className="bg-white border border-[#E5E5E0] rounded-[14px] p-12 text-center">
-                <p className="text-[15px] font-bold text-[#555555]">No model research papers found matching your filter</p>
-                <button onClick={() => { setSearch(""); setSelectedFilter("All Models & Architectures"); }} className="ds-button mt-4 text-[12px]">
-                  Reset Filters
-                </button>
-              </div>
-            ) : (
-              modelPapers.map((paper: any, i: number) => (
-                <PaperCard key={i} paper={paper} />
-              ))
-            )}
-          </div>
         </div>
       </div>
 
