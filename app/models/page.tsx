@@ -276,9 +276,6 @@ function ModelsContent() {
               <span className="models-vendor-count">{v.count}</span>
             </button>
           ))}
-          <span className="text-xs font-semibold text-[#8B8B8B] ml-1 italic">
-            + 247 smaller vendors (291 models)
-          </span>
         </div>
 
         <div className="models-section-title-strip">
