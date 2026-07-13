@@ -336,7 +336,7 @@ function ModelsContent() {
 
             {/* Top model styled cleanly without a bulky box */}
             {topModelForSelection && (
-              <div className="mb-8 pb-6 border-b border-[#EAE9E4] bg-[#F8F7F2]/60 p-6 rounded-2xl border border-[#EAE9E4]/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="mb-8 pb-6 border-b border-[#EAE9E4] bg-[#F8F7F2]/60 p-6 rounded-[2px] border border-[#EAE9E4]/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 bg-[#FFF6F3] text-[#FF5A1F] rounded border border-[#FFEDD5] font-extrabold">
@@ -360,7 +360,7 @@ function ModelsContent() {
                 </div>
                 <Link
                   href={`/models/${topModelForSelection.id}`}
-                  className="px-5 py-2.5 bg-[#111111] hover:bg-[#333333] text-white rounded-xl font-bold text-[13px] transition-colors flex items-center gap-2 self-start sm:self-center shrink-0 shadow-sm no-underline"
+                  className="px-5 py-2.5 bg-[#111111] hover:bg-[#333333] text-white rounded-[2px] font-bold text-[13px] transition-colors flex items-center gap-2 self-start sm:self-center shrink-0 shadow-sm no-underline"
                 >
                   <span>Open Profile</span>
                   <ExternalLink size={14} />
@@ -369,7 +369,7 @@ function ModelsContent() {
             )}
 
             {filteredCatalogModels.length === 0 ? (
-              <div className="py-14 text-center bg-[#F8F7F2] rounded-xl border border-dashed border-[#EAE9E4]">
+              <div className="py-14 text-center bg-[#F8F7F2] rounded-[2px] border border-dashed border-[#EAE9E4]">
                 <p className="text-[15px] font-bold text-[#555555]">No deep evaluation records found for {selectedVendor || selectedDomain} in our current offline snapshot.</p>
                 <button
                   onClick={() => {
@@ -449,7 +449,7 @@ function ModelsContent() {
                 {inspectedModel.desc}
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 bg-[#F8F7F2] p-4 rounded-2xl border border-[#EAE9E4] text-[12px]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 bg-[#F8F7F2] p-4 rounded-[2px] border border-[#EAE9E4] text-[12px]">
                 <div>
                   <span className="text-[10px] font-extrabold uppercase text-[#8B8B8B] block mb-1">Architecture</span>
                   <span className="font-extrabold text-[#111111]">{inspectedModel.params || "Dense"}</span>
@@ -474,7 +474,7 @@ function ModelsContent() {
                     <Trophy size={16} className="text-[#FF5A1F]" />
                     <span>Verified Academic Benchmarks</span>
                   </h3>
-                  <div className="bg-[#F8F7F2] rounded-2xl p-4 border border-[#EAE9E4] space-y-3.5">
+                  <div className="bg-[#F8F7F2] rounded-[2px] p-4 border border-[#EAE9E4] space-y-3.5">
                     {inspectedModel.benchmarks.map((bm, i) => (
                       <div key={i}>
                         <div className="flex items-center justify-between text-[13px] font-bold mb-1">
@@ -502,7 +502,7 @@ function ModelsContent() {
                     </span>
                     <button
                       onClick={handleCopyQuickstart}
-                      className="flex items-center gap-1 text-[12px] font-bold px-3 py-1 bg-[#F3F4F6] hover:bg-[#E5E7EB] rounded-lg transition-colors"
+                      className="flex items-center gap-1 text-[12px] font-bold px-3 py-1 bg-[#F3F4F6] hover:bg-[#E5E7EB] rounded-[2px] transition-colors"
                     >
                       {copied ? (
                         <>
@@ -517,7 +517,7 @@ function ModelsContent() {
                       )}
                     </button>
                   </div>
-                  <pre className="bg-[#111111] text-[#F8F7F2] p-4 rounded-2xl text-[12px] font-mono overflow-x-auto border border-[#333333] leading-relaxed">
+                  <pre className="bg-[#111111] text-[#F8F7F2] p-4 rounded-[2px] text-[12px] font-mono overflow-x-auto border border-[#333333] leading-relaxed">
                     <code>{inspectedModel.quickstart}</code>
                   </pre>
                 </div>

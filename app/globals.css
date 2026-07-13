@@ -670,7 +670,7 @@ footer.site-footer-bar {
 .models-area-card {
   background: #ffffff;
   border: 1px solid #E5E5E0;
-  border-radius: 18px;
+  border-radius: 2px;
   padding: 18px 20px;
   cursor: pointer;
   text-align: left;
@@ -756,7 +756,7 @@ footer.site-footer-bar {
   margin-bottom: 64px;
   background: #ffffff;
   border: 1px solid #E5E5E0;
-  border-radius: 20px;
+  border-radius: 2px;
   padding: 32px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
 }
@@ -863,7 +863,7 @@ footer.site-footer-bar {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 6px 14px;
-  border-radius: 8px;
+  border-radius: 2px;
   background: #F8F7F2;
   color: #111111;
   border: 1px solid #E5E5E0;
@@ -916,7 +916,7 @@ footer.site-footer-bar {
 .benchmark-card {
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 14px;
+  border-radius: 2px;
   padding: 12px 14px;
   display: flex;
   flex-direction: column;
@@ -1538,7 +1538,7 @@ footer.site-footer-bar {
 .model-spec-pod {
   background: #F8F7F2;
   padding: 16px 18px;
-  border-radius: 16px;
+  border-radius: 2px;
   border: 1px solid #EAE9E4;
   transition: all 0.25s ease;
 }
