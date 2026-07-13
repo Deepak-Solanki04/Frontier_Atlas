@@ -729,6 +729,32 @@ footer.site-footer-bar {
   color: #D9381E;
 }
 
+/* ── MODELS DIRECTORY PAGE FREE SCROLLING CONTAINER ── */
+.models-directory-container {
+  width: 100%;
+  max-width: 1360px;
+  min-height: 100vh;
+  height: auto !important;
+  max-height: none !important;
+  margin: 0 auto;
+  padding: 24px 36px 80px;
+  display: flex;
+  flex-direction: column;
+  overflow: visible !important;
+}
+.models-directory-container .benchmark-card {
+  height: auto !important;
+  min-height: 180px;
+  aspect-ratio: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+.models-directory-container .topic-benchmarks-grid {
+  gap: 16px;
+  margin-bottom: 40px;
+  align-content: start;
+}
+
 .topic-benchmarks-header {
   display: flex;
   align-items: center;

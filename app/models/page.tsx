@@ -153,8 +153,8 @@ export default function ModelsPage() {
 
   return (
     <div className="unified-page-wrapper topic-page-wrapper">
-      {/* ── TOP 100VH HERO SECTION ── */}
-      <div className="topic-hero-container">
+      {/* ── TOP HERO DIRECTORY SECTION (FREE SCROLLING) ── */}
+      <div className="models-directory-container">
         {/* Breadcrumbs */}
         <div className="topic-breadcrumbs">
           {breadcrumbs.map((b, idx) => (
