@@ -21,6 +21,8 @@ export interface ModelItem {
   paperCount: number;
   benchmarks: BenchmarkScore[];
   quickstart?: string;
+  family?: string;
+  category?: string;
 }
 
 const mockModels: ModelItem[] = [
@@ -577,12 +579,326 @@ const mockModels: ModelItem[] = [
       { name: "MMLU-Pro", score: "86.2%", value: 86.2, max: 100, color: "#10B981" },
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI(api_key="YOUR_KEY", base_url="https://api.x.ai/v1")\nres = client.chat.completions.create(model="grok-2-1212", messages=[{"role": "user", "content": "Write a Rust web server."}])`
+  },
+  {
+    id: "gpt-5",
+    name: "GPT-5",
+    org: "OpenAI",
+    desc: "Next-generation omni-reasoning flagship model combining breakthrough agentic execution, self-correction, and universal tool mastery.",
+    params: "MoE Ultra Scale",
+    context: "500k tokens",
+    releaseDate: "Expected 2025",
+    license: "Proprietary",
+    elo: 1410,
+    tags: ["General Purpose", "Reasoning", "Agents"],
+    area: "Reasoning",
+    paperCount: 510,
+    benchmarks: [
+      { name: "MMLU-Pro", score: "93.8%", value: 93.8, max: 100, color: "#10B981" },
+      { name: "SWE-bench Verified", score: "68.5%", value: 68.5, max: 100, color: "#F55036" }
+    ],
+    quickstart: `from openai import OpenAI\n\nclient = OpenAI()\nres = client.chat.completions.create(model="gpt-5", messages=[{"role": "user", "content": "Architect a distributed consensus engine."}])`,
+    family: "GPT",
+    category: "General Purpose"
+  },
+  {
+    id: "claude-opus-5",
+    name: "Claude Opus 5",
+    org: "Anthropic",
+    desc: "Apex frontier reasoning and constitutional safety model capable of deep academic synthesis, complex proof generation, and long-horizon planning.",
+    params: "Dense / MoE Scale",
+    context: "500k tokens",
+    releaseDate: "Expected 2025",
+    license: "Proprietary",
+    elo: 1405,
+    tags: ["Reasoning", "Agents", "Long Context"],
+    area: "Reasoning",
+    paperCount: 480,
+    benchmarks: [
+      { name: "GPQA Diamond", score: "84.2%", value: 84.2, max: 100, color: "#10B981" },
+      { name: "MATH-500", score: "98.1%", value: 98.1, max: 100, color: "#3B82F6" }
+    ],
+    quickstart: `import anthropic\n\nclient = anthropic.Anthropic()\nres = client.messages.create(model="claude-5-opus-2025", max_tokens=4096, messages=[{"role": "user", "content": "Synthesize a formal mathematical proof."}])`,
+    family: "Claude",
+    category: "Reasoning"
+  },
+  {
+    id: "claude-sonnet-5",
+    name: "Claude Sonnet 5",
+    org: "Anthropic",
+    desc: "High-throughput agentic workhorse model optimized for autonomous coding workflows, browser computer use, and rapid iterative development.",
+    params: "Dense / MoE",
+    context: "200k tokens",
+    releaseDate: "Expected 2025",
+    license: "Proprietary",
+    elo: 1395,
+    tags: ["Coding", "Agents", "Tool Use"],
+    area: "Agentic Coding",
+    paperCount: 440,
+    benchmarks: [
+      { name: "SWE-bench Verified", score: "65.4%", value: 65.4, max: 100, color: "#F55036" },
+      { name: "MMLU", score: "91.0%", value: 91.0, max: 100, color: "#10B981" }
+    ],
+    quickstart: `import anthropic\n\nclient = anthropic.Anthropic()\nres = client.messages.create(model="claude-5-sonnet-2025", max_tokens=2048, messages=[{"role": "user", "content": "Refactor and verify unit tests."}])`,
+    family: "Claude",
+    category: "Coding"
+  },
+  {
+    id: "gemini-2-5-pro",
+    name: "Gemini 2.5 Pro",
+    org: "Google DeepMind",
+    desc: "Next-tier multimodal foundation model with native 2M+ token context, real-time video understanding, and multi-agent task planning.",
+    params: "Dense / MoE Scale",
+    context: "2M tokens",
+    releaseDate: "Expected 2025",
+    license: "Proprietary",
+    elo: 1390,
+    tags: ["Multimodal", "Long Context", "Video"],
+    area: "Multimodal AI",
+    paperCount: 420,
+    benchmarks: [
+      { name: "MMMU (Vision)", score: "74.8%", value: 74.8, max: 100, color: "#8B5CF6" },
+      { name: "Needle In A Haystack 2M", score: "100%", value: 100, max: 100, color: "#10B981" }
+    ],
+    quickstart: `from google import genai\n\nclient = genai.Client()\nres = client.models.generate_content(model="gemini-2.5-pro", contents="Analyze this multi-hour video stream.")`,
+    family: "Gemini",
+    category: "Multimodal"
+  },
+  {
+    id: "gemini-2-5-flash",
+    name: "Gemini 2.5 Flash",
+    org: "Google DeepMind",
+    desc: "Ultra-low-latency multimodal workhorse designed for instantaneous tool calling, streaming voice interactions, and embedded agentic deployment.",
+    params: "Efficient MoE",
+    context: "1M tokens",
+    releaseDate: "Expected 2025",
+    license: "Proprietary",
+    elo: 1375,
+    tags: ["Fast", "Multimodal", "Tool Use"],
+    area: "Multimodal AI",
+    paperCount: 390,
+    benchmarks: [
+      { name: "MMLU", score: "88.9%", value: 88.9, max: 100, color: "#10B981" }
+    ],
+    quickstart: `from google import genai\n\nclient = genai.Client()\nres = client.models.generate_content(model="gemini-2.5-flash", contents="Execute fast function call orchestration.")`,
+    family: "Gemini",
+    category: "General Purpose"
+  },
+  {
+    id: "qwen3",
+    name: "Qwen3",
+    org: "Qwen",
+    desc: "Alibaba's next flagship open-weights multilingual and reasoning foundation model family with state-of-the-art coding and math accuracy.",
+    params: "Dense & MoE Scale",
+    context: "256k tokens",
+    releaseDate: "Expected 2025",
+    license: "Apache 2.0",
+    elo: 1385,
+    tags: ["Open Source", "Reasoning", "Multilingual"],
+    area: "Reasoning",
+    paperCount: 350,
+    benchmarks: [
+      { name: "AIME Math", score: "84.0%", value: 84.0, max: 100, color: "#3B82F6" }
+    ],
+    quickstart: `from transformers import AutoModelForCausalLM\nmodel = AutoModelForCausalLM.from_pretrained("Qwen/Qwen3-72B-Instruct", device_map="auto")`,
+    family: "Qwen",
+    category: "Reasoning"
+  },
+  {
+    id: "llama-4",
+    name: "Llama 4",
+    org: "Meta AI",
+    desc: "Meta's next-generation open foundation model trained across multimodal text, vision, and audio with extreme compute efficiency.",
+    params: "400B+ MoE",
+    context: "256k tokens",
+    releaseDate: "Expected 2025",
+    license: "Llama Community",
+    elo: 1388,
+    tags: ["Open Source", "Multimodal", "General Purpose"],
+    area: "Large Language Models",
+    paperCount: 460,
+    benchmarks: [
+      { name: "MMLU-Pro", score: "90.2%", value: 90.2, max: 100, color: "#10B981" }
+    ],
+    quickstart: `# Run locally with vLLM\npython -m vllm.entrypoints.openai.api_server --model meta-llama/Llama-4-Instruct`,
+    family: "Llama",
+    category: "General Purpose"
+  },
+  {
+    id: "kimi-k2",
+    name: "Kimi K2",
+    org: "Moonshot AI",
+    desc: "Long-context specialist model from Moonshot AI offering deep document understanding across 2M+ Chinese and English tokens.",
+    params: "MoE Scale",
+    context: "2M tokens",
+    releaseDate: "2025",
+    license: "Proprietary",
+    elo: 1360,
+    tags: ["Long Context", "Document AI", "Search"],
+    area: "Document AI",
+    paperCount: 210,
+    benchmarks: [
+      { name: "Long-Context Needle", score: "99.9%", value: 99.9, max: 100, color: "#10B981" }
+    ],
+    quickstart: `from openai import OpenAI\nclient = OpenAI(base_url="https://api.moonshot.cn/v1", api_key="YOUR_KEY")\nres = client.chat.completions.create(model="kimi-k2", messages=[{"role": "user", "content": "Analyze document stack."}])`,
+    family: "Moonshot",
+    category: "Document AI"
+  },
+  {
+    id: "glm-4-5",
+    name: "GLM-4.5",
+    org: "Zhipu AI",
+    desc: "Flagship bilingual reasoning and agentic model excelling in complex tool orchestration, coding, and mathematical reasoning.",
+    params: "Large MoE",
+    context: "128k tokens",
+    releaseDate: "2025",
+    license: "Proprietary",
+    elo: 1365,
+    tags: ["Function Calling", "Reasoning", "Agents"],
+    area: "Agentic AI",
+    paperCount: 220,
+    benchmarks: [
+      { name: "MATH-500", score: "92.4%", value: 92.4, max: 100, color: "#3B82F6" }
+    ],
+    quickstart: `from zhipuai import ZhipuAI\nclient = ZhipuAI(api_key="YOUR_KEY")\nres = client.chat.completions.create(model="glm-4.5", messages=[{"role": "user", "content": "Solve optimization problem."}])`,
+    family: "GLM",
+    category: "Agents"
+  },
+  {
+    id: "mistral-medium-2",
+    name: "Mistral Medium",
+    org: "Mistral AI",
+    desc: "Balanced enterprise model delivering fast instruction following, structured data extraction, and multilingual generation.",
+    params: "Dense",
+    context: "128k tokens",
+    releaseDate: "2024",
+    license: "Commercial",
+    elo: 1340,
+    tags: ["General Purpose", "Instruction Following", "Fast"],
+    area: "Large Language Models",
+    paperCount: 180,
+    benchmarks: [
+      { name: "MMLU", score: "86.1%", value: 86.1, max: 100, color: "#10B981" }
+    ],
+    quickstart: `from mistralai import Mistral\nclient = Mistral(api_key="YOUR_KEY")\nres = client.chat.complete(model="mistral-medium-latest", messages=[{"role": "user", "content": "Summarize brief."}])`,
+    family: "Mistral",
+    category: "Instruction Following"
+  },
+  {
+    id: "grok-4",
+    name: "Grok 4",
+    org: "xAI",
+    desc: "Massive-scale foundation model integrated with real-time global search, deep mathematical logic, and coding auto-verification.",
+    params: "High-scale MoE",
+    context: "256k tokens",
+    releaseDate: "Expected 2025",
+    license: "Proprietary",
+    elo: 1395,
+    tags: ["Reasoning", "Search", "Coding"],
+    area: "Reasoning",
+    paperCount: 260,
+    benchmarks: [
+      { name: "AIME Math", score: "86.5%", value: 86.5, max: 100, color: "#F55036" }
+    ],
+    quickstart: `curl -X POST https://api.x.ai/v1/chat/completions -H "Authorization: Bearer $KEY" -d '{"model": "grok-4", "messages": [{"role": "user", "content": "Simulate quantum circuit."}]}'`,
+    family: "Grok",
+    category: "Reasoning"
+  },
+  {
+    id: "gemma-3",
+    name: "Gemma 3",
+    org: "Google DeepMind",
+    desc: "Lightweight state-of-the-art open models built from Gemini research, delivering unmatched single-GPU reasoning and instruction following.",
+    params: "27B / 9B / 2B",
+    context: "128k tokens",
+    releaseDate: "2025",
+    license: "Gemma Terms",
+    elo: 1342,
+    tags: ["Open Source", "Small Language Models", "General Purpose"],
+    area: "Large Language Models",
+    paperCount: 310,
+    benchmarks: [
+      { name: "MMLU", score: "85.2%", value: 85.2, max: 100, color: "#10B981" }
+    ],
+    quickstart: `from transformers import AutoModelForCausalLM\nmodel = AutoModelForCausalLM.from_pretrained("google/gemma-3-27b-it", device_map="auto")`,
+    family: "Gemma",
+    category: "General Purpose"
+  },
+  {
+    id: "molmo",
+    name: "Molmo",
+    org: "Allen Institute for AI",
+    desc: "Open-weight vision-language model trained purely on open curated datasets, matching proprietary vision-language leaders on zero-shot VQA.",
+    params: "72B / 7B",
+    context: "Vision / Text",
+    releaseDate: "September 2024",
+    license: "Apache 2.0",
+    elo: 1338,
+    tags: ["Computer Vision", "Multimodal", "Open Source"],
+    area: "Computer Vision",
+    paperCount: 195,
+    benchmarks: [
+      { name: "PixMo VQA", score: "84.5%", value: 84.5, max: 100, color: "#8B5CF6" }
+    ],
+    quickstart: `from transformers import AutoModelForCausalLM\nmodel = AutoModelForCausalLM.from_pretrained("allenai/Molmo-72B-0924", trust_remote_code=True, device_map="auto")`,
+    family: "Molmo",
+    category: "Computer Vision"
   }
 ];
 
+function enrichModelItem(m: ModelItem): ModelItem {
+  let fam = m.family;
+  if (!fam) {
+    const n = m.name.toLowerCase();
+    if (n.includes("gpt") || n.includes("o1") || n.includes("o3")) fam = "GPT";
+    else if (n.includes("claude")) fam = "Claude";
+    else if (n.includes("gemini") || n.includes("rt-")) fam = "Gemini";
+    else if (n.includes("llama")) fam = "Llama";
+    else if (n.includes("qwen")) fam = "Qwen";
+    else if (n.includes("deepseek")) fam = "DeepSeek";
+    else if (n.includes("mistral") || n.includes("mixtral") || n.includes("pixtral")) fam = "Mistral";
+    else if (n.includes("gemma")) fam = "Gemma";
+    else if (n.includes("phi")) fam = "Phi";
+    else if (n.includes("grok")) fam = "Grok";
+    else if (n.includes("flux")) fam = "FLUX";
+    else if (n.includes("whisper")) fam = "Whisper";
+    else if (n.includes("sam")) fam = "SAM";
+    else if (n.includes("molmo")) fam = "Molmo";
+    else if (n.includes("glm")) fam = "GLM";
+    else fam = "Foundation";
+  }
+
+  let cat = m.category;
+  if (!cat) {
+    const n = m.name.toLowerCase();
+    const a = (m.area || "").toLowerCase();
+    const t = m.tags.join(" ").toLowerCase();
+    if (t.includes("vision") || a.includes("vision") || n.includes("sam") || n.includes("flux") || n.includes("diffusion") || n.includes("molmo")) {
+      if (t.includes("image gen") || n.includes("flux") || n.includes("diffusion")) cat = "Image Generation";
+      else cat = "Computer Vision";
+    } else if (a.includes("audio") || t.includes("speech") || n.includes("whisper")) {
+      cat = "Speech";
+    } else if (a.includes("coding") || t.includes("coding") || n.includes("coder")) {
+      cat = "Coding";
+    } else if (a.includes("reasoning") || t.includes("reasoning") || n.includes("r1") || n.includes("o1") || n.includes("o3")) {
+      cat = "Reasoning";
+    } else if (a.includes("multimodal") || t.includes("multimodal")) {
+      cat = "Multimodal";
+    } else if (t.includes("agents") || a.includes("agent")) {
+      cat = "Agents";
+    } else if (t.includes("small language")) {
+      cat = "General Purpose";
+    } else {
+      cat = "General Purpose";
+    }
+  }
+
+  return { ...m, family: fam, category: cat };
+}
+
 export async function getModels(): Promise<ModelItem[]> {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(mockModels), 100);
+    setTimeout(() => resolve(mockModels.map(enrichModelItem)), 50);
   });
 }
 
@@ -592,9 +908,10 @@ export function getAllModelIds(): string[] {
 
 export function getModelById(id: string): ModelItem | undefined {
   const cleanId = id.toLowerCase().trim();
-  return mockModels.find(
+  const found = mockModels.find(
     (m) =>
       m.id.toLowerCase() === cleanId ||
       m.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") === cleanId
   );
+  return found ? enrichModelItem(found) : undefined;
 }
