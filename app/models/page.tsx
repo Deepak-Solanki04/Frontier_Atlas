@@ -792,24 +792,24 @@ function ModelsContent() {
                     <tr key={model.id} onClick={() => setInspectedModel(model)}>
                       <td className="col-idx">{(idx + 1).toString().padStart(3, "0")}</td>
                       <td className="col-name">
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                          <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block", flexShrink: 0 }}></span>
+                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block", flexShrink: 0 }}></span>
                           <span>{model.name}</span>
                         </div>
                       </td>
                       <td style={{ fontWeight: 700, color: "#555555" }}>{model.org}</td>
                       <td style={{ fontWeight: 800, color: "#111111" }}>
-                        <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "12px" }}>{model.family || "Foundation"}</span>
+                        <span style={{ padding: "2px 6px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "10.5px" }}>{model.family || "Foundation"}</span>
                       </td>
                       <td style={{ color: "#555555", fontWeight: 700 }}>{model.category || "General Purpose"}</td>
-                      <td style={{ fontFamily: "monospace", fontSize: "12.5px", color: "#333333" }}>{model.params || "Dense / MoE"}</td>
-                      <td style={{ fontFamily: "monospace", fontSize: "12.5px", color: "#111111", fontWeight: 700 }}>{model.context || "128k tokens"}</td>
-                      <td style={{ color: "#555555", fontSize: "12.5px", fontWeight: 600 }}>{model.license || "Proprietary"}</td>
-                      <td style={{ textAlign: "right", fontWeight: 900, color: "#FF5A1F", fontFamily: "monospace" }}>
+                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#333333" }}>{model.params || "Dense / MoE"}</td>
+                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 700 }}>{model.context || "128k tokens"}</td>
+                      <td style={{ color: "#555555", fontSize: "11px", fontWeight: 600 }}>{model.license || "Proprietary"}</td>
+                      <td style={{ textAlign: "right", fontWeight: 900, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px" }}>
                         {model.elo ? `⚡ ${model.elo} Elo` : `${model.benchmarks?.length || 3} verified`}
                       </td>
-                      <td style={{ color: "#555555", fontWeight: 700 }}>{model.paperCount || 150} papers</td>
-                      <td style={{ fontFamily: "monospace", fontSize: "12px", color: "#777777" }}>{model.releaseDate || "2024-2025"}</td>
+                      <td style={{ color: "#555555", fontWeight: 700, fontSize: "11px" }}>{model.paperCount || 150} papers</td>
+                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#777777" }}>{model.releaseDate || "2024-2025"}</td>
                       <td className="col-action">
                         <button className="models-inspect-btn" style={{ borderRadius: "2px" }}>Inspect &rarr;</button>
                       </td>
