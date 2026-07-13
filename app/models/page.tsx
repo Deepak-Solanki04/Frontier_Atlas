@@ -120,26 +120,78 @@ function ModelsContent() {
   const vendorParam = searchParams?.get("vendor") || null;
   const domainParam = searchParams?.get("domain") || null;
 
+  const [allModels, setAllModels] = useState<ModelItem[]>([]);
+  const [selectedVendor, setSelectedVendor] = useState<string | null>(vendorParam);
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(domainParam);
   const [inspectedModel, setInspectedModel] = useState<ModelItem | null>(null);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (vendorParam) {
-      router.replace(`/models/vendor/${encodeURIComponent(vendorParam)}`);
-    } else if (domainParam) {
-      router.replace(`/models/domain/${encodeURIComponent(domainParam)}`);
-    }
-  }, [vendorParam, domainParam, router]);
+    setSelectedVendor(vendorParam);
+    setSelectedDomain(domainParam);
+  }, [vendorParam, domainParam]);
+
+  useEffect(() => {
+    getModels().then((data) => {
+      setAllModels(data);
+    });
+  }, []);
 
   const handleVendorClick = (vName: string | null) => {
-    if (!vName) return;
-    router.push(`/models/vendor/${encodeURIComponent(vName)}`);
+    if (!vName || selectedVendor === vName) {
+      setSelectedVendor(null);
+      setSelectedDomain(null);
+      router.push("/models", { scroll: false });
+    } else {
+      setSelectedVendor(vName);
+      setSelectedDomain(null);
+      router.push(`/models?vendor=${encodeURIComponent(vName)}`, { scroll: false });
+    }
   };
 
   const handleDomainClick = (dId: string | null) => {
-    if (!dId) return;
-    router.push(`/models/domain/${encodeURIComponent(dId)}`);
+    if (!dId || selectedDomain === dId) {
+      setSelectedDomain(null);
+      setSelectedVendor(null);
+      router.push("/models", { scroll: false });
+    } else {
+      setSelectedDomain(dId);
+      setSelectedVendor(null);
+      router.push(`/models?domain=${encodeURIComponent(dId)}`, { scroll: false });
+    }
   };
+
+  const filteredCatalogModels = useMemo(() => {
+    if (!selectedVendor && !selectedDomain) return [];
+    return allModels.filter(m => {
+      if (selectedVendor) {
+        const vLower = selectedVendor.toLowerCase();
+        const orgLower = m.org.toLowerCase();
+        return orgLower.includes(vLower) || vLower.includes(orgLower);
+      }
+      if (selectedDomain) {
+        const dLower = selectedDomain.toLowerCase();
+        const areaLower = m.area.toLowerCase();
+        return areaLower.includes(dLower) || dLower.includes(areaLower) || (m.tags && m.tags.some(t => t.toLowerCase().includes(dLower)));
+      }
+      return true;
+    });
+  }, [allModels, selectedVendor, selectedDomain]);
+
+  const topModelForSelection = useMemo(() => {
+    if (!selectedVendor && !selectedDomain) return null;
+    return TOP_MODELS_BOXES.find(card => {
+      if (selectedVendor) {
+        const subLower = card.sub.toLowerCase();
+        const vLower = selectedVendor.toLowerCase();
+        return subLower.includes(vLower) || vLower.includes(subLower);
+      }
+      if (selectedDomain) {
+        return card.domain === selectedDomain;
+      }
+      return false;
+    }) || null;
+  }, [selectedVendor, selectedDomain]);
 
   const handleCopyQuickstart = () => {
     if (inspectedModel?.quickstart) {
@@ -208,8 +260,8 @@ function ModelsContent() {
 
         <div className="models-vendor-strip">
           <button
-            onClick={() => {}}
-            className="models-vendor-pill active"
+            onClick={() => handleVendorClick(null)}
+            className={`models-vendor-pill ${selectedVendor === null ? "active" : ""}`}
           >
             <span>All Vendors</span>
             <span className="models-vendor-count">1,357</span>
@@ -218,7 +270,7 @@ function ModelsContent() {
             <button
               key={v.id}
               onClick={() => handleVendorClick(v.id)}
-              className="models-vendor-pill"
+              className={`models-vendor-pill ${selectedVendor === v.id ? "active" : ""}`}
             >
               <span>{v.name}</span>
               <span className="models-vendor-count">{v.count}</span>
@@ -241,7 +293,7 @@ function ModelsContent() {
             <div
               key={d.id}
               onClick={() => handleDomainClick(d.id)}
-              className="models-area-card cursor-pointer hover:border-[#111111] transition-colors"
+              className={`models-area-card cursor-pointer hover:border-[#111111] transition-colors ${selectedDomain === d.id ? "active" : ""}`}
             >
               <div>
                 <div className="models-area-code">{d.code}</div>
@@ -256,6 +308,124 @@ function ModelsContent() {
             </div>
           ))}
         </div>
+
+        {(selectedVendor || selectedDomain) && (
+          <div className="models-catalog-section">
+            <div className="models-catalog-header">
+              <div className="models-catalog-title-box">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 bg-[#FFF6F3] text-[#FF5A1F] rounded border border-[#FFEDD5] font-extrabold">
+                    § 01 &middot; {selectedVendor ? `${selectedVendor} Complete Index` : `${RESEARCH_DOMAINS.find(d => d.id === selectedDomain)?.name || selectedDomain} Domain Index`}
+                  </span>
+                  <span className="text-[12px] font-mono text-[#8B8B8B]">
+                    verified benchmarks snapshot
+                  </span>
+                </div>
+                <h2>
+                  {filteredCatalogModels.length} models from {selectedVendor || RESEARCH_DOMAINS.find(d => d.id === selectedDomain)?.name} &middot; <span className="font-medium text-[#555555]">Every model, measured.</span>
+                </h2>
+              </div>
+              <button
+                onClick={() => {
+                  setSelectedVendor(null);
+                  setSelectedDomain(null);
+                  router.push("/models", { scroll: false });
+                }}
+                className="topic-explore-btn text-[#111111] border-[#E5E5E0] hover:border-[#111111]"
+              >
+                Reset Filter / All Areas &rarr;
+              </button>
+            </div>
+
+            {/* Top model styled cleanly without a bulky box */}
+            {topModelForSelection && (
+              <div className="mb-8 pb-6 border-b border-[#EAE9E4] bg-[#F8F7F2]/60 p-6 rounded-2xl border border-[#EAE9E4]/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 bg-[#FFF6F3] text-[#FF5A1F] rounded border border-[#FFEDD5] font-extrabold">
+                      ⚡ SOTA Leader &middot; {topModelForSelection.sub}
+                    </span>
+                    <span className="text-[12px] font-mono text-[#666666] font-bold">
+                      Rank #{topModelForSelection.rank} across verified benchmarks
+                    </span>
+                  </div>
+                  <div className="flex items-baseline gap-3.5 flex-wrap">
+                    <h3 className="text-[24px] font-black text-[#111111] tracking-tight">
+                      {topModelForSelection.name}
+                    </h3>
+                    <span className="text-[14.5px] font-extrabold text-[#FF5A1F]">
+                      Score: {topModelForSelection.score}
+                    </span>
+                  </div>
+                  <p className="text-[14px] text-[#555555] font-medium mt-1.5 max-w-3xl leading-relaxed">
+                    {topModelForSelection.desc}
+                  </p>
+                </div>
+                <Link
+                  href={`/models/${topModelForSelection.id}`}
+                  className="px-5 py-2.5 bg-[#111111] hover:bg-[#333333] text-white rounded-xl font-bold text-[13px] transition-colors flex items-center gap-2 self-start sm:self-center shrink-0 shadow-sm no-underline"
+                >
+                  <span>Open Profile</span>
+                  <ExternalLink size={14} />
+                </Link>
+              </div>
+            )}
+
+            {filteredCatalogModels.length === 0 ? (
+              <div className="py-14 text-center bg-[#F8F7F2] rounded-xl border border-dashed border-[#EAE9E4]">
+                <p className="text-[15px] font-bold text-[#555555]">No deep evaluation records found for {selectedVendor || selectedDomain} in our current offline snapshot.</p>
+                <button
+                  onClick={() => {
+                    setSelectedVendor(null);
+                    setSelectedDomain(null);
+                    router.push("/models", { scroll: false });
+                  }}
+                  className="mt-3 text-[13px] font-extrabold text-[#FF5A1F] hover:underline cursor-pointer"
+                >
+                  Browse All Foundation Models &rarr;
+                </button>
+              </div>
+            ) : (
+              <div className="models-catalog-table-wrapper">
+                <table className="models-data-table">
+                  <thead>
+                    <tr>
+                      <th className="w-[50px]">#</th>
+                      <th>Model</th>
+                      <th>Vendor</th>
+                      <th>Parameters</th>
+                      <th>Architecture</th>
+                      <th style={{ textAlign: "right" }}>SOTA / Elo</th>
+                      <th style={{ textAlign: "right" }}>Benchmarks</th>
+                      <th style={{ textAlign: "right" }}>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredCatalogModels.map((model, idx) => (
+                      <tr key={model.id} onClick={() => setInspectedModel(model)}>
+                        <td className="col-idx">{(idx + 1).toString().padStart(3, "0")}</td>
+                        <td className="col-name">
+                          <div className="flex items-center gap-2.5">
+                            <span className="w-2 h-2 rounded-full bg-[#FF5A1F] inline-block shrink-0"></span>
+                            <span>{model.name}</span>
+                          </div>
+                        </td>
+                        <td style={{ fontWeight: 700, color: "#555555" }}>{model.org}</td>
+                        <td style={{ fontFamily: "monospace", fontSize: "12.5px", color: "#333333" }}>{model.params || "Dense / MoE"}</td>
+                        <td style={{ color: "#555555", fontWeight: 600 }}>{model.area}</td>
+                        <td className="col-sota">{model.elo ? `⚡ ${model.elo}` : "SOTA Tier"}</td>
+                        <td style={{ textAlign: "right", fontWeight: 800, color: "#111111" }}>{model.benchmarks?.length || 3} verified</td>
+                        <td className="col-action">
+                          <button className="models-inspect-btn">Inspect &rarr;</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {inspectedModel && (
         <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/40 backdrop-blur-sm">
