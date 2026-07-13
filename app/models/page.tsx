@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
 
@@ -113,26 +114,77 @@ const RESEARCH_DOMAINS = [
   { id: "medical", name: "Medical & Biomedical AI", code: "medical", models: 50, evals: "83 results", leader: "Stanford / Research" }
 ];
 
-export default function ModelsPage() {
+function ModelsContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const vendorParam = searchParams?.get("vendor") || null;
+  const domainParam = searchParams?.get("domain") || null;
+
   const [allModels, setAllModels] = useState<ModelItem[]>([]);
-  const [selectedVendor, setSelectedVendor] = useState<string | null>(null);
-  const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
+  const [selectedVendor, setSelectedVendor] = useState<string | null>(vendorParam);
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(domainParam);
   const [inspectedModel, setInspectedModel] = useState<ModelItem | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const filteredTopBoxes = useMemo(() => {
-    return TOP_MODELS_BOXES.filter(card => {
-      if (selectedVendor && card.sub !== selectedVendor) return false;
-      if (selectedDomain && card.domain !== selectedDomain) return false;
-      return true;
-    });
-  }, [selectedVendor, selectedDomain]);
+  useEffect(() => {
+    setSelectedVendor(vendorParam);
+    setSelectedDomain(domainParam);
+  }, [vendorParam, domainParam]);
 
   useEffect(() => {
     getModels().then((data) => {
       setAllModels(data);
     });
   }, []);
+
+  const handleVendorClick = (vName: string | null) => {
+    if (!vName) {
+      setSelectedVendor(null);
+      setSelectedDomain(null);
+      router.push("/models", { scroll: false });
+    } else {
+      setSelectedVendor(vName);
+      setSelectedDomain(null);
+      router.push(`/models?vendor=${encodeURIComponent(vName)}`, { scroll: false });
+    }
+  };
+
+  const handleDomainClick = (dId: string | null) => {
+    if (!dId) {
+      setSelectedDomain(null);
+      setSelectedVendor(null);
+      router.push("/models", { scroll: false });
+    } else {
+      setSelectedDomain(dId);
+      setSelectedVendor(null);
+      router.push(`/models?domain=${encodeURIComponent(dId)}`, { scroll: false });
+    }
+  };
+
+  const filteredTopBoxes = useMemo(() => {
+    return TOP_MODELS_BOXES.filter(card => {
+      if (selectedVendor && !card.sub.toLowerCase().includes(selectedVendor.toLowerCase()) && !selectedVendor.toLowerCase().includes(card.sub.toLowerCase())) return false;
+      if (selectedDomain && card.domain !== selectedDomain) return false;
+      return true;
+    });
+  }, [selectedVendor, selectedDomain]);
+
+  const filteredCatalogModels = useMemo(() => {
+    if (!selectedVendor && !selectedDomain) return [];
+    return allModels.filter(m => {
+      if (selectedVendor) {
+        const vLower = selectedVendor.toLowerCase();
+        const orgLower = m.org.toLowerCase();
+        return orgLower.includes(vLower) || vLower.includes(orgLower);
+      }
+      if (selectedDomain) {
+        const dLower = selectedDomain.toLowerCase();
+        const areaLower = m.area.toLowerCase();
+        return areaLower.includes(dLower) || dLower.includes(areaLower) || (m.tags && m.tags.some(t => t.toLowerCase().includes(dLower)));
+      }
+      return true;
+    });
+  }, [allModels, selectedVendor, selectedDomain]);
 
   const handleCopyQuickstart = () => {
     if (inspectedModel?.quickstart) {
@@ -149,13 +201,10 @@ export default function ModelsPage() {
     { count: "1,357", label: "Benchmark Evals", orange: false },
     { count: "12", label: "Leading Vendors", orange: false },
   ];
-  const relatedDomains = ["Transformers", "Language Modeling", "RLHF & DPO", "LoRA Adaptation", "World Models", "Multimodal Scaling"];
 
   return (
     <div className="unified-page-wrapper topic-page-wrapper">
-      {/* ── TOP HERO DIRECTORY SECTION (FREE SCROLLING) ── */}
       <div className="models-directory-container">
-        {/* Breadcrumbs */}
         <div className="topic-breadcrumbs">
           {breadcrumbs.map((b, idx) => (
             <React.Fragment key={idx}>
@@ -165,7 +214,6 @@ export default function ModelsPage() {
           ))}
         </div>
 
-        {/* Badge Header */}
         <div className="topic-badge-row">
           <span className="topic-task-icon">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
@@ -179,15 +227,12 @@ export default function ModelsPage() {
           <span className="topic-badge-label">FOUNDATION DIRECTORY</span>
         </div>
 
-        {/* Title */}
         <h1 className="topic-hero-title">Models</h1>
 
-        {/* Description */}
         <p className="topic-hero-desc">
           Explore state-of-the-art foundation models evaluated across verified academic benchmarks, reasoning tasks, and real-world agentic workflows.
         </p>
 
-        {/* Stats Row */}
         <div className="topic-stats-row">
           {stats.map((s, i) => (
             <div key={i} className="topic-stat-item">
@@ -197,16 +242,14 @@ export default function ModelsPage() {
           ))}
         </div>
 
-        {/* Divider */}
         <hr className="topic-hero-divider" />
 
-        {/* ── SECTION 1: VENDORS INDEX STRIP ── */}
         <div className="models-section-title-strip">
           <div className="models-section-heading">
             <span>Vendor Index</span>
             {(selectedVendor || selectedDomain) && (
               <button 
-                onClick={() => { setSelectedVendor(null); setSelectedDomain(null); }}
+                onClick={() => handleVendorClick(null)}
                 className="text-xs font-bold text-[#F55036] hover:underline bg-[#FFF6F3] px-2.5 py-1 rounded-full border border-[#FFEDD5] ml-2 cursor-pointer"
               >
                 Reset Filters ✕
@@ -218,7 +261,7 @@ export default function ModelsPage() {
 
         <div className="models-vendor-strip">
           <button
-            onClick={() => setSelectedVendor(null)}
+            onClick={() => handleVendorClick(null)}
             className={`models-vendor-pill ${selectedVendor === null ? "active" : ""}`}
           >
             <span>All Vendors</span>
@@ -227,7 +270,7 @@ export default function ModelsPage() {
           {ALL_VENDORS.map((v) => (
             <button
               key={v.id}
-              onClick={() => setSelectedVendor(selectedVendor === v.id ? null : v.id)}
+              onClick={() => handleVendorClick(selectedVendor === v.id ? null : v.id)}
               className={`models-vendor-pill ${selectedVendor === v.id ? "active" : ""}`}
             >
               <span>{v.name}</span>
@@ -239,7 +282,6 @@ export default function ModelsPage() {
           </span>
         </div>
 
-        {/* ── SECTION 2: RESEARCH AREAS & MODALITIES GRID ── */}
         <div className="models-section-title-strip">
           <div className="models-section-heading">
             <span>Research Areas &amp; Modalities</span>
@@ -251,8 +293,8 @@ export default function ModelsPage() {
           {RESEARCH_DOMAINS.map((d) => (
             <div
               key={d.id}
-              onClick={() => setSelectedDomain(selectedDomain === d.id ? null : d.id)}
-              className={`models-area-card ${selectedDomain === d.id ? "active" : ""}`}
+              onClick={() => handleDomainClick(selectedDomain === d.id ? null : d.id)}
+              className={`models-area-card cursor-pointer ${selectedDomain === d.id ? "active" : ""}`}
             >
               <div>
                 <div className="models-area-code">{d.code}</div>
@@ -268,11 +310,10 @@ export default function ModelsPage() {
           ))}
         </div>
 
-        {/* Benchmarks Header */}
         <div className="topic-benchmarks-header">
           <h2 className="topic-benchmarks-title">
             {selectedVendor || selectedDomain 
-              ? `Top Evaluated Foundation Models (${selectedVendor ? selectedVendor + " " : ""}${selectedDomain ? selectedDomain : ""})` 
+              ? `Top Evaluated Foundation Models (${selectedVendor ? selectedVendor + " " : ""}${selectedDomain ? RESEARCH_DOMAINS.find(d => d.id === selectedDomain)?.name || selectedDomain : ""})` 
               : "Top Evaluated Foundation Models"}
           </h2>
           <span className="topic-benchmarks-badge">
@@ -280,7 +321,6 @@ export default function ModelsPage() {
           </span>
         </div>
 
-        {/* Grid of Model Boxes */}
         <div className="topic-benchmarks-grid">
           {(filteredTopBoxes.length > 0 ? filteredTopBoxes : TOP_MODELS_BOXES).map((card, i) => (
             <Link
@@ -312,9 +352,97 @@ export default function ModelsPage() {
             </Link>
           ))}
         </div>
+
+        {(selectedVendor || selectedDomain) && (
+          <div className="models-catalog-section mt-10 mb-16 bg-white border border-[#E5E5E0] rounded-[18px] p-6 sm:p-10 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#EAE9E4] pb-5 mb-6 gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 bg-[#FFF6F3] text-[#FF5A1F] rounded border border-[#FFEDD5] font-extrabold">
+                    § 01 &middot; {selectedVendor ? `${selectedVendor} registry` : `${RESEARCH_DOMAINS.find(d => d.id === selectedDomain)?.name || selectedDomain} domain`}
+                  </span>
+                  <span className="text-[12px] font-mono text-[#8B8B8B]">
+                    page 1 of 1 &middot; verified evaluations
+                  </span>
+                </div>
+                <h2 className="text-[28px] sm:text-[34px] font-black text-[#111111] tracking-tight leading-tight">
+                  {filteredCatalogModels.length} models from {selectedVendor || RESEARCH_DOMAINS.find(d => d.id === selectedDomain)?.name} &middot; <span className="font-medium text-[#555555]">Every model, measured.</span>
+                </h2>
+              </div>
+              <button
+                onClick={() => handleVendorClick(null)}
+                className="ds-button bg-[#F8F7F2] hover:bg-[#E5E5E0] text-[#111111] text-[12px] font-extrabold border border-[#E5E5E0] self-start sm:self-center shrink-0"
+              >
+                Reset Filter / All Areas &rarr;
+              </button>
+            </div>
+
+            {filteredCatalogModels.length === 0 ? (
+              <div className="py-12 text-center bg-[#F8F7F2] rounded-xl border border-dashed border-[#EAE9E4]">
+                <p className="text-[15px] font-bold text-[#555555]">No deep evaluation records found for {selectedVendor || selectedDomain} in our current offline snapshot.</p>
+                <button onClick={() => handleVendorClick(null)} className="mt-3 text-[13px] font-extrabold text-[#FF5A1F] hover:underline">
+                  Browse All Foundation Models &rarr;
+                </button>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse font-sans text-[13px]">
+                  <thead>
+                    <tr className="border-b border-[#EAE9E4] text-[11px] font-black uppercase text-[#8B8B8B] tracking-wider">
+                      <th className="py-3.5 px-3 w-[44px]">#</th>
+                      <th className="py-3.5 px-3">Model</th>
+                      <th className="py-3.5 px-3">Vendor</th>
+                      <th className="py-3.5 px-3">Parameters</th>
+                      <th className="py-3.5 px-3">Architecture</th>
+                      <th className="py-3.5 px-3 text-right">SOTA / Elo</th>
+                      <th className="py-3.5 px-3 text-right">Benchmarks</th>
+                      <th className="py-3.5 px-3 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#EAE9E4]/60 font-medium">
+                    {filteredCatalogModels.map((model, idx) => (
+                      <tr 
+                        key={model.id} 
+                        className="hover:bg-[#FFF8F6] transition-colors cursor-pointer group" 
+                        onClick={() => setInspectedModel(model)}
+                      >
+                        <td className="py-4 px-3 font-mono text-[#8B8B8B] text-[12px] font-bold">
+                          {(idx + 1).toString().padStart(3, '0')}
+                        </td>
+                        <td className="py-4 px-3 font-extrabold text-[#111111] group-hover:text-[#FF5A1F] transition-colors flex items-center gap-2.5">
+                          <span className="w-2 h-2 rounded-full bg-[#FF5A1F] inline-block shrink-0"></span>
+                          <span className="text-[14px]">{model.name}</span>
+                        </td>
+                        <td className="py-4 px-3 text-[#555555] font-bold">
+                          {model.org}
+                        </td>
+                        <td className="py-4 px-3 font-mono text-[12px] text-[#333333]">
+                          {model.params || "Dense / MoE"}
+                        </td>
+                        <td className="py-4 px-3 text-[#555555]">
+                          {model.area}
+                        </td>
+                        <td className="py-4 px-3 text-right font-black text-[#FF5A1F] text-[14px]">
+                          {model.elo ? `⚡ ${model.elo}` : "SOTA Tier"}
+                        </td>
+                        <td className="py-4 px-3 text-right font-extrabold text-[#111111]">
+                          {model.benchmarks?.length || 3} verified
+                        </td>
+                        <td className="py-4 px-3 text-right">
+                          <button className="text-[11px] font-black uppercase tracking-wide px-3 py-1.5 rounded-lg bg-[#F8F7F2] group-hover:bg-[#FF5A1F] group-hover:text-white text-[#111111] transition-all border border-[#E5E5E0] group-hover:border-[#FF5A1F]">
+                            Inspect &rarr;
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Slide-over Inspect Modal */}
       {inspectedModel && (
         <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/40 backdrop-blur-sm">
           <div className="bg-white w-full max-w-2xl h-full overflow-y-auto p-6 md:p-8 shadow-2xl flex flex-col justify-between border-l border-[#E5E5E0]">
@@ -440,5 +568,14 @@ export default function ModelsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+
+export default function ModelsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F8F7F2] flex items-center justify-center font-bold text-[#8B8B8B]">Loading Directory...</div>}>
+      <ModelsContent />
+    </Suspense>
   );
 }
