@@ -13,7 +13,7 @@ const TOP_MODELS_BOXES = [
     id: "claude-3-7-sonnet",
     rank: "1", rankBg: "#ffe4e6", rankColor: "#e11d48",
     iconBg: "#ff4d00",
-    name: "Claude 3.7 Sonnet", sub: "Anthropic",
+    name: "Claude 3.7 Sonnet", sub: "Anthropic", domain: "reasoning",
     desc: "First hybrid reasoning frontier model enabling instantaneous or extended chain-of-thought verification.",
     score: "62.3%"
   },
@@ -21,7 +21,7 @@ const TOP_MODELS_BOXES = [
     id: "gpt-4o",
     rank: "2", rankBg: "#f3e8ff", rankColor: "#9333ea",
     iconBg: "#a855f7",
-    name: "GPT-4o", sub: "OpenAI",
+    name: "GPT-4o", sub: "OpenAI", domain: "multimodal",
     desc: "Flagship omni multimodal foundation model reasoning seamlessly across audio, vision, and text.",
     score: "88.7%"
   },
@@ -29,7 +29,7 @@ const TOP_MODELS_BOXES = [
     id: "deepseek-r1",
     rank: "3", rankBg: "#ecfccb", rankColor: "#65a30d",
     iconBg: "#84cc16",
-    name: "DeepSeek R1", sub: "DeepSeek AI",
+    name: "DeepSeek R1", sub: "DeepSeek AI", domain: "reasoning",
     desc: "Breakthrough open reasoning model trained via large-scale RL directly eliciting long reasoning traces.",
     score: "79.8%"
   },
@@ -37,7 +37,7 @@ const TOP_MODELS_BOXES = [
     id: "gemini-2-0-flash",
     rank: "4", rankBg: "#dbeafe", rankColor: "#2563eb",
     iconBg: "#3b82f6",
-    name: "Gemini 2.0 Flash", sub: "Google DeepMind",
+    name: "Gemini 2.0 Flash", sub: "Google DeepMind", domain: "agentic",
     desc: "Next-generation agentic model delivering 2x speedup and native tool orchestration across 1M context.",
     score: "99.8%"
   },
@@ -45,7 +45,7 @@ const TOP_MODELS_BOXES = [
     id: "llama-3-3-70b",
     rank: "5", rankBg: "#ffedd5", rankColor: "#ea580c",
     iconBg: "#f97316",
-    name: "Llama 3.3 70B", sub: "Meta AI",
+    name: "Llama 3.3 70B", sub: "Meta AI", domain: "nlp",
     desc: "Open-weight instruction model matching Llama 3.1 405B performance on reasoning and code.",
     score: "93.8%"
   },
@@ -53,7 +53,7 @@ const TOP_MODELS_BOXES = [
     id: "qwen-2-5-max",
     rank: "6", rankBg: "#ccfbf1", rankColor: "#0d9488",
     iconBg: "#14b8a6",
-    name: "Qwen 2.5 Max", sub: "Alibaba Cloud",
+    name: "Qwen 2.5 Max", sub: "Alibaba Cloud", domain: "reasoning",
     desc: "Large-scale flagship MoE model surpassing top commercial APIs across math and coding benchmarks.",
     score: "94.5%"
   },
@@ -61,7 +61,7 @@ const TOP_MODELS_BOXES = [
     id: "grok-3",
     rank: "7", rankBg: "#fce7f3", rankColor: "#db2777",
     iconBg: "#f43f5e",
-    name: "Grok 3", sub: "xAI",
+    name: "Grok 3", sub: "xAI", domain: "nlp",
     desc: "Massive-scale foundation model trained on Colossus cluster featuring real-time knowledge indexing.",
     score: "73.4%"
   },
@@ -69,7 +69,7 @@ const TOP_MODELS_BOXES = [
     id: "qwen-2-5-coder-32b",
     rank: "8", rankBg: "#ffedd5", rankColor: "#ea580c",
     iconBg: "#ff6b00",
-    name: "Qwen 2.5 Coder", sub: "Alibaba Cloud",
+    name: "Qwen 2.5 Coder", sub: "Alibaba Cloud", domain: "computer-code",
     desc: "State-of-the-art open coding model achieving 50%+ on SWE-Bench Verified, rivaling closed models.",
     score: "51.4%"
   },
@@ -77,7 +77,7 @@ const TOP_MODELS_BOXES = [
     id: "mistral-large-2",
     rank: "9", rankBg: "#e0e7ff", rankColor: "#4f46e5",
     iconBg: "#6366f1",
-    name: "Mistral Large 2", sub: "Mistral AI",
+    name: "Mistral Large 2", sub: "Mistral AI", domain: "agentic",
     desc: "Advanced frontier model engineered for high-precision function calling and structured json generation.",
     score: "91.2%"
   },
@@ -85,18 +85,53 @@ const TOP_MODELS_BOXES = [
     id: "flux-1-schnell",
     rank: "10", rankBg: "#ede9fe", rankColor: "#7c3aed",
     iconBg: "#8b5cf6",
-    name: "FLUX.1 [schnell]", sub: "Black Forest Labs",
+    name: "FLUX.1 [schnell]", sub: "Black Forest Labs", domain: "computer-vision",
     desc: "Fast rectified flow transformer producing photorealistic images in 1 to 4 inference steps.",
     score: "94.1%"
   }
 ];
 
+const ALL_VENDORS = [
+  { id: "OpenAI", name: "OpenAI", count: 85 },
+  { id: "Google DeepMind", name: "Google DeepMind", count: 71 },
+  { id: "Anthropic", name: "Anthropic", count: 44 },
+  { id: "Alibaba Cloud", name: "Alibaba Cloud", count: 47 },
+  { id: "Meta AI", name: "Meta AI", count: 30 },
+  { id: "Mistral AI", name: "Mistral AI", count: 30 },
+  { id: "DeepSeek AI", name: "DeepSeek AI", count: 28 },
+  { id: "NVIDIA", name: "NVIDIA", count: 18 },
+  { id: "xAI", name: "xAI", count: 12 },
+  { id: "Cohere", name: "Cohere", count: 9 },
+  { id: "SpeakLeash", name: "SpeakLeash", count: 10 }
+];
+
+const RESEARCH_DOMAINS = [
+  { id: "nlp", name: "Natural Language & Chat", code: "nlp", models: 842, evals: "7,436 results", leader: "speakleash / Claude 3.7" },
+  { id: "computer-vision", name: "Computer Vision & OCR", code: "computer-vision", models: 896, evals: "2,328 results", leader: "SOTA / Gemini 2.0" },
+  { id: "computer-code", name: "Computer Code Generation", code: "computer-code", models: 152, evals: "297 results", leader: "Anthropic / Qwen" },
+  { id: "reasoning", name: "Reasoning & Math CoT", code: "reasoning", models: 151, evals: "415 results", leader: "OpenAI / DeepSeek" },
+  { id: "agentic", name: "Agentic AI & Tool Calling", code: "agentic", models: 164, evals: "225 results", leader: "OpenAI / Anthropic" },
+  { id: "speech", name: "Speech & Audio Synthesis", code: "speech", models: 104, evals: "532 results", leader: "NVIDIA / OpenAI" },
+  { id: "multimodal", name: "Omni Multimodal & Vision", code: "multimodal", models: 88, evals: "267 results", leader: "Alibaba / Google" },
+  { id: "medical", name: "Medical & Biomedical AI", code: "medical", models: 50, evals: "83 results", leader: "Stanford / Research" }
+];
+
 export default function ModelsPage() {
   const [allModels, setAllModels] = useState<ModelItem[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<string>("All Models & Architectures");
+  const [selectedVendor, setSelectedVendor] = useState<string | null>(null);
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [inspectedModel, setInspectedModel] = useState<ModelItem | null>(null);
   const [copied, setCopied] = useState(false);
+
+  const filteredTopBoxes = useMemo(() => {
+    return TOP_MODELS_BOXES.filter(card => {
+      if (selectedVendor && card.sub !== selectedVendor) return false;
+      if (selectedDomain && card.domain !== selectedDomain) return false;
+      return true;
+    });
+  }, [selectedVendor, selectedDomain]);
 
   useEffect(() => {
     getModels().then((data) => {
@@ -246,35 +281,89 @@ export default function ModelsPage() {
         {/* Divider */}
         <hr className="topic-hero-divider" />
 
-        {/* Related Domains */}
-        <div className="topic-related-row">
-          <span className="topic-related-label">CORE TOPICS</span>
-          <div className="topic-related-chips">
-            {relatedDomains.map((t, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setSelectedFilter("All Models & Architectures");
-                  setSearch(t.split(" ")[0]);
-                  scrollToFeed();
-                }}
-                className="topic-related-chip border-none cursor-pointer"
+        {/* ── SECTION 1: VENDORS INDEX STRIP ── */}
+        <div className="models-section-title-strip">
+          <div className="models-section-heading">
+            <span>Vendor Index</span>
+            {(selectedVendor || selectedDomain) && (
+              <button 
+                onClick={() => { setSelectedVendor(null); setSelectedDomain(null); }}
+                className="text-xs font-bold text-[#F55036] hover:underline bg-[#FFF6F3] px-2.5 py-1 rounded-full border border-[#FFEDD5] ml-2 cursor-pointer"
               >
-                {t}
+                Reset Filters ✕
               </button>
-            ))}
+            )}
           </div>
+          <span className="models-section-sub">Filter by foundation model creator</span>
+        </div>
+
+        <div className="models-vendor-strip">
+          <button
+            onClick={() => setSelectedVendor(null)}
+            className={`models-vendor-pill ${selectedVendor === null ? "active" : ""}`}
+          >
+            <span>All Vendors</span>
+            <span className="models-vendor-count">1,357</span>
+          </button>
+          {ALL_VENDORS.map((v) => (
+            <button
+              key={v.id}
+              onClick={() => setSelectedVendor(selectedVendor === v.id ? null : v.id)}
+              className={`models-vendor-pill ${selectedVendor === v.id ? "active" : ""}`}
+            >
+              <span>{v.name}</span>
+              <span className="models-vendor-count">{v.count}</span>
+            </button>
+          ))}
+          <span className="text-xs font-semibold text-[#8B8B8B] ml-1 italic">
+            + 247 smaller vendors (291 models)
+          </span>
+        </div>
+
+        {/* ── SECTION 2: RESEARCH AREAS & MODALITIES GRID ── */}
+        <div className="models-section-title-strip">
+          <div className="models-section-heading">
+            <span>Research Areas &amp; Modalities</span>
+          </div>
+          <span className="models-section-sub">8 core domains indexed across verified benchmarks</span>
+        </div>
+
+        <div className="models-areas-grid">
+          {RESEARCH_DOMAINS.map((d) => (
+            <div
+              key={d.id}
+              onClick={() => setSelectedDomain(selectedDomain === d.id ? null : d.id)}
+              className={`models-area-card ${selectedDomain === d.id ? "active" : ""}`}
+            >
+              <div>
+                <div className="models-area-code">{d.code}</div>
+                <div className="models-area-title">{d.name}</div>
+                <div className="models-area-stats">
+                  <span className="text-[#111111] font-extrabold">{d.models}</span> models &middot; <span className="text-[#111111] font-extrabold">{d.evals}</span>
+                </div>
+              </div>
+              <div className="models-area-leader">
+                led by <span className="font-bold">{d.leader}</span>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Benchmarks Header */}
         <div className="topic-benchmarks-header">
-          <h2 className="topic-benchmarks-title">Top Evaluated Foundation Models</h2>
-          <span className="topic-benchmarks-badge">10</span>
+          <h2 className="topic-benchmarks-title">
+            {selectedVendor || selectedDomain 
+              ? `Top Evaluated Foundation Models (${selectedVendor ? selectedVendor + " " : ""}${selectedDomain ? selectedDomain : ""})` 
+              : "Top Evaluated Foundation Models"}
+          </h2>
+          <span className="topic-benchmarks-badge">
+            {filteredTopBoxes.length > 0 ? filteredTopBoxes.length : TOP_MODELS_BOXES.length}
+          </span>
         </div>
 
-        {/* Grid of 10 Model Boxes */}
+        {/* Grid of Model Boxes */}
         <div className="topic-benchmarks-grid">
-          {TOP_MODELS_BOXES.map((card, i) => (
+          {(filteredTopBoxes.length > 0 ? filteredTopBoxes : TOP_MODELS_BOXES).map((card, i) => (
             <Link
               key={i}
               href={`/models/${card.id}`}
