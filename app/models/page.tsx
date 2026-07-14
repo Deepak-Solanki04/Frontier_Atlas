@@ -488,31 +488,7 @@ function ModelsContent() {
           </div>
         </div>
 
-        {/* 2. BROWSE BY CAPABILITY (Page 2) */}
-        <div className="models-block-section">
-          <div className="models-block-header">
-            <h2 className="models-block-title">
-              <Zap size={22} style={{ color: "#FF5A1F" }} />
-              <span>Browse by Capability</span>
-            </h2>
-            <span className="models-block-count">24 Capabilities</span>
-          </div>
-          <div className="models-capability-strip">
-            {BROWSE_BY_CAPABILITY.map((cap) => {
-              const isActive = selectedCapability === cap;
-              return (
-                <button
-                  key={cap}
-                  onClick={() => handleCapabilityClick(cap)}
-                  className={`models-capability-pill ${isActive ? "active" : ""}`}
-                >
-                  <span>{cap}</span>
-                  {isActive && <Check size={14} style={{ color: "#FF5A1F" }} />}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        {/* 2. BROWSE BY CAPABILITY (Removed for now per user request) */}
 
         {/* 3. BROWSE BY MODEL FAMILY (Page 2 & 3) */}
         <div className="models-block-section">
@@ -523,23 +499,33 @@ function ModelsContent() {
             </h2>
             <span className="models-block-count">20 Model Families</span>
           </div>
-          <div className="models-family-grid">
+          <div className="supabase-cards-grid">
             {BROWSE_BY_FAMILY.map((fam) => {
               const isActive = selectedFamily === fam.name;
               return (
-                <button
+                <div
                   key={fam.name}
                   onClick={() => handleFamilyClick(fam.name)}
-                  className={`models-family-card ${isActive ? "active" : ""}`}
+                  className={`models-area-card ${isActive ? "active" : ""}`}
                 >
-                  <div className="models-family-card-header">
-                    <span className="models-family-card-title">{fam.name}</span>
-                    <span className="models-family-card-count">{fam.count}</span>
+                  <div className="models-card-inner">
+                    <div className="models-card-avatar">
+                      <img alt={fam.org} src={getOrgLogo(fam.org)} />
+                    </div>
+                    <div className="models-card-text">
+                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
+                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#262626", color: isActive ? "#ffffff" : "#A1A1AA", fontSize: "10px" }}>
+                          {fam.count} Models
+                        </span>
+                        <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
+                      </div>
+                      <h3 className="models-card-title">{fam.name}</h3>
+                      <p className="models-card-desc">
+                        Foundation architecture family developed and maintained by <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>{fam.org}</strong>.
+                      </p>
+                    </div>
                   </div>
-                  <span style={{ fontSize: "12px", fontWeight: 700, color: isActive ? "#E0E0E0" : "#666666" }}>
-                    {fam.org}
-                  </span>
-                </button>
+                </div>
               );
             })}
           </div>
@@ -554,18 +540,33 @@ function ModelsContent() {
             </h2>
             <span className="models-block-count">20 Leading Labs</span>
           </div>
-          <div className="models-vendor-strip">
+          <div className="supabase-cards-grid">
             {BROWSE_BY_ORGANIZATION.map((v) => {
               const isActive = selectedVendor === v.name;
               return (
-                <button
+                <div
                   key={v.name}
                   onClick={() => handleVendorClick(v.name)}
-                  className={`models-vendor-pill ${isActive ? "active" : ""}`}
+                  className={`models-area-card ${isActive ? "active" : ""}`}
                 >
-                  <span>{v.name}</span>
-                  <span className="models-vendor-count">{v.count}</span>
-                </button>
+                  <div className="models-card-inner">
+                    <div className="models-card-avatar">
+                      <img alt={v.name} src={getOrgLogo(v.name)} />
+                    </div>
+                    <div className="models-card-text">
+                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
+                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#262626", color: isActive ? "#ffffff" : "#A1A1AA", fontSize: "10px" }}>
+                          {v.count} Models
+                        </span>
+                        <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
+                      </div>
+                      <h3 className="models-card-title">{v.name}</h3>
+                      <p className="models-card-desc">
+                        Explore all frontier AI models, weights, and APIs published by <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>{v.name}</strong>.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
