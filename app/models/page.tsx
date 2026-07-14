@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2 } from "lucide-react";
+import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
 
 const TOP_MODELS_BOXES = [
@@ -185,21 +185,21 @@ const RECENTLY_RELEASED = [
 ];
 
 const POPULAR_COLLECTIONS = [
-  { name: "Reasoning Models", count: "84 Models", icon: "🧠" },
-  { name: "Coding Models", count: "62 Models", icon: "💻" },
-  { name: "Vision Language Models", count: "75 Models", icon: "👁️" },
-  { name: "Open Source Models", count: "210 Models", icon: "🌐" },
-  { name: "Commercial Models", count: "145 Models", icon: "🏢" },
-  { name: "Long Context Models", count: "58 Models", icon: "📜" },
-  { name: "Small Language Models", count: "46 Models", icon: "⚡" },
-  { name: "Large Language Models", count: "340 Models", icon: "📚" },
-  { name: "Multimodal Models", count: "115 Models", icon: "🎭" },
-  { name: "Embedding Models", count: "38 Models", icon: "🔗" },
-  { name: "Speech Models", count: "42 Models", icon: "🎙️" },
-  { name: "OCR Models", count: "34 Models", icon: "📄" },
-  { name: "Image Generation Models", count: "55 Models", icon: "🎨" },
-  { name: "Video Generation Models", count: "28 Models", icon: "🎬" },
-  { name: "Agent Models", count: "68 Models", icon: "🤖" }
+  { name: "Reasoning Models", count: "84 Models", icon: <Brain size={20} /> },
+  { name: "Coding Models", count: "62 Models", icon: <Code2 size={20} /> },
+  { name: "Vision Language Models", count: "75 Models", icon: <Monitor size={20} /> },
+  { name: "Open Source Models", count: "210 Models", icon: <Globe size={20} /> },
+  { name: "Commercial Models", count: "145 Models", icon: <Building2 size={20} /> },
+  { name: "Long Context Models", count: "58 Models", icon: <FileText size={20} /> },
+  { name: "Small Language Models", count: "46 Models", icon: <Zap size={20} /> },
+  { name: "Large Language Models", count: "340 Models", icon: <Layers size={20} /> },
+  { name: "Multimodal Models", count: "115 Models", icon: <Cpu size={20} /> },
+  { name: "Embedding Models", count: "38 Models", icon: <LinkIcon size={20} /> },
+  { name: "Speech Models", count: "42 Models", icon: <Volume2 size={20} /> },
+  { name: "OCR Models", count: "34 Models", icon: <BookOpen size={20} /> },
+  { name: "Image Generation Models", count: "55 Models", icon: <ImageIcon size={20} /> },
+  { name: "Video Generation Models", count: "28 Models", icon: <Video size={20} /> },
+  { name: "Agent Models", count: "68 Models", icon: <Bot size={20} /> }
 ];
 
 function ModelsContent() {
@@ -371,7 +371,7 @@ function ModelsContent() {
                 Frontier Atlas Directory
               </span>
               <h1 className="models-hero-title">
-                AI Models
+                Models
               </h1>
               <p className="models-hero-desc">
                 Discover foundation models, language models, vision models, multimodal models, reasoning models, coding models, embedding models, and AI agents from leading research labs and organizations.
@@ -571,7 +571,9 @@ function ModelsContent() {
                     <span className="models-trending-rank">
                       #{idx + 1} Trending
                     </span>
-                    <span className="models-trending-elo">⚡ {m.elo}</span>
+                    <span className="models-trending-elo" style={{ display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                      <Zap size={13} /> {m.elo}
+                    </span>
                   </div>
                   <h3 className="models-trending-title">{m.name}</h3>
                   <div className="models-trending-sub">{m.org} &middot; {m.family}</div>
