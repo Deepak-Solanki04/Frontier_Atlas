@@ -1101,6 +1101,7 @@ footer.site-footer-bar {
 
 /* =========================================================
    SUPABASE INTEGRATIONS & MODEL CARDS EXACT SPECIFICATION
+   (Exact Supabase Dark Theme #1C1C1C surface, #2E2E2E border, #EDEDED title, #A1A1AA text)
    ========================================================= */
 .supabase-cards-grid,
 .models-trending-grid,
@@ -1134,11 +1135,11 @@ footer.site-footer-bar {
   justify-content: space-between !important;
   width: 100% !important;
   height: 100% !important;
-  background: var(--surface-100, #ffffff) !important;
-  border: 1px solid var(--border, #E5E5E0) !important;
+  background: #1C1C1C !important;
+  border: 1px solid #2E2E2E !important;
   border-radius: 12px !important;
   padding: 24px !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2) !important;
   transition: all 0.2s ease-out !important;
   cursor: pointer !important;
   text-decoration: none !important;
@@ -1147,9 +1148,9 @@ footer.site-footer-bar {
 .supabase-card:hover,
 .models-trending-card:hover,
 .models-area-card:hover {
-  background: var(--surface-200, #F8F8F8) !important;
-  border-color: #d1d1cf !important;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  background: #262626 !important;
+  border-color: #3E3E3E !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2) !important;
   transform: translateY(-2px) !important;
 }
 
@@ -1170,7 +1171,8 @@ footer.site-footer-bar {
   flex-shrink: 0 !important;
   border-radius: 9999px !important;
   overflow: hidden !important;
-  background: #F4F4F0 !important;
+  background: #262626 !important;
+  border: 1px solid #333333 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1205,7 +1207,7 @@ footer.site-footer-bar {
   line-height: 1.4 !important;
   font-weight: 600 !important;
   margin-bottom: 8px !important;
-  color: #71717A !important;
+  color: #EDEDED !important;
   transition: color 0.15s ease !important;
 }
 
@@ -1215,14 +1217,14 @@ footer.site-footer-bar {
 .models-trending-card:hover .models-card-title,
 .models-area-card:hover .supabase-card-title,
 .models-area-card:hover .models-card-title {
-  color: #111111 !important;
+  color: #FFFFFF !important;
 }
 
 .supabase-card-desc,
 .models-card-desc {
   font-size: 14px !important;
-  line-height: 1.45 !important;
-  color: #777777 !important;
+  line-height: 1.5 !important;
+  color: #A1A1AA !important;
   min-height: 80px !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 4 !important;
