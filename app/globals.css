@@ -1156,13 +1156,11 @@ footer.site-footer-bar {
 
 .models-catalog-table-wrapper {
   width: 100%;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden !important;
 }
 
 .models-data-table {
-  width: max-content;
-  min-width: 100%;
+  width: 100% !important;
   border-collapse: collapse;
   text-align: left;
   font-family: inherit;
@@ -1174,7 +1172,7 @@ footer.site-footer-bar {
 }
 
 .models-data-table th {
-  padding: 12px 14px;
+  padding: 10px 8px;
   font-size: 10.5px;
   font-weight: 900;
   text-transform: uppercase;
@@ -1195,7 +1193,7 @@ footer.site-footer-bar {
 }
 
 .models-data-table td {
-  padding: 12px 14px;
+  padding: 10px 8px;
   font-size: 11.5px;
   color: #333333;
   vertical-align: middle;
@@ -1203,19 +1201,36 @@ footer.site-footer-bar {
   white-space: nowrap;
 }
 
+.models-data-table th.col-idx,
 .models-data-table td.col-idx {
   font-family: monospace;
   font-size: 11px;
   font-weight: 700;
   color: #8B8B8B;
-  width: 32px;
+  width: 1% !important;
   white-space: nowrap;
 }
 
+.models-data-table th.col-name,
 .models-data-table td.col-name {
   font-weight: 800;
   color: #111111;
   font-size: 12px;
+  white-space: nowrap;
+  width: 1% !important;
+  padding-right: 14px !important;
+}
+
+.models-data-table th:nth-child(3),
+.models-data-table td:nth-child(3) {
+  width: 1% !important;
+  white-space: nowrap;
+  padding-right: 14px !important;
+}
+
+.models-data-table th:nth-child(4),
+.models-data-table td:nth-child(4) {
+  width: 1% !important;
   white-space: nowrap;
 }
 

@@ -775,8 +775,8 @@ function ModelsContent() {
               <table className="models-data-table">
                 <thead>
                   <tr>
-                    <th className="w-[45px]">#</th>
-                    <th>Model</th>
+                    <th className="col-idx">#</th>
+                    <th className="col-name">Model</th>
                     <th>Organization</th>
                     <th>Model Family</th>
                     <th>Category</th>
