@@ -245,10 +245,13 @@ function getOrgLogo(orgOrLeader: string): string {
     return "https://www.google.com/s2/favicons?domain=openai.com&sz=128";
   }
   if (lower.includes("anthropic") || lower.includes("claude")) {
-    return "https://www.google.com/s2/favicons?domain=anthropic.com&sz=128";
+    return "https://www.google.com/s2/favicons?domain=claude.ai&sz=128";
   }
-  if (lower.includes("google") || lower.includes("gemini") || lower.includes("deepmind") || lower.includes("gemma") || lower.includes("alphafold") || lower.includes("rt-2")) {
-    return "https://www.google.com/s2/favicons?domain=deepmind.google&sz=128";
+  if (lower.includes("gemini") || lower.includes("gemma")) {
+    return "https://www.gstatic.com/lamda/images/gemini_favicon_f069958c85030456e93de685481c559f160ea06b.png";
+  }
+  if (lower.includes("google") || lower.includes("deepmind") || lower.includes("alphafold") || lower.includes("rt-2")) {
+    return "https://www.google.com/s2/favicons?domain=google.com&sz=128";
   }
   if (lower.includes("meta") || lower.includes("llama") || lower.includes("sam") || lower.includes("audiocraft") || lower.includes("dlrm")) {
     return "https://www.google.com/s2/favicons?domain=ai.meta.com&sz=128";
