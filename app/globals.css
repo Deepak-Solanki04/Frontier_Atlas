@@ -1118,13 +1118,16 @@ footer.site-footer-bar {
 }
 
 .supabase-card-title,
-.models-card-title {
+.models-card-title,
+.supabase-card h3,
+.models-trending-card h3,
+.models-area-card h3 {
   font-size: 18px !important;
   line-height: 25.2px !important;
   height: 25.2px !important;
   font-weight: 600 !important;
   margin-bottom: 8px !important;
-  color: #EDEDED !important;
+  color: #FFFFFF !important;
   transition: color 0.15s ease !important;
   white-space: nowrap !important;
   overflow: hidden !important;
@@ -1154,6 +1157,12 @@ footer.site-footer-bar {
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
   margin: 0 !important;
+}
+
+.supabase-card-desc strong,
+.models-card-desc strong {
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
 }
 .models-collection-icon {
   font-size: 22px;

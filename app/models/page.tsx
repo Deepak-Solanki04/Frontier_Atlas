@@ -602,7 +602,7 @@ function ModelsContent() {
                       </div>
                       <h3 className="models-card-title">{d.name}</h3>
                       <p className="models-card-desc" style={{ minHeight: "60px" }}>
-                        Leading architectural benchmarks and evaluations anchored by <strong style={{ color: "#111111", fontWeight: 700 }}>{d.leader}</strong>.
+                        Leading architectural benchmarks and evaluations anchored by <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>{d.leader}</strong>.
                       </p>
                     </div>
                   </div>
