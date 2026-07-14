@@ -777,8 +777,8 @@ function ModelsContent() {
                   <tr>
                     <th className="col-idx">#</th>
                     <th className="col-name">Model</th>
-                    <th>Organization</th>
-                    <th>Model Family</th>
+                    <th className="col-org">Organization</th>
+                    <th className="col-family">Model Family</th>
                     <th>Category</th>
                     <th>Parameters</th>
                     <th>Context Window</th>
@@ -799,8 +799,8 @@ function ModelsContent() {
                           <span>{model.name}</span>
                         </div>
                       </td>
-                      <td style={{ fontWeight: 700, color: "#555555" }}>{model.org}</td>
-                      <td style={{ fontWeight: 800, color: "#111111", whiteSpace: "nowrap" }}>
+                      <td className="col-org" style={{ fontWeight: 700, color: "#555555" }}>{model.org}</td>
+                      <td className="col-family" style={{ fontWeight: 800, color: "#111111", whiteSpace: "nowrap" }}>
                         <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block" }}>{model.family || "Foundation"}</span>
                       </td>
                       <td style={{ color: "#555555", fontWeight: 700 }}>{model.category || "General Purpose"}</td>

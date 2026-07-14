@@ -1217,25 +1217,35 @@ footer.site-footer-bar {
   font-weight: 800;
   color: #111111;
   font-size: 12px;
-  white-space: nowrap;
-  width: 1% !important;
-  padding-left: 14px !important;
+  width: 160px !important;
+  max-width: 160px !important;
+  padding-left: 12px !important;
+  padding-right: 4px !important;
+  white-space: normal !important;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
+.models-data-table th.col-org,
+.models-data-table td.col-org,
+.models-data-table th:nth-child(3),
+.models-data-table td:nth-child(3) {
+  width: 110px !important;
+  max-width: 110px !important;
+  white-space: normal !important;
+  word-break: break-word;
+  padding-left: 0px !important;
   padding-right: 6px !important;
 }
 
-.models-data-table th:nth-child(3),
-.models-data-table td:nth-child(3) {
-  width: 1% !important;
-  white-space: nowrap;
-  padding-left: 4px !important;
-  padding-right: 8px !important;
-}
-
+.models-data-table th.col-family,
+.models-data-table td.col-family,
 .models-data-table th:nth-child(4),
 .models-data-table td:nth-child(4) {
   width: 1% !important;
-  white-space: nowrap;
-  padding-right: 8px !important;
+  white-space: nowrap !important;
+  padding-left: 0px !important;
+  padding-right: 6px !important;
 }
 
 .models-data-table th:nth-child(6),
