@@ -1105,7 +1105,7 @@ footer.site-footer-bar {
 /* ── MODELS DIRECTORY PAGE FREE SCROLLING CONTAINER ── */
 .models-directory-container {
   width: 100%;
-  max-width: 1360px;
+  max-width: 1540px;
   min-height: 100vh;
   height: auto !important;
   max-height: none !important;
@@ -1130,7 +1130,7 @@ footer.site-footer-bar {
   background: #ffffff;
   border: 1px solid #E5E5E0;
   border-radius: 2px;
-  padding: 32px;
+  padding: 24px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
 }
 
@@ -1156,8 +1156,8 @@ footer.site-footer-bar {
 
 .models-catalog-table-wrapper {
   width: 100%;
-  overflow-x: visible !important;
-  overflow: visible !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 .models-data-table {
