@@ -1024,24 +1024,8 @@ footer.site-footer-bar {
 .models-trending-grid,
 .models-areas-grid {
   display: grid !important;
-  grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr)) !important;
   gap: 20px !important;
-}
-
-@media (min-width: 1024px) {
-  .supabase-cards-grid,
-  .models-trending-grid,
-  .models-areas-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-}
-
-@media (min-width: 1280px) {
-  .supabase-cards-grid,
-  .models-trending-grid,
-  .models-areas-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
 }
 
 .supabase-card,
@@ -1051,7 +1035,9 @@ footer.site-footer-bar {
   flex-direction: column !important;
   justify-content: space-between !important;
   width: 100% !important;
-  height: 100% !important;
+  height: 164px !important;
+  min-height: 164px !important;
+  max-height: 164px !important;
   background: #1C1C1C !important;
   border: 1px solid #2E2E2E !important;
   border-radius: 12px !important;
@@ -1061,6 +1047,7 @@ footer.site-footer-bar {
   cursor: pointer !important;
   text-decoration: none !important;
   box-sizing: border-box !important;
+  overflow: hidden !important;
 }
 
 .supabase-card *,
@@ -1083,6 +1070,7 @@ footer.site-footer-bar {
 .models-card-inner {
   display: flex !important;
   width: 100% !important;
+  height: 116px !important;
   gap: 24px !important;
   align-items: flex-start !important;
 }
@@ -1124,16 +1112,23 @@ footer.site-footer-bar {
 .models-card-text {
   flex: 1 !important;
   min-width: 0 !important;
+  height: 116px !important;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 .supabase-card-title,
 .models-card-title {
   font-size: 20px !important;
   line-height: 28px !important;
+  height: 28px !important;
   font-weight: 500 !important;
   margin-bottom: 8px !important;
   color: #EDEDED !important;
   transition: color 0.15s ease !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .supabase-card:hover .supabase-card-title,
@@ -1151,7 +1146,9 @@ footer.site-footer-bar {
   line-height: 20px !important;
   font-weight: 400 !important;
   color: #A1A1AA !important;
+  height: 80px !important;
   min-height: 80px !important;
+  max-height: 80px !important;
   display: -webkit-box !important;
   -webkit-line-clamp: 4 !important;
   -webkit-box-orient: vertical !important;
