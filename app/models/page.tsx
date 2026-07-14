@@ -220,78 +220,78 @@ const FEATURED_INTEGRATIONS = [
 function getOrgLogo(orgOrLeader: string): string {
   const lower = (orgOrLeader || "").toLowerCase();
   if (lower.includes("openai") || lower.includes("gpt") || lower.includes("whisper") || lower.includes("sora") || lower.includes("clip")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2310a37f"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.453l-.142.0805L8.704 5.46a.7948.7948 0 0 0-.3975.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg>';
+    return "https://github.com/openai.png";
   }
   if (lower.includes("anthropic") || lower.includes("claude")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23d97706"><path d="M17.304 3.541h-3.67l6.696 16.918H24L17.304 3.541zm-10.608 0L0 20.459h3.728l1.399-3.626h7.106l1.399 3.626h3.728L10.662 3.541H6.696zm1.196 10.428l2.355-6.106 2.355 6.106H7.892z"/></svg>';
+    return "https://github.com/anthropics.png";
   }
   if (lower.includes("google") || lower.includes("gemini") || lower.includes("deepmind") || lower.includes("gemma") || lower.includes("alphafold") || lower.includes("rt-2")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="%234285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="%2334A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="%23FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="%23EA4335"/></svg>';
+    return "https://github.com/google-deepmind.png";
   }
   if (lower.includes("meta") || lower.includes("llama") || lower.includes("sam") || lower.includes("audiocraft") || lower.includes("dlrm")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230668E1"><path d="M16.92 6.6C14.7 6.6 12.98 8.01 12 9.68 11.02 8.01 9.3 6.6 7.08 6.6 3.73 6.6 1 9.32 1 12.65c0 3.34 2.73 6.06 6.08 6.06 2.22 0 3.94-1.41 4.92-3.08.98 1.67 2.7 3.08 4.92 3.08 3.35 0 6.08-2.72 6.08-6.06 0-3.33-2.73-6.05-6.08-6.05zm0 9.4c-1.55 0-2.88-1.1-3.66-2.58-.1-.18-.18-.36-.26-.54l-.24-.54c-.22-.52-.46-.99-.74-1.41-.53-.8-1.29-1.61-2.18-1.61-1.84 0-3.34 1.48-3.34 3.33 0 1.84 1.5 3.33 3.34 3.33.89 0 1.65-.8 2.18-1.6.28-.42.52-.89.74-1.41l.24-.54c.08-.18.16-.36.26-.54.78-1.48 2.11-2.58 3.66-2.58 1.84 0 3.34 1.48 3.34 3.33 0 1.85-1.5 3.35-3.34 3.35z"/></svg>';
+    return "https://github.com/meta-llama.png";
   }
   if (lower.includes("qwen") || lower.includes("alibaba") || lower.includes("gwen") || lower.includes("ocr")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><linearGradient id="q" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%23615ced"/><stop offset="100%" stop-color="%23ff5a00"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(%23q)"/><path d="M12 5C8.13 5 5 8.13 5 12s3.13 7 7 7 c1.66 0 3.18-.58 4.38-1.55l1.62 1.62c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-1.62-1.62C18.42 15.18 19 13.66 19 12c0-3.87-3.13-7-7-7zm0 11c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="%23ffffff"/><circle cx="12" cy="12" r="1.8" fill="%23ffffff"/></svg>';
+    return "https://github.com/QwenLM.png";
   }
   if (lower.includes("deepseek") || lower.includes("janus")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%234c6ef5"><circle cx="12" cy="12" r="10" fill="%234c6ef5"/><path d="M8 8h8v2H8zm0 6h8v2H8zm0-3h6v2H8z" fill="%23ffffff"/></svg>';
+    return "https://github.com/deepseek-ai.png";
   }
   if (lower.includes("mistral") || lower.includes("pixtral")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FA5252"><rect width="24" height="24" rx="6" fill="%23FA5252"/><path d="M6 7h3v10H6zm4.5 0h3v10h-3zm4.5 0h3v10h-3z" fill="%23ffffff"/></svg>';
+    return "https://github.com/mistralai.png";
   }
   if (lower.includes("xai") || lower.includes("grok")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23111111"><circle cx="12" cy="12" r="10" fill="%23111111"/><path d="M7 7l10 10m0-10L7 17" stroke="%23ffffff" stroke-width="2.5" stroke-linecap="round"/></svg>';
+    return "https://github.com/xai-org.png";
   }
   if (lower.includes("microsoft") || lower.includes("phi") || lower.includes("med-palm")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23F25022" d="M2 2h9v9H2z"/><path fill="%237FBA00" d="M13 2h9v9h-9z"/><path fill="%2300A4EF" d="M2 13h9v9H2z"/><path fill="%23FFB900" d="M13 13h9v9h-9z"/></svg>';
+    return "https://github.com/microsoft.png";
   }
   if (lower.includes("moonshot") || lower.includes("kimi")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236366f1"><circle cx="12" cy="12" r="10" fill="%236366f1"/><path d="M12 6a6 6 0 0 0 0 12 8 8 0 0 1 0-12z" fill="%23ffffff"/></svg>';
+    return "https://github.com/MoonshotAI.png";
   }
   if (lower.includes("zhipu") || lower.includes("glm")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%230ea5e9"><circle cx="12" cy="12" r="10" fill="%230ea5e9"/><text x="12" y="16" font-size="11" font-weight="bold" fill="%23ffffff" text-anchor="middle" font-family="sans-serif">Z</text></svg>';
+    return "https://github.com/THUDM.png";
   }
   if (lower.includes("allen") || lower.includes("molmo")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2314b8a6"><circle cx="12" cy="12" r="10" fill="%2314b8a6"/><path d="M12 6l5 9H7l5-9z" fill="%23ffffff"/></svg>';
+    return "https://github.com/allenai.png";
   }
   if (lower.includes("time series") || lower.includes("timeseries") || lower.includes("chronos") || lower.includes("amazon") || lower.includes("nixtla")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%23FF9900"/><path d="M4 16l4-5 4 3 6-8" stroke="%23FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="18" cy="6" r="2" fill="%23FFFFFF"/></svg>';
+    return "https://github.com/amazon-science.png";
   }
   if (lower.includes("nvidia")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%23000000"/><path d="M9.19 6.22C14.7 6.64 18 10.15 18 15.22v1.28h-2.52v-1.12c0-3.8-2.48-6.3-6.68-6.6l.39-2.56zM8.3 10.3c2.94.3 4.67 1.84 4.67 4.6v1.6H10.5v-1.42c0-1.65-1.05-2.52-2.76-2.65l.56-2.13z" fill="%2376B900"/></svg>';
+    return "https://github.com/NVIDIA.png";
   }
   if (lower.includes("hugging") || lower.includes("face")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%23FFD21E"/><path d="M7 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm10 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM6.5 14.5c1.5 2.5 4 3.5 5.5 3.5s4-1 5.5-3.5H6.5z" fill="%232D3748"/><path d="M4 12c-.83 0-1.5.67-1.5 1.5S3.17 15 4 15s1.5-.67 1.5-1.5S4.83 12 4 12zm16 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" fill="%23FF6B6B"/></svg>';
+    return "https://github.com/huggingface.png";
   }
   if (lower.includes("cohere")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%23FAF8F5"/><circle cx="8" cy="12" r="3.5" fill="%2339594D"/><circle cx="16" cy="12" r="3.5" fill="%23FF6B4A"/><path d="M12 8.5a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7z" fill="%23E2AD48"/></svg>';
+    return "https://github.com/cohere-ai.png";
   }
   if (lower.includes("apple")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%23111111"/><path d="M15.2 12.9c0-2.1 1.7-3.8 3.8-3.9-1.1-1.6-2.8-2.5-4.7-2.6-2-.2-3.8 1.2-4.8 1.2-1 0-2.5-1.2-4.2-1.2C3.1 6.5 1.3 8.3.4 10.9c-1.9 6.6 2.3 16.4 6.1 16.5 1.4 0 2.5-1 4.1-1 1.6 0 2.6 1 4.2 1 3.9-.1 7.7-9.3 6-15.6-.9-.3-1.8-.4-2.7-.4-1.6 0-2.9 1.3-2.9 2.9z" fill="%23FFFFFF" transform="scale(0.6) translate(6,2)"/></svg>';
+    return "https://github.com/apple.png";
   }
   if (lower.includes("ibm")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%230F62FE"/><path d="M4 7h16v2H4zm0 4h16v2H4zm0 4h16v2H4z" fill="%23FFFFFF"/></svg>';
+    return "https://github.com/IBM.png";
   }
   if (lower.includes("bytedance") || lower.includes("douyin") || lower.includes("tiktok")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%2338BDF8"/><path d="M6 5v14l6-3V8l-6-3zm6 8l6 3V5l-6 3v5z" fill="%23FFFFFF"/></svg>';
+    return "https://github.com/bytedance.png";
   }
   if (lower.includes("minimax")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%23E11D48"/><path d="M5 16V8l3.5 4.5L12 8v8l-2-2.5V11L8.5 13 7 11v2.5L5 16zm7 0V8l3.5 4.5L19 8v8l-2-2.5V11l-1.5 2-1.5-2v2.5L12 16z" fill="%23FFFFFF"/></svg>';
+    return "https://github.com/MiniMax-AI.png";
   }
   if (lower.includes("tii") || lower.includes("falcon")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%236B21A8"/><path d="M12 4l8 6-8 10-8-10 8-6zm0 4L7.5 10 12 16l4.5-6L12 8z" fill="%23FFFFFF"/></svg>';
+    return "https://github.com/tiiuae.png";
   }
   if (lower.includes("shanghai") || lower.includes("internlm")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%232563EB"/><path d="M12 6a6 6 0 0 1 6 6h-2a4 4 0 0 0-4-4V6zm0 12a6 6 0 0 1-6-6h2a4 4 0 0 0 4 4v2zm0-8a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" fill="%23FFFFFF"/></svg>';
+    return "https://github.com/InternLM.png";
   }
   if (lower.includes("black forest") || lower.includes("flux")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="%2318181B"/><path d="M7 8h10M7 12h6M7 16h8" stroke="%2338BDF8" stroke-width="2.5" stroke-linecap="round"/></svg>';
+    return "https://github.com/black-forest-labs.png";
   }
   if (lower.includes("stability") || lower.includes("stable diffusion")) {
-    return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><linearGradient id="s" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%23A855F7"/><stop offset="100%" stop-color="%23EC4899"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(%23s)"/><polygon points="12,5 19,17 5,17" fill="none" stroke="%23FFFFFF" stroke-width="2.5" stroke-linejoin="round"/></svg>';
+    return "https://github.com/Stability-AI.png";
   }
-  return 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FF5A1F"><circle cx="12" cy="12" r="10" fill="%23FF5A1F"/><path d="M12 7v6l4 2" stroke="%23ffffff" stroke-width="2" stroke-linecap="round"/></svg>';
+  return "https://github.com/ai.png";
 }
 
 function ModelsContent() {
