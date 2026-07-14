@@ -214,84 +214,106 @@ const FEATURED_INTEGRATIONS = [
   { name: "Stripe Wrapper", org: "Stripe", date: "Billing API", family: "Data Platform", desc: "Query and write to Stripe customers, subscriptions, invoices, and billing data from Postgres.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/stripe-wrapper/stripe-icon.svg", link: "https://supabase.com/partners/integrations/stripe-wrapper" },
   { name: "Trigger.dev", org: "Trigger.dev", date: "Background Jobs", family: "DevTools", desc: "Open source background jobs with no timeouts.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/trigger-dev/logo.jpg", link: "https://supabase.com/partners/integrations/trigger-dev" },
   { name: "Vercel", org: "Vercel Inc.", date: "Cloud Deployment", family: "DevTools", desc: "Easily add the power of Supabase to your Vercel projects with our Vercel integration.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/vercel/logo.jpeg", link: "https://supabase.com/partners/integrations/vercel" },
-  { name: "Windmill", org: "Windmill Labs", date: "Internal UIs", family: "Low-Code", desc: "Open-source platform to turn minimal scripts into internal UIs and workflows.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/windmill/logo.jpeg", link: "https://supabase.com/partners/integrations/windmill" }
+  { name: "Windmill", org: "Windmill Labs", date: "Internal UIs", family: "Low-Code", desc: "Open-source platform to turn minimal scripts into internal UIs and workflows.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/windmill/logo.jpeg", link: "https://supabase.com/partners/integrations/windmill" },
+  { name: "Prisma", org: "Prisma", date: "ORM Tool", family: "ORM", desc: "Next-generation Node.js and TypeScript ORM for Supabase Postgres tables.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/prisma/logo.png", link: "https://supabase.com/partners/integrations/prisma" },
+  { name: "Drizzle ORM", org: "Drizzle Team", date: "TypeScript ORM", family: "ORM", desc: "Headless TypeScript ORM engineered with zero dependencies and maximum query speed.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/drizzle/logo.png", link: "https://supabase.com/partners/integrations/drizzle" },
+  { name: "LangChain", org: "LangChain", date: "AI Framework", family: "AI & Agents", desc: "Build context-aware, reasoning LLM applications powered by Supabase pgvector.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/langchain/logo.png", link: "https://supabase.com/partners/integrations/langchain" },
+  { name: "LlamaIndex", org: "LlamaIndex", date: "Data Framework", family: "AI & Agents", desc: "Data framework for connecting custom data pipelines and embeddings to LLMs.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/llamaindex/logo.png", link: "https://supabase.com/partners/integrations/llamaindex" },
+  { name: "Auth0", org: "Okta / Auth0", date: "Identity API", family: "Authentication", desc: "Secure and scalable identity management seamlessly integrating with Supabase JWTs.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/auth0/logo.png", link: "https://supabase.com/partners/integrations/auth0" },
+  { name: "Clerk", org: "Clerk Inc.", date: "User Auth", family: "Authentication", desc: "Complete user management and authentication suite built for modern React applications.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/clerk/logo.png", link: "https://supabase.com/partners/integrations/clerk" },
+  { name: "Retool", org: "Retool", date: "Internal Tools", family: "Low-Code", desc: "Build internal operational tools remarkably fast directly on top of your Postgres data.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/retool/logo.jpeg", link: "https://supabase.com/partners/integrations/retool" },
+  { name: "Appsmith", org: "Appsmith", date: "Admin Panels", family: "Internal UIs", desc: "Build support dashboards and admin panels by connecting Supabase to Appsmith.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/appsmith/logo.png", link: "https://supabase.com/partners/integrations/appsmith" },
+  { name: "FlutterFlow", org: "FlutterFlow", date: "Mobile App UI", family: "Low-Code", desc: "Create beautiful native mobile UI and generate clean code with 1-click backend sync.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/flutterflow/logo.jpeg", link: "https://supabase.com/partners/integrations/flutterflow" },
+  { name: "Plasmic", org: "Plasmic", date: "Visual Builder", family: "Visual Builder", desc: "Create stunning visual content and React pages seamlessly integrated into your codebase.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/plasmic/logo.png", link: "https://supabase.com/partners/integrations/plasmic" },
+  { name: "Snowflake Wrapper", org: "Snowflake", date: "Foreign Data", family: "Data Platform", desc: "Query Snowflake data warehouses from Postgres with real-time foreign data tables.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/snowflake-wrapper/snowflake-icon.svg", link: "https://supabase.com/partners/integrations/snowflake-wrapper" },
+  { name: "AWS S3 Wrapper", org: "Amazon Web Services", date: "Data Wrapper", family: "Storage", desc: "Query CSV, Parquet, and JSON files stored in AWS S3 buckets directly from Postgres.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/s3-wrapper/s3-icon.svg", link: "https://supabase.com/partners/integrations/s3-wrapper" },
+  { name: "Loops", org: "Loops", date: "Transactional Email", family: "Messaging", desc: "Configure your Supabase account to send modern SaaS authentication and onboarding emails.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/loops/logo.png", link: "https://supabase.com/partners/integrations/loops" },
+  { name: "OneSignal", org: "OneSignal", date: "Push & Messaging", family: "Messaging", desc: "Push notifications, email, SMS & in-app messaging to drive engaged and loyal customers.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/onesignal/logo.png", link: "https://supabase.com/partners/integrations/onesignal" },
+  { name: "Forest Admin", org: "Forest Admin", date: "Admin UIs", family: "Internal UIs", desc: "One comprehensive internal tool builder for all your data tables and operations.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/forest-admin/logo.png", link: "https://supabase.com/partners/integrations/forest-admin" },
+  { name: "ILLA Cloud", org: "ILLA", date: "Low-Code Tool", family: "Low-Code", desc: "An open-source low-code platform for developers to build internal tools in minutes.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/illa/logo.png", link: "https://supabase.com/partners/integrations/illa" },
+  { name: "Draftbit", org: "Draftbit", date: "Mobile Builder", family: "Mobile Apps", desc: "Visually build native mobile applications connected directly to Supabase via REST API.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/draftbit/logo.png", link: "https://supabase.com/partners/integrations/draftbit" },
+  { name: "WeWeb", org: "WeWeb", date: "Frontend UI", family: "App Templates", desc: "No-code frontend builder designed specifically for high-performance relational databases.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/weweb/logo.jpeg", link: "https://supabase.com/partners/integrations/weweb" },
+  { name: "Internal.io", org: "Internal", date: "Workflow UIs", family: "Internal UIs", desc: "Build custom internal apps and operational workflows incredibly fast on top of Supabase.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/internalio/logo.png", link: "https://supabase.com/partners/integrations/internalio" },
+  { name: "CipherStash", org: "CipherStash", date: "Data Encryption", family: "Security", desc: "Searchable, application-level encryption for your Supabase Postgres database.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/cipherstash/logo.svg", link: "https://supabase.com/partners/integrations/cipherstash" },
+  { name: "YepCode", org: "YepCode", date: "Automation API", family: "Automation", desc: "The all-in-one integration & automation platform that loves developer source code.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/yepcode/logo.png", link: "https://supabase.com/partners/integrations/yepcode" },
+  { name: "Zavu", org: "Zavu", date: "AI Messaging", family: "AI & Messaging", desc: "Build native AI assistants and customer messaging tools powered by your database.", url: "https://otqhrpbxhxkrhrnjqbba.supabase.co/storage/v1/object/public/images/listings/zavu/logo.svg", link: "https://supabase.com/partners/integrations/zavu" }
 ];
 
 function getOrgLogo(orgOrLeader: string): string {
   const lower = (orgOrLeader || "").toLowerCase();
   if (lower.includes("openai") || lower.includes("gpt") || lower.includes("whisper") || lower.includes("sora") || lower.includes("clip")) {
-    return "https://github.com/openai.png";
+    return "https://www.google.com/s2/favicons?domain=openai.com&sz=128";
   }
   if (lower.includes("anthropic") || lower.includes("claude")) {
-    return "https://github.com/anthropics.png";
+    return "https://www.google.com/s2/favicons?domain=anthropic.com&sz=128";
   }
   if (lower.includes("google") || lower.includes("gemini") || lower.includes("deepmind") || lower.includes("gemma") || lower.includes("alphafold") || lower.includes("rt-2")) {
-    return "https://github.com/google-deepmind.png";
+    return "https://www.google.com/s2/favicons?domain=deepmind.google&sz=128";
   }
   if (lower.includes("meta") || lower.includes("llama") || lower.includes("sam") || lower.includes("audiocraft") || lower.includes("dlrm")) {
-    return "https://github.com/meta-llama.png";
+    return "https://www.google.com/s2/favicons?domain=ai.meta.com&sz=128";
   }
   if (lower.includes("qwen") || lower.includes("alibaba") || lower.includes("gwen") || lower.includes("ocr")) {
-    return "https://github.com/QwenLM.png";
+    return "https://www.google.com/s2/favicons?domain=qwenlm.ai&sz=128";
   }
   if (lower.includes("deepseek") || lower.includes("janus")) {
-    return "https://github.com/deepseek-ai.png";
+    return "https://www.google.com/s2/favicons?domain=deepseek.com&sz=128";
   }
   if (lower.includes("mistral") || lower.includes("pixtral")) {
-    return "https://github.com/mistralai.png";
+    return "https://www.google.com/s2/favicons?domain=mistral.ai&sz=128";
   }
   if (lower.includes("xai") || lower.includes("grok")) {
-    return "https://github.com/xai-org.png";
+    return "https://www.google.com/s2/favicons?domain=x.ai&sz=128";
   }
   if (lower.includes("microsoft") || lower.includes("phi") || lower.includes("med-palm")) {
-    return "https://github.com/microsoft.png";
+    return "https://www.google.com/s2/favicons?domain=microsoft.com&sz=128";
   }
   if (lower.includes("moonshot") || lower.includes("kimi")) {
-    return "https://github.com/MoonshotAI.png";
+    return "https://www.google.com/s2/favicons?domain=moonshot.cn&sz=128";
   }
   if (lower.includes("zhipu") || lower.includes("glm")) {
-    return "https://github.com/THUDM.png";
+    return "https://www.google.com/s2/favicons?domain=zhipuai.cn&sz=128";
   }
   if (lower.includes("allen") || lower.includes("molmo")) {
-    return "https://github.com/allenai.png";
+    return "https://www.google.com/s2/favicons?domain=allenai.org&sz=128";
   }
   if (lower.includes("time series") || lower.includes("timeseries") || lower.includes("chronos") || lower.includes("amazon") || lower.includes("nixtla")) {
-    return "https://github.com/amazon-science.png";
+    return "https://www.google.com/s2/favicons?domain=aws.amazon.com&sz=128";
   }
   if (lower.includes("nvidia")) {
-    return "https://github.com/NVIDIA.png";
+    return "https://www.google.com/s2/favicons?domain=nvidia.com&sz=128";
   }
   if (lower.includes("hugging") || lower.includes("face")) {
-    return "https://github.com/huggingface.png";
+    return "https://www.google.com/s2/favicons?domain=huggingface.co&sz=128";
   }
   if (lower.includes("cohere")) {
-    return "https://github.com/cohere-ai.png";
+    return "https://www.google.com/s2/favicons?domain=cohere.com&sz=128";
   }
   if (lower.includes("apple")) {
-    return "https://github.com/apple.png";
+    return "https://www.google.com/s2/favicons?domain=apple.com&sz=128";
   }
   if (lower.includes("ibm")) {
-    return "https://github.com/IBM.png";
+    return "https://www.google.com/s2/favicons?domain=ibm.com&sz=128";
   }
   if (lower.includes("bytedance") || lower.includes("douyin") || lower.includes("tiktok")) {
-    return "https://github.com/bytedance.png";
+    return "https://www.google.com/s2/favicons?domain=bytedance.com&sz=128";
   }
   if (lower.includes("minimax")) {
-    return "https://github.com/MiniMax-AI.png";
+    return "https://www.google.com/s2/favicons?domain=minimaxi.com&sz=128";
   }
   if (lower.includes("tii") || lower.includes("falcon")) {
-    return "https://github.com/tiiuae.png";
+    return "https://www.google.com/s2/favicons?domain=tii.ae&sz=128";
   }
   if (lower.includes("shanghai") || lower.includes("internlm")) {
-    return "https://github.com/InternLM.png";
+    return "https://www.google.com/s2/favicons?domain=internlm.intern-ai.org.cn&sz=128";
   }
   if (lower.includes("black forest") || lower.includes("flux")) {
-    return "https://github.com/black-forest-labs.png";
+    return "https://www.google.com/s2/favicons?domain=blackforestlabs.ai&sz=128";
   }
   if (lower.includes("stability") || lower.includes("stable diffusion")) {
-    return "https://github.com/Stability-AI.png";
+    return "https://www.google.com/s2/favicons?domain=stability.ai&sz=128";
   }
-  return "https://github.com/ai.png";
+  return "https://www.google.com/s2/favicons?domain=ai.com&sz=128";
 }
 
 function ModelsContent() {
