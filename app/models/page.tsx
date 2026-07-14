@@ -783,7 +783,7 @@ function ModelsContent() {
                     <th>Parameters</th>
                     <th>Context Window</th>
                     <th>License</th>
-                    <th style={{ textAlign: "right" }}>Benchmarks</th>
+                    <th style={{ textAlign: "left" }}>Benchmarks</th>
                     <th>Papers</th>
                     <th>Release Date</th>
                     <th style={{ textAlign: "right" }}>Action</th>
@@ -807,7 +807,7 @@ function ModelsContent() {
                       <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#333333" }}>{model.params || "Dense / MoE"}</td>
                       <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 700 }}>{model.context || "128k tokens"}</td>
                       <td style={{ color: "#555555", fontSize: "11px", fontWeight: 600 }}>{model.license || "Proprietary"}</td>
-                      <td style={{ textAlign: "right", fontWeight: 900, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px" }}>
+                      <td style={{ textAlign: "left", fontWeight: 900, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px" }}>
                         {model.elo ? `⚡ ${model.elo} Elo` : `${model.benchmarks?.length || 3} verified`}
                       </td>
                       <td style={{ color: "#555555", fontWeight: 700, fontSize: "11px" }}>{model.paperCount || 150} papers</td>
