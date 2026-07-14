@@ -1035,9 +1035,9 @@ footer.site-footer-bar {
   flex-direction: column !important;
   justify-content: space-between !important;
   width: 100% !important;
-  height: 186px !important;
-  min-height: 186px !important;
-  max-height: 186px !important;
+  height: 187px !important;
+  min-height: 187px !important;
+  max-height: 187px !important;
   background: #1C1C1C !important;
   border: 1px solid #2E2E2E !important;
   border-radius: 12px !important;
@@ -1070,7 +1070,7 @@ footer.site-footer-bar {
 .models-card-inner {
   display: flex !important;
   width: 100% !important;
-  height: 138px !important;
+  height: 139px !important;
   gap: 24px !important;
   align-items: flex-start !important;
 }
@@ -1112,7 +1112,7 @@ footer.site-footer-bar {
 .models-card-text {
   flex: 1 !important;
   min-width: 0 !important;
-  height: 138px !important;
+  height: 139px !important;
   display: flex !important;
   flex-direction: column !important;
 }
