@@ -595,13 +595,13 @@ function ModelsContent() {
                     </div>
                     <div className="models-card-text">
                       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
-                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#F8F7F2", color: isActive ? "#ffffff" : "#666666", fontSize: "10px" }}>
+                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#262626", color: isActive ? "#ffffff" : "#A1A1AA", fontSize: "10px" }}>
                           {d.count} Models
                         </span>
                         <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
                       </div>
                       <h3 className="models-card-title">{d.name}</h3>
-                      <p className="models-card-desc" style={{ minHeight: "60px" }}>
+                      <p className="models-card-desc">
                         Leading architectural benchmarks and evaluations anchored by <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>{d.leader}</strong>.
                       </p>
                     </div>

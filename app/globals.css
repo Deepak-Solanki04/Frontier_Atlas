@@ -1164,6 +1164,73 @@ footer.site-footer-bar {
   color: #FFFFFF !important;
   font-weight: 600 !important;
 }
+
+/* Trending Models & Research Area Cards Specific Inner Alignment for 188px Box */
+.models-trending-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 4px !important;
+}
+
+.models-trending-rank {
+  font-family: monospace !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  background: #262626 !important;
+  color: #FF5A1F !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  border: 1px solid #3E3E3E !important;
+}
+
+.models-trending-elo {
+  font-family: monospace !important;
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  color: #10B981 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+}
+
+.models-trending-sub {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  color: #A1A1AA !important;
+  margin-bottom: 6px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.models-trending-card .models-card-title {
+  font-size: 18px !important;
+  line-height: 24px !important;
+  height: 24px !important;
+  margin-bottom: 3px !important;
+}
+
+.models-trending-card .models-card-desc {
+  font-size: 13px !important;
+  line-height: 18px !important;
+  height: 54px !important;
+  min-height: 54px !important;
+  max-height: 54px !important;
+  -webkit-line-clamp: 3 !important;
+}
+
+.models-vendor-count {
+  font-family: monospace !important;
+  font-size: 10.5px !important;
+  font-weight: 800 !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  background: #262626 !important;
+  color: #EDEDED !important;
+  border: 1px solid #3E3E3E !important;
+}
 .models-collection-icon {
   font-size: 22px;
 }
