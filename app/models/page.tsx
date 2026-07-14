@@ -800,8 +800,8 @@ function ModelsContent() {
                         </div>
                       </td>
                       <td style={{ fontWeight: 700, color: "#555555" }}>{model.org}</td>
-                      <td style={{ fontWeight: 800, color: "#111111" }}>
-                        <span style={{ padding: "2px 6px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "10.5px" }}>{model.family || "Foundation"}</span>
+                      <td style={{ fontWeight: 800, color: "#111111", whiteSpace: "nowrap" }}>
+                        <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block" }}>{model.family || "Foundation"}</span>
                       </td>
                       <td style={{ color: "#555555", fontWeight: 700 }}>{model.category || "General Purpose"}</td>
                       <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#333333" }}>{model.params || "Dense / MoE"}</td>
