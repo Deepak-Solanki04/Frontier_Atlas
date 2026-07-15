@@ -53,14 +53,14 @@ export default function Header() {
         </button>
         <Link
           href="/"
-          className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[160px] sm:w-[200px] xl:w-[240px] h-12 xl:h-14"
+          className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[185px] sm:w-[230px] xl:w-[275px] h-[52px] xl:h-[58px]"
         >
           <Image
             alt="Frontier Atlas"
             src="/logo.png"
             fill
-            className="object-contain object-center xl:object-left"
-            sizes="(max-width: 1280px) 200px, 240px"
+            className="object-contain object-center xl:object-left scale-[1.15] xl:scale-[1.18] xl:origin-left"
+            sizes="(max-width: 1280px) 230px, 275px"
             priority
           />
         </Link>
@@ -87,7 +87,7 @@ export default function Header() {
               <input
                 type="text"
                 placeholder="Search..."
-                className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9 text-[12px]"
+                className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9 text-[12px] font-sans font-normal"
                 aria-label="Search"
                 aria-autocomplete="list"
                 aria-controls="search-suggestions"
