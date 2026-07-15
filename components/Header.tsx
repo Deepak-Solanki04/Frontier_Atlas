@@ -59,7 +59,7 @@ export default function Header() {
             alt="Frontier Atlas"
             src="/logo.png"
             fill
-            className="object-contain object-center xl:object-left scale-[0.8] origin-center xl:origin-left transition-transform"
+            className="object-contain object-center xl:object-left scale-[0.88] origin-center xl:origin-left transition-transform"
             sizes="(max-width: 1280px) 200px, 240px"
             priority
           />
