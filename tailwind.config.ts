@@ -13,11 +13,11 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
+          "var(--font-inter)",
+          "Inter",
           "var(--font-plus-jakarta)",
           "Plus Jakarta Sans",
           "Outfit",
-          "var(--font-inter)",
-          "Inter",
           "sans-serif",
         ],
       },

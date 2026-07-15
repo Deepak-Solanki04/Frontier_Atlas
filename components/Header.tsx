@@ -104,7 +104,7 @@ export default function Header() {
         <Link
           href="/tasks"
           data-text="Tasks"
-          className={`top-navbar-link text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/tasks')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -115,7 +115,7 @@ export default function Header() {
         <Link
           href="/methods"
           data-text="Methods"
-          className={`top-navbar-link text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/methods')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -126,7 +126,7 @@ export default function Header() {
         <Link
           href="/benchmarks"
           data-text="Benchmarks"
-          className={`top-navbar-link text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/benchmarks')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -137,7 +137,7 @@ export default function Header() {
         <Link
           href="/models"
           data-text="Models"
-          className={`top-navbar-link text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/models')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
