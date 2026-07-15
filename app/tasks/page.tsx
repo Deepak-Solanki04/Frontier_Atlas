@@ -256,7 +256,7 @@ export default function TasksPage() {
                           <Link
                             key={task.name}
                             href={`/models?capability=${encodeURIComponent(task.name)}`}
-                            className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer no-underline block"
+                            className="directory-grid-card group"
                           >
                             <div className="flex items-center gap-2">
                               <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">

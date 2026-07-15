@@ -672,8 +672,8 @@ function ModelsContent() {
                       <div
                         key={cap}
                         onClick={() => handleCapabilityClick(cap)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
-                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center gap-2">
@@ -707,8 +707,8 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
-                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
@@ -747,8 +747,8 @@ function ModelsContent() {
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
-                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
@@ -787,8 +787,8 @@ function ModelsContent() {
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
-                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
@@ -849,7 +849,7 @@ function ModelsContent() {
                             });
                           }
                         }}
-                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block"
+                        className="directory-grid-card group"
                       >
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0">
@@ -885,7 +885,7 @@ function ModelsContent() {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block no-underline"
+                        className="directory-grid-card group"
                       >
                         <div className="flex items-center gap-2 mb-1">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
