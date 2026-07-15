@@ -3,56 +3,79 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname() || '/';
   const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <nav className="font-sans sticky top-0 h-[56px] xl:h-[52px] w-full bg-[#F8F7F2]/80 backdrop-blur-md border-b border-[#E5E5E0] flex items-center justify-between px-4 md:px-8 xl:px-12 gap-3 xl:gap-4 shrink-0 z-50 transition-all duration-300">
-      {/* Left Logo */}
+      {/* Exact Left Logo Container from tasks_full.html */}
       <div className="flex items-center gap-1 xl:gap-0 xl:w-[240px] shrink-0">
-        <Link href="/" className="flex items-center justify-center xl:justify-start cursor-pointer w-[160px] sm:w-[200px] xl:w-[240px] h-12 xl:h-14 no-underline">
+        <button
+          aria-label="Open menu"
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="xl:hidden w-10 h-10 flex items-center justify-center rounded-md hover:bg-[#EBEBE6] transition-colors cursor-pointer"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" strokeWidth="2" strokeLinecap="round">
+            <line x1="4" y1="6" x2="20" y2="6"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="18" x2="20" y2="18"></line>
+          </svg>
+        </button>
+        <Link
+          href="/"
+          className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[160px] sm:w-[200px] xl:w-[240px] h-12 xl:h-14 no-underline"
+        >
           <img
             alt="Frontier Atlas"
             src="/logo.png"
-            className="object-contain object-center xl:object-left h-full w-auto max-h-[40px]"
+            className="object-contain object-center xl:object-left"
+            style={{ position: 'absolute', height: '100%', width: '100%', left: 0, top: 0, right: 0, bottom: 0 }}
           />
         </Link>
       </div>
 
-      {/* Center Search Input */}
+      {/* Exact Center Search Input from tasks_full.html */}
       <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-[240px] xl:w-[400px]">
-        <div className="w-full">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (searchQuery.trim()) {
-                window.location.href = `/models?search=${encodeURIComponent(searchQuery.trim())}`;
-              }
-            }}
-            className="relative flex items-center px-3 md:px-4 bg-white border border-[#E5E5E0] focus-within:border-[#DCDCD7] focus-within:shadow-[0_4px_20px_rgb(0,0,0,0.08)] transition-all rounded-[20px] h-9 w-full max-w-[400px]"
-          >
-            <div className="flex items-center text-[#737373] mr-2 shrink-0">
-              <Search className="h-4 w-4 text-gray-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-4 h-full text-[12.5px] font-medium"
-            />
-          </form>
+        <div className="w-full" style={{ opacity: 1, transform: 'none' }}>
+          <div className="relative w-full max-w-[400px]">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (searchQuery.trim()) {
+                  window.location.href = `/models?search=${encodeURIComponent(searchQuery.trim())}`;
+                }
+              }}
+              className="relative flex items-center px-3 md:px-4 bg-white border border-[#E5E5E0] focus-within:border-[#DCDCD7] focus-within:shadow-[0_4px_20px_rgb(0,0,0,0.08)] transition-all rounded-[20px]"
+            >
+              <div className="flex items-center text-[#737373] mr-2 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder="Search..."
+                className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9 text-[12px]"
+                aria-label="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </form>
+          </div>
         </div>
       </div>
 
-      {/* Right Navigation Links */}
+      {/* Exact Right Navigation Links from tasks_full.html */}
       <div className="hidden lg:flex items-center gap-6 ml-auto">
         <Link
           href="/tasks"
-          className={`text-[13px] transition-colors no-underline text-center flex flex-col justify-center ${
+          data-text="Tasks"
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/tasks')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -62,7 +85,8 @@ export default function Header() {
         </Link>
         <Link
           href="/methods"
-          className={`text-[13px] transition-colors no-underline text-center flex flex-col justify-center ${
+          data-text="Methods"
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/methods')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -72,7 +96,8 @@ export default function Header() {
         </Link>
         <Link
           href="/benchmarks"
-          className={`text-[13px] transition-colors no-underline text-center flex flex-col justify-center ${
+          data-text="Benchmarks"
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/benchmarks')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -82,7 +107,8 @@ export default function Header() {
         </Link>
         <Link
           href="/models"
-          className={`text-[13px] transition-colors no-underline text-center flex flex-col justify-center ${
+          data-text="Models"
+          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/models')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -92,8 +118,16 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* Profile / Avatar Button */}
-      <div className="flex items-center gap-4 border-l border-[#E5E5E0] pl-4 shrink-0">
+      {/* Exact Profile Button from tasks_full.html */}
+      <div className="hidden xl:flex items-center gap-4 border-l border-[#E5E5E0] pl-4 shrink-0">
+        <div className="w-8 h-8 rounded-full bg-[#F55036] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(245,80,54,0.20)] hover:-translate-y-px active:scale-95">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+      </div>
+      <div className="flex xl:hidden items-center shrink-0">
         <div className="w-8 h-8 rounded-full bg-[#F55036] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(245,80,54,0.20)] hover:-translate-y-px active:scale-95">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>

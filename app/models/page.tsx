@@ -525,8 +525,8 @@ function ModelsContent() {
         <div className="max-w-7xl mx-auto px-6 py-8 w-full">
           
           {/* 1. HERO SECTION (Exact tasks UI reference) */}
-          <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[350px] bg-white/60 rounded-2xl border border-gray-200/60 shadow-sm">
-            <div className="relative z-10 w-[65%] px-6 md:px-8 py-8 md:py-10">
+          <div className="relative overflow-hidden mb-10 min-h-[350px] bg-white/60 rounded-2xl border border-gray-200/60 shadow-sm flex">
+            <div className="relative z-10 w-full lg:w-[65%] px-6 md:px-8 py-8 md:py-10">
               <span className="inline-block text-[11px] font-mono font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded-full px-3 py-1 uppercase tracking-wider mb-3">
                 Frontier Atlas Registry
               </span>
@@ -676,7 +676,7 @@ function ModelsContent() {
                       <div
                         key={cap}
                         onClick={() => handleCapabilityClick(cap)}
-                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block min-h-[160px] flex flex-col justify-between ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -711,7 +711,7 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block min-h-[160px] flex flex-col justify-between ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -751,7 +751,7 @@ function ModelsContent() {
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block min-h-[160px] flex flex-col justify-between ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -791,7 +791,7 @@ function ModelsContent() {
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block min-h-[160px] flex flex-col justify-between ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -853,7 +853,7 @@ function ModelsContent() {
                             });
                           }
                         }}
-                        className="bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block"
+                        className="bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block min-h-[160px] flex flex-col justify-between"
                       >
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0">
@@ -891,7 +891,7 @@ function ModelsContent() {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block no-underline"
+                        className="bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block no-underline min-h-[160px] flex flex-col justify-between"
                       >
                         <div className="flex items-center gap-2 mb-1">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
