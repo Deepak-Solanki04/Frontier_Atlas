@@ -578,7 +578,7 @@ function ModelsContent() {
                     <input
                       type="text"
                       placeholder="Filter domains & models..."
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -620,7 +620,7 @@ function ModelsContent() {
                                 window.scrollTo({ top: 0, behavior: "smooth" });
                               }
                             }}
-                            className={`w-full text-left px-3 py-2 text-sm rounded-sm transition-all duration-200 flex items-center justify-between cursor-pointer ${
+                            className={`w-full text-left px-3 py-2 text-sm rounded-xl transition-all duration-200 flex items-center justify-between cursor-pointer ${
                               isActive
                                 ? "bg-rose-50 text-[#e11d48] font-semibold"
                                 : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
@@ -676,7 +676,7 @@ function ModelsContent() {
                       <div
                         key={cap}
                         onClick={() => handleCapabilityClick(cap)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -711,7 +711,7 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -751,7 +751,7 @@ function ModelsContent() {
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -791,7 +791,7 @@ function ModelsContent() {
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                        className={`bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
                           isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
                         }`}
                       >
@@ -853,7 +853,7 @@ function ModelsContent() {
                             });
                           }
                         }}
-                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block"
+                        className="bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block"
                       >
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0">
@@ -891,7 +891,7 @@ function ModelsContent() {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block no-underline"
+                        className="bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block no-underline"
                       >
                         <div className="flex items-center gap-2 mb-1">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
