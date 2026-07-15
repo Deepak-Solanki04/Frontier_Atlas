@@ -1,6 +1,6 @@
 import React from "react";
-import TasksPage from "./tasks/page";
+import ModelsPage from "./models/page";
 
 export default function Home() {
-  return <TasksPage />;
+  return <ModelsPage />;
 }
