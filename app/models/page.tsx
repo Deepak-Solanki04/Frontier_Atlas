@@ -527,43 +527,14 @@ function ModelsContent() {
           
           {/* 1. HERO SECTION (Exact tasks UI reference) */}
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
-            <div className="relative z-10 w-full lg:w-[48%] px-6 md:px-8 py-5 md:py-6">
+            <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
                 All
                 <span className="text-[#e11d48] ml-3">Models</span>
               </h1>
-              <p className="text-gray-700 font-medium text-xs md:text-sm mb-2 leading-relaxed">
-                Discover foundation models, language models, vision models, multimodal models, reasoning models, coding models, embedding models, and AI agents from leading research labs and organizations.
+              <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
+                Discover the full landscape of AI foundation models, multimodal architectures, and reasoning engines from leading research labs and organizations.
               </p>
-              <p className="text-gray-600 text-xs md:text-sm mb-6 leading-relaxed">
-                Explore model capabilities, benchmarks, research papers, datasets, tasks, architectures, and real-world applications—all in one place.
-              </p>
-              <div className="flex flex-wrap items-center gap-3 mb-6">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("section-capability");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="px-4 py-2 bg-[#e11d48] hover:bg-[#be123c] text-white rounded-lg font-semibold text-xs transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
-                >
-                  Browse Models <ChevronRight size={14} />
-                </button>
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("model-directory");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="px-4 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 rounded-lg font-semibold text-xs transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
-                >
-                  Compare Models <BarChart3 size={14} />
-                </button>
-                <button
-                  onClick={() => alert("Submit Model modal: Thank you! We will review and verify your model contribution right away.")}
-                  className="px-4 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 rounded-lg font-semibold text-xs transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
-                >
-                  Submit Model <Plus size={14} />
-                </button>
-              </div>
               <div className="flex items-center gap-4 whitespace-nowrap text-xs md:text-sm">
                 <div className="flex items-center gap-4">
                   <div>
@@ -711,8 +682,8 @@ function ModelsContent() {
                       <div
                         key={cap}
                         onClick={() => handleCapabilityClick(cap)}
-                        className={`directory-grid-card group ${
-                          isActive ? "active" : ""
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
+                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
                         }`}
                       >
                         <div className="flex items-center gap-2">
@@ -746,23 +717,18 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`directory-grid-card group ${
-                          isActive ? "active" : ""
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
+                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{fam.name}</h3>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
-                            {fam.count} Models
-                          </span>
+                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{fam.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
-                          Foundation architecture family developed and maintained by {fam.org}.
+                          Foundation architecture family developed and maintained by {fam.org}. ({fam.count} Models)
                         </p>
                       </div>
                     );
@@ -786,23 +752,18 @@ function ModelsContent() {
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`directory-grid-card group ${
-                          isActive ? "active" : ""
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
+                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{v.name}</h3>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
-                            {v.count} Models
-                          </span>
+                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{v.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
-                          Explore frontier AI models, weights, and verified APIs published by {v.name}.
+                          Explore frontier AI models, weights, and verified APIs published by {v.name}. ({v.count} Models)
                         </p>
                       </div>
                     );
@@ -826,23 +787,18 @@ function ModelsContent() {
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`directory-grid-card group ${
-                          isActive ? "active" : ""
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
+                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{d.name}</h3>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
-                            {d.count} Models
-                          </span>
+                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{d.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
-                          Leading architectural benchmarks and evaluations anchored by {d.leader}.
+                          Leading architectural benchmarks and evaluations anchored by {d.leader}. ({d.count} Models)
                         </p>
                       </div>
                     );
@@ -888,19 +844,15 @@ function ModelsContent() {
                             });
                           }
                         }}
-                        className="directory-grid-card group"
+                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer"
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{m.name}</h3>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          
+                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{m.name}</h3>
                         </div>
-                        <p className="text-xs font-semibold text-gray-400 ml-11 mb-1">{m.org} &middot; {m.family}</p>
-                        <p className="text-sm text-gray-500 mt-1 ml-11 mr-4 line-clamp-3" title={m.desc}>{m.desc}</p>
+                        <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3" title={m.desc}>{m.desc}</p>
                       </div>
                     );
                   })}
@@ -924,16 +876,13 @@ function ModelsContent() {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="directory-grid-card group"
+                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block"
                       >
-                        <div className="flex items-center gap-2 mb-1">
+                        <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <div className="min-w-0">
-                            <div className="text-[10px] font-bold text-rose-500 uppercase tracking-wider truncate">{item.family}</div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug truncate mb-0">{item.name}</h3>
-                          </div>
+                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{item.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3" title={item.desc}>{item.desc}</p>
                       </a>
