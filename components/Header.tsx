@@ -87,7 +87,7 @@ export default function Header() {
               <input
                 type="text"
                 placeholder="Search..."
-                className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9 text-[12px]"
+                className="nav-search-font bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9"
                 aria-label="Search"
                 aria-autocomplete="list"
                 aria-controls="search-suggestions"
@@ -104,7 +104,7 @@ export default function Header() {
         <Link
           href="/tasks"
           data-text="Tasks"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`nav-search-font transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/tasks')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -115,7 +115,7 @@ export default function Header() {
         <Link
           href="/methods"
           data-text="Methods"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`nav-search-font transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/methods')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -126,7 +126,7 @@ export default function Header() {
         <Link
           href="/benchmarks"
           data-text="Benchmarks"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`nav-search-font transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/benchmarks')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'
@@ -137,7 +137,7 @@ export default function Header() {
         <Link
           href="/models"
           data-text="Models"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`nav-search-font transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/models')
               ? 'text-[#F55036] font-bold'
               : 'text-[#555555] font-medium hover:text-[#F55036]'

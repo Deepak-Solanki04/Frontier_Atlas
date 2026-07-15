@@ -6,12 +6,13 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: 'Geist', var(--font-geist), var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 :root {
+  --font-geist: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-plus-jakarta: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-outfit: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -30,7 +31,7 @@
 
 html, body {
   height: 100%;
-  font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: 'Geist', var(--font-geist), var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-dark);
@@ -41,8 +42,17 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; font-weight: inherit; }
-button { font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; font-weight: 600; }
-input, textarea, select { font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; font-weight: 400 !important; }
+button { font-family: 'Geist', var(--font-geist), var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; font-weight: 600; }
+input, textarea, select { font-family: 'Geist', var(--font-geist), var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; font-weight: 400 !important; }
+
+/* ═══════ EXACT GEIST FONT SPECIFICATION FOR NAV BAR & SEARCH BAR ═══════ */
+.nav-search-font {
+  font-family: "Geist", var(--font-geist), sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 24px !important;
+  letter-spacing: -0.01em !important;
+}
 
 /* ═══════ SHELL ═══════ */
 .app-shell { display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden; }

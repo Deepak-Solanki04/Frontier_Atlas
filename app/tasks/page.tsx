@@ -167,7 +167,7 @@ export default function TasksPage() {
                     <input
                       type="text"
                       placeholder="Filter domains..."
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
+                      className="nav-search-font w-full pl-9 pr-3 py-2 rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
