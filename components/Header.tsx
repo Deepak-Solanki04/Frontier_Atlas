@@ -54,21 +54,21 @@ export default function Header() {
         </button>
         <Link
           href="/"
-          className="relative block w-[230px] sm:w-[270px] xl:w-[310px] h-[52px] md:h-[58px] cursor-pointer no-underline overflow-visible"
+          className="relative block w-[260px] sm:w-[310px] xl:w-[350px] h-[58px] md:h-[64px] cursor-pointer no-underline overflow-visible"
         >
           <Image
             alt="Frontier Atlas"
             src="/logo.png"
             fill
-            className="object-contain object-left scale-[1.3] md:scale-[1.35] origin-left transition-transform"
-            sizes="(max-width: 1280px) 270px, 310px"
+            className="object-contain object-left scale-[1.65] md:scale-[1.7] origin-left transition-transform"
+            sizes="(max-width: 1280px) 310px, 350px"
             priority
           />
         </Link>
       </div>
 
-      {/* Center Search Bar ALWAYS VISIBLE */}
-      <div className="hidden lg:flex flex-1 max-w-[420px] mx-6 items-center justify-center">
+      {/* Search Bar SHIFTED TO RIGHT next to navigation links */}
+      <div className="hidden lg:flex max-w-[380px] xl:max-w-[440px] w-full ml-auto mr-4 xl:mr-8 items-center">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -96,7 +96,7 @@ export default function Header() {
       </div>
 
       {/* Exact Right Navigation Links from tasks_full.html */}
-      <div className="hidden lg:flex items-center gap-6 ml-auto">
+      <div className="hidden lg:flex items-center gap-6 shrink-0">
         <Link
           href="/tasks"
           data-text="Tasks"
