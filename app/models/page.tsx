@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2 } from "lucide-react";
+import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2, ChevronRight } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
 
 const TOP_MODELS_BOXES = [
@@ -527,13 +527,42 @@ function ModelsContent() {
           
           {/* 1. HERO SECTION (Exact tasks UI reference) */}
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
-            <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
-                All Models<br /><span className="text-[#e11d48]">Directory &amp; Ecosystem</span>
+            <div className="relative z-10 w-full lg:w-[48%] px-6 md:px-8 py-5 md:py-6">
+              <h1 className="text-3xl md:text-4xl font-extrabold mb-3 tracking-tight text-gray-900">
+                AI Models
               </h1>
-              <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
-                Explore the full spectrum of AI research across tasks, foundation models, evaluation benchmarks, and applications.
+              <p className="text-gray-700 font-medium text-xs md:text-sm mb-2 leading-relaxed">
+                Discover foundation models, language models, vision models, multimodal models, reasoning models, coding models, embedding models, and AI agents from leading research labs and organizations.
               </p>
+              <p className="text-gray-600 text-xs md:text-sm mb-6 leading-relaxed">
+                Explore model capabilities, benchmarks, research papers, datasets, tasks, architectures, and real-world applications—all in one place.
+              </p>
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("section-capability");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="px-4 py-2 bg-[#e11d48] hover:bg-[#be123c] text-white rounded-lg font-semibold text-xs transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
+                >
+                  Browse Models <ChevronRight size={14} />
+                </button>
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("model-directory");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="px-4 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 rounded-lg font-semibold text-xs transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
+                >
+                  Compare Models <BarChart3 size={14} />
+                </button>
+                <button
+                  onClick={() => alert("Submit Model modal: Thank you! We will review and verify your model contribution right away.")}
+                  className="px-4 py-2 bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 rounded-lg font-semibold text-xs transition-colors shadow-sm flex items-center gap-1.5 cursor-pointer"
+                >
+                  Submit Model <Plus size={14} />
+                </button>
+              </div>
               <div className="flex items-center gap-4 whitespace-nowrap text-xs md:text-sm">
                 <div className="flex items-center gap-4">
                   <div>
@@ -913,7 +942,7 @@ function ModelsContent() {
               </section>
 
         {/* 7. RECENTLY RELEASED (Page 4) */}
-        <div className="models-block-section">
+        <section id="section-recently-released" className="models-block-section scroll-mt-24">
           <div className="models-block-header">
             <h2 className="models-block-title">
               <Calendar size={22} style={{ color: "#FF5A1F" }} />
@@ -961,10 +990,10 @@ function ModelsContent() {
               </table>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* 8. POPULAR MODEL COLLECTIONS (Page 4 & 5) */}
-        <div className="models-block-section">
+        <section id="section-collections" className="models-block-section scroll-mt-24">
           <div className="models-block-header">
             <h2 className="models-block-title">
               <BookOpen size={22} style={{ color: "#FF5A1F" }} />
@@ -994,7 +1023,7 @@ function ModelsContent() {
               );
             })}
           </div>
-        </div>
+        </section>
 
         {/* 9. MODEL DIRECTORY (Page 5 & 6 Table Section) */}
         <div id="model-directory" className="models-catalog-section" style={{ borderRadius: "2px" }}>
