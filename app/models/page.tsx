@@ -562,19 +562,19 @@ function ModelsContent() {
             </div>
             <div className="relative w-[70%] h-[250px] flex justify-center"></div>
           </div>
-          <div className="flex gap-8 items-start">
+          <div className="flex gap-6">
             
             {/* LEFT SIDEBAR WITH SEARCH & NAVIGATION OPTIONS EXACT TO reference */}
             <aside className="w-64 flex-shrink-0 hidden lg:block backdrop-blur-sm" aria-label="Domain navigation">
               <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)]">
-                <div className="px-1 pt-2 pb-4">
-                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3 tracking-wider">Browse Research</h3>
+                <div className="px-4 pt-6 pb-4">
+                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3">Browse Research</h3>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
                       type="text"
                       placeholder="Filter domains & models..."
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -589,7 +589,7 @@ function ModelsContent() {
                   </div>
                 </div>
 
-                <nav className="overflow-y-auto px-1 pb-4 flex-1" aria-label="Domains">
+                <nav className="overflow-y-auto px-2 pb-4" aria-label="Domains">
                   <ul className="space-y-0.5" role="list">
                     {[
                       { id: "all", label: "All Categories" },
@@ -616,14 +616,13 @@ function ModelsContent() {
                                 window.scrollTo({ top: 0, behavior: "smooth" });
                               }
                             }}
-                            className={`w-full text-left px-3 py-2 text-sm rounded-xl transition-all duration-200 flex items-center justify-between cursor-pointer ${
+                            className={`w-full text-left px-3 py-2 text-sm rounded-sm transition-all duration-200 cursor-pointer ${
                               isActive
-                                ? "bg-rose-50 text-[#e11d48] font-semibold"
-                                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                                ? "text-[#e11d48] font-semibold"
+                                : "text-gray-600 hover:scale-105"
                             }`}
                           >
-                            <span>{item.label}</span>
-                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48]"></span>}
+                            {item.label}
                           </button>
                         </li>
                       );
@@ -631,7 +630,7 @@ function ModelsContent() {
                   </ul>
                 </nav>
 
-                <div className="px-1 mt-6">
+                <div className="px-2 mt-10">
                   <div className="bg-gradient-to-br from-rose-50 to-white rounded-xl border border-rose-100 p-4 shadow-sm">
                     <div className="flex items-start gap-3">
                       <div className="p-2 bg-rose-100 rounded-full text-rose-500 shrink-0">
@@ -654,13 +653,13 @@ function ModelsContent() {
             </aside>
 
             {/* RIGHT CONTENT AREA CONTAINING ALL SECTIONS & EXACT CARDS */}
-            <div className="flex-1 min-w-0 space-y-14">
+            <div className="flex-1 min-w-0">
               
               {/* 2. BROWSE BY CAPABILITY (Exact tasks UI reference cards) */}
-              <section id="section-capability" className="scroll-mt-24">
+              <section id="section-capability" className="mb-12 scroll-mt-24">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-3">
-                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Capability</h2>
+                    <h2 className="text-[30px] font-bold text-gray-800">Browse by Capability</h2>
                   </div>
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">24 Tasks &amp; Modalities</span>
                 </div>
@@ -677,10 +676,10 @@ function ModelsContent() {
                         }`}
                       >
                         <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{cap}</h3>
+                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{cap}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
                           Models that understand, generate, and execute specialized tasks across {cap}.
@@ -692,10 +691,10 @@ function ModelsContent() {
               </section>
 
               {/* 3. BROWSE BY MODEL FAMILY */}
-              <section id="section-family" className="scroll-mt-24">
+              <section id="section-family" className="mb-12 scroll-mt-24">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-3">
-                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Model Family</h2>
+                    <h2 className="text-[30px] font-bold text-gray-800">Browse by Model Family</h2>
                   </div>
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">20 Model Families</span>
                 </div>
@@ -713,10 +712,10 @@ function ModelsContent() {
                       >
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{fam.name}</h3>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{fam.name}</h3>
                           </div>
                           <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
                             {fam.count} Models
@@ -732,10 +731,10 @@ function ModelsContent() {
               </section>
 
               {/* 4. BROWSE BY ORGANIZATION */}
-              <section id="section-organization" className="scroll-mt-24">
+              <section id="section-organization" className="mb-12 scroll-mt-24">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-3">
-                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Organization</h2>
+                    <h2 className="text-[30px] font-bold text-gray-800">Browse by Organization</h2>
                   </div>
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">20 Leading Labs</span>
                 </div>
@@ -753,10 +752,10 @@ function ModelsContent() {
                       >
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{v.name}</h3>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{v.name}</h3>
                           </div>
                           <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
                             {v.count} Models
@@ -772,10 +771,10 @@ function ModelsContent() {
               </section>
 
               {/* 5. BROWSE BY RESEARCH AREA */}
-              <section id="section-research" className="scroll-mt-24">
+              <section id="section-research" className="mb-12 scroll-mt-24">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-3">
-                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Research Area</h2>
+                    <h2 className="text-[30px] font-bold text-gray-800">Browse by Research Area</h2>
                   </div>
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">20 Modalities &amp; Domains</span>
                 </div>
@@ -793,10 +792,10 @@ function ModelsContent() {
                       >
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{d.name}</h3>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{d.name}</h3>
                           </div>
                           <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
                             {d.count} Models
@@ -812,10 +811,10 @@ function ModelsContent() {
               </section>
 
               {/* 6. TRENDING MODELS */}
-              <section id="section-trending" className="scroll-mt-24">
+              <section id="section-trending" className="mb-12 scroll-mt-24">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-3">
-                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Trending Models</h2>
+                    <h2 className="text-[30px] font-bold text-gray-800">Trending Models</h2>
                   </div>
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Most Active in 2025</span>
                 </div>
@@ -853,10 +852,10 @@ function ModelsContent() {
                       >
                         <div className="flex items-center justify-between mb-1">
                           <div className="flex items-center gap-2 min-w-0">
-                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             </div>
-                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{m.name}</h3>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{m.name}</h3>
                           </div>
                           
                         </div>
@@ -869,10 +868,10 @@ function ModelsContent() {
               </section>
 
               {/* 6.5. FEATURED MODEL WRAPPERS & ECOSYSTEM INTEGRATIONS */}
-              <section id="section-integrations" className="scroll-mt-24">
+              <section id="section-integrations" className="mb-12 scroll-mt-24">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex items-center gap-3">
-                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Featured Model Wrappers &amp; Ecosystem Integrations</h2>
+                    <h2 className="text-[30px] font-bold text-gray-800">Featured Model Wrappers &amp; Ecosystem Integrations</h2>
                   </div>
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Official Partner Integrations</span>
                 </div>
@@ -888,7 +887,7 @@ function ModelsContent() {
                         className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block no-underline"
                       >
                         <div className="flex items-center gap-2 mb-1">
-                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
                           <div className="min-w-0">

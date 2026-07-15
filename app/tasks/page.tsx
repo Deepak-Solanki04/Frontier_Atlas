@@ -154,19 +154,19 @@ export default function TasksPage() {
             </div>
             <div className="relative w-[70%] h-[250px] flex justify-center"></div>
           </div>
-          <div className="flex gap-6 items-start">
+          <div className="flex gap-6">
             
             {/* EXACT LEFT SIDEBAR ALWAYS VISIBLE (`block` instead of `hidden lg:block`) */}
-            <aside className="w-64 flex-shrink-0 block backdrop-blur-sm" aria-label="Domain navigation">
+            <aside className="w-64 flex-shrink-0 hidden lg:block backdrop-blur-sm" aria-label="Domain navigation">
               <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)]">
-                <div className="px-1 pt-2 pb-4">
-                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3 tracking-wider">Browse Research</h3>
+                <div className="px-4 pt-6 pb-4">
+                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3">Browse Research</h3>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
                       type="text"
                       placeholder="Filter domains..."
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -181,7 +181,7 @@ export default function TasksPage() {
                   </div>
                 </div>
 
-                <nav className="overflow-y-auto px-1 pb-4 flex-1" aria-label="Domains">
+                <nav className="overflow-y-auto px-2 pb-4" aria-label="Domains">
                   <ul className="space-y-0.5" role="list">
                     {DOMAINS_LIST.map((domain) => {
                       const isActive = activeDomain === domain;
@@ -197,14 +197,13 @@ export default function TasksPage() {
                                 window.scrollTo({ top: 0, behavior: "smooth" });
                               }
                             }}
-                            className={`w-full text-left px-3 py-2 text-sm rounded-xl transition-all duration-200 flex items-center justify-between cursor-pointer ${
+                            className={`w-full text-left px-3 py-2 text-sm rounded-sm transition-all duration-200 cursor-pointer ${
                               isActive
-                                ? "bg-rose-50 text-[#e11d48] font-semibold"
-                                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                                ? "text-[#e11d48] font-semibold"
+                                : "text-gray-600 hover:scale-105"
                             }`}
                           >
-                            <span>{domain}</span>
-                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48]"></span>}
+                            {domain}
                           </button>
                         </li>
                       );
@@ -212,7 +211,7 @@ export default function TasksPage() {
                   </ul>
                 </nav>
 
-                <div className="px-1 mt-6">
+                <div className="px-2 mt-10">
                   <div className="bg-gradient-to-br from-rose-50 to-white rounded-xl border border-rose-100 p-4 shadow-sm">
                     <div className="flex items-start gap-3">
                       <div className="p-2 bg-rose-100 rounded-full text-rose-500 shrink-0">
@@ -235,16 +234,16 @@ export default function TasksPage() {
             </aside>
 
             {/* ══ EXACT RIGHT CONTENT AREA WITH BOX DIMENSIONS OF TASKS_FULL.HTML ══ */}
-            <div className="flex-1 min-w-0 space-y-14">
+            <div className="flex-1 min-w-0">
               {domainsToRender.map((domName) => {
                 const domainTasks = filteredTasks.filter(t => t.domain === domName);
                 if (domainTasks.length === 0 && searchQuery) return null;
                 
                 return (
-                  <section key={domName} id={`section-${domName}`} className="scroll-mt-24">
+                  <section key={domName} id={`section-${domName}`} className="mb-12 scroll-mt-24">
                     <div className="flex justify-between items-center mb-6">
                       <div className="flex items-center gap-3">
-                        <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">{domName}</h2>
+                        <h2 className="text-[30px] font-bold text-gray-800">{domName}</h2>
                       </div>
                       <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">{domainTasks.length} Tasks</span>
                     </div>
@@ -259,10 +258,10 @@ export default function TasksPage() {
                             className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer no-underline block"
                           >
                             <div className="flex items-center gap-2">
-                              <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                              <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                                 <SkeletalIcon size={20} style={{ color: task.color }} />
                               </div>
-                              <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{task.name}</h3>
+                              <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{task.name}</h3>
                             </div>
                             <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
                               {task.desc}
