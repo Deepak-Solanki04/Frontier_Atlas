@@ -755,6 +755,34 @@ footer.site-footer-bar {
   box-shadow: 0 0 0 1px #fb7185;
 }
 
+/* ═══════ SIDEBAR NAVIGATION BUTTONS (TASKS & MODELS PARITY VANILLA CSS) ═══════ */
+.sidebar-nav-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px !important;
+  font-weight: 500;
+  color: #4b5563;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+}
+.sidebar-nav-btn:hover {
+  background-color: #ffffff;
+  color: #111827;
+}
+.sidebar-nav-btn.active {
+  background-color: rgba(255, 241, 242, 0.6);
+  color: #e11d48;
+  border-color: #fb7185;
+  font-weight: 600;
+}
+
 /* ═══════ MODELS DIRECTORY 9-SECTION VANILLA CSS WITH SHARP CORNERS (2PX) ═══════ */
 
 .models-hero-section {

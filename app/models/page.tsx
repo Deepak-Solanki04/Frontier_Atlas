@@ -617,11 +617,7 @@ function ModelsContent() {
                                 window.scrollTo({ top: 0, behavior: "smooth" });
                               }
                             }}
-                            className={`w-full text-left px-3 py-2 text-sm rounded-sm transition-all duration-200 cursor-pointer ${
-                              isActive
-                                ? "text-[#e11d48] font-semibold"
-                                : "text-gray-600 hover:scale-105"
-                            }`}
+                            className={`sidebar-nav-btn ${isActive ? "active" : ""}`}
                           >
                             {item.label}
                           </button>
