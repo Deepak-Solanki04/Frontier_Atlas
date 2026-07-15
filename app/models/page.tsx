@@ -523,59 +523,34 @@ function ModelsContent() {
     <div className="flex-1 flex flex-col min-h-full overflow-hidden bg-[#F8F7F2] font-sans text-slate-800">
       <div className="flex-1 flex overflow-hidden">
         <main className="flex-1 overflow-y-auto overflow-x-hidden hide-scroll">
-        <div className="max-w-7xl mx-auto px-6 py-8 w-full">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 py-8 w-full">
           
-          {/* 1. HERO SECTION (Exact tasks UI reference) */}
-          <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
-            <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
-                All
-                <span className="text-[#e11d48] ml-3">Models</span>
-              </h1>
-              <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
-                Discover the full landscape of AI foundation models, multimodal architectures, and reasoning engines from leading research labs and organizations.
-              </p>
-              <div className="flex items-center gap-4 whitespace-nowrap text-xs md:text-sm">
-                <div className="flex items-center gap-4">
-                  <div>
-                    <div className="text-lg md:text-xl font-bold text-gray-800">24</div>
-                    <div className="text-gray-500 text-[10px] md:text-xs">Capabilities</div>
-                  </div>
-                  <div className="w-px h-6 bg-gray-200"></div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div>
-                    <div className="text-lg md:text-xl font-bold text-gray-800">120+</div>
-                    <div className="text-gray-500 text-[10px] md:text-xs">Model Families</div>
-                  </div>
-                  <div className="w-px h-6 bg-gray-200"></div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div>
-                    <div className="text-lg md:text-xl font-bold text-gray-800">400+</div>
-                    <div className="text-gray-500 text-[10px] md:text-xs">Verified SOTA</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 border-2 border-gray-200 rounded-full px-2.5 py-1 bg-white/50 backdrop-blur-sm ml-1 cursor-pointer hover:shadow-sm">
-                  <TrendingUp className="text-emerald-500" size={10} />
-                  <span className="text-gray-600 font-medium text-[10px] md:text-xs">Daily updates</span>
-                </div>
-              </div>
+          {/* Exact Replica of https://frontieratlas.co/models Header & Breadcrumbs */}
+          <div className="mb-8">
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
+              <Link href="/" className="hover:text-[#F55036] transition-colors no-underline">
+                Home
+              </Link>
+              <span>/</span>
+              <span className="text-[#555555] font-medium">Models</span>
             </div>
-            {/* Skeletal Graph & Dynamic Visualization Background Exact To Reference */}
-            <div className="absolute right-0 top-0 bottom-0 w-[70%] pointer-events-none overflow-hidden flex items-center justify-end">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#F8F7F2] via-transparent to-transparent z-10" />
-              <svg className="w-full h-full opacity-35 text-rose-500" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 0 100 Q 200 20, 400 100 T 800 100" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" />
-                <path d="M 0 150 Q 250 50, 500 150 T 800 80" stroke="#f43f5e" strokeWidth="1" opacity="0.6" />
-                <path d="M 100 50 Q 350 180, 600 40 T 800 160" stroke="#3b82f6" strokeWidth="1" opacity="0.4" />
-                <circle cx="200" cy="62" r="4" fill="#e11d48" className="animate-pulse" />
-                <circle cx="400" cy="100" r="5" fill="#e11d48" />
-                <circle cx="600" cy="138" r="4" fill="#3b82f6" />
-                <circle cx="500" cy="150" r="3" fill="#f43f5e" />
-                <circle cx="250" cy="115" r="3" fill="#10b981" />
-              </svg>
+
+            {/* Directory Chip Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#EAE6DE] bg-[#FBFAF7] px-3 py-1 text-[11px] font-medium text-[#555555] uppercase tracking-[0.18em] mb-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] mr-1.5 shrink-0" />
+              FOUNDATION DIRECTORY
             </div>
+
+            {/* Main Title */}
+            <h1 className="text-[34px] md:text-[40px] font-bold tracking-tight mb-3 text-[#111111]">
+              Models
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-[15px] md:text-[16px] text-[#555555] leading-relaxed max-w-5xl mb-7">
+              Explore state-of-the-art foundation models evaluated across verified academic benchmarks, reasoning tasks, and real-world agentic workflows.
+            </p>
           </div>
           <div className="flex gap-6">
             
