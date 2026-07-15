@@ -11,6 +11,16 @@ const config: Config = {
         background: "var(--bg)",
         foreground: "var(--text-dark)",
       },
+      fontFamily: {
+        sans: [
+          "var(--font-plus-jakarta)",
+          "Plus Jakarta Sans",
+          "Outfit",
+          "var(--font-inter)",
+          "Inter",
+          "sans-serif",
+        ],
+      },
     },
   },
   plugins: [],
