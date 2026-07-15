@@ -117,44 +117,43 @@ export default function TasksPage() {
         <div className="max-w-7xl mx-auto px-6 py-8 w-full">
           
           {/* ══ 1. HERO SECTION EXACT TO FRONTIERATLAS.CO/TASKS ══ */}
-          <div className="relative overflow-hidden mb-10 min-h-[350px] bg-white/60 rounded-2xl border border-gray-200/60 shadow-sm flex">
-            <div className="relative z-10 w-full lg:w-[65%] px-6 md:px-8 py-8 md:py-10">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight text-gray-900">
+          <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
+            <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
                 All Research<br /><span className="text-[#e11d48]">Domains</span>
               </h1>
-              <p className="text-gray-600 text-sm md:text-base mb-6 max-w-md leading-relaxed">
+              <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
                 Explore the full spectrum of AI research across tasks, methods, and applications.
               </p>
-              <div className="flex flex-wrap items-center gap-5 text-sm">
-                <div className="flex items-center gap-5">
+              <div className="flex items-center gap-4 whitespace-nowrap text-xs md:text-sm">
+                <div className="flex items-center gap-4">
                   <div>
-                    <div className="text-xl md:text-2xl font-bold text-gray-800">10</div>
-                    <div className="text-gray-500 text-xs md:text-sm">Domains</div>
+                    <div className="text-lg md:text-xl font-bold text-gray-800">10</div>
+                    <div className="text-gray-500 text-[10px] md:text-xs">Domains</div>
                   </div>
-                  <div className="w-px h-8 bg-gray-200"></div>
+                  <div className="w-px h-6 bg-gray-200"></div>
                 </div>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-4">
                   <div>
-                    <div className="text-xl md:text-2xl font-bold text-gray-800">105</div>
-                    <div className="text-gray-500 text-xs md:text-sm">Tasks</div>
+                    <div className="text-lg md:text-xl font-bold text-gray-800">105</div>
+                    <div className="text-gray-500 text-[10px] md:text-xs">Tasks</div>
                   </div>
-                  <div className="w-px h-8 bg-gray-200"></div>
+                  <div className="w-px h-6 bg-gray-200"></div>
                 </div>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-4">
                   <div>
-                    <div className="text-xl md:text-2xl font-bold text-gray-800">100K+</div>
-                    <div className="text-gray-500 text-xs md:text-sm">Papers</div>
+                    <div className="text-lg md:text-xl font-bold text-gray-800">100K+</div>
+                    <div className="text-gray-500 text-[10px] md:text-xs">Papers</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 border-2 border-gray-200 rounded-full px-3 py-1 bg-white/80 backdrop-blur-sm ml-2 cursor-pointer hover:shadow-sm">
-                  <TrendingUp className="text-emerald-500 h-3.5 w-3.5" />
-                  <span className="text-gray-600 font-medium text-xs md:text-sm">Daily updates</span>
+                <div className="flex items-center gap-1.5 border-2 border-gray-200 rounded-full px-2.5 py-1 bg-white/50 backdrop-blur-sm ml-1 cursor-pointer hover:shadow-sm">
+                  <TrendingUp className="text-emerald-500" size={10} />
+                  <span className="text-gray-600 font-medium text-[10px] md:text-xs">Daily updates</span>
                 </div>
               </div>
             </div>
+            <div className="relative w-[70%] h-[250px] flex justify-center"></div>
           </div>
-
-          {/* ══ 2. EXACT SIDEBAR + MAIN CONTENT GRID LAYOUT ══ */}
           <div className="flex gap-6 items-start">
             
             {/* EXACT LEFT SIDEBAR ALWAYS VISIBLE (`block` instead of `hidden lg:block`) */}
@@ -257,7 +256,7 @@ export default function TasksPage() {
                           <Link
                             key={task.name}
                             href={`/models?capability=${encodeURIComponent(task.name)}`}
-                            className="bg-white p-5 rounded-xl shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer no-underline block min-h-[160px] flex flex-col justify-between"
+                            className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer no-underline block"
                           >
                             <div className="flex items-center gap-2">
                               <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
