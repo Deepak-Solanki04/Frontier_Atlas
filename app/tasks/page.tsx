@@ -112,8 +112,9 @@ export default function TasksPage() {
     : [activeDomain];
 
   return (
-    <div className="flex flex-col min-h-screen overflow-x-hidden bg-[#F8F7F2] font-sans text-slate-800 pb-24">
-      <main className="flex-1 overflow-y-auto overflow-x-hidden hide-scroll">
+    <div className="flex flex-col h-screen overflow-hidden bg-[#F8F7F2] font-sans text-slate-800">
+      <div className="flex-1 flex overflow-hidden">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden hide-scroll">
         <div className="max-w-7xl mx-auto px-6 py-8 w-full">
           
           {/* ══ 1. HERO SECTION EXACT TO FRONTIERATLAS.CO/TASKS ══ */}
@@ -278,6 +279,7 @@ export default function TasksPage() {
           </div>
         </div>
       </main>
+      </div>
     </div>
   );
 }
