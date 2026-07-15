@@ -574,7 +574,7 @@ function ModelsContent() {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
                       type="text"
-                      placeholder="Filter domains & models..."
+                      placeholder="Filter domains..."
                       className="w-full pl-9 pr-3 py-2 text-sm rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}

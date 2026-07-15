@@ -54,14 +54,14 @@ export default function Header() {
         </button>
         <Link
           href="/"
-          className="relative block w-[170px] sm:w-[190px] h-10 cursor-pointer no-underline"
+          className="relative block w-[210px] sm:w-[235px] xl:w-[250px] h-[46px] sm:h-[48px] cursor-pointer no-underline"
         >
           <Image
             alt="Frontier Atlas"
             src="/logo.png"
             fill
             className="object-contain object-left"
-            sizes="190px"
+            sizes="(max-width: 1280px) 235px, 250px"
             priority
           />
         </Link>
