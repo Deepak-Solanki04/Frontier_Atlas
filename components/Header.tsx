@@ -37,7 +37,7 @@ export default function Header() {
   }, [pathname]);
 
   return (
-    <nav className="font-sans sticky top-0 h-[56px] w-full bg-[#F8F7F2]/90 backdrop-blur-md border-b border-[#E5E5E0] flex items-center justify-between px-4 md:px-8 xl:px-12 gap-4 shrink-0 z-50 transition-all duration-200">
+    <nav className="font-sans sticky top-0 h-[62px] md:h-[66px] w-full bg-[#F8F7F2]/90 backdrop-blur-md border-b border-[#E5E5E0] flex items-center justify-between px-4 md:px-8 xl:px-12 gap-4 shrink-0 z-50 transition-all duration-200">
       {/* Left Logo Container */}
       <div className="flex items-center gap-2 shrink-0">
         <button
@@ -54,14 +54,14 @@ export default function Header() {
         </button>
         <Link
           href="/"
-          className="relative block w-[210px] sm:w-[235px] xl:w-[250px] h-[46px] sm:h-[48px] cursor-pointer no-underline"
+          className="relative block w-[230px] sm:w-[270px] xl:w-[310px] h-[52px] md:h-[58px] cursor-pointer no-underline overflow-visible"
         >
           <Image
             alt="Frontier Atlas"
             src="/logo.png"
             fill
-            className="object-contain object-left"
-            sizes="(max-width: 1280px) 235px, 250px"
+            className="object-contain object-left scale-[1.3] md:scale-[1.35] origin-left transition-transform"
+            sizes="(max-width: 1280px) 270px, 310px"
             priority
           />
         </Link>
