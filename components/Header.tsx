@@ -53,14 +53,14 @@ export default function Header() {
         </button>
         <Link
           href="/"
-          className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[200px] sm:w-[230px] xl:w-[260px] h-12 xl:h-14"
+          className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[160px] sm:w-[200px] xl:w-[240px] h-12 xl:h-14"
         >
           <Image
             alt="Frontier Atlas"
             src="/logo.png"
             fill
-            className="object-contain object-center xl:object-left scale-[1.125] xl:scale-[1.16] origin-center xl:origin-left transition-transform"
-            sizes="(max-width: 1280px) 230px, 260px"
+            className="object-contain object-center xl:object-left"
+            sizes="(max-width: 1280px) 200px, 240px"
             priority
           />
         </Link>

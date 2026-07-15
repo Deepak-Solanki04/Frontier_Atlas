@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geist.variable} ${plusJakarta.variable} ${outfit.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased">
+      <body className={`${inter.className} font-sans antialiased`}>
         <div className="app-shell">
           <ConditionalHeader />
           <div className="main-wrapper">
