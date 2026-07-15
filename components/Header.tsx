@@ -1,13 +1,40 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const pathname = usePathname() || '/';
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const mainEl = document.querySelector('main');
+      const scrollTop = mainEl ? mainEl.scrollTop : window.scrollY;
+      if (scrollTop > 100) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    const mainEl = document.querySelector('main');
+    if (mainEl) {
+      mainEl.addEventListener('scroll', handleScroll, { passive: true });
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      if (mainEl) {
+        mainEl.removeEventListener('scroll', handleScroll);
+      }
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [pathname]);
 
   return (
     <nav className="font-sans sticky top-0 h-[56px] xl:h-[52px] w-full bg-[#F8F7F2]/80 backdrop-blur-md border-b border-[#E5E5E0] flex items-center justify-between px-4 md:px-8 xl:px-12 gap-3 xl:gap-4 shrink-0 z-50 transition-all duration-300">
@@ -29,18 +56,26 @@ export default function Header() {
           href="/"
           className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[160px] sm:w-[200px] xl:w-[240px] h-12 xl:h-14 no-underline"
         >
-          <img
+          <Image
             alt="Frontier Atlas"
             src="/logo.png"
+            fill
             className="object-contain object-center xl:object-left"
-            style={{ position: 'absolute', height: '100%', width: '100%', left: 0, top: 0, right: 0, bottom: 0 }}
+            sizes="(max-width: 1280px) 200px, 240px"
           />
         </Link>
       </div>
 
-      {/* Exact Center Search Input from tasks_full.html */}
+      {/* Exact Center Search Input from tasks_full.html with dynamic scroll behavior */}
       <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-[240px] xl:w-[400px]">
-        <div className="w-full" style={{ opacity: 1, transform: 'none' }}>
+        <div
+          className="w-full transition-all duration-300"
+          style={{
+            opacity: scrolled ? 1 : 0,
+            transform: scrolled ? 'translateY(0) scale(1)' : 'translateY(-8px) scale(0.96)',
+            pointerEvents: scrolled ? 'auto' : 'none'
+          }}
+        >
           <div className="relative w-full max-w-[400px]">
             <form
               onSubmit={(e) => {
@@ -118,7 +153,7 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* Exact Profile Button from tasks_full.html */}
+      {/* Exact Right Circular Icon / Profile Button */}
       <div className="hidden xl:flex items-center gap-4 border-l border-[#E5E5E0] pl-4 shrink-0">
         <div className="w-8 h-8 rounded-full bg-[#F55036] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(245,80,54,0.20)] hover:-translate-y-px active:scale-95">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
@@ -127,6 +162,8 @@ export default function Header() {
           </svg>
         </div>
       </div>
+
+      {/* Mobile Icon Button */}
       <div className="flex xl:hidden items-center shrink-0">
         <div className="w-8 h-8 rounded-full bg-[#F55036] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(245,80,54,0.20)] hover:-translate-y-px active:scale-95">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
