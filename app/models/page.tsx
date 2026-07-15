@@ -241,11 +241,23 @@ const FEATURED_INTEGRATIONS = [
 
 function getOrgLogo(orgOrLeader: string): string {
   const lower = (orgOrLeader || "").toLowerCase();
-  if (lower.includes("openai") || lower.includes("gpt") || lower.includes("whisper") || lower.includes("sora") || lower.includes("clip")) {
-    return "https://www.google.com/s2/favicons?domain=openai.com&sz=128";
+  if (lower.includes("ibm")) {
+    return "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg";
   }
-  if (lower.includes("anthropic") || lower.includes("claude")) {
+  if (lower.includes("anthropic") || lower.includes("claude opus") || lower.includes("claude sonnet")) {
+    return "https://avatars.githubusercontent.com/u/76263028?v=4";
+  }
+  if (lower.includes("claude")) {
     return "https://www.google.com/s2/favicons?domain=claude.ai&sz=128";
+  }
+  if (lower.includes("qwen") || lower.includes("ocr")) {
+    return "https://avatars.githubusercontent.com/u/141221163?v=4";
+  }
+  if (lower.includes("alibaba")) {
+    return "https://avatars.githubusercontent.com/u/19519599?v=4";
+  }
+  if (lower.includes("openai") || lower.includes("gpt") || lower.includes("whisper") || lower.includes("sora") || lower.includes("clip")) {
+    return "https://avatars.githubusercontent.com/u/14957082?v=4";
   }
   if (lower.includes("gemini") || lower.includes("gemma")) {
     return "https://www.gstatic.com/lamda/images/gemini_favicon_f069958c85030456e93de685481c559f160ea06b.png";
@@ -254,19 +266,16 @@ function getOrgLogo(orgOrLeader: string): string {
     return "https://www.google.com/s2/favicons?domain=google.com&sz=128";
   }
   if (lower.includes("meta") || lower.includes("llama") || lower.includes("sam") || lower.includes("audiocraft") || lower.includes("dlrm")) {
-    return "https://www.google.com/s2/favicons?domain=ai.meta.com&sz=128";
-  }
-  if (lower.includes("qwen") || lower.includes("alibaba") || lower.includes("gwen") || lower.includes("ocr")) {
-    return "https://www.google.com/s2/favicons?domain=qwenlm.ai&sz=128";
+    return "https://avatars.githubusercontent.com/u/153379578?v=4";
   }
   if (lower.includes("deepseek") || lower.includes("janus")) {
-    return "https://www.google.com/s2/favicons?domain=deepseek.com&sz=128";
+    return "https://avatars.githubusercontent.com/u/148330874?v=4";
   }
   if (lower.includes("mistral") || lower.includes("pixtral")) {
-    return "https://www.google.com/s2/favicons?domain=mistral.ai&sz=128";
+    return "https://avatars.githubusercontent.com/u/132372032?v=4";
   }
   if (lower.includes("xai") || lower.includes("grok")) {
-    return "https://www.google.com/s2/favicons?domain=x.ai&sz=128";
+    return "https://avatars.githubusercontent.com/u/130314967?v=4";
   }
   if (lower.includes("microsoft") || lower.includes("phi") || lower.includes("med-palm")) {
     return "https://www.google.com/s2/favicons?domain=microsoft.com&sz=128";
@@ -294,9 +303,6 @@ function getOrgLogo(orgOrLeader: string): string {
   }
   if (lower.includes("apple")) {
     return "https://www.google.com/s2/favicons?domain=apple.com&sz=128";
-  }
-  if (lower.includes("ibm")) {
-    return "https://www.google.com/s2/favicons?domain=ibm.com&sz=128";
   }
   if (lower.includes("bytedance") || lower.includes("douyin") || lower.includes("tiktok")) {
     return "https://www.google.com/s2/favicons?domain=bytedance.com&sz=128";
@@ -549,7 +555,46 @@ function ModelsContent() {
           </div>
         </div>
 
-        {/* 2. BROWSE BY CAPABILITY (Removed for now per user request) */}
+        {/* 2. BROWSE BY CAPABILITY (Page 2) */}
+        <div className="models-block-section">
+          <div className="models-block-header">
+            <h2 className="models-block-title">
+              <Sparkles size={22} style={{ color: "#FF5A1F" }} />
+              <span>Browse by Capability</span>
+            </h2>
+            <span className="models-block-count">24 Core Tasks &amp; Modalities</span>
+          </div>
+          <div className="supabase-cards-grid">
+            {BROWSE_BY_CAPABILITY.map((cap) => {
+              const isActive = selectedCapability === cap;
+              return (
+                <div
+                  key={cap}
+                  onClick={() => handleCapabilityClick(cap)}
+                  className={`models-area-card ${isActive ? "active" : ""}`}
+                >
+                  <div className="models-card-inner">
+                    <div className="models-card-avatar">
+                      <Zap size={20} style={{ color: isActive ? "#FF5A1F" : "#f43f5e" }} />
+                    </div>
+                    <div className="models-card-text">
+                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
+                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#F8FAFC", color: isActive ? "#ffffff" : "#64748B", fontSize: "11px", fontWeight: 600, border: isActive ? "none" : "1px solid #E2E8F0" }}>
+                          Task &middot; Modality
+                        </span>
+                        <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
+                      </div>
+                      <h3 className="models-card-title">{cap}</h3>
+                      <p className="models-card-desc">
+                        Explore benchmark-leading foundation models specialized and evaluated specifically for <strong style={{ color: "#1F2937", fontWeight: 700 }}>{cap}</strong>.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         {/* 3. BROWSE BY MODEL FAMILY (Page 2 & 3) */}
         <div className="models-block-section">
