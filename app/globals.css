@@ -738,22 +738,43 @@ footer.site-footer-bar {
 .directory-grid-card {
   background: #ffffff;
   padding: 20px;
-  border-radius: 8px !important;
+  border-radius: 16px !important;
   box-shadow: 0 2px 8px -4px rgba(0, 0, 0, 0.05);
   border: 1px solid #f3f4f6;
   transition: all 0.2s ease;
   cursor: pointer;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 140px;
   text-decoration: none;
 }
 .directory-grid-card:hover {
-  box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.08);
   border-color: #e5e7eb;
 }
 .directory-grid-card.active {
   border-color: #fb7185;
   background-color: rgba(255, 241, 242, 0.5);
   box-shadow: 0 0 0 1px #fb7185;
+}
+.directory-grid-card h3 {
+  font-family: 'Plus Jakarta Sans', var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #1f2937 !important;
+  line-height: 1.375 !important;
+  margin-bottom: 2px;
+}
+.directory-grid-card p {
+  font-family: 'Plus Jakarta Sans', var(--font-plus-jakarta), -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #6b7280 !important;
+  line-height: 1.5 !important;
+  margin-top: 6px;
+  margin-left: 44px;
+  margin-right: 16px;
 }
 
 /* ═══════ SIDEBAR NAVIGATION BUTTONS (TASKS & MODELS PARITY VANILLA CSS) ═══════ */
@@ -770,7 +791,7 @@ footer.site-footer-bar {
   font-weight: 500 !important;
   color: #4b5563;
   border: 1px solid transparent;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   text-align: left;
   cursor: pointer;
   background: transparent;
@@ -778,6 +799,7 @@ footer.site-footer-bar {
 .sidebar-nav-btn:hover {
   background-color: #ffffff;
   color: #111827;
+  transform: scale(1.02);
 }
 .sidebar-nav-btn.active {
   background-color: rgba(255, 241, 242, 0.6);
