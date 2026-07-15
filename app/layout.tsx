@@ -1,28 +1,6 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import ConditionalHeader from "../components/ConditionalHeader";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-plus-jakarta",
-  display: "swap",
-});
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const inter = Inter({ 
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Frontier Atlas | AI Research Intelligence",
@@ -35,13 +13,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} ${outfit.variable} ${inter.variable}`}>
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" />
       </head>
-      <body className={`${plusJakarta.variable} ${outfit.variable} ${inter.variable}`}>
+      <body>
         <div className="app-shell">
           <ConditionalHeader />
           <div className="main-wrapper">

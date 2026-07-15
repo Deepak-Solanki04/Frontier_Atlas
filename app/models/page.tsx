@@ -528,8 +528,8 @@ function ModelsContent() {
           {/* 1. HERO SECTION (Exact tasks UI reference) */}
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
             <div className="relative z-10 w-full lg:w-[48%] px-6 md:px-8 py-5 md:py-6">
-              <h1 className="text-3xl md:text-4xl font-extrabold mb-3 tracking-tight text-gray-900">
-                AI Models
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
+                All Models<br /><span className="text-[#e11d48]">Directory</span>
               </h1>
               <p className="text-gray-700 font-medium text-xs md:text-sm mb-2 leading-relaxed">
                 Discover foundation models, language models, vision models, multimodal models, reasoning models, coding models, embedding models, and AI agents from leading research labs and organizations.
