@@ -51,6 +51,7 @@ export default function Header() {
             <line x1="4" y1="18" x2="20" y2="18"></line>
           </svg>
         </button>
+        {/* Logo & Profile Icon Enlarged by +20% */}
         <Link
           href="/"
           className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[200px] sm:w-[240px] xl:w-[290px] h-12 xl:h-14"
