@@ -783,13 +783,13 @@ footer.site-footer-bar {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
+  padding: 6px 12px !important;
   font-family: var(--font-plus-jakarta), 'Plus Jakarta Sans', 'Outfit', var(--font-inter), Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 14px !important;
-  letter-spacing: -0.01em;
+  font-size: 12px !important;
+  line-height: 1.375 !important;
   border-radius: 6px !important;
   font-weight: 500 !important;
-  color: #4b5563;
+  color: #555555;
   border: 1px solid transparent;
   transition: all 0.2s ease;
   text-align: left;
@@ -798,7 +798,7 @@ footer.site-footer-bar {
 }
 .sidebar-nav-btn:hover {
   background-color: #ffffff;
-  color: #111827;
+  color: #111111;
   transform: scale(1.02);
 }
 .sidebar-nav-btn.active {
