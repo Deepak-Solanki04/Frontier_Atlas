@@ -37,14 +37,14 @@ export default function Header() {
   }, [pathname]);
 
   return (
-    <nav className="font-sans sticky top-0 h-[56px] xl:h-[52px] w-full bg-[#F8F7F2]/80 backdrop-blur-md border-b border-[#E5E5E0] flex items-center justify-between px-4 md:px-8 xl:px-12 gap-3 xl:gap-4 shrink-0 z-50 transition-all duration-300">
-      {/* Exact Left Logo Container from tasks_full.html */}
-      <div className="flex items-center gap-1 xl:gap-0 xl:w-[240px] shrink-0">
+    <nav className="font-sans sticky top-0 h-[56px] w-full bg-[#F8F7F2]/90 backdrop-blur-md border-b border-[#E5E5E0] flex items-center justify-between px-4 md:px-8 xl:px-12 gap-4 shrink-0 z-50 transition-all duration-200">
+      {/* Left Logo Container */}
+      <div className="flex items-center gap-2 shrink-0">
         <button
           aria-label="Open menu"
           aria-expanded={mobileMenuOpen}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="xl:hidden w-10 h-10 flex items-center justify-center rounded-md hover:bg-[#EBEBE6] transition-colors cursor-pointer"
+          className="lg:hidden w-9 h-9 flex items-center justify-center rounded-md hover:bg-[#EBEBE6] transition-colors cursor-pointer"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111111" strokeWidth="2" strokeLinecap="round">
             <line x1="4" y1="6" x2="20" y2="6"></line>
@@ -54,55 +54,45 @@ export default function Header() {
         </button>
         <Link
           href="/"
-          className="flex items-center justify-center xl:justify-start cursor-pointer absolute left-1/2 -translate-x-1/2 xl:relative xl:left-auto xl:-translate-x-0 w-[160px] sm:w-[200px] xl:w-[240px] h-12 xl:h-14 no-underline"
+          className="relative block w-[170px] sm:w-[190px] h-10 cursor-pointer no-underline"
         >
           <Image
             alt="Frontier Atlas"
             src="/logo.png"
             fill
-            className="object-contain object-center xl:object-left"
-            sizes="(max-width: 1280px) 200px, 240px"
+            className="object-contain object-left"
+            sizes="190px"
+            priority
           />
         </Link>
       </div>
 
-      {/* Exact Center Search Input from tasks_full.html with dynamic scroll behavior */}
-      <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-[240px] xl:w-[400px]">
-        <div
-          className="w-full transition-all duration-300"
-          style={{
-            opacity: scrolled ? 1 : 0,
-            transform: scrolled ? 'translateY(0) scale(1)' : 'translateY(-8px) scale(0.96)',
-            pointerEvents: scrolled ? 'auto' : 'none'
+      {/* Center Search Bar ALWAYS VISIBLE */}
+      <div className="hidden lg:flex flex-1 max-w-[420px] mx-6 items-center justify-center">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (searchQuery.trim()) {
+              window.location.href = `/models?search=${encodeURIComponent(searchQuery.trim())}`;
+            }
           }}
+          className="w-full relative flex items-center px-4 bg-white border border-[#E5E5E0] focus-within:border-gray-400 focus-within:shadow-[0_2px_12px_rgba(0,0,0,0.06)] transition-all rounded-full h-9 shadow-sm"
         >
-          <div className="relative w-full max-w-[400px]">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (searchQuery.trim()) {
-                  window.location.href = `/models?search=${encodeURIComponent(searchQuery.trim())}`;
-                }
-              }}
-              className="relative flex items-center px-3 md:px-4 bg-white border border-[#E5E5E0] focus-within:border-[#DCDCD7] focus-within:shadow-[0_4px_20px_rgb(0,0,0,0.08)] transition-all rounded-[20px]"
-            >
-              <div className="flex items-center text-[#737373] mr-2 shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="Search..."
-                className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9 text-[12px]"
-                aria-label="Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </form>
+          <div className="flex items-center text-gray-400 mr-2 shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
           </div>
-        </div>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="bg-transparent outline-none flex-1 text-gray-800 placeholder:text-gray-400 min-w-0 pr-6 text-[13px] font-medium"
+            aria-label="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </form>
       </div>
 
       {/* Exact Right Navigation Links from tasks_full.html */}
