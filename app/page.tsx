@@ -1,5 +1,6 @@
-import { redirect } from 'next/navigation';
+import React from "react";
+import TasksPage from "./tasks/page";
 
 export default function Home() {
-  redirect('/trending');
+  return <TasksPage />;
 }

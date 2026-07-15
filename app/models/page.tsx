@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles } from "lucide-react";
+import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2 } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
 
 const TOP_MODELS_BOXES = [
@@ -325,6 +325,46 @@ function getOrgLogo(orgOrLeader: string): string {
   return "https://www.google.com/s2/favicons?domain=ai.com&sz=128";
 }
 
+function getSkeletalIcon(index: number, name: string = "") {
+  const icons = [
+    { Icon: Brain, color: "#e11d48" },
+    { Icon: Eye, color: "#0284c7" },
+    { Icon: Layers, color: "#16a34a" },
+    { Icon: Puzzle, color: "#d97706" },
+    { Icon: Cpu, color: "#9333ea" },
+    { Icon: Code2, color: "#0891b2" },
+    { Icon: Sparkles, color: "#FF5A1F" },
+    { Icon: Zap, color: "#4f46e5" },
+    { Icon: Network, color: "#059669" },
+    { Icon: Database, color: "#ea580c" },
+    { Icon: Shield, color: "#7c3aed" },
+    { Icon: Terminal, color: "#2563eb" },
+    { Icon: Activity, color: "#db2777" },
+    { Icon: FileText, color: "#16a34a" },
+    { Icon: Globe, color: "#0284c7" },
+    { Icon: Bot, color: "#e11d48" },
+    { Icon: GitBranch, color: "#d97706" },
+    { Icon: BarChart3, color: "#9333ea" },
+    { Icon: Radio, color: "#0891b2" },
+    { Icon: Video, color: "#4f46e5" },
+    { Icon: Mic, color: "#ea580c" },
+    { Icon: Share2, color: "#059669" }
+  ];
+  const lower = name.toLowerCase();
+  if (lower.includes("vision") || lower.includes("image") || lower.includes("ocr") || lower.includes("sam")) return { Icon: Eye, color: "#0284c7" };
+  if (lower.includes("reasoning") || lower.includes("math") || lower.includes("logic")) return { Icon: Brain, color: "#e11d48" };
+  if (lower.includes("code") || lower.includes("coding")) return { Icon: Code2, color: "#0891b2" };
+  if (lower.includes("agent") || lower.includes("robot")) return { Icon: Bot, color: "#9333ea" };
+  if (lower.includes("audio") || lower.includes("speech") || lower.includes("whisper")) return { Icon: Mic, color: "#ea580c" };
+  if (lower.includes("video") || lower.includes("sora")) return { Icon: Video, color: "#4f46e5" };
+  if (lower.includes("multimodal") || lower.includes("omni") || lower.includes("gemini")) return { Icon: Layers, color: "#d97706" };
+  if (lower.includes("document") || lower.includes("paper") || lower.includes("search")) return { Icon: FileText, color: "#16a34a" };
+  if (lower.includes("embed") || lower.includes("rerank") || lower.includes("data") || lower.includes("sql") || lower.includes("postgres")) return { Icon: Database, color: "#059669" };
+  if (lower.includes("security") || lower.includes("auth") || lower.includes("cipher")) return { Icon: Shield, color: "#7c3aed" };
+  if (lower.includes("workflow") || lower.includes("automation") || lower.includes("tool")) return { Icon: Puzzle, color: "#FF5A1F" };
+  return icons[index % icons.length];
+}
+
 function ModelsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -344,6 +384,7 @@ function ModelsContent() {
   const [searchQuery, setSearchQuery] = useState("");
   const [inspectedModel, setInspectedModel] = useState<ModelItem | null>(null);
   const [copied, setCopied] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("all");
 
   useEffect(() => {
     setSelectedVendor(vendorParam);
@@ -483,340 +524,394 @@ function ModelsContent() {
   };
 
   return (
-    <div className="unified-page-wrapper topic-page-wrapper" style={{ paddingBottom: "100px" }}>
-      <div className="models-directory-container">
-        
-        {/* 1. HERO SECTION (Page 1) */}
-        <div className="models-hero-section">
-          <div className="models-hero-header">
-            <div>
-              <span className="models-hero-badge">
-                Frontier Atlas Directory
+    <div className="flex flex-col min-h-screen overflow-x-hidden bg-[#F8F7F2] font-sans text-slate-800 pb-24">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden hide-scroll">
+        <div className="max-w-7xl mx-auto px-6 py-8 w-full">
+          
+          {/* 1. HERO SECTION (Exact tasks UI reference) */}
+          <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[350px] bg-white/60 rounded-2xl border border-gray-200/60 shadow-sm">
+            <div className="relative z-10 w-[65%] px-6 md:px-8 py-8 md:py-10">
+              <span className="inline-block text-[11px] font-mono font-bold text-rose-600 bg-rose-50 border border-rose-200 rounded-full px-3 py-1 uppercase tracking-wider mb-3">
+                Frontier Atlas Registry
               </span>
-              <h1 className="models-hero-title">
-                Models
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 tracking-tight text-gray-900">
+                All Research<br /><span className="text-[#e11d48]">Domains &amp; Models</span>
               </h1>
-              <p className="models-hero-desc">
-                Discover foundation models, language models, vision models, multimodal models, reasoning models, coding models, embedding models, and AI agents from leading research labs and organizations.
+              <p className="text-gray-600 text-sm md:text-base mb-6 max-w-md leading-relaxed">
+                Explore the full spectrum of AI research across tasks, foundation models, evaluation benchmarks, and applications.
               </p>
-              <p className="models-hero-subdesc">
-                Explore model capabilities, benchmarks, research papers, datasets, tasks, architectures, and real-world applications—all in one place.
-              </p>
-            </div>
-
-            {/* Buttons exactly as requested in Hero */}
-            <div className="models-hero-buttons">
-              <a
-                href="#model-directory"
-                className="models-btn-primary"
-              >
-                <span>Browse Models</span>
-                <ArrowRight size={14} />
-              </a>
-              <button
-                onClick={() => {
-                  const el = document.getElementById("trending-models-section");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="models-btn-secondary"
-              >
-                Compare Models
-              </button>
-              <Link
-                href="/models?submit=true"
-                onClick={(e) => {
-                  e.preventDefault();
-                  alert("To submit a new frontier model or benchmark record to Frontier Atlas, please contact submit@frontier-atlas.ai or open a pull request on our GitHub data registry.");
-                }}
-                className="models-btn-outline"
-              >
-                Submit Model
-              </Link>
+              <div className="flex items-center gap-5 whitespace-nowrap text-sm">
+                <div className="flex items-center gap-5">
+                  <div>
+                    <div className="text-xl md:text-2xl font-bold text-gray-800">24</div>
+                    <div className="text-gray-500 text-xs md:text-sm">Capabilities</div>
+                  </div>
+                  <div className="w-px h-8 bg-gray-200"></div>
+                </div>
+                <div className="flex items-center gap-5">
+                  <div>
+                    <div className="text-xl md:text-2xl font-bold text-gray-800">120+</div>
+                    <div className="text-gray-500 text-xs md:text-sm">Model Families</div>
+                  </div>
+                  <div className="w-px h-8 bg-gray-200"></div>
+                </div>
+                <div className="flex items-center gap-5">
+                  <div>
+                    <div className="text-xl md:text-2xl font-bold text-gray-800">400+</div>
+                    <div className="text-gray-500 text-xs md:text-sm">Verified SOTA</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 border-2 border-gray-200 rounded-full px-3 py-1 bg-white/80 backdrop-blur-sm ml-2 cursor-pointer hover:shadow-sm">
+                  <TrendingUp className="text-emerald-500 h-3.5 w-3.5" />
+                  <span className="text-gray-600 font-medium text-xs md:text-sm">Daily updates</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Hero Search Input Box */}
-          <div className="models-hero-searchbox">
-            <Search size={18} />
-            <input
-              type="text"
-              placeholder="Search across all models, organizations, families, or verification tags..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                style={{ position: "absolute", right: "14px", top: "50%", transform: "translateY(-50%)", background: "transparent", border: "none", color: "#8B8B8B", cursor: "pointer" }}
-              >
-                <X size={16} />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* 2. BROWSE BY CAPABILITY (Page 2) */}
-        <div className="models-block-section">
-          <div className="models-block-header">
-            <h2 className="models-block-title">
-              <Sparkles size={22} style={{ color: "#FF5A1F" }} />
-              <span>Browse by Capability</span>
-            </h2>
-            <span className="models-block-count">24 Core Tasks &amp; Modalities</span>
-          </div>
-          <div className="supabase-cards-grid">
-            {BROWSE_BY_CAPABILITY.map((cap) => {
-              const isActive = selectedCapability === cap;
-              return (
-                <div
-                  key={cap}
-                  onClick={() => handleCapabilityClick(cap)}
-                  className={`models-area-card ${isActive ? "active" : ""}`}
-                >
-                  <div className="models-card-inner">
-                    <div className="models-card-avatar">
-                      <Zap size={20} style={{ color: isActive ? "#FF5A1F" : "#f43f5e" }} />
-                    </div>
-                    <div className="models-card-text">
-                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
-                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#F8FAFC", color: isActive ? "#ffffff" : "#64748B", fontSize: "11px", fontWeight: 600, border: isActive ? "none" : "1px solid #E2E8F0" }}>
-                          Task &middot; Modality
-                        </span>
-                        <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
-                      </div>
-                      <h3 className="models-card-title">{cap}</h3>
-                      <p className="models-card-desc">
-                        Explore benchmark-leading foundation models specialized and evaluated specifically for <strong style={{ color: "#1F2937", fontWeight: 700 }}>{cap}</strong>.
-                      </p>
-                    </div>
+          {/* ══ EXACT SIDEBAR + RIGHT CONTENT GRID LAYOUT ══ */}
+          <div className="flex gap-8 items-start">
+            
+            {/* LEFT SIDEBAR WITH SEARCH & NAVIGATION OPTIONS EXACT TO reference */}
+            <aside className="w-64 flex-shrink-0 block backdrop-blur-sm" aria-label="Domain navigation">
+              <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)]">
+                <div className="px-1 pt-2 pb-4">
+                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3 tracking-wider">Browse Research</h3>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <input
+                      type="text"
+                      placeholder="Filter domains & models..."
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    {searchQuery && (
+                      <button
+                        onClick={() => setSearchQuery("")}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      >
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* 3. BROWSE BY MODEL FAMILY (Page 2 & 3) */}
-        <div className="models-block-section">
-          <div className="models-block-header">
-            <h2 className="models-block-title">
-              <Layers size={22} style={{ color: "#FF5A1F" }} />
-              <span>Browse by Model Family</span>
-            </h2>
-            <span className="models-block-count">20 Model Families</span>
-          </div>
-          <div className="supabase-cards-grid">
-            {BROWSE_BY_FAMILY.map((fam) => {
-              const isActive = selectedFamily === fam.name;
-              return (
-                <div
-                  key={fam.name}
-                  onClick={() => handleFamilyClick(fam.name)}
-                  className={`models-area-card ${isActive ? "active" : ""}`}
-                >
-                  <div className="models-card-inner">
-                    <div className="models-card-avatar">
-                      <img alt={fam.org} src={getOrgLogo(fam.org)} />
-                    </div>
-                    <div className="models-card-text">
-                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
-                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#262626", color: isActive ? "#ffffff" : "#A1A1AA", fontSize: "10px" }}>
-                          {fam.count} Models
-                        </span>
-                        <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
+                <nav className="overflow-y-auto px-1 pb-4 flex-1" aria-label="Domains">
+                  <ul className="space-y-0.5" role="list">
+                    {[
+                      { id: "all", label: "All Categories" },
+                      { id: "section-capability", label: "Browse by Capability" },
+                      { id: "section-family", label: "Browse by Model Family" },
+                      { id: "section-organization", label: "Browse by Organization" },
+                      { id: "section-research", label: "Browse by Research Area" },
+                      { id: "section-trending", label: "Trending Models" },
+                      { id: "section-integrations", label: "Ecosystem Integrations" },
+                      { id: "section-recently-released", label: "Recently Released" },
+                      { id: "section-collections", label: "Popular Collections" },
+                      { id: "model-directory", label: "Model Directory Table" }
+                    ].map((item) => {
+                      const isActive = activeSection === item.id || (item.id === "all" && activeSection === "all");
+                      return (
+                        <li key={item.id}>
+                          <button
+                            onClick={() => {
+                              setActiveSection(item.id);
+                              if (item.id !== "all") {
+                                const el = document.getElementById(item.id);
+                                if (el) el.scrollIntoView({ behavior: "smooth" });
+                              } else {
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                              }
+                            }}
+                            className={`w-full text-left px-3 py-2 text-sm rounded-sm transition-all duration-200 flex items-center justify-between cursor-pointer ${
+                              isActive
+                                ? "bg-rose-50 text-[#e11d48] font-semibold"
+                                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                            }`}
+                          >
+                            <span>{item.label}</span>
+                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#e11d48]"></span>}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+
+                <div className="px-1 mt-6">
+                  <div className="bg-gradient-to-br from-rose-50 to-white rounded-xl border border-rose-100 p-4 shadow-sm">
+                    <div className="flex items-start gap-3">
+                      <div className="p-2 bg-rose-100 rounded-full text-rose-500 shrink-0">
+                        <MessageSquare className="h-4 w-4" />
                       </div>
-                      <h3 className="models-card-title">{fam.name}</h3>
-                      <p className="models-card-desc">
-                        Foundation architecture family developed and maintained by <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>{fam.org}</strong>.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 4. BROWSE BY ORGANIZATION (Page 1 & 2) */}
-        <div className="models-block-section">
-          <div className="models-block-header">
-            <h2 className="models-block-title">
-              <Building2 size={22} style={{ color: "#FF5A1F" }} />
-              <span>Browse by Organization</span>
-            </h2>
-            <span className="models-block-count">20 Leading Labs</span>
-          </div>
-          <div className="supabase-cards-grid">
-            {BROWSE_BY_ORGANIZATION.map((v) => {
-              const isActive = selectedVendor === v.name;
-              return (
-                <div
-                  key={v.name}
-                  onClick={() => handleVendorClick(v.name)}
-                  className={`models-area-card ${isActive ? "active" : ""}`}
-                >
-                  <div className="models-card-inner">
-                    <div className="models-card-avatar">
-                      <img alt={v.name} src={getOrgLogo(v.name)} />
-                    </div>
-                    <div className="models-card-text">
-                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
-                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#262626", color: isActive ? "#ffffff" : "#A1A1AA", fontSize: "10px" }}>
-                          {v.count} Models
-                        </span>
-                        <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
+                      <div className="space-y-1">
+                        <p className="text-sm font-medium text-gray-800">Can’t find what you need?</p>
+                        <p className="text-xs text-gray-500">Suggest a new domain or model to improve our taxonomy.</p>
                       </div>
-                      <h3 className="models-card-title">{v.name}</h3>
-                      <p className="models-card-desc">
-                        Explore all frontier AI models, weights, and APIs published by <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>{v.name}</strong>.
-                      </p>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 5. BROWSE BY RESEARCH AREA (Page 3) */}
-        <div className="models-block-section">
-          <div className="models-block-header">
-            <h2 className="models-block-title">
-              <Cpu size={22} style={{ color: "#FF5A1F" }} />
-              <span>Browse by Research Area</span>
-            </h2>
-            <span className="models-block-count">20 Modalities &amp; Domains</span>
-          </div>
-          <div className="models-areas-grid">
-            {BROWSE_BY_RESEARCH_AREA.map((d) => {
-              const isActive = selectedDomain === d.name;
-              return (
-                <div
-                  key={d.name}
-                  onClick={() => handleDomainClick(d.name)}
-                  className={`models-area-card ${isActive ? "active" : ""}`}
-                >
-                  <div className="models-card-inner">
-                    <div className="models-card-avatar">
-                      <img alt={d.leader} src={getOrgLogo(d.leader)} />
-                    </div>
-                    <div className="models-card-text">
-                      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "6px" }}>
-                        <span className="models-vendor-count" style={{ flexShrink: 0, background: isActive ? "#FF5A1F" : "#262626", color: isActive ? "#ffffff" : "#A1A1AA", fontSize: "10px" }}>
-                          {d.count} Models
-                        </span>
-                        <span style={{ color: "#FF5A1F", fontWeight: 900, fontSize: "14px" }}>&rarr;</span>
-                      </div>
-                      <h3 className="models-card-title">{d.name}</h3>
-                      <p className="models-card-desc">
-                        Leading architectural benchmarks and evaluations anchored by <strong style={{ color: "#FFFFFF", fontWeight: 700 }}>{d.leader}</strong>.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* 6. TRENDING MODELS (Page 4) */}
-        <div id="trending-models-section" className="models-block-section">
-          <div className="models-block-header">
-            <h2 className="models-block-title">
-              <Trophy size={22} style={{ color: "#FF5A1F" }} />
-              <span>Trending Models</span>
-            </h2>
-            <span className="models-block-count">Most Active in 2025</span>
-          </div>
-          <div className="models-trending-grid">
-            {TRENDING_MODELS.map((m, idx) => (
-              <div
-                key={m.name}
-                className="models-trending-card"
-                onClick={() => {
-                  const match = allModels.find(x => x.name.toLowerCase() === m.name.toLowerCase() || x.name.toLowerCase().includes(m.name.toLowerCase()));
-                  if (match) setInspectedModel(match);
-                  else {
-                    setInspectedModel({
-                      id: m.name.toLowerCase().replace(/\s+/g, "-"),
-                      name: m.name,
-                      org: m.org,
-                      desc: m.desc,
-                      params: "Dense / MoE Scale",
-                      context: "256k tokens",
-                      releaseDate: "Expected 2025",
-                      license: "Proprietary / Open",
-                      elo: Number(m.elo),
-                      tags: [m.family, "Trending 2025", "SOTA"],
-                      area: "Reasoning & Multimodal",
-                      paperCount: 320,
-                      benchmarks: [{ name: "Verified SOTA Benchmark", score: `${m.elo} Elo`, value: 92, max: 100, color: "#FF5A1F" }],
-                      quickstart: `# Quickstart snippet for ${m.name}\ncurl -X POST https://api.frontier-atlas.ai/v1/chat/completions \\\n  -H "Authorization: Bearer $API_KEY" \\\n  -d '{"model": "${m.name.toLowerCase().replace(/\s+/g, "-")}", "messages": [{"role": "user", "content": "Hello world"}]}'`,
-                      family: m.family,
-                      category: "Reasoning"
-                    });
-                  }
-                }}
-              >
-                <div className="models-card-inner">
-                  <div className="models-card-avatar">
-                    <img alt={m.org} src={getOrgLogo(m.org)} />
-                  </div>
-                  <div className="models-card-text">
-                    <div className="models-trending-header" style={{ marginBottom: "6px" }}>
-                      <span className="models-trending-rank" style={{ fontSize: "10px", padding: "2px 6px" }}>
-                        #{idx + 1} Trending
-                      </span>
-                      <span className="models-trending-elo" style={{ display: "inline-flex", alignItems: "center", gap: "3px", fontSize: "11.5px" }}>
-                        <Zap size={12} /> {m.elo}
-                      </span>
-                    </div>
-                    <h3 className="models-card-title">{m.name}</h3>
-                    <div className="models-trending-sub" style={{ marginBottom: "8px" }}>{m.org} &middot; {m.family}</div>
-                    <p className="models-card-desc" title={m.desc}>{m.desc}</p>
+                    <button
+                      onClick={() => alert("Thank you! Suggestion recorded for next taxonomy update.")}
+                      className="mt-3 w-full flex items-center justify-center gap-1.5 bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors shadow-sm cursor-pointer"
+                    >
+                      <Plus className="h-3.5 w-3.5" /> Suggest a Domain
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </aside>
 
-        {/* 6.5. FEATURED MODEL WRAPPERS & ECOSYSTEM INTEGRATIONS */}
-        <div className="models-block-section">
-          <div className="models-block-header">
-            <h2 className="models-block-title">
-              <Layers size={22} style={{ color: "#FF5A1F" }} />
-              <span>Featured Model Wrappers &amp; Ecosystem Integrations</span>
-            </h2>
-            <span className="models-block-count">12 Official Partner Integrations</span>
-          </div>
-          <div className="supabase-cards-grid">
-            {FEATURED_INTEGRATIONS.map((item) => (
-              <a
-                key={item.name}
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ textDecoration: "none", display: "block", height: "100%" }}
-              >
-                <div className="supabase-card">
-                  <div className="supabase-card-inner">
-                    <div className="supabase-card-avatar">
-                      <img alt={item.name} src={item.url} />
-                    </div>
-                    <div className="supabase-card-text">
-                      <div style={{ fontSize: "11px", fontWeight: 700, color: "#FF5A1F", textTransform: "uppercase", marginBottom: "4px" }}>
-                        {item.family}
-                      </div>
-                      <h3 className="supabase-card-title">{item.name}</h3>
-                      <p className="supabase-card-desc" title={item.desc}>{item.desc}</p>
-                    </div>
+            {/* RIGHT CONTENT AREA CONTAINING ALL SECTIONS & EXACT CARDS */}
+            <div className="flex-1 min-w-0 space-y-14">
+              
+              {/* 2. BROWSE BY CAPABILITY (Exact tasks UI reference cards) */}
+              <section id="section-capability" className="scroll-mt-24">
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Capability</h2>
                   </div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">24 Tasks &amp; Modalities</span>
                 </div>
-              </a>
-            ))}
-          </div>
-        </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {BROWSE_BY_CAPABILITY.filter(c => !searchQuery || c.toLowerCase().includes(searchQuery.toLowerCase())).map((cap, idx) => {
+                    const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx, cap);
+                    const isActive = selectedCapability === cap;
+                    return (
+                      <div
+                        key={cap}
+                        onClick={() => handleCapabilityClick(cap)}
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                          </div>
+                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{cap}</h3>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
+                          Models that understand, generate, and execute specialized tasks across {cap}.
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* 3. BROWSE BY MODEL FAMILY */}
+              <section id="section-family" className="scroll-mt-24">
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Model Family</h2>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">20 Model Families</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {BROWSE_BY_FAMILY.filter(f => !searchQuery || f.name.toLowerCase().includes(searchQuery.toLowerCase()) || f.org.toLowerCase().includes(searchQuery.toLowerCase())).map((fam, idx) => {
+                    const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 3, fam.name);
+                    const isActive = selectedFamily === fam.name;
+                    return (
+                      <div
+                        key={fam.name}
+                        onClick={() => handleFamilyClick(fam.name)}
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                            </div>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{fam.name}</h3>
+                          </div>
+                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
+                            {fam.count} Models
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
+                          Foundation architecture family developed and maintained by {fam.org}.
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* 4. BROWSE BY ORGANIZATION */}
+              <section id="section-organization" className="scroll-mt-24">
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Organization</h2>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">20 Leading Labs</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {BROWSE_BY_ORGANIZATION.filter(o => !searchQuery || o.name.toLowerCase().includes(searchQuery.toLowerCase())).map((v, idx) => {
+                    const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 7, v.name);
+                    const isActive = selectedVendor === v.name;
+                    return (
+                      <div
+                        key={v.name}
+                        onClick={() => handleVendorClick(v.name)}
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                            </div>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{v.name}</h3>
+                          </div>
+                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
+                            {v.count} Models
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
+                          Explore frontier AI models, weights, and verified APIs published by {v.name}.
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* 5. BROWSE BY RESEARCH AREA */}
+              <section id="section-research" className="scroll-mt-24">
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Browse by Research Area</h2>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">20 Modalities &amp; Domains</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {BROWSE_BY_RESEARCH_AREA.filter(r => !searchQuery || r.name.toLowerCase().includes(searchQuery.toLowerCase()) || r.leader.toLowerCase().includes(searchQuery.toLowerCase())).map((d, idx) => {
+                    const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 11, d.name);
+                    const isActive = selectedDomain === d.name;
+                    return (
+                      <div
+                        key={d.name}
+                        onClick={() => handleDomainClick(d.name)}
+                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border transition-shadow group cursor-pointer block ${
+                          isActive ? "border-rose-400 ring-1 ring-rose-400 bg-rose-50/10" : "border-gray-100 hover:shadow-md"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                            </div>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{d.name}</h3>
+                          </div>
+                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-50 px-2 py-0.5 rounded border border-gray-100 shrink-0">
+                            {d.count} Models
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
+                          Leading architectural benchmarks and evaluations anchored by {d.leader}.
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* 6. TRENDING MODELS */}
+              <section id="section-trending" className="scroll-mt-24">
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Trending Models</h2>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Most Active in 2025</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {TRENDING_MODELS.filter(m => !searchQuery || m.name.toLowerCase().includes(searchQuery.toLowerCase()) || m.org.toLowerCase().includes(searchQuery.toLowerCase())).map((m, idx) => {
+                    const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 15, m.name);
+                    return (
+                      <div
+                        key={m.name}
+                        onClick={() => {
+                          const match = allModels.find(x => x.name.toLowerCase() === m.name.toLowerCase() || x.name.toLowerCase().includes(m.name.toLowerCase()));
+                          if (match) setInspectedModel(match);
+                          else {
+                            setInspectedModel({
+                              id: m.name.toLowerCase().replace(/\s+/g, "-"),
+                              name: m.name,
+                              org: m.org,
+                              desc: m.desc,
+                              params: "Dense / MoE Scale",
+                              context: "256k tokens",
+                              releaseDate: "Expected 2025",
+                              license: "Proprietary / Open",
+                              elo: Number(m.elo),
+                              tags: [m.family, "Trending 2025", "SOTA"],
+                              area: "Reasoning & Multimodal",
+                              paperCount: 320,
+                              benchmarks: [{ name: "Verified SOTA Benchmark", score: `${m.elo} Elo`, value: 92, max: 100, color: "#FF5A1F" }],
+                              quickstart: `# Quickstart snippet for ${m.name}\ncurl -X POST https://api.frontier-atlas.ai/v1/chat/completions \\\n  -H "Authorization: Bearer $API_KEY" \\\n  -d '{"model": "${m.name.toLowerCase().replace(/\s+/g, "-")}", "messages": [{"role": "user", "content": "Hello world"}]}'`,
+                              family: m.family,
+                              category: "Reasoning"
+                            });
+                          }
+                        }}
+                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block"
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                            </div>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{m.name}</h3>
+                          </div>
+                          <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 shrink-0 flex items-center gap-1">
+                            <Zap size={10} /> {m.elo}
+                          </span>
+                        </div>
+                        <p className="text-xs font-semibold text-gray-400 ml-11 mb-1">{m.org} &middot; {m.family}</p>
+                        <p className="text-sm text-gray-500 mt-1 ml-11 mr-4 line-clamp-3" title={m.desc}>{m.desc}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+
+              {/* 6.5. FEATURED MODEL WRAPPERS & ECOSYSTEM INTEGRATIONS */}
+              <section id="section-integrations" className="scroll-mt-24">
+                <div className="flex justify-between items-center mb-6">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-[26px] md:text-[30px] font-bold text-gray-800">Featured Model Wrappers &amp; Ecosystem Integrations</h2>
+                  </div>
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Official Partner Integrations</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {FEATURED_INTEGRATIONS.filter(item => !searchQuery || item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.family.toLowerCase().includes(searchQuery.toLowerCase())).map((item, idx) => {
+                    const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx, item.name);
+                    return (
+                      <a
+                        key={item.name}
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block no-underline"
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform flex items-center justify-center">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-[10px] font-bold text-rose-500 uppercase tracking-wider truncate">{item.family}</div>
+                            <h3 className="font-semibold text-gray-800 text-[15px] leading-snug truncate mb-0">{item.name}</h3>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3" title={item.desc}>{item.desc}</p>
+                      </a>
+                    );
+                  })}
+                </div>
+              </section>
 
         {/* 7. RECENTLY RELEASED (Page 4) */}
         <div className="models-block-section">
@@ -1026,7 +1121,10 @@ function ModelsContent() {
             </div>
           )}
         </div>
-      </div>
+            </div>
+          </div>
+        </div>
+      </main>
 
       {/* INSPECT MODEL SLIDE-OVER MODAL */}
       {inspectedModel && (
