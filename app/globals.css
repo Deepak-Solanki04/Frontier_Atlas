@@ -802,10 +802,11 @@ footer.site-footer-bar {
   transform: scale(1.02);
 }
 .sidebar-nav-btn.active {
-  background-color: rgba(255, 241, 242, 0.6);
-  color: #e11d48;
-  border-color: #fb7185;
-  font-weight: 600 !important;
+  background-color: #111827 !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+  font-weight: 500 !important;
 }
 
 /* ═══════ MODELS DIRECTORY 9-SECTION VANILLA CSS WITH SHARP CORNERS (2PX) ═══════ */

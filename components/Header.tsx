@@ -78,7 +78,7 @@ export default function Header() {
               }}
               className="relative flex items-center px-3 md:px-4 bg-white border border-[#E5E5E0] focus-within:border-[#DCDCD7] focus-within:shadow-[0_4px_20px_rgb(0,0,0,0.08)] transition-all rounded-[20px]"
             >
-              <div className="flex items-center text-[#737373] mr-2 shrink-0">
+              <div className="flex items-center text-gray-400 mr-2 shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search">
                   <circle cx="11" cy="11" r="8"></circle>
                   <path d="m21 21-4.3-4.3"></path>
@@ -87,7 +87,7 @@ export default function Header() {
               <input
                 type="text"
                 placeholder="Search..."
-                className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9 text-[12px] font-sans font-normal"
+                className="bg-transparent outline-none flex-1 text-gray-800 placeholder:text-gray-400 min-w-0 pr-10 h-9 text-sm font-medium tracking-tight"
                 aria-label="Search"
                 aria-autocomplete="list"
                 aria-controls="search-suggestions"
@@ -100,47 +100,43 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="hidden lg:flex items-center gap-6 ml-auto">
+      <div className="hidden lg:flex items-center gap-7 ml-auto">
         <Link
           href="/tasks"
-          data-text="Tasks"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-sm tracking-tight transition-colors no-underline text-center ${
             pathname.startsWith('/tasks')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#e11d48] font-bold'
+              : 'text-gray-600 font-medium hover:text-[#e11d48]'
           }`}
         >
           Tasks
         </Link>
         <Link
           href="/methods"
-          data-text="Methods"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-sm tracking-tight transition-colors no-underline text-center ${
             pathname.startsWith('/methods')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#e11d48] font-bold'
+              : 'text-gray-600 font-medium hover:text-[#e11d48]'
           }`}
         >
           Methods
         </Link>
         <Link
           href="/benchmarks"
-          data-text="Benchmarks"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-sm tracking-tight transition-colors no-underline text-center ${
             pathname.startsWith('/benchmarks')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#e11d48] font-bold'
+              : 'text-gray-600 font-medium hover:text-[#e11d48]'
           }`}
         >
           Benchmarks
         </Link>
         <Link
           href="/models"
-          data-text="Models"
-          className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
+          className={`text-sm tracking-tight transition-colors no-underline text-center ${
             pathname.startsWith('/models')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#e11d48] font-bold'
+              : 'text-gray-600 font-medium hover:text-[#e11d48]'
           }`}
         >
           Models
