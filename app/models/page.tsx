@@ -523,13 +523,13 @@ function ModelsContent() {
     <div className="flex-1 flex flex-col min-h-full overflow-hidden bg-[#F8F7F2] font-sans text-slate-800">
       <div className="flex-1 flex overflow-hidden">
         <main className="flex-1 overflow-y-auto overflow-x-hidden hide-scroll">
-        <div className="max-w-7xl mx-auto px-6 py-8 w-full">
+        <div className="w-full px-4 md:px-8 xl:px-12 py-8">
           
           {/* 1. HERO SECTION (Exact tasks UI reference) */}
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
             <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
-                All Research<br /><span className="text-[#e11d48]">Domains &amp; Models</span>
+                All Models<br /><span className="text-[#e11d48]">Directory &amp; Ecosystem</span>
               </h1>
               <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
                 Explore the full spectrum of AI research across tasks, foundation models, evaluation benchmarks, and applications.
@@ -561,7 +561,20 @@ function ModelsContent() {
                 </div>
               </div>
             </div>
-            <div className="relative w-[70%] h-[250px] flex justify-center"></div>
+            {/* Skeletal Graph & Dynamic Visualization Background Exact To Reference */}
+            <div className="absolute right-0 top-0 bottom-0 w-[70%] pointer-events-none overflow-hidden flex items-center justify-end">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#F8F7F2] via-transparent to-transparent z-10" />
+              <svg className="w-full h-full opacity-35 text-rose-500" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 0 100 Q 200 20, 400 100 T 800 100" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" />
+                <path d="M 0 150 Q 250 50, 500 150 T 800 80" stroke="#f43f5e" strokeWidth="1" opacity="0.6" />
+                <path d="M 100 50 Q 350 180, 600 40 T 800 160" stroke="#3b82f6" strokeWidth="1" opacity="0.4" />
+                <circle cx="200" cy="62" r="4" fill="#e11d48" className="animate-pulse" />
+                <circle cx="400" cy="100" r="5" fill="#e11d48" />
+                <circle cx="600" cy="138" r="4" fill="#3b82f6" />
+                <circle cx="500" cy="150" r="3" fill="#f43f5e" />
+                <circle cx="250" cy="115" r="3" fill="#10b981" />
+              </svg>
+            </div>
           </div>
           <div className="flex gap-6">
             
@@ -569,7 +582,7 @@ function ModelsContent() {
             <aside className="w-64 flex-shrink-0 hidden lg:block backdrop-blur-sm" aria-label="Domain navigation">
               <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)]">
                 <div className="px-4 pt-6 pb-4">
-                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3">Browse Research</h3>
+                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3">Browse Models</h3>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
@@ -593,7 +606,7 @@ function ModelsContent() {
                 <nav className="overflow-y-auto px-2 pb-4" aria-label="Domains">
                   <ul className="space-y-0.5" role="list">
                     {[
-                      { id: "all", label: "All Categories" },
+                      { id: "all", label: "All Models" },
                       { id: "section-capability", label: "Browse by Capability" },
                       { id: "section-family", label: "Browse by Model Family" },
                       { id: "section-organization", label: "Browse by Organization" },
