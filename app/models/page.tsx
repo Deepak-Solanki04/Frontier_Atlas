@@ -523,13 +523,14 @@ function ModelsContent() {
     <div className="flex-1 flex flex-col min-h-full overflow-hidden bg-[#F8F7F2] font-sans text-slate-800">
       <div className="flex-1 flex overflow-hidden">
         <main className="flex-1 overflow-y-auto overflow-x-hidden hide-scroll">
-        <div className="w-full px-4 md:px-8 xl:px-12 py-8">
+        <div className="max-w-7xl mx-auto px-6 py-8 w-full">
           
           {/* 1. HERO SECTION (Exact tasks UI reference) */}
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
             <div className="relative z-10 w-full lg:w-[48%] px-6 md:px-8 py-5 md:py-6">
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
-                All Models<br /><span className="text-[#e11d48]">Directory</span>
+                All
+                <span className="text-[#e11d48] ml-3">Models</span>
               </h1>
               <p className="text-gray-700 font-medium text-xs md:text-sm mb-2 leading-relaxed">
                 Discover foundation models, language models, vision models, multimodal models, reasoning models, coding models, embedding models, and AI agents from leading research labs and organizations.
