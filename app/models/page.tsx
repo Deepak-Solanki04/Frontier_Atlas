@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2 } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
 
@@ -367,32 +367,28 @@ function getSkeletalIcon(index: number, name: string = "") {
 
 function ModelsContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  
-  const vendorParam = searchParams?.get("vendor") || null;
-  const domainParam = searchParams?.get("domain") || null;
-  const capabilityParam = searchParams?.get("capability") || null;
-  const familyParam = searchParams?.get("family") || null;
-  const collectionParam = searchParams?.get("collection") || null;
 
   const [allModels, setAllModels] = useState<ModelItem[]>([]);
-  const [selectedVendor, setSelectedVendor] = useState<string | null>(vendorParam);
-  const [selectedDomain, setSelectedDomain] = useState<string | null>(domainParam);
-  const [selectedCapability, setSelectedCapability] = useState<string | null>(capabilityParam);
-  const [selectedFamily, setSelectedFamily] = useState<string | null>(familyParam);
-  const [selectedCollection, setSelectedCollection] = useState<string | null>(collectionParam);
+  const [selectedVendor, setSelectedVendor] = useState<string | null>(null);
+  const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
+  const [selectedCapability, setSelectedCapability] = useState<string | null>(null);
+  const [selectedFamily, setSelectedFamily] = useState<string | null>(null);
+  const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [inspectedModel, setInspectedModel] = useState<ModelItem | null>(null);
   const [copied, setCopied] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("all");
 
   useEffect(() => {
-    setSelectedVendor(vendorParam);
-    setSelectedDomain(domainParam);
-    setSelectedCapability(capabilityParam);
-    setSelectedFamily(familyParam);
-    setSelectedCollection(collectionParam);
-  }, [vendorParam, domainParam, capabilityParam, familyParam, collectionParam]);
+    if (typeof window !== "undefined") {
+      const sp = new URLSearchParams(window.location.search);
+      setSelectedVendor(sp.get("vendor"));
+      setSelectedDomain(sp.get("domain"));
+      setSelectedCapability(sp.get("capability"));
+      setSelectedFamily(sp.get("family"));
+      setSelectedCollection(sp.get("collection"));
+    }
+  }, []);
 
   useEffect(() => {
     getModels().then((data) => {
@@ -1256,9 +1252,5 @@ function ModelsContent() {
 }
 
 export default function ModelsPage() {
-  return (
-    <Suspense fallback={<div style={{ padding: "64px", textAlign: "center", color: "#8B8B8B", fontWeight: 800 }}>Loading Frontier Atlas Models Directory...</div>}>
-      <ModelsContent />
-    </Suspense>
-  );
+  return <ModelsContent />;
 }
