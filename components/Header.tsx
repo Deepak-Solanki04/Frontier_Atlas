@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import SearchBar from './SearchBar';
 
 export default function Header() {
   const pathname = usePathname() || '/';
@@ -68,37 +69,7 @@ export default function Header() {
       </div>
 
       <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-[240px] xl:w-[400px]">
-        <div className="w-full" style={{ opacity: 1, transform: 'none' }}>
-          <div className="relative w-full max-w-[400px]">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (searchQuery.trim()) {
-                  window.location.href = `/models?search=${encodeURIComponent(searchQuery.trim())}`;
-                }
-              }}
-              className="relative flex items-center px-3 md:px-4 bg-white border border-[#E5E5E0] focus-within:border-[#DCDCD7] focus-within:shadow-[0_4px_20px_rgb(0,0,0,0.08)] transition-all rounded-[20px]"
-            >
-              <div className="flex items-center text-[#737373] mr-2 shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-search">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </svg>
-              </div>
-              <input
-                type="text"
-                placeholder="Search..."
-                className="bg-transparent outline-none flex-1 text-[#111111] placeholder:text-[#737373] min-w-0 pr-10 h-9 text-[12px]"
-                aria-label="Search"
-                aria-autocomplete="list"
-                aria-controls="search-suggestions"
-                aria-expanded={false}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </form>
-          </div>
-        </div>
+        <SearchBar variant="compact" placeholder="Search models, papers, tasks..." />
       </div>
 
       <div className="hidden lg:flex items-center gap-6 ml-auto">
