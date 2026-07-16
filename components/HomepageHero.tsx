@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import SearchBar from './SearchBar';
 
 export default function HomepageHero() {
   return (
@@ -14,17 +15,8 @@ export default function HomepageHero() {
       </p>
 
       {/* Search Input Box */}
-      <div className="home-hero-search-box">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="search-icon-gray">
-          <circle cx="11" cy="11" r="8"></circle>
-          <path d="m21 21-4.3-4.3"></path>
-        </svg>
-        <input 
-          type="text" 
-          placeholder="Search papers, authors, topics, methods..." 
-          className="home-hero-search-input"
-        />
-        <kbd className="home-hero-kbd">⌘ K</kbd>
+      <div className="w-full max-w-[650px] mx-auto my-6 px-4">
+        <SearchBar variant="default" />
       </div>
 
       {/* Category Pills Row */}
