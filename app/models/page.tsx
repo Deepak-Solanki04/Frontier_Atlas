@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2, ChevronRight } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
+import Navbar from "@/components/Navbar";
 
 const TOP_MODELS_BOXES = [
   {
@@ -521,36 +522,58 @@ function ModelsContent() {
 
   return (
     <div className="flex-1 flex flex-col min-h-full overflow-hidden bg-[#F8F7F2] font-sans text-slate-800">
+      <Navbar />
       <div className="flex-1 flex overflow-hidden">
         <main className="flex-1 overflow-y-auto overflow-x-hidden hide-scroll">
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 py-8 w-full">
+        <div className="max-w-[1380px] mx-auto px-8 md:px-14 py-8 w-full">
           
-          {/* Exact Replica of https://frontieratlas.co/models Header & Breadcrumbs */}
-          <div className="mb-8">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
-              <Link href="/" className="hover:text-[#F55036] transition-colors no-underline">
-                Home
-              </Link>
-              <span>/</span>
-              <span className="text-[#555555] font-medium">Models</span>
+          {/* HERO SECTION — Exact Tasks page layout */}
+          <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
+            <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
+                All
+                <span className="text-[#e11d48] ml-3">Models</span>
+              </h1>
+              <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
+                Discover the full landscape of AI foundation models through 120+ model families spanning reasoning, vision, code, audio, robotics, healthcare, and more.
+              </p>
+              <div className="flex items-center gap-4 whitespace-nowrap text-xs md:text-sm">
+                <div className="flex items-center gap-4">
+                  <div>
+                    <div className="text-lg md:text-xl font-bold text-gray-800">24</div>
+                    <div className="text-gray-500 text-[10px] md:text-xs">Capabilities</div>
+                  </div>
+                  <div className="w-px h-6 bg-gray-200"></div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div>
+                    <div className="text-lg md:text-xl font-bold text-gray-800">120+</div>
+                    <div className="text-gray-500 text-[10px] md:text-xs">Model Families</div>
+                  </div>
+                  <div className="w-px h-6 bg-gray-200"></div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div>
+                    <div className="text-lg md:text-xl font-bold text-gray-800">400+</div>
+                    <div className="text-gray-500 text-[10px] md:text-xs">Verified SOTA</div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            {/* Directory Chip Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#EAE6DE] bg-[#FBFAF7] px-3 py-1 text-[11px] font-medium text-[#555555] uppercase tracking-[0.18em] mb-5 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] mr-1.5 shrink-0" />
-              FOUNDATION DIRECTORY
+            {/* SVG Background Visualization */}
+            <div className="absolute right-0 top-0 bottom-0 w-[70%] pointer-events-none overflow-hidden flex items-center justify-end">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#F8F7F2] via-transparent to-transparent z-10" />
+              <svg className="w-full h-full opacity-35 text-rose-500" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 0 100 Q 200 20, 400 100 T 800 100" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" />
+                <path d="M 0 150 Q 250 50, 500 150 T 800 80" stroke="#f43f5e" strokeWidth="1" opacity="0.6" />
+                <path d="M 100 50 Q 350 180, 600 40 T 800 160" stroke="#3b82f6" strokeWidth="1" opacity="0.4" />
+                <circle cx="200" cy="62" r="4" fill="#e11d48" className="animate-pulse" />
+                <circle cx="400" cy="100" r="5" fill="#e11d48" />
+                <circle cx="600" cy="138" r="4" fill="#3b82f6" />
+                <circle cx="500" cy="150" r="3" fill="#f43f5e" />
+                <circle cx="250" cy="115" r="3" fill="#10b981" />
+              </svg>
             </div>
-
-            {/* Main Title */}
-            <h1 className="text-[34px] md:text-[40px] font-bold tracking-tight mb-3 text-[#111111]">
-              Models
-            </h1>
-
-            {/* Subtitle */}
-            <p className="text-[15px] md:text-[16px] text-[#555555] leading-relaxed max-w-5xl mb-7">
-              Explore state-of-the-art foundation models evaluated across verified academic benchmarks, reasoning tasks, and real-world agentic workflows.
-            </p>
           </div>
           <div className="flex gap-6">
             
@@ -564,7 +587,7 @@ function ModelsContent() {
                     <input
                       type="text"
                       placeholder="Filter models..."
-                      className="w-full pl-9 pr-3 py-2 text-sm rounded-sm border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
+                      className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-rose-400 focus:ring-1 focus:ring-rose-400 bg-white/80 transition-colors"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -657,15 +680,15 @@ function ModelsContent() {
                       <div
                         key={cap}
                         onClick={() => handleCapabilityClick(cap)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
-                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{cap}</h3>
+                          <h3 className="font-normal text-gray-800 text-[15px] leading-snug mb-0.5">{cap}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
                           Models that understand, generate, and execute specialized tasks across {cap}.
@@ -692,15 +715,15 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
-                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{fam.name}</h3>
+                          <h3 className="font-normal text-gray-800 text-[15px] leading-snug mb-0.5">{fam.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
                           Foundation architecture family developed and maintained by {fam.org}. ({fam.count} Models)
@@ -727,15 +750,15 @@ function ModelsContent() {
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
-                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{v.name}</h3>
+                          <h3 className="font-normal text-gray-800 text-[15px] leading-snug mb-0.5">{v.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
                           Explore frontier AI models, weights, and verified APIs published by {v.name}. ({v.count} Models)
@@ -762,15 +785,15 @@ function ModelsContent() {
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer ${
-                          isActive ? "ring-1 ring-rose-400 border-rose-400 bg-rose-50/50" : ""
+                        className={`directory-grid-card group ${
+                          isActive ? "active" : ""
                         }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{d.name}</h3>
+                          <h3 className="font-normal text-gray-800 text-[15px] leading-snug mb-0.5">{d.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3">
                           Leading architectural benchmarks and evaluations anchored by {d.leader}. ({d.count} Models)
@@ -819,13 +842,13 @@ function ModelsContent() {
                             });
                           }
                         }}
-                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer"
+                        className="directory-grid-card group"
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5">{m.name}</h3>
+                          <h3 className="font-normal text-gray-800 text-[15px] leading-snug mb-0.5">{m.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3" title={m.desc}>{m.desc}</p>
                       </div>
@@ -851,13 +874,13 @@ function ModelsContent() {
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white p-5 rounded-sm shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] border border-gray-100 hover:shadow-md transition-shadow group cursor-pointer block"
+                        className="directory-grid-card group block"
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg group-hover:scale-150 transition-transform">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{item.name}</h3>
+                          <h3 className="font-normal text-gray-800 text-[15px] leading-snug mb-0.5 truncate">{item.name}</h3>
                         </div>
                         <p className="text-sm text-gray-500 mt-1.5 ml-11 mr-4 line-clamp-3" title={item.desc}>{item.desc}</p>
                       </a>
@@ -877,14 +900,14 @@ function ModelsContent() {
           </div>
           <div style={{ background: "#ffffff", border: "1px solid var(--border)", borderRadius: "2px", overflow: "hidden", boxShadow: "0 2px 8px rgba(0,0,0,0.02)" }}>
             <div style={{ overflowX: "auto" }}>
-              <table className="models-data-table" style={{ width: "100%", borderCollapse: "collapse" }}>
+              <table className="models-data-table" style={{ width: "100%", minWidth: "1100px", borderCollapse: "collapse" }}>
                 <thead>
                   <tr style={{ borderBottom: "2px solid #111111" }}>
-                    <th style={{ padding: "14px 18px", textAlign: "left", fontSize: "11px", fontWeight: 900, textTransform: "uppercase", color: "#666666" }}>Model Name</th>
-                    <th style={{ padding: "14px 18px", textAlign: "left", fontSize: "11px", fontWeight: 900, textTransform: "uppercase", color: "#666666" }}>Organization</th>
-                    <th style={{ padding: "14px 18px", textAlign: "left", fontSize: "11px", fontWeight: 900, textTransform: "uppercase", color: "#666666" }}>Release Date</th>
-                    <th style={{ padding: "14px 18px", textAlign: "left", fontSize: "11px", fontWeight: 900, textTransform: "uppercase", color: "#666666" }}>Model Family</th>
-                    <th style={{ padding: "14px 18px", textAlign: "left", fontSize: "11px", fontWeight: 900, textTransform: "uppercase", color: "#666666" }}>Short Description</th>
+                    <th style={{ padding: "10px 14px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666" }}>Model Name</th>
+                    <th style={{ padding: "10px 14px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666" }}>Organization</th>
+                    <th style={{ padding: "10px 14px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666" }}>Release Date</th>
+                    <th style={{ padding: "10px 14px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666" }}>Model Family</th>
+                    <th style={{ padding: "10px 14px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666" }}>Short Description</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -899,16 +922,16 @@ function ModelsContent() {
                       onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }}
                       onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
                     >
-                      <td style={{ padding: "16px 18px", fontWeight: 900, fontSize: "14.5px", color: "#111111", display: "flex", alignItems: "center", gap: "8px" }}>
-                        <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block" }}></span>
+                      <td style={{ padding: "12px 14px", fontWeight: 400, fontSize: "12.5px", color: "#111111", display: "flex", alignItems: "center", gap: "8px", whiteSpace: "nowrap" }}>
+                        <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block" }}></span>
                         <span>{r.name}</span>
                       </td>
-                      <td style={{ padding: "16px 18px", fontWeight: 700, fontSize: "13.5px", color: "#555555" }}>{r.org}</td>
-                      <td style={{ padding: "16px 18px", fontFamily: "monospace", fontWeight: 700, fontSize: "13px", color: "#FF5A1F" }}>{r.date}</td>
-                      <td style={{ padding: "16px 18px", fontWeight: 800, fontSize: "13px", color: "#111111" }}>
-                        <span style={{ padding: "4px 10px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)" }}>{r.family}</span>
+                      <td style={{ padding: "12px 14px", fontWeight: 400, fontSize: "11.5px", color: "#555555", whiteSpace: "nowrap" }}>{r.org}</td>
+                      <td style={{ padding: "12px 14px", fontFamily: "monospace", fontWeight: 400, fontSize: "11px", color: "#FF5A1F", whiteSpace: "nowrap" }}>{r.date}</td>
+                      <td style={{ padding: "12px 14px", fontWeight: 400, fontSize: "11.5px", color: "#111111", whiteSpace: "nowrap" }}>
+                        <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)" }}>{r.family}</span>
                       </td>
-                      <td style={{ padding: "16px 18px", fontSize: "13.5px", fontWeight: 500, color: "#444444", maxWidth: "480px" }}>{r.desc}</td>
+                      <td style={{ padding: "12px 14px", fontSize: "12px", fontWeight: 400, color: "#444444", maxWidth: "520px" }}>{r.desc}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -941,7 +964,7 @@ function ModelsContent() {
                       {col.count}
                     </span>
                   </div>
-                  <span style={{ fontWeight: 900, fontSize: "14px", letterSpacing: "-0.2px", lineHeight: "1.3", marginTop: "10px", textAlign: "left" }}>
+                  <span style={{ fontWeight: 400, fontSize: "14px", letterSpacing: "-0.2px", lineHeight: "1.3", marginTop: "10px", textAlign: "left" }}>
                     {col.name}
                   </span>
                 </button>
@@ -954,22 +977,22 @@ function ModelsContent() {
         <div id="model-directory" className="models-catalog-section" style={{ borderRadius: "2px" }}>
           <div className="models-catalog-header">
             <div className="models-catalog-title-box">
-              <span style={{ fontSize: "11px", fontFamily: "monospace", fontWeight: 800, textTransform: "uppercase", letterSpacing: "1px", color: "#FF5A1F", background: "#FFF6F3", padding: "4px 10px", borderRadius: "2px", border: "1px solid #FFEDD5", display: "inline-block", marginBottom: "6px" }}>
+              <span style={{ fontSize: "11px", fontFamily: "monospace", fontWeight: 400, textTransform: "uppercase", letterSpacing: "1px", color: "#FF5A1F", background: "#FFF6F3", padding: "4px 10px", borderRadius: "2px", border: "1px solid #FFEDD5", display: "inline-block", marginBottom: "6px" }}>
                 {activeFilterLabel ? `Filtered Directory: ${activeFilterLabel}` : "Unfiltered Registry"}
               </span>
-              <h2>Model Directory ({filteredCatalogModels.length} {filteredCatalogModels.length === 1 ? "Model" : "Models"})</h2>
+              <h2 style={{ fontSize: "24px", fontWeight: 400, color: "#111111", letterSpacing: "-0.3px", margin: "4px 0 0 0" }}>Model Directory ({filteredCatalogModels.length} {filteredCatalogModels.length === 1 ? "Model" : "Models"})</h2>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
               {activeFilterLabel && (
                 <button
                   onClick={clearAllFilters}
-                  style={{ padding: "8px 16px", background: "#FFF6F3", color: "#FF5A1F", border: "1px solid #FFEDD5", borderRadius: "2px", fontWeight: 800, fontSize: "12.5px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" }}
+                  style={{ padding: "8px 16px", background: "#FFF6F3", color: "#FF5A1F", border: "1px solid #FFEDD5", borderRadius: "2px", fontWeight: 400, fontSize: "12.5px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" }}
                 >
                   <X size={14} />
                   <span>Clear Filter ({activeFilterLabel})</span>
                 </button>
               )}
-              <span style={{ fontSize: "12.5px", fontWeight: 800, color: "#666666" }}>
+              <span style={{ fontSize: "12.5px", fontWeight: 400, color: "#666666" }}>
                 Sorted by SOTA Elo Rank &amp; Release Velocity
               </span>
             </div>
@@ -980,22 +1003,22 @@ function ModelsContent() {
             <div style={{ marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid var(--border)", background: "#F8F7F2", padding: "24px", borderRadius: "2px", border: "1px solid var(--border)", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-                  <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", padding: "3px 8px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5", fontWeight: 800 }}>
+                  <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", padding: "3px 8px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5", fontWeight: 400 }}>
                     ⚡ SOTA Leader &middot; {topModelForSelection.sub} ({activeFilterLabel})
                   </span>
-                  <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#666666", fontWeight: 700 }}>
+                  <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#666666", fontWeight: 400 }}>
                     Rank #1 verified benchmark leader
                   </span>
                 </div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: "14px", flexWrap: "wrap" }}>
-                  <h3 style={{ fontSize: "24px", fontWeight: 900, color: "#111111", letterSpacing: "-0.5px" }}>
+                  <h3 style={{ fontSize: "24px", fontWeight: 400, color: "#111111", letterSpacing: "-0.5px" }}>
                     {topModelForSelection.name}
                   </h3>
-                  <span style={{ fontSize: "14.5px", fontWeight: 800, color: "#FF5A1F" }}>
+                  <span style={{ fontSize: "14.5px", fontWeight: 400, color: "#FF5A1F" }}>
                     {topModelForSelection.score}
                   </span>
                 </div>
-                <p style={{ fontSize: "14px", color: "#555555", fontWeight: 500, marginTop: "6px", maxWidth: "780px", lineHeight: "1.5" }}>
+                <p style={{ fontSize: "14px", color: "#555555", fontWeight: 400, marginTop: "6px", maxWidth: "780px", lineHeight: "1.5" }}>
                   {topModelForSelection.desc}
                 </p>
               </div>
@@ -1004,7 +1027,7 @@ function ModelsContent() {
                   const match = allModels.find(x => x.name.toLowerCase() === topModelForSelection.name.toLowerCase() || x.name.toLowerCase().includes(topModelForSelection.name.toLowerCase()));
                   if (match) setInspectedModel(match);
                 }}
-                style={{ padding: "10px 20px", background: "#111111", color: "#ffffff", borderRadius: "2px", fontWeight: 700, fontSize: "13px", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px" }}
+                style={{ padding: "10px 20px", background: "#111111", color: "#ffffff", borderRadius: "2px", fontWeight: 400, fontSize: "13px", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px" }}
               >
                 <span>Inspect Specs</span>
                 <ExternalLink size={14} />
@@ -1014,10 +1037,10 @@ function ModelsContent() {
 
           {filteredCatalogModels.length === 0 ? (
             <div style={{ padding: "60px 20px", textAlign: "center", background: "#F8F7F2", borderRadius: "2px", border: "1px dashed var(--border)" }}>
-              <p style={{ fontSize: "15px", fontWeight: 700, color: "#555555" }}>No deep evaluation records match your exact filter ({activeFilterLabel || searchQuery}) right now.</p>
+              <p style={{ fontSize: "15px", fontWeight: 400, color: "#555555" }}>No deep evaluation records match your exact filter ({activeFilterLabel || searchQuery}) right now.</p>
               <button
                 onClick={clearAllFilters}
-                style={{ marginTop: "12px", fontSize: "13px", fontWeight: 800, color: "#FF5A1F", background: "transparent", border: "none", cursor: "pointer", textDecoration: "underline" }}
+                style={{ marginTop: "12px", fontSize: "13px", fontWeight: 400, color: "#FF5A1F", background: "transparent", border: "none", cursor: "pointer", textDecoration: "underline" }}
               >
                 Reset All Filters &amp; Browse All Foundation Models &rarr;
               </button>
@@ -1048,24 +1071,24 @@ function ModelsContent() {
                       <td className="col-name">
                         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                           <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block", flexShrink: 0 }}></span>
-                          <span>{model.name}</span>
+                          <span style={{ fontWeight: 400 }}>{model.name}</span>
                         </div>
                       </td>
-                      <td className="col-org" style={{ fontWeight: 700, color: "#555555" }}>{model.org}</td>
-                      <td className="col-family" style={{ fontWeight: 800, color: "#111111", whiteSpace: "nowrap" }}>
-                        <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block" }}>{model.family || "Foundation"}</span>
+                      <td className="col-org" style={{ fontWeight: 400, color: "#555555" }}>{model.org}</td>
+                      <td className="col-family" style={{ fontWeight: 400, color: "#111111", whiteSpace: "nowrap" }}>
+                        <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block", fontWeight: 400 }}>{model.family || "Foundation"}</span>
                       </td>
-                      <td style={{ color: "#555555", fontWeight: 700 }}>{model.category || "General Purpose"}</td>
-                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#333333" }}>{model.params || "Dense / MoE"}</td>
-                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 700 }}>{model.context || "128k tokens"}</td>
-                      <td style={{ color: "#555555", fontSize: "11px", fontWeight: 600 }}>{model.license || "Proprietary"}</td>
-                      <td style={{ textAlign: "left", fontWeight: 900, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px" }}>
+                      <td style={{ color: "#555555", fontWeight: 400 }}>{model.category || "General Purpose"}</td>
+                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#333333", fontWeight: 400 }}>{model.params || "Dense / MoE"}</td>
+                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 400 }}>{model.context || "128k tokens"}</td>
+                      <td style={{ color: "#555555", fontSize: "11px", fontWeight: 400 }}>{model.license || "Proprietary"}</td>
+                      <td style={{ textAlign: "left", fontWeight: 400, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px" }}>
                         {model.elo ? `⚡ ${model.elo} Elo` : `${model.benchmarks?.length || 3} verified`}
                       </td>
-                      <td style={{ color: "#555555", fontWeight: 700, fontSize: "11px" }}>{model.paperCount || 150} papers</td>
-                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#777777" }}>{model.releaseDate || "2024-2025"}</td>
+                      <td style={{ color: "#555555", fontWeight: 400, fontSize: "11px" }}>{model.paperCount || 150} papers</td>
+                      <td style={{ fontFamily: "monospace", fontSize: "11px", color: "#777777", fontWeight: 400 }}>{model.releaseDate || "2024-2025"}</td>
                       <td className="col-action">
-                        <button className="models-inspect-btn" style={{ borderRadius: "2px" }}>Inspect &rarr;</button>
+                        <button className="models-inspect-btn" style={{ borderRadius: "2px", fontWeight: 400 }}>Inspect &rarr;</button>
                       </td>
                     </tr>
                   ))}
