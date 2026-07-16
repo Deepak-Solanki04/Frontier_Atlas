@@ -109,7 +109,7 @@ export default function ModelDetailPage({
     }
 
     if (sdkLang === "curl") {
-      let body: any = {
+      const body: any = {
         model: baseId,
         max_tokens: enableThinking ? 16384 : 4096,
         messages: [{ role: "user", content: "Explain model scaling laws." }]
