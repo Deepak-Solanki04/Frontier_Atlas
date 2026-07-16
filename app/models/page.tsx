@@ -383,11 +383,13 @@ function ModelsContent() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const sp = new URLSearchParams(window.location.search);
-      setSelectedVendor(sp.get("vendor"));
-      setSelectedDomain(sp.get("domain"));
-      setSelectedCapability(sp.get("capability"));
-      setSelectedFamily(sp.get("family"));
-      setSelectedCollection(sp.get("collection"));
+      setTimeout(() => {
+        setSelectedVendor(sp.get("vendor"));
+        setSelectedDomain(sp.get("domain"));
+        setSelectedCapability(sp.get("capability"));
+        setSelectedFamily(sp.get("family"));
+        setSelectedCollection(sp.get("collection"));
+      }, 0);
     }
   }, []);
 
