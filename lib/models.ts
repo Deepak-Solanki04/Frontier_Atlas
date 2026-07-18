@@ -955,3 +955,49 @@ export function getModelById(id: string): ModelItem | undefined {
   );
   return found ? enrichModelItem(found) : undefined;
 }
+
+export interface FacetCount {
+  name: string;
+  count: number;
+}
+
+export interface ModelFacets {
+  capabilities: FacetCount[];
+  modelFamilies: FacetCount[];
+  vendors: FacetCount[];
+  researchAreas: FacetCount[];
+  totalModels: number;
+}
+
+export async function getTrendingModels(limit: number = 10): Promise<ModelItem[]> {
+  const models = await getModels();
+  return models.sort((a, b) => (b.elo || 0) - (a.elo || 0)).slice(0, limit);
+}
+
+export async function getModelFacets(): Promise<ModelFacets> {
+  const models = await getModels();
+  
+  const capMap = new Map<string, number>();
+  const famMap = new Map<string, number>();
+  const vendorMap = new Map<string, number>();
+  const areaMap = new Map<string, number>();
+  
+  models.forEach(m => {
+    (m.tags || []).forEach(t => capMap.set(t, (capMap.get(t) || 0) + 1));
+    if (m.family) famMap.set(m.family, (famMap.get(m.family) || 0) + 1);
+    if (m.org) vendorMap.set(m.org, (vendorMap.get(m.org) || 0) + 1);
+    if (m.area) areaMap.set(m.area, (areaMap.get(m.area) || 0) + 1);
+  });
+
+  const sortFacets = (map: Map<string, number>) => Array.from(map.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
+
+  return {
+    capabilities: sortFacets(capMap),
+    modelFamilies: sortFacets(famMap),
+    vendors: sortFacets(vendorMap),
+    researchAreas: sortFacets(areaMap),
+    totalModels: models.length
+  };
+}
