@@ -35,8 +35,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geist.variable} ${plusJakarta.variable} ${outfit.variable} ${inter.variable}`}>
-      <body className={`${inter.className} font-sans antialiased`}>
-        <style dangerouslySetInnerHTML={{__html: `@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');`}} />
+      <body className="font-sans antialiased">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" precedence="default" />
         <div className="app-shell">
           <ConditionalHeader />
           <div className="main-wrapper">
