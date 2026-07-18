@@ -48,7 +48,15 @@ export default async function MethodsPage() {
   }
 
   return (
-    <div className={`${atlasUiFont.className} min-h-screen bg-[#F8F7F2] text-[#111111] tracking-normal`}>
+    <div 
+      className={`${atlasUiFont.className} min-h-screen bg-[#F8F7F2]`}
+      style={{
+        color: "rgb(23, 23, 23)",
+        fontSize: "14px",
+        letterSpacing: "-0.14px",
+        lineHeight: "21px",
+      }}
+    >
       {/* Increased padding as per user request to add ~0.5cm (20-30px) more space on the sides */}
       <div className="w-full max-w-[1370px] mx-auto px-16 lg:px-24 xl:px-32 pt-6 pb-12">
 
