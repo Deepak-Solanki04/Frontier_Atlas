@@ -58,8 +58,8 @@ export default async function MethodsPage() {
         lineHeight: "21px",
       }}
     >
-      {/* Doubled the left and right spacing as requested */}
-      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-48 pt-10 pb-16">
+      {/* Decreased left and right spacing by exactly 5px as requested (192px -> 187px) */}
+      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[187px] pt-10 pb-16">
 
         <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
           <Link href="/" className="hover:text-[#F55036] transition-colors no-underline">
