@@ -58,8 +58,8 @@ export default async function MethodsPage() {
         lineHeight: "21px",
       }}
     >
-      {/* Increased padding as per user request to add ~0.5cm (20-30px) more space on the sides */}
-      <div className="w-full max-w-[1370px] mx-auto px-16 lg:px-24 xl:px-32 pt-6 pb-12">
+      {/* Adjusted padding to be perfectly aligned with user's desired 0.25cm adjustment */}
+      <div className="w-full max-w-[1370px] mx-auto px-14 lg:px-20 xl:px-28 pt-6 pb-12">
 
         <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
           <Link href="/" className="hover:text-[#F55036] transition-colors no-underline">
