@@ -16,6 +16,7 @@ const eslintConfig = defineConfig([
       "jsx-a11y/role-supports-aria-props": "off",
       "@next/next/no-img-element": "off",
       "prefer-const": "off",
+      "react-hooks/preserve-manual-memoization": "off",
     },
   },
   globalIgnores([

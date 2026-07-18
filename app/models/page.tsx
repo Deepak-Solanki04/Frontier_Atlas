@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useMemo, Suspense } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2, ChevronRight } from "lucide-react";
@@ -339,23 +339,90 @@ function ModelsContent() {
 
   const activeFilterLabel = selectedVendor || selectedDomain || selectedCapability || selectedFamily || selectedCollection || null;
 
-  const filteredCatalogModels = (() => {})();
+  const filteredCatalogModels = useMemo(() => {
+    return allModels.filter(m => {
+      if (searchQuery.trim() !== "") {
+        const q = searchQuery.toLowerCase();
+        const matches = m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q) || (m.description && m.description.toLowerCase().includes(q)) || (m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(q)));
+        if (!matches) return false;
+      }
+      if (selectedVendor) {
+        const vLower = selectedVendor.toLowerCase();
+        if (!m.vendor.toLowerCase().includes(vLower) && !vLower.includes(m.vendor.toLowerCase())) return false;
+      }
+      if (selectedFamily) {
+        const fLower = selectedFamily.toLowerCase();
+        if (m.modelFamily?.toLowerCase() !== fLower && !m.name.toLowerCase().includes(fLower)) return false;
+      }
+      if (selectedCapability) {
+        const cLower = selectedCapability.toLowerCase();
+        if (m.category?.toLowerCase() !== cLower && !(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(cLower))) && !(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(cLower)))) return false;
+      }
+      if (selectedDomain) {
+        const dLower = selectedDomain.toLowerCase();
+        if (!(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(dLower))) && !(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(dLower))) && !(m.description && m.description.toLowerCase().includes(dLower))) return false;
+      }
+      if (selectedCollection) {
+        const colLower = selectedCollection.toLowerCase().replace(" models", "").trim();
+        if (!(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(colLower))) && !(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(colLower))) && m.category?.toLowerCase() !== colLower) return false;
+      }
+      return true;
+    });
+  }, [allModels, selectedVendor, selectedDomain, selectedCapability, selectedFamily, selectedCollection, searchQuery]);
 
-  const topModelForSelection = (() => {})();
+  const topModelForSelection = useMemo(() => {
+    if (!activeFilterLabel || !filteredCatalogModels.length) return null;
+    return filteredCatalogModels[0];
+  }, [activeFilterLabel, filteredCatalogModels]);
 
-  const filteredCapabilities = (() => {})();
+  const filteredCapabilities = useMemo(() => {
+    if (!facets?.capabilities) return [];
+    const q = searchQuery.toLowerCase();
+    return facets.capabilities.filter(c => !searchQuery || c.name.toLowerCase().includes(q));
+  }, [facets?.capabilities, searchQuery]);
 
-  const filteredModelFamilies = (() => {})();
+  const filteredModelFamilies = useMemo(() => {
+    if (!facets?.modelFamilies) return [];
+    const q = searchQuery.toLowerCase();
+    return facets.modelFamilies.filter(f => !searchQuery || f.name.toLowerCase().includes(q));
+  }, [facets?.modelFamilies, searchQuery]);
 
-  const filteredVendors = (() => {})();
+  const filteredVendors = useMemo(() => {
+    if (!facets?.vendors) return [];
+    const q = searchQuery.toLowerCase();
+    return facets.vendors.filter(v => !searchQuery || v.name.toLowerCase().includes(q));
+  }, [facets?.vendors, searchQuery]);
 
-  const filteredResearchAreas = (() => {})();
+  const filteredResearchAreas = useMemo(() => {
+    if (!facets?.researchAreas) return [];
+    const q = searchQuery.toLowerCase();
+    return facets.researchAreas.filter(r => !searchQuery || r.name.toLowerCase().includes(q));
+  }, [facets?.researchAreas, searchQuery]);
 
-  const filteredTrending = (() => {})();
+  const filteredTrending = useMemo(() => {
+    if (!trendingModels) return [];
+    const q = searchQuery.toLowerCase();
+    return trendingModels.filter(m => !searchQuery || m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q));
+  }, [trendingModels, searchQuery]);
 
-  const filteredRecentlyReleasedTable = (() => {})();
+  const filteredRecentlyReleasedTable = useMemo(() => {
+    if (!allModels || !allModels.length) return [];
+    const recent = allModels.slice(0, 8).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    if (!searchQuery) return recent;
+    const q = searchQuery.toLowerCase();
+    return recent.filter(m => m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q) || (m.description && m.description.toLowerCase().includes(q)));
+  }, [allModels, searchQuery]);
 
-  const hasSearchResults = (() => {})();
+  const hasSearchResults = useMemo(() => {
+    if (!searchQuery) return true;
+    return filteredCapabilities.length > 0 ||
+      filteredModelFamilies.length > 0 ||
+      filteredVendors.length > 0 ||
+      filteredResearchAreas.length > 0 ||
+      filteredTrending.length > 0 ||
+      filteredRecentlyReleasedTable.length > 0 ||
+      filteredCatalogModels.length > 0;
+  }, [searchQuery, filteredCapabilities, filteredModelFamilies, filteredVendors, filteredResearchAreas, filteredTrending, filteredRecentlyReleasedTable, filteredCatalogModels]);
 
   const handleCopyQuickstart = () => {
     if (inspectedModel?.description) {
