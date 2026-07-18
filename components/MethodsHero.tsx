@@ -46,7 +46,7 @@ export function MethodsHero({ taxonomy = [] }: { taxonomy?: any[] }) {
 
           <div>
             <div className="text-2xl font-bold">
-              {totalPapers.toLocaleString()}
+              {totalPapers.toLocaleString("en-US")}
             </div>
             <div className="text-[15px] text-gray-500 mt-1">Papers</div>
           </div>
