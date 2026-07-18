@@ -452,37 +452,37 @@ function ModelsContent() {
       <Navbar />
       <div className="flex-1 flex">
         <main className="flex-1">
-        <div className="max-w-[1380px] mx-auto px-8 md:px-14 py-8 w-full">
+        <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[183px] pt-10 pb-16" style={{ color: "rgb(23, 23, 23)", fontSize: "14px", letterSpacing: "-0.14px", wordSpacing: "0.5px", lineHeight: "21px" }}>
           
           {/* HERO SECTION — Exact Tasks page layout */}
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
             <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
+              <h1 className="text-[35px] font-extrabold text-[#111827] mb-2 leading-none">
                 All
                 <span style={{ color: "#E11D48" }} className="ml-3">Models</span>
               </h1>
-              <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
+              <p className="text-[15.5px] text-[#555] mb-4 max-w-md leading-relaxed">
                 Discover the full landscape of AI foundation models through {facets?.modelFamilies?.length || 0} model families spanning reasoning, vision, code, audio, robotics, healthcare, and more.
               </p>
               <div className="flex items-center gap-4 whitespace-nowrap text-xs md:text-sm">
                 <div className="flex items-center gap-4">
                   <div>
-                    <div className="text-lg md:text-xl font-bold text-gray-800">{facets?.capabilities?.length}</div>
-                    <div className="text-gray-500 text-[10px] md:text-xs">Capabilities</div>
+                    <div className="text-[27px] font-bold text-gray-800">{facets?.capabilities?.length}</div>
+                    <div className="text-[14.5px] text-gray-500 mt-1">Capabilities</div>
                   </div>
                   <div className="w-px h-6 bg-gray-200"></div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div>
-                    <div className="text-lg md:text-xl font-bold text-gray-800">{facets?.modelFamilies?.length}</div>
-                    <div className="text-gray-500 text-[10px] md:text-xs">Model Families</div>
+                    <div className="text-[27px] font-bold text-gray-800">{facets?.modelFamilies?.length}</div>
+                    <div className="text-[14.5px] text-gray-500 mt-1">Model Families</div>
                   </div>
                   <div className="w-px h-6 bg-gray-200"></div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div>
-                    <div className="text-lg md:text-xl font-bold text-gray-800">{facets?.totalModels}</div>
-                    <div className="text-gray-500 text-[10px] md:text-xs">Verified SOTA</div>
+                    <div className="text-[27px] font-bold text-gray-800">{facets?.totalModels}</div>
+                    <div className="text-[14.5px] text-gray-500 mt-1">Verified SOTA</div>
                   </div>
                 </div>
               </div>
@@ -554,8 +554,8 @@ function ModelsContent() {
                               alignItems: 'center',
                               gap: '10px',
                               padding: '6px 12px',
-                              fontFamily: "'Plus Jakarta Sans', 'Outfit', 'Inter', system-ui, sans-serif",
-                              fontSize: '12px',
+                              fontFamily: "inherit",
+                              fontSize: '15px',
                               lineHeight: '1.375',
                               borderRadius: '6px',
                               fontWeight: isActive ? '600' : '500',
@@ -604,7 +604,7 @@ function ModelsContent() {
               {filteredCapabilities.length > 0 && (
               <section id="section-capability" className="mb-12 scroll-mt-24">
                 <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[30px] font-bold text-gray-800">
+                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
                     <h2>Browse by Capability</h2>
                   </div>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.capabilities?.length} Tasks &amp; Modalities</span>
@@ -635,46 +635,14 @@ function ModelsContent() {
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 style={{
-                            fontFamily: 'inherit',
-                            fontSize: '15px',
-                            fontWeight: isActive ? '700' : '500',
-                            color: '#1f2937',
-                            lineHeight: '1.375',
-                            marginBottom: '2px'
-                          }}>{cap.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
                         </div>
-                        <p
-  style={{
-    fontFamily: "inherit",
-    fontSize: "0.875rem",
-    fontWeight: "400",
-    color: "#6b7280",
-    lineHeight: "1.25rem",
-    height: "3.75rem",
-    
-    overflow: "hidden",
-    marginTop: "0.375rem",
-    marginLeft: "2.75rem",
-    marginRight: "0.5rem",
-    marginBottom: "0.25rem",
-  }}
->
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
   Explore models for {cap.name.toLowerCase()}.
 </p>
 
-<p
-  style={{
-    fontFamily: "inherit",
-    fontSize: "0.875rem",
-    fontWeight: "600",
-    color: "#575c66",
-    marginLeft: "2.75rem",
-    marginRight: "0.5rem",
-  }}
->
-  {cap.count} Models
-</p>
+<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+  {cap.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -686,7 +654,7 @@ function ModelsContent() {
               {filteredModelFamilies.length > 0 && (
               <section id="section-family" className="mb-12 scroll-mt-24">
                 <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[30px] font-bold text-gray-800">
+                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
                     <h2>Browse by Model Family</h2>
                   </div>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.modelFamilies?.length} Model Families</span>
@@ -722,30 +690,9 @@ function ModelsContent() {
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 style={{
-                            fontFamily: 'inherit',
-                            fontSize: '15px',
-                            fontWeight: isActive ? '700' : '500',
-                            color: '#1f2937',
-                            lineHeight: '1.375',
-                            marginBottom: '2px'
-                          }}>{fam.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
                         </div>
-                        <p style={{
-                          fontFamily: 'inherit',
-                          fontSize: '0.875rem',
-                          fontWeight: '400',
-                          color: '#6b7280',
-                          lineHeight: '1.25rem',
-                          height: '3.75rem',
-                          
-                          overflow: 'hidden',
-                          marginTop: '0.375rem',
-                          marginLeft: "2.75rem",
-                          marginRight: '0.5rem'
-                        }}>
-                          {fam.count} Models
-                        </p>
+                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -757,7 +704,7 @@ function ModelsContent() {
               {filteredVendors.length > 0 && (
               <section id="section-organization" className="mb-12 scroll-mt-24">
                 <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[30px] font-bold text-gray-800">
+                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
                     <h2>Browse by Organization</h2>
                   </div>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.vendors?.length} Leading Labs</span>
@@ -811,37 +758,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                             marginBottom: '2px'
                           }}>{v.name}</h3>
                         </div>
-                        <p
-  style={{
-    fontFamily: "inherit",
-    fontSize: "0.875rem",
-    fontWeight: "400",
-    color: "#6b7280",
-    lineHeight: "1.25rem",
-    height: "3.75rem",
-    
-    overflow: "hidden",
-    marginTop: "0.375rem",
-    marginLeft: "3.25rem",
-    marginRight: "0.5rem",
-    marginBottom: "0.25rem",
-  }}
->
-  Explore AI models developed by {v.name}.
-</p>
-
-<p
-  style={{
-    fontFamily: "inherit",
-    fontSize: "0.875rem",
-    fontWeight: "600",
-    color: "#575c66",
-    marginLeft: "3.25rem",
-    marginRight: "0.5rem",
-  }}
->
-  {v.count} Models
-</p>
+                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -853,7 +770,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               {filteredResearchAreas.length > 0 && (
               <section id="section-research" className="mb-12 scroll-mt-24">
                 <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[30px] font-bold text-gray-800">
+                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
                     <h2>Browse by Research Area</h2>
                   </div>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.researchAreas?.length} Modalities &amp; Domains</span>
@@ -884,46 +801,14 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 style={{
-                            fontFamily: 'inherit',
-                            fontSize: '15px',
-                            fontWeight: isActive ? '700' : '500',
-                            color: '#1f2937',
-                            lineHeight: '1.375',
-                            marginBottom: '2px'
-                          }}>{d.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{d.name}</h3>
                         </div>
-                        <p
-  style={{
-    fontFamily: "inherit",
-    fontSize: "0.875rem",
-    fontWeight: "400",
-    color: "#6b7280",
-    lineHeight: "1.25rem",
-    height: "3.75rem",
-    
-    overflow: "hidden",
-    marginTop: "0.375rem",
-    marginLeft: "2.75rem",
-    marginRight: "0.5rem",
-    marginBottom: "0.25rem",
-  }}
->
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
   Explore models for {d.name.toLowerCase()}.
 </p>
 
-<p
-  style={{
-    fontFamily: "inherit",
-    fontSize: "0.875rem",
-    fontWeight: "600",
-    color: "#575c66",
-    marginLeft: "2.75rem",
-    marginRight: "0.5rem",
-  }}
->
-  {d.count} Models
-</p>
+<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+  {d.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -935,7 +820,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               {filteredTrending.length > 0 && (
               <section id="section-trending" className="mb-12 scroll-mt-24">
                 <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[30px] font-bold text-gray-800">
+                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
                     <h2>Trending Models</h2>
                   </div>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">Most Active in 2025</span>
@@ -948,18 +833,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={m.id}
                         onClick={() => setInspectedModel(m)}
-                        style={{
-                          background: '#ffffff',
-                          padding: '0.95rem 0.75rem',
-                          borderRadius: '0.125rem',
-                          boxShadow: '0 2px 8px -4px rgba(0, 0, 0, 0.05)',
-                          border: '1px solid #f3f4f6',
-                          transition: 'box-shadow 0.2s ease',
-                          cursor: 'pointer',
-                          display: 'block',
-                          textDecoration: 'none'
-                        }}
-                        className="group"
+                        className="bg-white rounded-[20px] border border-[#ECECEC] p-5 min-h-[150px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -969,14 +843,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 style={{
-                            fontFamily: 'inherit',
-                            fontSize: '15px',
-                            fontWeight: '500',
-                            color: '#1f2937',
-                            lineHeight: '1.375',
-                            marginBottom: '2px'
-                          }}>{m.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{m.name}</h3>
                         </div>
                         {m.description && (
                           <p style={{
@@ -1004,7 +871,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
         {filteredRecentlyReleasedTable.length > 0 && (
         <section id="section-recently-released" className="mb-12 scroll-mt-24">
           <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-            <div className="models-block-title flex items-center gap-3 text-[30px] font-bold text-gray-800">
+            <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
               <Calendar size={22} style={{ color: "#FF5A1F" }} />
               <span>Recently Released</span>
             </div>
