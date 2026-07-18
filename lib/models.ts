@@ -911,7 +911,8 @@ export async function getModels(): Promise<ModelItem[]> {
         return enrichModelItem({
           id: item.id || item.slug || `db-model-${idx}`,
           name: item.name || item.title || "Foundation Model",
-          vendor: item.vendor || item.vendoranization || item.platform || "Open Weights / Research",
+          vendor: item.vendor || item.organization || item.platform || "Open Weights / Research",
+          vendorLogoUrl: item.vendorLogoUrl,
           description: item.desc || item.description || item.source || "Advanced neural foundation model evaluated across frontier cognitive benchmarks.",
           parameterCount: item.params || item.parameters || "MoE / Dense",
           contextWindow: item.context || item.contextWindow || "128k tokens",

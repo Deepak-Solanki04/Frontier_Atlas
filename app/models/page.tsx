@@ -691,6 +691,7 @@ function ModelsContent() {
                   {filteredModelFamilies.map((fam, idx) => {
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 3, fam.name);
                     const isActive = selectedFamily === fam.name;
+                    const familyLogo = getOrgLogo(fam.name);
                     return (
                       <div
                         key={fam.name}
@@ -710,8 +711,12 @@ function ModelsContent() {
                         className="group"
                       >
                         <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
-                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
+                            {familyLogo ? (
+                              <img src={familyLogo} alt={fam.name} className="w-[30px] h-[30px] object-contain rounded" />
+                            ) : (
+                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                            )}
                           </div>
                           <h3 style={{
                             fontFamily: 'inherit',
@@ -758,7 +763,7 @@ function ModelsContent() {
   (model) => model.vendor.toLowerCase() === v.name.toLowerCase()
 );
 
-const vendorLogo = vendorModel?.vendorLogoUrl;
+const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                     
                     return (
                       <div
@@ -925,6 +930,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                   {filteredTrending.map((m, idx) => {
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 15, m.name);
+                    const modelLogo = getOrgLogo(m.vendor) || getOrgLogo(m.name);
                     return (
                       <div
                         key={m.id}
@@ -943,8 +949,12 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                         className="group"
                       >
                         <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
-                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
+                            {modelLogo ? (
+                              <img src={modelLogo} alt={m.name} className="w-[30px] h-[30px] object-contain rounded" />
+                            ) : (
+                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
+                            )}
                           </div>
                           <h3 style={{
                             fontFamily: 'inherit',
