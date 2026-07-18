@@ -1,6 +1,7 @@
 export const runtime = "edge";
 
 import * as React from "react";
+import styles from "./methods.module.css";
 import Link from "next/link";
 import { TaxonomyView } from "./TaxonomyView";
 import Navbar from "@/components/Navbar";
@@ -49,7 +50,7 @@ export default async function MethodsPage() {
 
   return (
     <div 
-      className={`methods-wrapper min-h-screen bg-[#F8F7F2]`}
+      className={`methods-wrapper ${styles.forceInter} min-h-screen bg-[#F8F7F2]`}
       style={{
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
