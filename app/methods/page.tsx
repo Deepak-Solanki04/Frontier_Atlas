@@ -49,7 +49,7 @@ export default async function MethodsPage() {
 
   return (
     <div 
-      className={`${atlasUiFont.className} min-h-screen bg-[#F8F7F2]`}
+      className={`methods-wrapper ${atlasUiFont.className} min-h-screen bg-[#F8F7F2]`}
       style={{
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
@@ -57,6 +57,11 @@ export default async function MethodsPage() {
         lineHeight: "21px",
       }}
     >
+      <style dangerouslySetInnerHTML={{__html: `
+        .methods-wrapper, .methods-wrapper * {
+          font-family: Inter, "Inter Fallback" !important;
+        }
+      `}} />
       {/* Adjusted padding to be perfectly aligned with user's desired 0.25cm adjustment */}
       <div className="w-full max-w-[1370px] mx-auto px-14 lg:px-20 xl:px-28 pt-6 pb-12">
 
