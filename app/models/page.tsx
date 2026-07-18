@@ -343,28 +343,28 @@ function ModelsContent() {
     return allModels.filter(m => {
       if (searchQuery.trim() !== "") {
         const q = searchQuery.toLowerCase();
-        const matches = m.name.toLowerCase().includes(q) || m.org.toLowerCase().includes(q) || (m.desc && m.desc.toLowerCase().includes(q)) || (m.tags && m.tags.some(t => t.toLowerCase().includes(q)));
+        const matches = m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q) || (m.description && m.description.toLowerCase().includes(q)) || (m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(q)));
         if (!matches) return false;
       }
       if (selectedVendor) {
         const vLower = selectedVendor.toLowerCase();
-        if (!m.org.toLowerCase().includes(vLower) && !vLower.includes(m.org.toLowerCase())) return false;
+        if (!m.vendor.toLowerCase().includes(vLower) && !vLower.includes(m.vendor.toLowerCase())) return false;
       }
       if (selectedFamily) {
         const fLower = selectedFamily.toLowerCase();
-        if (m.family?.toLowerCase() !== fLower && !m.name.toLowerCase().includes(fLower)) return false;
+        if (m.modelFamily?.toLowerCase() !== fLower && !m.name.toLowerCase().includes(fLower)) return false;
       }
       if (selectedCapability) {
         const cLower = selectedCapability.toLowerCase();
-        if (m.category?.toLowerCase() !== cLower && !(m.tags && m.tags.some(t => t.toLowerCase().includes(cLower))) && !(m.area && [m.area].some(t => t.toLowerCase().includes(cLower)))) return false;
+        if (m.category?.toLowerCase() !== cLower && !(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(cLower))) && !(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(cLower)))) return false;
       }
       if (selectedDomain) {
         const dLower = selectedDomain.toLowerCase();
-        if (!(m.area && [m.area].some(t => t.toLowerCase().includes(dLower))) && !(m.tags && m.tags.some(t => t.toLowerCase().includes(dLower))) && !(m.desc && m.desc.toLowerCase().includes(dLower))) return false;
+        if (!(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(dLower))) && !(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(dLower))) && !(m.description && m.description.toLowerCase().includes(dLower))) return false;
       }
       if (selectedCollection) {
         const colLower = selectedCollection.toLowerCase().replace(" models", "").trim();
-        if (!(m.tags && m.tags.some(t => t.toLowerCase().includes(colLower))) && !(m.area && [m.area].some(t => t.toLowerCase().includes(colLower))) && m.category?.toLowerCase() !== colLower) return false;
+        if (!(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(colLower))) && !(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(colLower))) && m.category?.toLowerCase() !== colLower) return false;
       }
       return true;
     });
@@ -402,15 +402,15 @@ function ModelsContent() {
   const filteredTrending = useMemo(() => {
     if (!trendingModels) return [];
     const q = searchQuery.toLowerCase();
-    return trendingModels.filter(m => !searchQuery || m.name.toLowerCase().includes(q) || m.org.toLowerCase().includes(q));
+    return trendingModels.filter(m => !searchQuery || m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q));
   }, [trendingModels, searchQuery]);
 
   const filteredRecentlyReleasedTable = useMemo(() => {
     if (!allModels || !allModels.length) return [];
-    const recent = allModels.slice(0, 8).sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime());
+    const recent = allModels.slice(0, 8).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     if (!searchQuery) return recent;
     const q = searchQuery.toLowerCase();
-    return recent.filter(m => m.name.toLowerCase().includes(q) || m.org.toLowerCase().includes(q) || (m.desc && m.desc.toLowerCase().includes(q)));
+    return recent.filter(m => m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q) || (m.description && m.description.toLowerCase().includes(q)));
   }, [allModels, searchQuery]);
 
   const hasSearchResults = useMemo(() => {
@@ -425,8 +425,8 @@ function ModelsContent() {
   }, [searchQuery, filteredCapabilities, filteredModelFamilies, filteredVendors, filteredResearchAreas, filteredTrending, filteredRecentlyReleasedTable, filteredCatalogModels]);
 
   const handleCopyQuickstart = () => {
-    if (inspectedModel?.desc) {
-      navigator.clipboard.writeText(inspectedModel.desc);
+    if (inspectedModel?.description) {
+      navigator.clipboard.writeText(inspectedModel.description);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -755,7 +755,7 @@ function ModelsContent() {
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 7, v.name);
                     const isActive = selectedVendor === v.name;
                     const vendorModel = allModels.find(
-  (model) => model.org.toLowerCase() === v.name.toLowerCase()
+  (model) => model.vendor.toLowerCase() === v.name.toLowerCase()
 );
 
 const vendorLogo = vendorModel?.vendorLogoUrl;
@@ -955,7 +955,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                             marginBottom: '2px'
                           }}>{m.name}</h3>
                         </div>
-                        {m.desc && (
+                        {m.description && (
                           <p style={{
                             fontFamily: 'inherit',
                             fontSize: '0.875rem',
@@ -965,7 +965,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                             marginTop: '0.375rem',
                             marginLeft: '2.75rem',
                             marginRight: '0.5rem'
-                          }} title={m.desc}>{m.desc}</p>
+                          }} title={m.description}>{m.description}</p>
                         )}
                       </div>
                     );
@@ -1009,14 +1009,14 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                         <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block" }}></span>
                         <span>{r.name}</span>
                       </td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "11.5px", color: "#555555", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>{r.org}</td>
+                      <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "11.5px", color: "#555555", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>{r.vendor}</td>
                       <td style={{ padding: "12px 12px", fontFamily: "monospace", fontWeight: 400, fontSize: "11px", color: "#FF5A1F", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>{r.releaseDate}</td>
                       <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "11.5px", color: "#111111", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>
-                        {r.family && (
-                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px" }}>{r.family}</span>
+                        {r.modelFamily && (
+                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px" }}>{r.modelFamily}</span>
                         )}
                       </td>
-                      <td style={{ padding: "12px 12px", fontSize: "12px", fontWeight: 400, color: "#444444", maxWidth: "520px", verticalAlign: "middle", lineHeight: "1.3" }}>{r.desc}</td>
+                      <td style={{ padding: "12px 12px", fontSize: "12px", fontWeight: 400, color: "#444444", maxWidth: "520px", verticalAlign: "middle", lineHeight: "1.3" }}>{r.description}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1074,7 +1074,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
                   <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", padding: "3px 8px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5", fontWeight: 400 }}>
-                    ⚡ SOTA Leader &middot; {topModelForSelection.org} ({activeFilterLabel})
+                    ⚡ SOTA Leader &middot; {topModelForSelection.vendor} ({activeFilterLabel})
                   </span>
                   <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#666666", fontWeight: 400 }}>
                     Rank #1 verified benchmark leader
@@ -1085,12 +1085,12 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                     {topModelForSelection.name}
                   </h3>
                   <span style={{ fontSize: "14.5px", fontWeight: 400, color: "#FF5A1F" }}>
-                    {topModelForSelection.elo ? `Elo: ${topModelForSelection.elo}` : 'Top Rated'}
+                    {topModelForSelection.trendingScore ? `Elo: ${topModelForSelection.trendingScore}` : 'Top Rated'}
                   </span>
                 </div>
-                {topModelForSelection.desc && (
+                {topModelForSelection.description && (
                   <p style={{ fontSize: "14px", color: "#555555", fontWeight: 400, marginTop: "6px", maxWidth: "780px", lineHeight: "1.5" }}>
-                    {topModelForSelection.desc}
+                    {topModelForSelection.description}
                   </p>
                 )}
               </div>
@@ -1146,18 +1146,18 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                           <span>{model.name}</span>
                         </div>
                       </td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#555555", minWidth: "120px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>{model.org}</td>
+                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#555555", minWidth: "120px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>{model.vendor}</td>
                       <td style={{ padding: "12px 12px", fontWeight: 400, color: "#111111", whiteSpace: "nowrap", width: "1%", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>
-                        {model.family && (
-                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block", fontWeight: 400 }}>{model.family}</span>
+                        {model.modelFamily && (
+                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block", fontWeight: 400 }}>{model.modelFamily}</span>
                         )}
                       </td>
                       <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.category}</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#333333", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.params}</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.context}</td>
+                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#333333", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.parameterCount}</td>
+                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.contextWindow}</td>
                       <td style={{ padding: "12px 12px", color: "#555555", fontSize: "11px", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.license}</td>
                       <td style={{ padding: "12px 12px", textAlign: "left", fontWeight: 400, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>
-                        {model.elo ? `⚡ ${model.elo} Elo` : (model.benchmarks && model.benchmarks.length > 0 ? `${(model.benchmarks?.length || 0)} verified` : '')}
+                        {model.trendingScore ? `⚡ ${model.trendingScore} Elo` : (model.benchmarkScore && Object.keys(model.benchmarkScore).length > 0 ? `${Object.keys(model.benchmarkScore).length} verified` : '')}
                       </td>
                       <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>{model.paperCount} papers</td>
                       <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#777777", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.releaseDate}</td>
@@ -1186,11 +1186,11 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", padding: "4px 10px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5" }}>
-                      {inspectedModel.org}
+                      {inspectedModel.vendor}
                     </span>
-                    {inspectedModel.family && (
+                    {inspectedModel.modelFamily && (
                       <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", padding: "4px 10px", background: "#F8F7F2", color: "#333333", borderRadius: "2px", border: "1px solid var(--border)" }}>
-                        Family: {inspectedModel.family}
+                        Family: {inspectedModel.modelFamily}
                       </span>
                     )}
                   </div>
@@ -1206,24 +1206,24 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                 </button>
               </div>
 
-              {inspectedModel.desc && (
+              {inspectedModel.description && (
                 <p style={{ fontSize: "15px", color: "#555555", fontWeight: 500, lineHeight: "1.6", marginBottom: "24px" }}>
-                  {inspectedModel.desc}
+                  {inspectedModel.description}
                 </p>
               )}
 
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "24px", background: "#F8F7F2", padding: "16px", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "12px" }}>
                 <div>
                   <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Architecture</span>
-                  <span style={{ fontWeight: 800, color: "#111111" }}>{inspectedModel.params || inspectedModel.category}</span>
+                  <span style={{ fontWeight: 800, color: "#111111" }}>{inspectedModel.parameterCount || inspectedModel.architecture}</span>
                 </div>
                 <div>
                   <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Context</span>
-                  <span style={{ fontWeight: 800, color: "#111111" }}>{inspectedModel.context}</span>
+                  <span style={{ fontWeight: 800, color: "#111111" }}>{inspectedModel.contextWindow}</span>
                 </div>
                 <div>
                   <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Elo / SOTA</span>
-                  <span style={{ fontWeight: 800, color: "#16A34A" }}>{inspectedModel.elo ? `⚡ ${inspectedModel.elo}` : ''}</span>
+                  <span style={{ fontWeight: 800, color: "#16A34A" }}>{inspectedModel.trendingScore ? `⚡ ${inspectedModel.trendingScore}` : ''}</span>
                 </div>
                 <div>
                   <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Citations</span>
@@ -1231,14 +1231,14 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                 </div>
               </div>
 
-              {inspectedModel.benchmarks && inspectedModel.benchmarks.length > 0 && (
+              {inspectedModel.benchmarkScore && Object.keys(inspectedModel.benchmarkScore).length > 0 && (
                 <div style={{ marginBottom: "24px" }}>
                   <h3 style={{ fontSize: "14px", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.5px", color: "#111111", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
                     <Trophy size={16} style={{ color: "#FF5A1F" }} />
                     <span>Verified Academic Benchmarks</span>
                   </h3>
                   <div style={{ background: "#F8F7F2", borderRadius: "2px", padding: "16px", border: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: "14px" }}>
-                    {inspectedModel.benchmarks?.map((b, i) => { const name = b.name; const value = b.score || b.value; return (
+                    {Object.entries(inspectedModel.benchmarkScore).map(([name, value], i) => (
                       <div key={i}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "13px", fontWeight: 700, marginBottom: "4px" }}>
                           <span style={{ color: "#333333" }}>{name}</span>
@@ -1250,7 +1250,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
                           />
                         </div>
                       </div>
-                      ); })}
+                    ))}
                   </div>
                 </div>
               )}
@@ -1259,7 +1259,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl;
 
             <div style={{ paddingTop: "24px", borderTop: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <Link
-                href={`/models/${inspectedModel.id}`}
+                href={`/models/${inspectedModel.slug}`}
                 style={{ padding: "10px 20px", background: "#FF5A1F", color: "#ffffff", borderRadius: "2px", fontWeight: 800, fontSize: "13px", textDecoration: "none", display: "flex", alignItems: "center", gap: "8px" }}
               >
                 <span>View Full Model Detail Page</span>
