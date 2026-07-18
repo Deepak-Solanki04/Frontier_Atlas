@@ -26,7 +26,7 @@ export function CategoryRow({ category, index = 0 }: { category: MethodCategory;
   </h2>
 
   <p className="text-[14px] text-[#777777] mt-1">
-    {category.methods.length} methods · {totalPapers.toLocaleString()} papers
+    {category.methods.length} methods · {totalPapers.toLocaleString("en-US")} papers
   </p>
 </div>
 
