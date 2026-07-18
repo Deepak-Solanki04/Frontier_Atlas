@@ -601,18 +601,18 @@ const Icon =
   />
 </div>
 
-      <h3 className="text-[#111111] text-[16px] font-medium leading-5">
+      <h3 className="text-[#111111] text-[15.5px] font-medium leading-5">
         {method.name}
       </h3>
     </div>
 
-    <p className="mt-3 text-[14px] leading-5 text-[#666] line-clamp-3">
+    <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
   {method.description}
 </p>
 
     <div className="mt-auto pt-5">
   {paperCount > 0 && (
-    <span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+    <span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
   {paperCount.toLocaleString("en-US")} papers
 </span>
   )}
