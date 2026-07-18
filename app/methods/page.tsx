@@ -51,7 +51,6 @@ export default async function MethodsPage() {
     <div 
       className={`${atlasUiFont.className} min-h-screen bg-[#F8F7F2]`}
       style={{
-        fontFamily: atlasUiFont.style.fontFamily,
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
         letterSpacing: "-0.14px",

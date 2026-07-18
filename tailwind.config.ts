@@ -13,13 +13,11 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
+          '"Inter"',
+          '"Inter Fallback"',
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
-          "Apple Color Emoji",
-          "Segoe UI Emoji",
-          "Segoe UI Symbol",
-          "Noto Color Emoji",
         ],
       },
     },
