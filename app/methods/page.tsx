@@ -49,7 +49,7 @@ export default async function MethodsPage() {
 
   return (
     <div 
-      className={`methods-wrapper ${atlasUiFont.className} min-h-screen bg-[#F8F7F2]`}
+      className={`methods-wrapper font-sans min-h-screen bg-[#F8F7F2]`}
       style={{
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
