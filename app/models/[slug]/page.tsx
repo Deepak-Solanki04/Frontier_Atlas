@@ -45,7 +45,7 @@ export default function ModelDetailPage({
   // Find related research papers citing or mentioning this model
   const relatedPapers = useMemo(() => {
     if (!model) return [];
-    const allPapers = Object.values(topicData).flatMap((t) => t?.papers || []);
+    const allPapers = Object.values(topicData).flatMap((t: any) => t?.papers || []);
     const uniqueMap = new Map();
     allPapers.forEach((p: any) => {
       if (p && p.title && !uniqueMap.has(p.title)) {
@@ -55,8 +55,8 @@ export default function ModelDetailPage({
 
     const list = Array.from(uniqueMap.values());
     const modelNameLower = model.name.toLowerCase();
-    const orgLower = model.org.toLowerCase();
-    const tagsLower = model.tags.map((t) => t.toLowerCase());
+    const orgLower = model.vendor.toLowerCase();
+    const tagsLower = model.capabilities.map((t: string) => t.toLowerCase());
 
     return list.filter((paper: any) => {
       const title = (paper.title || "").toLowerCase();
@@ -64,7 +64,7 @@ export default function ModelDetailPage({
       
       if (title.includes(modelNameLower) || abstract.includes(modelNameLower)) return true;
       if (title.includes(orgLower) || abstract.includes(orgLower)) return true;
-      return tagsLower.some((t) => title.includes(t) || abstract.includes(t));
+      return tagsLower.some((t: string) => title.includes(t) || abstract.includes(t));
     }).slice(0, 10);
   }, [model]);
 
@@ -225,7 +225,7 @@ export default function ModelDetailPage({
             <div className="model-hero-badges">
               <span className="model-cert-badge">
                 <Sparkles size={13} />
-                <span>{model.org} Certified</span>
+                <span>{model.vendor} Certified</span>
               </span>
               <span className="model-license-badge">
                 <span>License:</span>
@@ -252,7 +252,7 @@ export default function ModelDetailPage({
             {model.name}
           </h1>
           <p className="model-hero-desc">
-            {model.desc}
+            {model.description}
           </p>
 
           {/* 4-Cell Interactive Architecture & Spec Pods inside Hero */}
@@ -264,7 +264,7 @@ export default function ModelDetailPage({
                 <Cpu size={16} style={{ color: "#F55036" }} />
               </div>
               <div className="model-spec-pod-val">
-                {model.params || "Dense / MoE 180B"}
+                {model.parameterCount || "Dense / MoE 180B"}
               </div>
               <span className="model-spec-pod-sub" style={{ color: "#10B981" }}>✓ High-Density Mixture-of-Experts</span>
             </div>

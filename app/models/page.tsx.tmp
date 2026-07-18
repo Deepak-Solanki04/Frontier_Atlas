@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2, ChevronRight } from "lucide-react";
 import { getModels, getTrendingModels, getModelFacets, type ModelItem, type ModelFacets } from "@/lib/models";
-import { getCardDescription } from "@/lib/descriptions";
 import Navbar from "@/components/Navbar";
 
 // Top models will be loaded from backend
@@ -344,16 +343,16 @@ function ModelsContent() {
     return allModels.filter(m => {
       if (searchQuery.trim() !== "") {
         const q = searchQuery.toLowerCase();
-        const matches = m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q) || (m.description && m.description.toLowerCase().includes(q)) || (m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(q)));
+        const matches = m.name.toLowerCase().includes(q) || .org.toLowerCase().includes(q) || (.desc && .desc.toLowerCase().includes(q)) || (m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(q)));
         if (!matches) return false;
       }
       if (selectedVendor) {
         const vLower = selectedVendor.toLowerCase();
-        if (!m.vendor.toLowerCase().includes(vLower) && !vLower.includes(m.vendor.toLowerCase())) return false;
+        if (!.org.toLowerCase().includes(vLower) && !vLower.includes(.org.toLowerCase())) return false;
       }
       if (selectedFamily) {
         const fLower = selectedFamily.toLowerCase();
-        if (m.modelFamily?.toLowerCase() !== fLower && !m.name.toLowerCase().includes(fLower)) return false;
+        if (.family?.toLowerCase() !== fLower && !m.name.toLowerCase().includes(fLower)) return false;
       }
       if (selectedCapability) {
         const cLower = selectedCapability.toLowerCase();
@@ -361,7 +360,7 @@ function ModelsContent() {
       }
       if (selectedDomain) {
         const dLower = selectedDomain.toLowerCase();
-        if (!(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(dLower))) && !(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(dLower))) && !(m.description && m.description.toLowerCase().includes(dLower))) return false;
+        if (!(m.researchAreas && m.researchAreas.some(t => t.toLowerCase().includes(dLower))) && !(m.capabilities && m.capabilities.some(t => t.toLowerCase().includes(dLower))) && !(.desc && .desc.toLowerCase().includes(dLower))) return false;
       }
       if (selectedCollection) {
         const colLower = selectedCollection.toLowerCase().replace(" models", "").trim();
@@ -403,15 +402,15 @@ function ModelsContent() {
   const filteredTrending = useMemo(() => {
     if (!trendingModels) return [];
     const q = searchQuery.toLowerCase();
-    return trendingModels.filter(m => !searchQuery || m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q));
+    return trendingModels.filter(m => !searchQuery || m.name.toLowerCase().includes(q) || .org.toLowerCase().includes(q));
   }, [trendingModels, searchQuery]);
 
   const filteredRecentlyReleasedTable = useMemo(() => {
     if (!allModels || !allModels.length) return [];
-    const recent = allModels.slice(0, 8).sort((a, b) => new Date(b.createdAt || "").getTime() - new Date(a.createdAt || "").getTime());
+    const recent = allModels.slice(0, 8).sort((a, b) => new Date(.releaseDate).getTime() - new Date(.releaseDate).getTime());
     if (!searchQuery) return recent;
     const q = searchQuery.toLowerCase();
-    return recent.filter(m => m.name.toLowerCase().includes(q) || m.vendor.toLowerCase().includes(q) || (m.description && m.description.toLowerCase().includes(q)));
+    return recent.filter(m => m.name.toLowerCase().includes(q) || .org.toLowerCase().includes(q) || (.desc && .desc.toLowerCase().includes(q)));
   }, [allModels, searchQuery]);
 
   const hasSearchResults = useMemo(() => {
@@ -426,8 +425,8 @@ function ModelsContent() {
   }, [searchQuery, filteredCapabilities, filteredModelFamilies, filteredVendors, filteredResearchAreas, filteredTrending, filteredRecentlyReleasedTable, filteredCatalogModels]);
 
   const handleCopyQuickstart = () => {
-    if (inspectedModel?.description) {
-      navigator.clipboard.writeText(inspectedModel.description);
+    if (inspectedModel?.desc) {
+      navigator.clipboard.writeText(.desc);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -651,9 +650,6 @@ function ModelsContent() {
     fontWeight: "400",
     color: "#6b7280",
     lineHeight: "1.25rem",
-    height: "3.75rem",
-    
-    overflow: "hidden",
     marginTop: "0.375rem",
     marginLeft: "2.75rem",
     marginRight: "0.5rem",
@@ -695,7 +691,6 @@ function ModelsContent() {
                   {filteredModelFamilies.map((fam, idx) => {
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 3, fam.name);
                     const isActive = selectedFamily === fam.name;
-                    const familyLogo = getOrgLogo(fam.name);
                     return (
                       <div
                         key={fam.name}
@@ -715,12 +710,8 @@ function ModelsContent() {
                         className="group"
                       >
                         <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
-                            {familyLogo ? (
-                              <img src={familyLogo} alt={fam.name} className="w-[30px] h-[30px] object-contain rounded" />
-                            ) : (
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            )}
+                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
                           <h3 style={{
                             fontFamily: 'inherit',
@@ -737,9 +728,6 @@ function ModelsContent() {
                           fontWeight: '400',
                           color: '#6b7280',
                           lineHeight: '1.25rem',
-                          height: '3.75rem',
-                          
-                          overflow: 'hidden',
                           marginTop: '0.375rem',
                           marginLeft: "2.75rem",
                           marginRight: '0.5rem'
@@ -767,10 +755,10 @@ function ModelsContent() {
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 7, v.name);
                     const isActive = selectedVendor === v.name;
                     const vendorModel = allModels.find(
-  (model) => model.vendor.toLowerCase() === v.name.toLowerCase()
+  (model) => .org.toLowerCase() === v.name.toLowerCase()
 );
 
-const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
+const vendorLogo = vendorModel?.vendorLogoUrl;
                     
                     return (
                       <div
@@ -818,9 +806,6 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     fontWeight: "400",
     color: "#6b7280",
     lineHeight: "1.25rem",
-    height: "3.75rem",
-    
-    overflow: "hidden",
     marginTop: "0.375rem",
     marginLeft: "3.25rem",
     marginRight: "0.5rem",
@@ -900,9 +885,6 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     fontWeight: "400",
     color: "#6b7280",
     lineHeight: "1.25rem",
-    height: "3.75rem",
-    
-    overflow: "hidden",
     marginTop: "0.375rem",
     marginLeft: "2.75rem",
     marginRight: "0.5rem",
@@ -943,7 +925,6 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                   {filteredTrending.map((m, idx) => {
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 15, m.name);
-                    const modelLogo = getOrgLogo(m.vendor) || getOrgLogo(m.name);
                     return (
                       <div
                         key={m.id}
@@ -962,12 +943,8 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                         className="group"
                       >
                         <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
-                            {modelLogo ? (
-                              <img src={modelLogo} alt={m.name} className="w-[30px] h-[30px] object-contain rounded" />
-                            ) : (
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            )}
+                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
+                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
                           <h3 style={{
                             fontFamily: 'inherit',
@@ -978,20 +955,17 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                             marginBottom: '2px'
                           }}>{m.name}</h3>
                         </div>
-                        {m.description && (
+                        {.desc && (
                           <p style={{
                             fontFamily: 'inherit',
                             fontSize: '0.875rem',
                             fontWeight: '400',
                             color: '#6b7280',
                             lineHeight: '1.25rem',
-                          height: '3.75rem',
-                          
-                          overflow: 'hidden',
                             marginTop: '0.375rem',
                             marginLeft: '2.75rem',
                             marginRight: '0.5rem'
-                          }} title={m.description}>{m.description}</p>
+                          }} title={.desc}>{.desc}</p>
                         )}
                       </div>
                     );
@@ -1015,48 +989,34 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               <table style={{ width: "100%", minWidth: "1280px", borderCollapse: "collapse", textAlign: "left", fontFamily: "'Inter', system-ui, sans-serif", tableLayout: "auto" }}>
                 <thead>
                   <tr style={{ borderBottom: "2px solid #111111" }}>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25", fontFamily: "monospace" }}>#</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Model</th>
+                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Model Name</th>
                     <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Organization</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Model Family</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Category</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Parameters</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Context Window</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>License</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Benchmarks</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Papers</th>
                     <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Release Date</th>
-                    <th style={{ padding: "10px 12px", textAlign: "right", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Action</th>
+                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Model Family</th>
+                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Short Description</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredRecentlyReleasedTable.map((model, idx) => (
-                    <tr key={model.id} onClick={() => setInspectedModel(model)} style={{ borderBottom: "1px solid #EAE9E4", cursor: "pointer", transition: "background 0.15s ease" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", fontWeight: 400, color: "#8B8B8B", width: "1%", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3", paddingRight: "12px" }}>{(idx + 1).toString().padStart(3, "0")}</td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "12.5px", color: "#111111", minWidth: "160px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "12px", paddingRight: "8px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block", flexShrink: 0 }}></span>
-                          <span>{model.name}</span>
-                        </div>
+                  {filteredRecentlyReleasedTable.map((r) => (
+                    <tr
+                      key={r.id}
+                      onClick={() => setInspectedModel(r)}
+                      style={{ borderBottom: "1px solid #EAE9E4", cursor: "pointer", transition: "background 0.15s ease" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
+                    >
+                      <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "12.5px", color: "#111111", display: "flex", alignItems: "center", gap: "8px", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>
+                        <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block" }}></span>
+                        <span>{r.name}</span>
                       </td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#555555", minWidth: "120px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>{model.vendor}</td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#111111", whiteSpace: "nowrap", width: "1%", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>
-                        {model.modelFamily && (
-                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block", fontWeight: 400 }}>{model.modelFamily}</span>
+                      <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "11.5px", color: "#555555", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>{.org}</td>
+                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontWeight: 400, fontSize: "11px", color: "#FF5A1F", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>{r.releaseDate}</td>
+                      <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "11.5px", color: "#111111", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>
+                        {.family && (
+                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px" }}>{.family}</span>
                         )}
                       </td>
-                      <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.category}</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#333333", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.parameterCount}</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.contextWindow}</td>
-                      <td style={{ padding: "12px 12px", color: "#555555", fontSize: "11px", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.license}</td>
-                      <td style={{ padding: "12px 12px", textAlign: "left", fontWeight: 400, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>
-                        {model.trendingScore ? `⚡ ${model.trendingScore} Elo` : (model.benchmarkScore && Object.keys(model.benchmarkScore).length > 0 ? `${Object.keys(model.benchmarkScore).length} verified` : '')}
-                      </td>
-                      <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>{model.paperCount} papers</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#777777", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.releaseDate}</td>
-                      <td style={{ padding: "12px 12px", textAlign: "right", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>
-                        <button style={{ fontSize: "11px", fontWeight: 400, textTransform: "uppercase", letterSpacing: "0.4px", padding: "5px 10px", borderRadius: "2px", background: "#F8F7F2", color: "#111111", border: "1px solid #E5E5E0", transition: "all 0.2s ease", whiteSpace: "nowrap" }}>Inspect &rarr;</button>
-                      </td>
+                      <td style={{ padding: "12px 12px", fontSize: "12px", fontWeight: 400, color: "#444444", maxWidth: "520px", verticalAlign: "middle", lineHeight: "1.3" }}>{.desc}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1114,7 +1074,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
                   <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", padding: "3px 8px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5", fontWeight: 400 }}>
-                    ⚡ SOTA Leader &middot; {topModelForSelection.vendor} ({activeFilterLabel})
+                    ⚡ SOTA Leader &middot; {.org} ({activeFilterLabel})
                   </span>
                   <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#666666", fontWeight: 400 }}>
                     Rank #1 verified benchmark leader
@@ -1128,9 +1088,9 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                     {topModelForSelection.trendingScore ? `Elo: ${topModelForSelection.trendingScore}` : 'Top Rated'}
                   </span>
                 </div>
-                {topModelForSelection.description && (
+                {.desc && (
                   <p style={{ fontSize: "14px", color: "#555555", fontWeight: 400, marginTop: "6px", maxWidth: "780px", lineHeight: "1.5" }}>
-                    {topModelForSelection.description}
+                    {.desc}
                   </p>
                 )}
               </div>
@@ -1186,10 +1146,10 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                           <span>{model.name}</span>
                         </div>
                       </td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#555555", minWidth: "120px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>{model.vendor}</td>
+                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#555555", minWidth: "120px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>{.org}</td>
                       <td style={{ padding: "12px 12px", fontWeight: 400, color: "#111111", whiteSpace: "nowrap", width: "1%", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>
-                        {model.modelFamily && (
-                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block", fontWeight: 400 }}>{model.modelFamily}</span>
+                        {.family && (
+                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block", fontWeight: 400 }}>{.family}</span>
                         )}
                       </td>
                       <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.category}</td>
@@ -1197,7 +1157,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.contextWindow}</td>
                       <td style={{ padding: "12px 12px", color: "#555555", fontSize: "11px", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.license}</td>
                       <td style={{ padding: "12px 12px", textAlign: "left", fontWeight: 400, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>
-                        {model.trendingScore ? `⚡ ${model.trendingScore} Elo` : (model.benchmarkScore && Object.keys(model.benchmarkScore).length > 0 ? `${Object.keys(model.benchmarkScore).length} verified` : '')}
+                        {model.trendingScore ? `⚡ ${model.trendingScore} Elo` : (.benchmarks && .benchmarks.length > 0 ? `${(.benchmarks?.length || 0)} verified` : '')}
                       </td>
                       <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>{model.paperCount} papers</td>
                       <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#777777", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.releaseDate}</td>
@@ -1226,11 +1186,11 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", padding: "4px 10px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5" }}>
-                      {inspectedModel.vendor}
+                      {.org}
                     </span>
-                    {inspectedModel.modelFamily && (
+                    {.family && (
                       <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", padding: "4px 10px", background: "#F8F7F2", color: "#333333", borderRadius: "2px", border: "1px solid var(--border)" }}>
-                        Family: {inspectedModel.modelFamily}
+                        Family: {.family}
                       </span>
                     )}
                   </div>
@@ -1246,9 +1206,9 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                 </button>
               </div>
 
-              {inspectedModel.description && (
+              {.desc && (
                 <p style={{ fontSize: "15px", color: "#555555", fontWeight: 500, lineHeight: "1.6", marginBottom: "24px" }}>
-                  {inspectedModel.description}
+                  {.desc}
                 </p>
               )}
 
@@ -1271,14 +1231,14 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                 </div>
               </div>
 
-              {inspectedModel.benchmarkScore && Object.keys(inspectedModel.benchmarkScore).length > 0 && (
+              {.benchmarks && .benchmarks.length > 0 && (
                 <div style={{ marginBottom: "24px" }}>
                   <h3 style={{ fontSize: "14px", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.5px", color: "#111111", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
                     <Trophy size={16} style={{ color: "#FF5A1F" }} />
                     <span>Verified Academic Benchmarks</span>
                   </h3>
                   <div style={{ background: "#F8F7F2", borderRadius: "2px", padding: "16px", border: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: "14px" }}>
-                    {Object.entries(inspectedModel.benchmarkScore).map(([name, value], i) => (
+                    {.benchmarks?.map((b, ) => { const  = b.name; const  = b.score || b.value; return (
                       <div key={i}>
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "13px", fontWeight: 700, marginBottom: "4px" }}>
                           <span style={{ color: "#333333" }}>{name}</span>

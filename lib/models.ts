@@ -11,8 +11,14 @@ export interface BenchmarkScore {
 export interface ModelItem {
   id: string;
   name: string;
-  slug: string;
+  slug?: string;
   vendor: string;
+  vendorLogoUrl?: string | null;
+  benchmarks?: any[];
+  area?: string;
+  elo?: number;
+  org?: string;
+  context?: string;
   description: string;
   parameterCount?: string;
   contextWindow?: string;
@@ -21,7 +27,7 @@ export interface ModelItem {
   license?: string;
   trendingScore?: number;
   capabilities: string[];
-  researchAreas: string[];
+  researchAreas?: string[];
   paperCount: number;
   benchmarkScore?: Record<string, number>;
   quickstart?: string;
@@ -920,7 +926,7 @@ export async function getModels(): Promise<ModelItem[]> {
           license: item.license || "Proprietary",
           trendingScore: typeof item.elo === "number" ? item.elo : (typeof item.likes === "number" ? item.likes : 1350),
           capabilities: Array.isArray(item.capabilities) ? item.capabilities : ["General Purpose", "Reasoning"],
-          area: ite(m.researchAreas && m.researchAreas[0]) || item.category || "General Purpose",
+          area: (item.researchAreas && item.researchAreas[0]) || item.category || "General Purpose",
           paperCount: typeof item.paperCount === "number" ? item.paperCount : (typeof item.comments === "number" ? item.comments : 120),
           benchmarks: Array.isArray(item.benchmarks) ? item.benchmarks : [
             { name: "MMLU-Pro", score: "88.5%", value: 88.5, max: 100, color: "#10B981" }
