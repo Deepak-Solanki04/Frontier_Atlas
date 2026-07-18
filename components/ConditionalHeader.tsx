@@ -6,8 +6,6 @@ import { usePathname } from 'next/navigation';
 
 export default function ConditionalHeader() {
   const pathname = usePathname() || '/';
-  if (pathname.startsWith('/models')) {
-    return null;
-  }
+  // Render Header globally for all pages to ensure consistency
   return <Header />;
 }

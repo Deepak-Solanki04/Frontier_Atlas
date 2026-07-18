@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2, ChevronRight } from "lucide-react";
 import { getModels, getTrendingModels, getModelFacets, type ModelItem, type ModelFacets } from "@/lib/models";
 import { getCardDescription } from "@/lib/descriptions";
-import Navbar from "@/components/Navbar";
+import styles from "../methods/methods.module.css";
 
 // Top models will be loaded from backend
 
@@ -436,8 +436,7 @@ function ModelsContent() {
   if (loading) {
     return (
       <div className="flex-1 flex flex-col min-h-full bg-[#F8F7F2] font-sans text-slate-800">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
+                <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600">Loading models...</p>
@@ -448,11 +447,17 @@ function ModelsContent() {
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-full bg-[#F8F7F2] font-sans text-slate-800">
-      <Navbar />
-      <div className="flex-1 flex">
-        <main className="flex-1">
-        <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[183px] pt-10 pb-16" style={{ color: "rgb(23, 23, 23)", fontSize: "14px", letterSpacing: "-0.14px", wordSpacing: "0.5px", lineHeight: "21px" }}>
+    <div 
+      className={`methods-wrapper ${styles.forceInter} min-h-screen bg-[#F8F7F2]`}
+      style={{
+        color: "rgb(23, 23, 23)",
+        fontSize: "14px",
+        letterSpacing: "-0.14px",
+        wordSpacing: "0.5px",
+        lineHeight: "21px",
+      }}
+    >
+      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[183px] pt-10 pb-16">
           
           {/* HERO SECTION — Exact Tasks page layout */}
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
@@ -505,7 +510,7 @@ function ModelsContent() {
           <div className="flex gap-6">
             
             {/* LEFT SIDEBAR WITH SEARCH & NAVIGATION OPTIONS EXACT TO reference */}
-            <aside className="w-64 flex-shrink-0 hidden lg:block backdrop-blur-sm" aria-label="Domain navigation">
+            <aside className="w-[240px] shrink-0 sticky top-24 h-fit border-r border-[#ececec] pr-6 hidden lg:block" aria-label="Domain navigation">
               <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)] overflow-y-auto">
                 <div className="px-4 pt-6 pb-4">
                   <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3">Browse Models</h3>
@@ -548,24 +553,7 @@ function ModelsContent() {
                               const el = document.getElementById(item.id);
                               if (el) el.scrollIntoView({ behavior: "smooth" });
                             }}
-                            style={{
-                              width: '100%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              gap: '10px',
-                              padding: '6px 12px',
-                              fontFamily: "inherit",
-                              fontSize: '15px',
-                              lineHeight: '1.375',
-                              borderRadius: '6px',
-                              fontWeight: isActive ? '600' : '500',
-                              color: isActive ? '#ffffff' : '#555555',
-                              border: '1px solid transparent',
-                              transition: 'all 0.2s ease',
-                              textAlign: 'left',
-                              cursor: 'pointer',
-                              backgroundColor: isActive ? '#111111' : 'transparent'
-                            }}
+                            className={`block w-full text-left text-[15px] transition-colors mb-3 ${isActive ? 'text-[#F55036] font-bold' : 'text-[#555] hover:text-[#F55036]'}`}
                           >
                             {item.label}
                           </button>
@@ -1081,8 +1069,6 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
             </div>
           </div>
         </div>
-      </main>
-      </div>
 
       {/* INSPECT MODEL SLIDE-OVER MODAL */}
       {inspectedModel && (
