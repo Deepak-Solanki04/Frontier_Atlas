@@ -24,7 +24,7 @@ export function MethodsHero({ taxonomy = [] }: { taxonomy?: any[] }) {
   return (
     <section className="mb-16">
       <div className="max-w-xl">
-        <h1 className="text-[35px] font-extrabold tracking-tight text-[#111827] leading-none">
+        <h1 className="text-[35px] font-extrabold text-[#111827] leading-none">
           All <span className="text-[#F55036]">Methods</span>
         </h1>
 

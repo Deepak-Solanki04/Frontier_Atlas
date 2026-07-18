@@ -55,6 +55,7 @@ export default async function MethodsPage() {
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
         letterSpacing: "-0.14px",
+        wordSpacing: "0px",
         lineHeight: "21px",
       }}
     >
