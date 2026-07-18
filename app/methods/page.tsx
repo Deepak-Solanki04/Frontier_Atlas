@@ -58,8 +58,8 @@ export default async function MethodsPage() {
         lineHeight: "21px",
       }}
     >
-      {/* Container aligned perfectly with header padding (px-4 md:px-8 xl:px-12) */}
-      <div className="w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 pt-10 pb-16">
+      {/* Increased left and right spacing as requested */}
+      <div className="w-full max-w-[1600px] mx-auto px-8 md:px-16 xl:px-24 pt-10 pb-16">
 
         <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
           <Link href="/" className="hover:text-[#F55036] transition-colors no-underline">
