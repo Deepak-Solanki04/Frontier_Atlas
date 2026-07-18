@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Search, Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, X, ArrowRight, Zap, Calendar, BookOpen, Building2, Brain, Monitor, Globe, FileText, Link as LinkIcon, Volume2, ImageIcon, Video, Bot, Sparkles, TrendingUp, MessageSquare, Plus, Eye, Puzzle, Network, Database, Shield, Terminal, Activity, GitBranch, BarChart3, Radio, Mic, Share2, ChevronRight } from "lucide-react";
 import { getModels, getTrendingModels, getModelFacets, type ModelItem, type ModelFacets } from "@/lib/models";
+import { getCardDescription } from "@/lib/descriptions";
 import Navbar from "@/components/Navbar";
 
 // Top models will be loaded from backend
@@ -650,6 +651,11 @@ function ModelsContent() {
     fontWeight: "400",
     color: "#6b7280",
     lineHeight: "1.25rem",
+    height: "3.75rem",
+    display: "-webkit-box",
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
     marginTop: "0.375rem",
     marginLeft: "2.75rem",
     marginRight: "0.5rem",
@@ -733,6 +739,11 @@ function ModelsContent() {
                           fontWeight: '400',
                           color: '#6b7280',
                           lineHeight: '1.25rem',
+                          height: '3.75rem',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
                           marginTop: '0.375rem',
                           marginLeft: "2.75rem",
                           marginRight: '0.5rem'
@@ -811,6 +822,11 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     fontWeight: "400",
     color: "#6b7280",
     lineHeight: "1.25rem",
+    height: "3.75rem",
+    display: "-webkit-box",
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
     marginTop: "0.375rem",
     marginLeft: "3.25rem",
     marginRight: "0.5rem",
@@ -890,6 +906,11 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     fontWeight: "400",
     color: "#6b7280",
     lineHeight: "1.25rem",
+    height: "3.75rem",
+    display: "-webkit-box",
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
     marginTop: "0.375rem",
     marginLeft: "2.75rem",
     marginRight: "0.5rem",
@@ -972,6 +993,11 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                             fontWeight: '400',
                             color: '#6b7280',
                             lineHeight: '1.25rem',
+                          height: '3.75rem',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
                             marginTop: '0.375rem',
                             marginLeft: '2.75rem',
                             marginRight: '0.5rem'
