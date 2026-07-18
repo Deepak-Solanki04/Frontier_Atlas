@@ -49,8 +49,8 @@ export default async function MethodsPage() {
 
   return (
     <div className={`${atlasUiFont.className} min-h-screen bg-[#F8F7F2] text-[#111111] tracking-normal`}>
-      {/* Same container width/padding rhythm as the Tasks page (HomeContent) */}
-      <div className="w-full max-w-[1370px] mx-auto px-10 lg:px-16 xl:px-24 pt-6 pb-12">
+      {/* Increased padding as per user request to add ~0.5cm (20-30px) more space on the sides */}
+      <div className="w-full max-w-[1370px] mx-auto px-16 lg:px-24 xl:px-32 pt-6 pb-12">
 
         <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
           <Link href="/" className="hover:text-[#F55036] transition-colors no-underline">
