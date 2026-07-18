@@ -448,7 +448,7 @@ function ModelsContent() {
 
   return (
     <div 
-      className={`methods-wrapper ${styles.forceInter} min-h-screen bg-[#F8F7F2]`}
+      className={`methods-wrapper ${styles.forceInter} min-h-screen`}
       style={{
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
@@ -460,29 +460,28 @@ function ModelsContent() {
       <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[183px] pt-10 pb-16">
           
           {/* HERO SECTION — Exact Tasks page layout */}
-          <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
-            <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
-              <h1 className="text-[35px] font-extrabold text-[#111827] mb-2 leading-none">
-                All
-                <span style={{ color: "#E11D48" }} className="ml-3">Models</span>
+          <section className="mb-16 hidden md:flex">
+            <div className="max-w-xl">
+              <h1 className="text-[35px] font-extrabold text-[#111827] leading-none">
+                All <span className="text-[#F55036]">Models</span>
               </h1>
-              <p className="text-[15.5px] text-[#555] mb-4 max-w-md leading-relaxed">
+              <p className="mt-5 text-[15.5px] text-gray-600 leading-2 max-w-md">
                 Discover the full landscape of AI foundation models through {facets?.modelFamilies?.length || 0} model families spanning reasoning, vision, code, audio, robotics, healthcare, and more.
               </p>
-              <div className="flex items-center gap-4 whitespace-nowrap text-xs md:text-sm">
+              <div className="flex items-center gap-10 mt-4 whitespace-nowrap text-xs md:text-sm">
                 <div className="flex items-center gap-4">
                   <div>
                     <div className="text-[27px] font-bold text-gray-800">{facets?.capabilities?.length}</div>
                     <div className="text-[14.5px] text-gray-500 mt-1">Capabilities</div>
                   </div>
-                  <div className="w-px h-6 bg-gray-200"></div>
+                  
                 </div>
                 <div className="flex items-center gap-4">
                   <div>
                     <div className="text-[27px] font-bold text-gray-800">{facets?.modelFamilies?.length}</div>
                     <div className="text-[14.5px] text-gray-500 mt-1">Model Families</div>
                   </div>
-                  <div className="w-px h-6 bg-gray-200"></div>
+                  
                 </div>
                 <div className="flex items-center gap-4">
                   <div>
@@ -591,10 +590,8 @@ function ModelsContent() {
               {/* 2. BROWSE BY CAPABILITY (Exact tasks UI reference cards) */}
               {filteredCapabilities.length > 0 && (
               <section id="section-capability" className="mb-12 scroll-mt-24">
-                <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
-                    <h2>Browse by Capability</h2>
-                  </div>
+                <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
+                  <h2 className="text-[27px] font-bold text-[#111827]">Browse by Capability</h2>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.capabilities?.length} Tasks &amp; Modalities</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -605,19 +602,7 @@ function ModelsContent() {
                       <div
                         key={cap.name}
                         onClick={() => handleCapabilityClick(cap.name)}
-                        style={{
-                          background: '#ffffff',
-                          padding: '0.95rem 0.75rem',
-                          borderRadius: '0.125rem',
-                          boxShadow: isActive ? '0 0 0 1px #fb7185' : '0 2px 8px -4px rgba(0, 0, 0, 0.05)',
-                          border: `1px solid ${isActive ? '#fb7185' : '#f3f4f6'}`,
-                          transition: 'box-shadow 0.2s ease',
-                          cursor: 'pointer',
-                          display: 'block',
-                          textDecoration: 'none',
-                          backgroundColor: isActive ? 'rgba(255, 241, 242, 0.5)' : '#ffffff'
-                        }}
-                        className="group"
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
@@ -641,10 +626,8 @@ function ModelsContent() {
               {/* 3. BROWSE BY MODEL FAMILY */}
               {filteredModelFamilies.length > 0 && (
               <section id="section-family" className="mb-12 scroll-mt-24">
-                <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
-                    <h2>Browse by Model Family</h2>
-                  </div>
+                <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
+                  <h2 className="text-[27px] font-bold text-[#111827]">Browse by Model Family</h2>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.modelFamilies?.length} Model Families</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -656,19 +639,7 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        style={{
-                          background: '#ffffff',
-                          padding: '0.95rem 0.75rem',
-                          borderRadius: '0.125rem',
-                          boxShadow: isActive ? '0 0 0 1px #fb7185' : '0 2px 8px -4px rgba(0, 0, 0, 0.05)',
-                          border: `1px solid ${isActive ? '#fb7185' : '#f3f4f6'}`,
-                          transition: 'box-shadow 0.2s ease',
-                          cursor: 'pointer',
-                          display: 'block',
-                          textDecoration: 'none',
-                          backgroundColor: isActive ? 'rgba(255, 241, 242, 0.5)' : '#ffffff'
-                        }}
-                        className="group"
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -691,10 +662,8 @@ function ModelsContent() {
               {/* 4. BROWSE BY ORGANIZATION */}
               {filteredVendors.length > 0 && (
               <section id="section-organization" className="mb-12 scroll-mt-24">
-                <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
-                    <h2>Browse by Organization</h2>
-                  </div>
+                <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
+                  <h2 className="text-[27px] font-bold text-[#111827]">Browse by Organization</h2>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.vendors?.length} Leading Labs</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -711,19 +680,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        style={{
-                          background: '#ffffff',
-                          padding: '0.95rem 0.75rem',
-                          borderRadius: '0.125rem',
-                          boxShadow: isActive ? '0 0 0 1px #fb7185' : '0 2px 8px -4px rgba(0, 0, 0, 0.05)',
-                          border: `1px solid ${isActive ? '#fb7185' : '#f3f4f6'}`,
-                          transition: 'box-shadow 0.2s ease',
-                          cursor: 'pointer',
-                          display: 'block',
-                          textDecoration: 'none',
-                          backgroundColor: isActive ? 'rgba(255, 241, 242, 0.5)' : '#ffffff'
-                        }}
-                        className="group"
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -737,14 +694,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     <SkeletalIcon size={20} style={{ color: strokeColor }} />
   )}
 </div>
-                          <h3 style={{
-                            fontFamily: 'inherit',
-                            fontSize: '18px',
-                            fontWeight: isActive ? '700' : '500',
-                            color: '#1f2937',
-                            lineHeight: '1.375',
-                            marginBottom: '2px'
-                          }}>{v.name}</h3>
+                          <h3 className={`text-[15.5px] font-medium leading-5 ${isActive ? "text-[#F55036] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
                         </div>
                         <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
                       </div>
@@ -757,10 +707,8 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               {/* 5. BROWSE BY RESEARCH AREA */}
               {filteredResearchAreas.length > 0 && (
               <section id="section-research" className="mb-12 scroll-mt-24">
-                <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
-                    <h2>Browse by Research Area</h2>
-                  </div>
+                <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
+                  <h2 className="text-[27px] font-bold text-[#111827]">Browse by Research Area</h2>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.researchAreas?.length} Modalities &amp; Domains</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -771,19 +719,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        style={{
-                          background: '#ffffff',
-                          padding: '0.95rem 0.75rem',
-                          borderRadius: '0.125rem',
-                          boxShadow: isActive ? '0 0 0 1px #fb7185' : '0 2px 8px -4px rgba(0, 0, 0, 0.05)',
-                          border: `1px solid ${isActive ? '#fb7185' : '#f3f4f6'}`,
-                          transition: 'box-shadow 0.2s ease',
-                          cursor: 'pointer',
-                          display: 'block',
-                          textDecoration: 'none',
-                          backgroundColor: isActive ? 'rgba(255, 241, 242, 0.5)' : '#ffffff'
-                        }}
-                        className="group"
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
@@ -807,10 +743,8 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               {/* 6. TRENDING MODELS */}
               {filteredTrending.length > 0 && (
               <section id="section-trending" className="mb-12 scroll-mt-24">
-                <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-                  <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
-                    <h2>Trending Models</h2>
-                  </div>
+                <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
+                  <h2 className="text-[27px] font-bold text-[#111827]">Trending Models</h2>
                   <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">Most Active in 2025</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -858,11 +792,11 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
         {/* 7. RECENTLY RELEASED (Page 4) */}
         {filteredRecentlyReleasedTable.length > 0 && (
         <section id="section-recently-released" className="mb-12 scroll-mt-24">
-          <div className="models-block-header flex justify-between items-center mb-6 border-b-0 pb-0">
-            <div className="models-block-title flex items-center gap-3 text-[27px] font-bold text-[#111827]">
-              <Calendar size={22} style={{ color: "#FF5A1F" }} />
-              <span>Recently Released</span>
-            </div>
+          <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
+            <h2 className="text-[27px] font-bold text-[#111827] flex items-center gap-3">
+<Calendar size={22} style={{ color: "#FF5A1F" }} />
+<span>Recently Released</span>
+</h2>
             <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">Latest Foundation Arrivals</span>
           </div>
           <div style={{ background: "#ffffff", border: "1px solid #E5E5E0", borderRadius: "2px", overflow: "hidden", boxShadow: "0 8px 30px rgba(0, 0, 0, 0.04)", padding: "20px 14px" }}>
