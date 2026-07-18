@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Plus_Jakarta_Sans, Outfit, Inter } from "next/font/google";
-import "./inter-font.css";
+import "@fontsource/inter/latin.css";
 import "./globals.css";
 import ConditionalHeader from "../components/ConditionalHeader";
 
