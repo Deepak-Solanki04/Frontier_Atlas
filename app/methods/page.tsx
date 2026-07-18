@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { TaxonomyView } from "./TaxonomyView";
 import Navbar from "@/components/Navbar";
-import { atlasUiFont } from "@/lib/fonts";
 
 import { staticTaxonomy } from "@/lib/staticTaxonomy";
 
@@ -48,8 +47,7 @@ export default async function MethodsPage() {
   }
 
   return (
-    <div className={`${atlasUiFont.className} min-h-screen bg-[#F8F7F2] text-[#111111] tracking-normal`}>
-      <Navbar />
+    <div className={`min-h-screen bg-[#F8F7F2] text-[#111111] tracking-normal`}>
       {/* Same container width/padding rhythm as the Tasks page (HomeContent) */}
       <div className="w-full max-w-[1370px] mx-auto px-10 lg:px-16 xl:px-24 pt-6 pb-12">
 

@@ -58,8 +58,8 @@ export function TaxonomyView({ initialTaxonomy }: { initialTaxonomy: any[] }) {
   <>
     <MethodsHero taxonomy={taxonomy} />
 
-    <main className="grid grid-cols-[220px_minmax(0,1fr)] gap-8 mt-10">
-      <aside className="w-[240px] shrink-0 sticky top-24 h-fit border-r border-[#ececec] pr-6">
+    <main className="flex gap-8 mt-10">
+      <aside className="w-[240px] shrink-0 sticky top-24 h-fit border-r border-[#ececec] pr-6 hidden lg:block">
   <h3 className="text-[#F55036] font-bold uppercase text-lg mb-4">
   Methods
 </h3>
@@ -78,7 +78,7 @@ export function TaxonomyView({ initialTaxonomy }: { initialTaxonomy: any[] }) {
 </div>
 </aside>
 
-      <div>
+      <div className="flex-1 min-w-0">
         {filteredTaxonomy.length > 0 ? (
   filteredTaxonomy.map((category: any) => (
             <CategoryRow
