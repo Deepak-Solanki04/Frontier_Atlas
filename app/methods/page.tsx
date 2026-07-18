@@ -57,11 +57,7 @@ export default async function MethodsPage() {
         lineHeight: "21px",
       }}
     >
-      <style dangerouslySetInnerHTML={{__html: `
-        .methods-wrapper, .methods-wrapper * {
-          font-family: Inter, "Inter Fallback" !important;
-        }
-      `}} />
+
       {/* Adjusted padding to be perfectly aligned with user's desired 0.25cm adjustment */}
       <div className="w-full max-w-[1370px] mx-auto px-14 lg:px-20 xl:px-28 pt-6 pb-12">
 
