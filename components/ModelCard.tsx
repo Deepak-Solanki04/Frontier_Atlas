@@ -35,7 +35,7 @@ export default function ModelCard({
           className="text-[#555555] text-[15px] leading-relaxed mb-5 line-clamp-2"
           style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
         >
-          {model.desc}
+          {model.description}
         </p>
 
         {/* Monospace Benchmarks Block */}
