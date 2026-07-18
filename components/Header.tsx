@@ -68,8 +68,8 @@ export default function Header() {
         </Link>
       </div>
 
-      <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-[240px] xl:w-[400px]">
-        <SearchBar variant="compact" placeholder="Search models, papers, tasks..." />
+      <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center justify-center w-[200px] xl:w-[280px]">
+        <SearchBar variant="compact" placeholder="Search.." />
       </div>
 
       <div className="hidden lg:flex items-center gap-6 ml-auto">
