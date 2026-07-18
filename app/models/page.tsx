@@ -491,21 +491,7 @@ function ModelsContent() {
                 </div>
               </div>
             </div>
-            {/* SVG Background Visualization */}
-            <div className="absolute right-0 top-0 bottom-0 w-[70%] pointer-events-none overflow-hidden flex items-center justify-end">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#F8F7F2] via-transparent to-transparent z-10" />
-              <svg className="w-full h-full opacity-35 text-rose-500" viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 0 100 Q 200 20, 400 100 T 800 100" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" />
-                <path d="M 0 150 Q 250 50, 500 150 T 800 80" stroke="#f43f5e" strokeWidth="1" opacity="0.6" />
-                <path d="M 100 50 Q 350 180, 600 40 T 800 160" stroke="#3b82f6" strokeWidth="1" opacity="0.4" />
-                <circle cx="200" cy="62" r="4" fill="#e11d48" className="animate-pulse" />
-                <circle cx="400" cy="100" r="5" fill="#e11d48" />
-                <circle cx="600" cy="138" r="4" fill="#3b82f6" />
-                <circle cx="500" cy="150" r="3" fill="#f43f5e" />
-                <circle cx="250" cy="115" r="3" fill="#10b981" />
-              </svg>
-            </div>
-          </div>
+          </section>
           <div className="flex gap-6">
             
             {/* LEFT SIDEBAR WITH SEARCH & NAVIGATION OPTIONS EXACT TO reference */}
