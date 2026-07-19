@@ -604,7 +604,7 @@ function ModelsContent() {
                           <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
                         </div>
                         <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
-  Explore models for {cap.name.toLowerCase()}.
+  {getCardDescription(cap.name)}
 </p>
 
 <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
@@ -721,7 +721,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                           <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{d.name}</h3>
                         </div>
                         <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
-  Explore models for {d.name.toLowerCase()}.
+  {getCardDescription(d.name)}
 </p>
 
 <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
