@@ -448,7 +448,7 @@ function ModelsContent() {
 
   return (
     <div 
-      className={`methods-wrapper ${styles.forceInter} min-h-screen`}
+      className={`methods-wrapper ${styles.forceInter} min-h-screen bg-[#F8F7F2]`}
       style={{
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
@@ -457,7 +457,7 @@ function ModelsContent() {
         lineHeight: "21px",
       }}
     >
-      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[183px] pt-10 pb-16">
+      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[179px] pt-[38px] pb-16">
           
           {/* HERO SECTION — Exact Tasks page layout */}
           <section className="mb-16 hidden md:flex">

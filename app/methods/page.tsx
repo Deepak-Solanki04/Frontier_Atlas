@@ -50,7 +50,7 @@ export default async function MethodsPage() {
 
   return (
     <div 
-      className={`methods-wrapper ${styles.forceInter} min-h-screen`}
+      className={`methods-wrapper ${styles.forceInter} min-h-screen bg-[#F8F7F2]`}
       style={{
         color: "rgb(23, 23, 23)",
         fontSize: "14px",
@@ -60,7 +60,7 @@ export default async function MethodsPage() {
       }}
     >
       {/* Decreased left and right spacing by exactly 5px as requested (192px -> 187px) */}
-      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[183px] pt-10 pb-16">
+      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[179px] pt-[38px] pb-16">
 
         <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
           <Link href="/" className="hover:text-[#FF5A1F] transition-colors no-underline">
