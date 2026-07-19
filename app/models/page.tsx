@@ -575,24 +575,15 @@ function ModelsContent() {
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx, cap.name);
                     const isActive = selectedCapability === cap.name;
                     return (
-                      <div
+                      <UniversalCard
                         key={cap.name}
+                        name={cap.name}
+                        description={getCardDescription(cap.name)}
+                        badgeText={`${cap.count} Models`}
+                        isActive={isActive}
                         onClick={() => handleCapabilityClick(cap.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
-                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                          </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
-                        </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
-  {getCardDescription(cap.name)}
-</p>
-
-<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
-  {cap.count} Models</span></div>
-                      </div>
+                        iconContent={<SkeletalIcon size={22} strokeWidth={2.2} style={{ color: strokeColor }} />}
+                      />
                     );
                   })}
                 </div>
@@ -612,26 +603,15 @@ function ModelsContent() {
                     const isActive = selectedFamily === fam.name;
                     const familyLogo = getOrgLogo(fam.name);
                     return (
-                      <div
+                      <UniversalCard
                         key={fam.name}
+                        name={fam.name}
+                        description={getCardDescription(fam.name)}
+                        badgeText={`${fam.count} Models`}
+                        isActive={isActive}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
-                            {familyLogo ? (
-                              <img src={familyLogo} alt={fam.name} className="w-[30px] h-[30px] object-contain rounded" />
-                            ) : (
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            )}
-                          </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
-                        </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
-                          {getCardDescription(fam.name)}
-                        </p>
-                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
-                      </div>
+                        iconContent={familyLogo ? <img src={familyLogo} alt={fam.name} className="w-[22px] h-[22px] object-contain rounded" /> : <SkeletalIcon size={22} strokeWidth={2.2} style={{ color: strokeColor }} />}
+                      />
                     );
                   })}
                 </div>
@@ -656,27 +636,15 @@ function ModelsContent() {
 const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                     
                     return (
-                      <div
+                      <UniversalCard
                         key={v.name}
+                        name={v.name}
+                        description={getCardDescription(v.name)}
+                        badgeText={`${v.count} Models`}
+                        isActive={isActive}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
-  {vendorLogo ? (
-    <img
-      src={vendorLogo}
-      alt={v.name}
-      className="w-[35px] h-[35px] object-contain"
-    />
-  ) : (
-    <SkeletalIcon size={20} style={{ color: strokeColor }} />
-  )}
-</div>
-                          <h3 className={`text-[15px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
-                        </div>
-                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
-                      </div>
+                        iconContent={vendorLogo ? <img src={vendorLogo} alt={v.name} className="w-[22px] h-[22px] object-contain rounded" /> : <SkeletalIcon size={22} strokeWidth={2.2} style={{ color: strokeColor }} />}
+                      />
                     );
                   })}
                 </div>
@@ -695,24 +663,15 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 11, d.name);
                     const isActive = selectedDomain === d.name;
                     return (
-                      <div
+                      <UniversalCard
                         key={d.name}
+                        name={d.name}
+                        description={getCardDescription(d.name)}
+                        badgeText={`${d.count} Models`}
+                        isActive={isActive}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
-                            <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                          </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{d.name}</h3>
-                        </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
-  {getCardDescription(d.name)}
-</p>
-
-<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
-  {d.count} Models</span></div>
-                      </div>
+                        iconContent={<SkeletalIcon size={22} strokeWidth={2.2} style={{ color: strokeColor }} />}
+                      />
                     );
                   })}
                 </div>
@@ -731,108 +690,20 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                     const { Icon: SkeletalIcon, color: strokeColor } = getSkeletalIcon(idx + 15, m.name);
                     const modelLogo = getOrgLogo(m.vendor) || getOrgLogo(m.name);
                     return (
-                      <div
+                      <UniversalCard
                         key={m.id}
+                        name={m.name}
+                        description={m.description || getCardDescription(m.name)}
+                        badgeText={""}
+                        isActive={false}
                         onClick={() => setInspectedModel(m)}
-                        className="bg-white rounded-md border border-[#ECECEC] p-5 min-h-[150px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
-                      >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
-                            {modelLogo ? (
-                              <img src={modelLogo} alt={m.name} className="w-[30px] h-[30px] object-contain rounded" />
-                            ) : (
-                              <SkeletalIcon size={20} style={{ color: strokeColor }} />
-                            )}
-                          </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{m.name}</h3>
-                        </div>
-                        {m.description && (
-                          <p style={{
-                            fontFamily: 'inherit',
-                            fontSize: '0.875rem',
-                            fontWeight: '400',
-                            color: '#6b7280',
-                            lineHeight: '1.25rem',
-                          height: '3.75rem',
-                          
-                          overflow: 'hidden',
-                            marginTop: '0.375rem',
-                            marginLeft: '2.75rem',
-                            marginRight: '0.5rem'
-                          }} title={m.description}>{m.description}</p>
-                        )}
-                      </div>
+                        iconContent={modelLogo ? <img src={modelLogo} alt={m.name} className="w-[22px] h-[22px] object-contain rounded" /> : <SkeletalIcon size={22} strokeWidth={2.2} style={{ color: strokeColor }} />}
+                      />
                     );
                   })}
                 </div>
               </section>
               )}
-
-        {/* 7. RECENTLY RELEASED (Page 4) */}
-        {filteredRecentlyReleasedTable.length > 0 && (
-        <section id="section-recently-released" className="mb-12 scroll-mt-24">
-          <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
-            <h2 className="text-[27px] font-bold text-[#111827] flex items-center gap-3">
-<Calendar size={22} style={{ color: "#FF5A1F" }} />
-<span>Recently Released</span>
-</h2>
-            <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">Latest Foundation Arrivals</span>
-          </div>
-          <div style={{ background: "#ffffff", border: "1px solid #E5E5E0", borderRadius: "2px", overflow: "hidden", boxShadow: "0 8px 30px rgba(0, 0, 0, 0.04)", padding: "20px 14px" }}>
-            <div style={{ overflowX: "auto" }}>
-              <table style={{ width: "100%", minWidth: "1280px", borderCollapse: "collapse", textAlign: "left", fontFamily: "'Inter', system-ui, sans-serif", tableLayout: "auto" }}>
-                <thead>
-                  <tr style={{ borderBottom: "2px solid #111111" }}>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25", fontFamily: "monospace" }}>#</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Model</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Organization</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Model Family</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Category</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Parameters</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Context Window</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>License</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Benchmarks</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Papers</th>
-                    <th style={{ padding: "10px 12px", textAlign: "left", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Release Date</th>
-                    <th style={{ padding: "10px 12px", textAlign: "right", fontSize: "11px", fontWeight: 400, color: "#666666", textTransform: "none", letterSpacing: "normal", whiteSpace: "nowrap", lineHeight: "1.25" }}>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredRecentlyReleasedTable.map((model, idx) => (
-                    <tr key={model.id} onClick={() => setInspectedModel(model)} style={{ borderBottom: "1px solid #EAE9E4", cursor: "pointer", transition: "background 0.15s ease" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", fontWeight: 400, color: "#8B8B8B", width: "1%", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3", paddingRight: "12px" }}>{(idx + 1).toString().padStart(3, "0")}</td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "12.5px", color: "#111111", minWidth: "160px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "12px", paddingRight: "8px" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#FF5A1F", display: "inline-block", flexShrink: 0 }}></span>
-                          <span>{model.name}</span>
-                        </div>
-                      </td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#555555", minWidth: "120px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>{model.vendor}</td>
-                      <td style={{ padding: "12px 12px", fontWeight: 400, color: "#111111", whiteSpace: "nowrap", width: "1%", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "4px", paddingRight: "8px" }}>
-                        {model.modelFamily && (
-                          <span style={{ padding: "3px 8px", background: "#F8F7F2", borderRadius: "2px", border: "1px solid #E5E5E0", fontSize: "11px", whiteSpace: "nowrap", display: "inline-block", fontWeight: 400 }}>{model.modelFamily}</span>
-                        )}
-                      </td>
-                      <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.category}</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#333333", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.parameterCount}</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#111111", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.contextWindow}</td>
-                      <td style={{ padding: "12px 12px", color: "#555555", fontSize: "11px", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.license}</td>
-                      <td style={{ padding: "12px 12px", textAlign: "left", fontWeight: 400, color: "#FF5A1F", fontFamily: "monospace", fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>
-                        {model.trendingScore ? `⚡ ${model.trendingScore} Elo` : (model.benchmarkScore && Object.keys(model.benchmarkScore).length > 0 ? `${Object.keys(model.benchmarkScore).length} verified` : '')}
-                      </td>
-                      <td style={{ padding: "12px 12px", color: "#555555", fontWeight: 400, fontSize: "11px", verticalAlign: "middle", lineHeight: "1.3" }}>{model.paperCount} papers</td>
-                      <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", color: "#777777", fontWeight: 400, verticalAlign: "middle", lineHeight: "1.3" }}>{model.releaseDate}</td>
-                      <td style={{ padding: "12px 12px", textAlign: "right", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3" }}>
-                        <button style={{ fontSize: "11px", fontWeight: 400, textTransform: "uppercase", letterSpacing: "0.4px", padding: "5px 10px", borderRadius: "2px", background: "#F8F7F2", color: "#111111", border: "1px solid #E5E5E0", transition: "all 0.2s ease", whiteSpace: "nowrap" }}>Inspect &rarr;</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-        )}
 
 
 
@@ -1081,6 +952,51 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+
+function UniversalCard({
+  name,
+  description,
+  badgeText,
+  iconContent,
+  isActive,
+  onClick
+}: {
+  name: string;
+  description?: string;
+  badgeText?: string;
+  iconContent: React.ReactNode;
+  isActive?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <div
+      onClick={onClick}
+      className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+    >
+      <div className="flex items-start gap-4">
+        <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
+          {iconContent}
+        </div>
+        <h3 className="text-[#111111] text-[15px] font-medium leading-5">{name}</h3>
+      </div>
+      
+      {description && (
+        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+          {description}
+        </p>
+      )}
+      
+      <div className="mt-auto pt-5">
+        {badgeText && (
+          <span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+            {badgeText}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
