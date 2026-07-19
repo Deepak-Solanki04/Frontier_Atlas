@@ -457,7 +457,14 @@ function ModelsContent() {
         lineHeight: "21px",
       }}
     >
-      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[179px] pt-[38px] pb-16">
+      <div className="w-full max-w-[1600px] mx-auto px-12 md:px-24 xl:px-[178px] pt-[38px] pb-16">
+        <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
+          <Link href="/" className="hover:text-[#FF5A1F] transition-colors no-underline">
+            Home
+          </Link>
+          <span>/</span>
+          <span className="text-[#555555] font-medium">Models</span>
+        </nav>
           
           {/* HERO SECTION — Exact Tasks page layout */}
           <section className="mb-16 hidden md:flex">
