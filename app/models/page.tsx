@@ -472,7 +472,7 @@ function ModelsContent() {
               <h1 className="text-[35px] font-extrabold text-[#111827] leading-none">
                 All <span className="text-[#FF5A1F]">Models</span>
               </h1>
-              <p className="mt-5 text-[15.5px] text-gray-600 leading-2 max-w-md">
+              <p className="mt-5 text-[15px] text-gray-600 leading-2 max-w-md">
                 Discover the full landscape of AI foundation models through {facets?.modelFamilies?.length || 0} model families spanning reasoning, vision, code, audio, robotics, healthcare, and more.
               </p>
               <div className="flex items-center gap-10 mt-4 whitespace-nowrap text-xs md:text-sm">
@@ -584,13 +584,13 @@ function ModelsContent() {
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
+                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
   {getCardDescription(cap.name)}
 </p>
 
-<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
   {cap.count} Models</span></div>
                       </div>
                     );
@@ -625,9 +625,12 @@ function ModelsContent() {
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
+                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
                         </div>
-                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+                          {getCardDescription(fam.name)}
+                        </p>
+                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -670,9 +673,9 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     <SkeletalIcon size={20} style={{ color: strokeColor }} />
   )}
 </div>
-                          <h3 className={`text-[15.5px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
+                          <h3 className={`text-[15px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
                         </div>
-                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
+                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -701,13 +704,13 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{d.name}</h3>
+                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{d.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
   {getCardDescription(d.name)}
 </p>
 
-<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
   {d.count} Models</span></div>
                       </div>
                     );
@@ -741,7 +744,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{m.name}</h3>
+                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{m.name}</h3>
                         </div>
                         {m.description && (
                           <p style={{
