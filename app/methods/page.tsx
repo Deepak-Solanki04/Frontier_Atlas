@@ -59,7 +59,7 @@ export default async function MethodsPage() {
         lineHeight: "21px",
       }}
     >
-      <div className="w-full max-w-[1600px] mx-auto px-[44px] md:px-[90px] xl:px-[170px] pt-[30px] pb-16">
+      <div className="w-full max-w-[1600px] mx-auto px-[44px] md:px-[90px] xl:px-[170px] pt-[29px] pb-16">
         <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
           <Link href="/" className="hover:text-[#FF5A1F] transition-colors no-underline">
             Home
