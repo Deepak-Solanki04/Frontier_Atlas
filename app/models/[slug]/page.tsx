@@ -144,7 +144,7 @@ export default function ModelDetailPage({
       <div className="model-profile-wrapper" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ textAlign: "center", padding: "40px" }}>
           <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "#111111", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
-            <Cpu size={24} style={{ color: "#F55036" }} />
+            <Cpu size={24} style={{ color: "#FF5A1F" }} />
           </div>
           <div style={{ fontSize: "16px", fontWeight: 700, color: "#8B8B8B", fontFamily: "monospace" }}>Loading Neural Architecture Profile...</div>
         </div>
@@ -156,12 +156,12 @@ export default function ModelDetailPage({
     return (
       <div className="model-profile-wrapper" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div className="ds-card" style={{ maxWidth: "480px", width: "100%", padding: "40px", textAlign: "center", margin: "24px" }}>
-          <div style={{ width: "64px", height: "64px", background: "#FFF6F3", color: "#F55036", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+          <div style={{ width: "64px", height: "64px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
             <Sparkles size={32} />
           </div>
           <h1 style={{ fontSize: "24px", fontWeight: 900, marginBottom: "12px", color: "#111111" }}>Model Profile Not Found</h1>
           <p style={{ fontSize: "15px", color: "#555555", marginBottom: "28px", lineHeight: 1.6 }}>
-            We couldn&apos;t find an indexed AI foundation model matching <code style={{ background: "#F8F7F2", padding: "4px 8px", borderRadius: "6px", color: "#F55036", fontFamily: "monospace", fontWeight: 700 }}>{resolvedParams.slug}</code>.
+            We couldn&apos;t find an indexed AI foundation model matching <code style={{ background: "#F8F7F2", padding: "4px 8px", borderRadius: "6px", color: "#FF5A1F", fontFamily: "monospace", fontWeight: 700 }}>{resolvedParams.slug}</code>.
           </p>
           <Link
             href="/models"
@@ -261,7 +261,7 @@ export default function ModelDetailPage({
             <div className="model-spec-pod">
               <div className="model-spec-pod-header">
                 <span className="model-spec-pod-label">Architecture Specs</span>
-                <Cpu size={16} style={{ color: "#F55036" }} />
+                <Cpu size={16} style={{ color: "#FF5A1F" }} />
               </div>
               <div className="model-spec-pod-val">
                 {model.parameterCount || "Dense / MoE 180B"}
@@ -283,7 +283,7 @@ export default function ModelDetailPage({
             <div className="model-spec-pod">
               <div className="model-spec-pod-header">
                 <span className="model-spec-pod-label">Primary Specialization</span>
-                <Activity size={16} style={{ color: "#F55036" }} />
+                <Activity size={16} style={{ color: "#FF5A1F" }} />
               </div>
               <div className="model-spec-pod-val">
                 {model.area}
@@ -314,7 +314,7 @@ export default function ModelDetailPage({
             onClick={() => setActiveTab("evals")}
             className={`model-tab-btn ${activeTab === "evals" ? "active" : ""}`}
           >
-            <Trophy size={18} style={{ color: activeTab === "evals" ? "#F55036" : "#8B8B8B" }} />
+            <Trophy size={18} style={{ color: activeTab === "evals" ? "#FF5A1F" : "#8B8B8B" }} />
             <span>Verified Academic Benchmarks</span>
             <span className="model-tab-count">
               {model.benchmarks?.length || 0}
@@ -401,7 +401,7 @@ export default function ModelDetailPage({
                       <div className="model-bm-header">
                         <div>
                           <div>
-                            <span className="model-bm-dot" style={{ backgroundColor: bm.color || "#F55036" }} />
+                            <span className="model-bm-dot" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
                             <span className="model-bm-name">{bm.name}</span>
                           </div>
                           <span className="model-bm-sub">Peer-Reviewed Verification Suite</span>
@@ -418,7 +418,7 @@ export default function ModelDetailPage({
                         <div className="model-gauge-label">
                           <span>Model Capability vs Threshold</span>
                           {evalMode === "human" && (
-                            <span style={{ color: Number(delta) >= 0 ? "#16A34A" : "#F55036" }}>
+                            <span style={{ color: Number(delta) >= 0 ? "#16A34A" : "#FF5A1F" }}>
                               {Number(delta) >= 0 ? `+${delta}% vs Human Expert` : `${delta}% vs Human Expert`}
                             </span>
                           )}
@@ -427,7 +427,7 @@ export default function ModelDetailPage({
                         <div className="model-gauge-track">
                           <div
                             className="model-gauge-fill"
-                            style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#F55036" }}
+                            style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
                           />
 
                           {/* Human Expert Marker line if human mode */}
@@ -480,7 +480,7 @@ export default function ModelDetailPage({
             {/* Top Workbench Header */}
             <div className="model-wb-top-bar">
               <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "rgba(245, 80, 54, 0.15)", color: "#F55036", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(245, 80, 54, 0.3)" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "rgba(255, 90, 31, 0.15)", color: "#FF5A1F", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255, 90, 31, 0.3)" }}>
                   <Terminal size={24} />
                 </div>
                 <div>
@@ -594,7 +594,7 @@ export default function ModelDetailPage({
               <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
                 <span>API Endpoint: <strong style={{ color: "#ffffff" }}>api.anthropic.com/v1/messages</strong></span>
                 <span>•</span>
-                <span>Context Window: <strong style={{ color: "#F55036" }}>{model.context || "200k tokens"}</strong></span>
+                <span>Context Window: <strong style={{ color: "#FF5A1F" }}>{model.context || "200k tokens"}</strong></span>
                 <span>•</span>
                 <span>Prompt Caching: <strong style={{ color: "#10B981" }}>Enabled (50% discount)</strong></span>
               </div>
@@ -615,7 +615,7 @@ export default function ModelDetailPage({
         <section className="model-section-container">
           
           <div style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto 36px" }}>
-            <span style={{ display: "inline-block", padding: "6px 14px", background: "#FFF6F3", color: "#F55036", borderRadius: "100px", fontFamily: "monospace", fontWeight: 800, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.5px", border: "1px solid #FFEDD5", marginBottom: "12px" }}>
+            <span style={{ display: "inline-block", padding: "6px 14px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "100px", fontFamily: "monospace", fontWeight: 800, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.5px", border: "1px solid #FFEDD5", marginBottom: "12px" }}>
               System Topology & Engine
             </span>
             <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#111111", marginBottom: "12px", letterSpacing: "-0.5px" }}>
@@ -629,14 +629,14 @@ export default function ModelDetailPage({
           <div className="model-arch-grid">
             
             <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#FFF6F3", color: "#F55036", border: "1px solid #FFEDD5" }}>
+              <div className="model-arch-icon-box" style={{ background: "#FFF6F3", color: "#FF5A1F", border: "1px solid #FFEDD5" }}>
                 🧠
               </div>
               <h3 className="model-arch-title">Hybrid Reasoning Engine</h3>
               <p className="model-arch-desc">
                 Seamlessly transitions between instantaneous high-throughput generation (`Flash mode`) and deep mathematical verification (`Thinking mode`) where intermediate thought tokens are evaluated and self-corrected before final output.
               </p>
-              <div className="model-arch-check" style={{ color: "#F55036" }}>
+              <div className="model-arch-check" style={{ color: "#FF5A1F" }}>
                 ✓ Dynamic compute scaling per prompt
               </div>
             </div>
@@ -681,14 +681,14 @@ export default function ModelDetailPage({
             </div>
 
             <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#FFF1F2", color: "#E11D48", border: "1px solid #FFE4E6" }}>
+              <div className="model-arch-icon-box" style={{ background: "#FFF1F2", color: "#FF5A1F", border: "1px solid #FFE4E6" }}>
                 🛡️
               </div>
               <h3 className="model-arch-title">Constitutional Safeguards</h3>
               <p className="model-arch-desc">
                 Trained using advanced Direct Preference Optimization (DPO) and Constitutional AI principles to prevent reward hacking, hallucination loops, and unauthorized adversarial prompt injection.
               </p>
-              <div className="model-arch-check" style={{ color: "#E11D48" }}>
+              <div className="model-arch-check" style={{ color: "#FF5A1F" }}>
                 ✓ ASL-3 Security Alignment Standard
               </div>
             </div>

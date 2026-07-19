@@ -17,7 +17,7 @@ export const CATEGORY_COLORS: Record<string, { accent: string, bg: string }> = {
   "vision": { accent: "#2dd4bf", bg: "#f0fdfa" }, // Teal-Green
   "language": { accent: "#3b82f6", bg: "#eff6ff" }, // Sky Blue
   "audio": { accent: "#f59e0b", bg: "#fffbeb" }, // Yellow
-  "video": { accent: "#e11d48", bg: "#fff1f2" }, // Rose
+  "video": { accent: "#FF5A1F", bg: "#fff1f2" }, // Rose
   "robotics": { accent: "#475569", bg: "#f8fafc" }, // Slate
   "3d": { accent: "#84cc16", bg: "#ecfccb" }, // Lime Green
   "mathematics": { accent: "#1d4ed8", bg: "#eff6ff" }, // Dark Blue

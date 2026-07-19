@@ -49,7 +49,7 @@ const ALL_TASKS_DATA: TaskItem[] = [
   { name: "Vision-Language Models", desc: "Models that understand and generate across vision and language modalities simultaneously.", icon: Eye, color: "#16a34a", domain: "Foundation Models" },
   { name: "Multimodal Models", desc: "Models processing multiple data modalities simultaneously across text, image, video, and audio.", icon: Layers, color: "#d97706", domain: "Foundation Models" },
   { name: "Omni Models", desc: "Unified frontier models natively handling vision, text, audio, and sensor data in single neural architectures.", icon: Puzzle, color: "#9333ea", domain: "Foundation Models" },
-  { name: "General Purpose Foundation", desc: "Core flagship base models trained on web-scale text and reasoning data for broad adaptation.", icon: Brain, color: "#e11d48", domain: "Foundation Models" },
+  { name: "General Purpose Foundation", desc: "Core flagship base models trained on web-scale text and reasoning data for broad adaptation.", icon: Brain, color: "#FF5A1F", domain: "Foundation Models" },
   { name: "Agentic Reasoning & Planning", desc: "Models designed for multi-step execution, tool calling, memory persistence, and goal decomposition.", icon: Bot, color: "#0284c7", domain: "AI Agents" },
   { name: "Autonomous Web & Terminal Agents", desc: "SOTA agents specialized in operating browsers, shell commands, and local developer environments.", icon: Terminal, color: "#2563eb", domain: "AI Agents" },
   { name: "Multi-Agent Orchestration", desc: "Frameworks and models built for collaborative consensus, debate, and distributed task execution.", icon: Network, color: "#059669", domain: "AI Agents" },
@@ -63,7 +63,7 @@ const ALL_TASKS_DATA: TaskItem[] = [
   
   // Language & Code
   { name: "Code Generation & Editing", desc: "Specialized models trained on repository-level codebases for autocomplete, refactoring, and bug fixing.", icon: Code2, color: "#0891b2", domain: "Language & NLP" },
-  { name: "Mathematical Proof & Verifiers", desc: "Models trained via reinforcement learning for formal verification, theorem proving, and olympiad math.", icon: Brain, color: "#e11d48", domain: "Language & NLP" },
+  { name: "Mathematical Proof & Verifiers", desc: "Models trained via reinforcement learning for formal verification, theorem proving, and olympiad math.", icon: Brain, color: "#FF5A1F", domain: "Language & NLP" },
   { name: "Cross-Lingual Translation", desc: "High-accuracy multilingual translation and cultural adaptation across 200+ global languages.", icon: Globe, color: "#0284c7", domain: "Language & NLP" },
   
   // Audio & Robotics
@@ -80,7 +80,7 @@ const ALL_TASKS_DATA: TaskItem[] = [
   
   // Systems & Safety
   { name: "Constitutional AI & Alignment", desc: "Techniques and models enforcing safety guardrails, harmlessness, and ethical reasoning.", icon: Shield, color: "#7c3aed", domain: "AI Systems, Safety & Evaluation" },
-  { name: "Red Teaming & Jailbreak Evaluation", desc: "Automated adversarial probing and robustness verification against prompt injection attacks.", icon: AlertShieldIcon, color: "#e11d48", domain: "AI Systems, Safety & Evaluation" }
+  { name: "Red Teaming & Jailbreak Evaluation", desc: "Automated adversarial probing and robustness verification against prompt injection attacks.", icon: AlertShieldIcon, color: "#FF5A1F", domain: "AI Systems, Safety & Evaluation" }
 ];
 
 const DOMAINS_LIST = [
@@ -121,7 +121,7 @@ export default function TasksPage() {
           <div className="relative overflow-hidden mb-10 hidden md:flex min-h-[187.5px]">
             <div className="relative z-10 w-[30%] px-6 md:px-8 py-4 md:py-5">
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 tracking-tight text-gray-900">
-                All Research<br /><span className="text-[#e11d48]">Domains</span>
+                All Research<br /><span className="text-[#FF5A1F]">Domains</span>
               </h1>
               <p className="text-gray-600 text-xs md:text-sm mb-4 max-w-md leading-relaxed">
                 Explore the full spectrum of AI research across tasks, methods, and applications.
@@ -161,7 +161,7 @@ export default function TasksPage() {
             <aside className="w-64 flex-shrink-0 hidden lg:block backdrop-blur-sm" aria-label="Domain navigation">
               <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)]">
                 <div className="px-4 pt-6 pb-4">
-                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3">Browse Research</h3>
+                  <h3 className="text-[15px] font-semibold uppercase text-[#FF5A1F] mb-3">Browse Research</h3>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input

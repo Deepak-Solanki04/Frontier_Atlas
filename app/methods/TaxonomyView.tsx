@@ -60,7 +60,7 @@ export function TaxonomyView({ initialTaxonomy }: { initialTaxonomy: any[] }) {
 
     <main className="flex gap-8 mt-10">
       <aside className="w-[240px] shrink-0 sticky top-24 h-fit border-r border-[#ececec] pr-6 hidden lg:block">
-  <h3 className="text-[#F55036] font-bold uppercase text-lg mb-4">
+  <h3 className="text-[#FF5A1F] font-bold uppercase text-lg mb-4">
   Methods
 </h3>
 
@@ -70,7 +70,7 @@ export function TaxonomyView({ initialTaxonomy }: { initialTaxonomy: any[] }) {
     <a
   key={category.id}
   href={`#${category.id}`}
-  className="block text-[15px] text-[#555] hover:text-[#F55036] transition-colors"
+  className="block text-[15px] text-[#555] hover:text-[#FF5A1F] transition-colors"
 >
   {category.name}
 </a>

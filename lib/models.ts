@@ -51,7 +51,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Agentic Coding"],
     paperCount: 452,
     benchmarks: [
-      { name: "SWE-bench Verified", score: "62.3%", value: 62.3, max: 100, color: "#F55036" },
+      { name: "SWE-bench Verified", score: "62.3%", value: 62.3, max: 100, color: "#FF5A1F" },
       { name: "MMLU-Pro", score: "89.4%", value: 89.4, max: 100, color: "#10B981" },
       { name: "MATH-500", score: "96.2%", value: 96.2, max: 100, color: "#3B82F6" },
     ],
@@ -91,7 +91,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Reasoning"],
     paperCount: 390,
     benchmarks: [
-      { name: "AIME 2024 Math", score: "79.8%", value: 79.8, max: 100, color: "#F55036" },
+      { name: "AIME 2024 Math", score: "79.8%", value: 79.8, max: 100, color: "#FF5A1F" },
       { name: "Codeforces Elo", score: "2029", value: 82, max: 100, color: "#3B82F6" },
       { name: "GPQA Diamond", score: "71.5%", value: 71.5, max: 100, color: "#10B981" },
     ],
@@ -113,7 +113,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "Long-Context Needle", score: "99.8%", value: 99.8, max: 100, color: "#10B981" },
       { name: "MMMU (Vision)", score: "68.3%", value: 68.3, max: 100, color: "#8B5CF6" },
-      { name: "ToolBench", score: "84.5%", value: 84.5, max: 100, color: "#F55036" },
+      { name: "ToolBench", score: "84.5%", value: 84.5, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `import google.generativeai as genai\n\ngenai.configure(api_key="YOUR_API_KEY")\nmodel = genai.GenerativeModel('gemini-2.0-flash')\nresponse = model.generate_content("Summarize 100 research papers.")`
   },
@@ -133,7 +133,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "MMLU", score: "86.0%", value: 86.0, max: 100, color: "#10B981" },
       { name: "GSM8K Math", score: "93.8%", value: 93.8, max: 100, color: "#3B82F6" },
-      { name: "HumanEval Code", score: "81.7%", value: 81.7, max: 100, color: "#F55036" },
+      { name: "HumanEval Code", score: "81.7%", value: 81.7, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `# Using vLLM high-throughput server\npython -m vllm.entrypoints.openai.api_server \\\n  --model meta-llama/Llama-3.3-70B-Instruct \\\n  --tensor-parallel-size 4`
   },
@@ -152,7 +152,7 @@ const mockModels: ModelItem[] = [
     paperCount: 245,
     benchmarks: [
       { name: "MATH Benchmark", score: "94.5%", value: 94.5, max: 100, color: "#3B82F6" },
-      { name: "LiveCodeBench", score: "54.2%", value: 54.2, max: 100, color: "#F55036" },
+      { name: "LiveCodeBench", score: "54.2%", value: 54.2, max: 100, color: "#FF5A1F" },
       { name: "Arena Hard", score: "85.8%", value: 85.8, max: 100, color: "#10B981" },
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI(api_key="YOUR_DASHSCOPE_KEY", base_url="https://dashscope.aliyuncs.com/compatible-mode/v1")\nres = client.chat.completions.create(model="qwen-max", messages=[{"role": "user", "content": "Design an autonomous agent framework."}])`
@@ -171,7 +171,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Reasoning"],
     paperCount: 180,
     benchmarks: [
-      { name: "AIME 2024 Math", score: "81.2%", value: 81.2, max: 100, color: "#F55036" },
+      { name: "AIME 2024 Math", score: "81.2%", value: 81.2, max: 100, color: "#FF5A1F" },
       { name: "GPQA Diamond", score: "73.4%", value: 73.4, max: 100, color: "#10B981" },
       { name: "SWE-bench Verified", score: "58.1%", value: 58.1, max: 100, color: "#3B82F6" },
     ],
@@ -193,7 +193,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "Unseen Object Pick", score: "88.0%", value: 88.0, max: 100, color: "#10B981" },
       { name: "CALVIN Manipulation", score: "92.4%", value: 92.4, max: 100, color: "#3B82F6" },
-      { name: "Sim-to-Real Generalization", score: "74.5%", value: 74.5, max: 100, color: "#F55036" },
+      { name: "Sim-to-Real Generalization", score: "74.5%", value: 74.5, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `# Robotics inference loop setup\nfrom rt2_control import VLAController\n\nrobot = VLAController(checkpoint="rt2-55b-jax")\naction = robot.step(image_stream, instruction="Pick up the yellow screwdriver")`
   },
@@ -211,7 +211,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Agentic Coding"],
     paperCount: 210,
     benchmarks: [
-      { name: "SWE-bench Verified", score: "51.4%", value: 51.4, max: 100, color: "#F55036" },
+      { name: "SWE-bench Verified", score: "51.4%", value: 51.4, max: 100, color: "#FF5A1F" },
       { name: "EvalPlus (HumanEval)", score: "92.7%", value: 92.7, max: 100, color: "#10B981" },
       { name: "LiveCodeBench Pass@1", score: "48.2%", value: 48.2, max: 100, color: "#3B82F6" },
     ],
@@ -253,7 +253,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "GSM8K Math", score: "90.4%", value: 90.4, max: 100, color: "#3B82F6" },
       { name: "GPQA Reasoning", score: "56.2%", value: 56.2, max: 100, color: "#10B981" },
-      { name: "HumanEval", score: "80.3%", value: 80.3, max: 100, color: "#F55036" },
+      { name: "HumanEval", score: "80.3%", value: 80.3, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `# Run directly on laptop GPU or Apple Silicon\nollama run phi4:14b`
   },
@@ -272,7 +272,7 @@ const mockModels: ModelItem[] = [
     paperCount: 142,
     benchmarks: [
       { name: "GenAI Benchmark Typography", score: "94.1%", value: 94.1, max: 100, color: "#10B981" },
-      { name: "Inference Latency (4 steps)", score: "180ms", value: 95, max: 100, color: "#F55036" },
+      { name: "Inference Latency (4 steps)", score: "180ms", value: 95, max: 100, color: "#FF5A1F" },
       { name: "Photorealism Elo", score: "1240", value: 85, max: 100, color: "#8B5CF6" },
     ],
     quickstart: `import diffusers\nfrom diffusers import FluxPipeline\n\npipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-schnell")\nimage = pipe("A cyberpunk robotic cat typing code on a holographic keyboard", num_inference_steps=4).images[0]`
@@ -293,7 +293,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "SA-V Video Segmentation", score: "76.3 J&F", value: 76.3, max: 100, color: "#10B981" },
       { name: "Zero-Shot COCO mIoU", score: "82.1%", value: 82.1, max: 100, color: "#3B82F6" },
-      { name: "Real-Time Tracking FPS", score: "44 FPS", value: 88, max: 100, color: "#F55036" },
+      { name: "Real-Time Tracking FPS", score: "44 FPS", value: 88, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `from sam2.build_sam import build_sam2_video_predictor\n\npredictor = build_sam2_video_predictor("sam2_hiera_large.yaml", "sam2_hiera_large.pt")`
   },
@@ -313,7 +313,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "Common Voice WER", score: "4.2%", value: 95.8, max: 100, color: "#10B981" },
       { name: "FLEURS Multilingual WER", score: "7.8%", value: 92.2, max: 100, color: "#3B82F6" },
-      { name: "Accented English Accuracy", score: "93.1%", value: 93.1, max: 100, color: "#F55036" },
+      { name: "Accented English Accuracy", score: "93.1%", value: 93.1, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `import whisper\n\nmodel = whisper.load_model("large-v3")\nresult = model.transcribe("audio_sample.wav")\nprint(result["text"])`
   },
@@ -333,7 +333,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "MMLU", score: "88.5%", value: 88.5, max: 100, color: "#10B981" },
       { name: "HumanEval Code", score: "89.1%", value: 89.1, max: 100, color: "#3B82F6" },
-      { name: "MATH-500", score: "90.2%", value: 90.2, max: 100, color: "#F55036" },
+      { name: "MATH-500", score: "90.2%", value: 90.2, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI(api_key="YOUR_KEY", base_url="https://api.deepseek.com")\nres = client.chat.completions.create(model="deepseek-chat", messages=[{"role": "user", "content": "Explain Multi-Head Latent Attention."}])`
   },
@@ -353,7 +353,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "Prompt Adherence Score", score: "88.4%", value: 88.4, max: 100, color: "#10B981" },
       { name: "Visual Aesthetics Preference", score: "81.9%", value: 81.9, max: 100, color: "#8B5CF6" },
-      { name: "Typography Rendering", score: "84.2%", value: 84.2, max: 100, color: "#F55036" },
+      { name: "Typography Rendering", score: "84.2%", value: 84.2, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `import torch\nfrom diffusers import StableDiffusion3Pipeline\n\npipe = StableDiffusion3Pipeline.from_pretrained("stabilityai/stable-diffusion-3.5-large", torch_dtype=torch.bfloat16)`
   },
@@ -371,7 +371,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Reasoning"],
     paperCount: 310,
     benchmarks: [
-      { name: "AIME 2024 Math", score: "87.5%", value: 87.5, max: 100, color: "#F55036" },
+      { name: "AIME 2024 Math", score: "87.5%", value: 87.5, max: 100, color: "#FF5A1F" },
       { name: "SWE-bench Verified", score: "49.2%", value: 49.2, max: 100, color: "#3B82F6" },
       { name: "GPQA Diamond", score: "79.8%", value: 79.8, max: 100, color: "#10B981" },
     ],
@@ -391,7 +391,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Reasoning"],
     paperCount: 385,
     benchmarks: [
-      { name: "Codeforces Rating", score: "89th Percentile", value: 89, max: 100, color: "#F55036" },
+      { name: "Codeforces Rating", score: "89th Percentile", value: 89, max: 100, color: "#FF5A1F" },
       { name: "GPQA Diamond", score: "78.3%", value: 78.3, max: 100, color: "#10B981" },
       { name: "MATH-500", score: "96.4%", value: 96.4, max: 100, color: "#3B82F6" },
     ],
@@ -413,7 +413,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "MMLU-Pro", score: "89.1%", value: 89.1, max: 100, color: "#10B981" },
       { name: "HumanEval Code", score: "92.4%", value: 92.4, max: 100, color: "#3B82F6" },
-      { name: "IFEval Instruction", score: "88.7%", value: 88.7, max: 100, color: "#F55036" },
+      { name: "IFEval Instruction", score: "88.7%", value: 88.7, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI()\nres = client.chat.completions.create(\n  model="gpt-4.5-preview",\n  messages=[{"role": "user", "content": "Analyze the geopolitical implications of clean energy transitions."}]\n)`
   },
@@ -433,7 +433,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "MMLU", score: "86.5%", value: 86.5, max: 100, color: "#10B981" },
       { name: "HumanEval", score: "88.2%", value: 88.2, max: 100, color: "#3B82F6" },
-      { name: "DROP Reading", score: "83.4%", value: 83.4, max: 100, color: "#F55036" },
+      { name: "DROP Reading", score: "83.4%", value: 83.4, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI()\nres = client.chat.completions.create(model="gpt-4-turbo", response_format={"type": "json_object"}, messages=[{"role": "user", "content": "Return summary as JSON."}])`
   },
@@ -453,7 +453,7 @@ const mockModels: ModelItem[] = [
     benchmarks: [
       { name: "MMLU", score: "82.0%", value: 82.0, max: 100, color: "#10B981" },
       { name: "MGSM Math", score: "87.0%", value: 87.0, max: 100, color: "#3B82F6" },
-      { name: "MMMU Multimodal", score: "59.4%", value: 59.4, max: 100, color: "#F55036" },
+      { name: "MMMU Multimodal", score: "59.4%", value: 59.4, max: 100, color: "#FF5A1F" },
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI()\nres = client.chat.completions.create(model="gpt-4o-mini", messages=[{"role": "user", "content": "Extract items from this receipt image."}])`
   },
@@ -471,7 +471,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Reasoning"],
     paperCount: 180,
     benchmarks: [
-      { name: "AIME 2024", score: "83.3%", value: 83.3, max: 100, color: "#F55036" },
+      { name: "AIME 2024", score: "83.3%", value: 83.3, max: 100, color: "#FF5A1F" },
       { name: "GPQA Diamond", score: "77.3%", value: 77.3, max: 100, color: "#10B981" },
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI()\nres = client.chat.completions.create(model="o1-preview", messages=[{"role": "user", "content": "Solve this olympiad geometry problem."}])`
@@ -490,7 +490,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Agentic Coding"],
     paperCount: 410,
     benchmarks: [
-      { name: "SWE-bench Verified", score: "49.0%", value: 49.0, max: 100, color: "#F55036" },
+      { name: "SWE-bench Verified", score: "49.0%", value: 49.0, max: 100, color: "#FF5A1F" },
       { name: "TAU-bench Retail", score: "69.2%", value: 69.2, max: 100, color: "#10B981" },
       { name: "GPQA Diamond", score: "65.0%", value: 65.0, max: 100, color: "#3B82F6" },
     ],
@@ -529,7 +529,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Reasoning"],
     paperCount: 215,
     benchmarks: [
-      { name: "AIME 2024 Math", score: "79.4%", value: 79.4, max: 100, color: "#F55036" },
+      { name: "AIME 2024 Math", score: "79.4%", value: 79.4, max: 100, color: "#FF5A1F" },
       { name: "MATH-500", score: "93.8%", value: 93.8, max: 100, color: "#10B981" },
     ],
     quickstart: `from google import genai\n\nclient = genai.Client()\nresponse = client.models.generate_content(model="gemini-2.0-flash-thinking-exp", contents="Explain Fermat's Last Theorem intuition.")`
@@ -606,7 +606,7 @@ const mockModels: ModelItem[] = [
     paperCount: 510,
     benchmarks: [
       { name: "MMLU-Pro", score: "93.8%", value: 93.8, max: 100, color: "#10B981" },
-      { name: "SWE-bench Verified", score: "68.5%", value: 68.5, max: 100, color: "#F55036" }
+      { name: "SWE-bench Verified", score: "68.5%", value: 68.5, max: 100, color: "#FF5A1F" }
     ],
     quickstart: `from openai import OpenAI\n\nclient = OpenAI()\nres = client.chat.completions.create(model="gpt-5", messages=[{"role": "user", "content": "Architect a distributed consensus engine."}])`,
     modelFamily: "GPT",
@@ -647,7 +647,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Agentic Coding"],
     paperCount: 440,
     benchmarks: [
-      { name: "SWE-bench Verified", score: "65.4%", value: 65.4, max: 100, color: "#F55036" },
+      { name: "SWE-bench Verified", score: "65.4%", value: 65.4, max: 100, color: "#FF5A1F" },
       { name: "MMLU", score: "91.0%", value: 91.0, max: 100, color: "#10B981" }
     ],
     quickstart: `import anthropic\n\nclient = anthropic.Anthropic()\nres = client.messages.create(model="claude-5-sonnet-2025", max_tokens=2048, messages=[{"role": "user", "content": "Refactor and verify unit tests."}])`,
@@ -809,7 +809,7 @@ const mockModels: ModelItem[] = [
     researchAreas: ["Reasoning"],
     paperCount: 260,
     benchmarks: [
-      { name: "AIME Math", score: "86.5%", value: 86.5, max: 100, color: "#F55036" }
+      { name: "AIME Math", score: "86.5%", value: 86.5, max: 100, color: "#FF5A1F" }
     ],
     quickstart: `curl -X POST https://api.x.ai/v1/chat/completions -H "Authorization: Bearer $KEY" -d '{"model": "grok-4", "messages": [{"role": "user", "content": "Simulate quantum circuit."}]}'`,
     modelFamily: "Grok",

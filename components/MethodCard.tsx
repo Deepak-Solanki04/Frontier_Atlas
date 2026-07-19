@@ -358,7 +358,7 @@ const colorMap: Record<string, string> = {
   "scientific ai": "#8B5CF6",
 
   // Foundation Models
-  "large language models": "#E11D48",
+  "large language models": "#FF5A1F",
   "small language models": "#0284C7",
   "vision-language models": "#16A34A",
   "multimodal models": "#EA580C",

@@ -41,7 +41,7 @@ export default function TopicHero({ slug, defaultTitle, defaultDesc }: TopicHero
 
   const benchmarks = isAgents ? [
     {
-      rank: '1', rankBg: '#ffe4e6', rankColor: '#e11d48',
+      rank: '1', rankBg: '#ffe4e6', rankColor: '#FF5A1F',
       iconBg: '#ff4d00',
       iconSvg: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -142,7 +142,7 @@ export default function TopicHero({ slug, defaultTitle, defaultDesc }: TopicHero
     }
   ] : [
     {
-      rank: '1', rankBg: '#ffe4e6', rankColor: '#e11d48',
+      rank: '1', rankBg: '#ffe4e6', rankColor: '#FF5A1F',
       iconBg: '#ff4d00',
       iconSvg: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>,
       name: `${title}Eval`, sub: 'Core Benchmark',

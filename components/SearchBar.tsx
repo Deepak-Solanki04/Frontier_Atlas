@@ -209,7 +209,7 @@ export default function SearchBar({
         {loading && (
           <Loader2
             size={variant === "compact" ? 16 : 18}
-            className="absolute right-10 top-1/2 -translate-y-1/2 text-[#F55036] animate-spin"
+            className="absolute right-10 top-1/2 -translate-y-1/2 text-[#FF5A1F] animate-spin"
           />
         )}
 

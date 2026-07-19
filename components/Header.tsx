@@ -78,8 +78,8 @@ export default function Header() {
           data-text="Tasks"
           className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/tasks')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#FF5A1F] font-bold'
+              : 'text-[#555555] font-medium hover:text-[#FF5A1F]'
           }`}
         >
           Tasks
@@ -89,8 +89,8 @@ export default function Header() {
           data-text="Methods"
           className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/methods')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#FF5A1F] font-bold'
+              : 'text-[#555555] font-medium hover:text-[#FF5A1F]'
           }`}
         >
           Methods
@@ -100,8 +100,8 @@ export default function Header() {
           data-text="Benchmarks"
           className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/benchmarks')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#FF5A1F] font-bold'
+              : 'text-[#555555] font-medium hover:text-[#FF5A1F]'
           }`}
         >
           Benchmarks
@@ -111,8 +111,8 @@ export default function Header() {
           data-text="Models"
           className={`text-[13px] transition-colors no-underline before:content-[attr(data-text)] before:block before:font-bold before:h-0 before:overflow-hidden before:invisible before:select-none text-center flex flex-col justify-center ${
             pathname.startsWith('/models')
-              ? 'text-[#F55036] font-bold'
-              : 'text-[#555555] font-medium hover:text-[#F55036]'
+              ? 'text-[#FF5A1F] font-bold'
+              : 'text-[#555555] font-medium hover:text-[#FF5A1F]'
           }`}
         >
           Models
@@ -120,7 +120,7 @@ export default function Header() {
       </div>
 
       <div className="hidden xl:flex items-center gap-4 border-l border-[#E5E5E0] pl-4 shrink-0">
-        <div className="w-10 h-10 rounded-full bg-[#F55036] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(245,80,54,0.20)] hover:-translate-y-px active:scale-95">
+        <div className="w-10 h-10 rounded-full bg-[#FF5A1F] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(255, 90, 31,0.20)] hover:-translate-y-px active:scale-95">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>
@@ -129,7 +129,7 @@ export default function Header() {
       </div>
 
       <div className="flex xl:hidden items-center shrink-0">
-        <div className="w-10 h-10 rounded-full bg-[#F55036] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(245,80,54,0.20)] hover:-translate-y-px active:scale-95">
+        <div className="w-10 h-10 rounded-full bg-[#FF5A1F] flex items-center justify-center cursor-pointer hover:bg-[#E0462D] transition-colors shadow-sm hover:shadow-[0_0_0_3px_rgba(255, 90, 31,0.20)] hover:-translate-y-px active:scale-95">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
             <circle cx="12" cy="7" r="4"></circle>

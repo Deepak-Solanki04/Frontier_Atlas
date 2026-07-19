@@ -112,7 +112,7 @@ function getOrgLogo(orgOrLeader: string): string {
 
 function getSkeletalIcon(index: number, name: string = "") {
   const icons = [
-    { Icon: Brain, color: "#e11d48" },
+    { Icon: Brain, color: "#FF5A1F" },
     { Icon: Eye, color: "#0284c7" },
     { Icon: Layers, color: "#16a34a" },
     { Icon: Puzzle, color: "#d97706" },
@@ -127,7 +127,7 @@ function getSkeletalIcon(index: number, name: string = "") {
     { Icon: Activity, color: "#db2777" },
     { Icon: FileText, color: "#16a34a" },
     { Icon: Globe, color: "#0284c7" },
-    { Icon: Bot, color: "#e11d48" },
+    { Icon: Bot, color: "#FF5A1F" },
     { Icon: GitBranch, color: "#d97706" },
     { Icon: BarChart3, color: "#9333ea" },
     { Icon: Radio, color: "#0891b2" },
@@ -137,7 +137,7 @@ function getSkeletalIcon(index: number, name: string = "") {
   ];
   const lower = name.toLowerCase();
   if (lower.includes("vision") || lower.includes("image") || lower.includes("ocr") || lower.includes("sam")) return { Icon: Eye, color: "#0284c7" };
-  if (lower.includes("reasoning") || lower.includes("math") || lower.includes("logic")) return { Icon: Brain, color: "#e11d48" };
+  if (lower.includes("reasoning") || lower.includes("math") || lower.includes("logic")) return { Icon: Brain, color: "#FF5A1F" };
   if (lower.includes("code") || lower.includes("coding")) return { Icon: Code2, color: "#0891b2" };
   if (lower.includes("agent") || lower.includes("robot")) return { Icon: Bot, color: "#9333ea" };
   if (lower.includes("audio") || lower.includes("speech") || lower.includes("whisper")) return { Icon: Mic, color: "#ea580c" };
@@ -463,7 +463,7 @@ function ModelsContent() {
           <section className="mb-16 hidden md:flex">
             <div className="max-w-xl">
               <h1 className="text-[35px] font-extrabold text-[#111827] leading-none">
-                All <span className="text-[#F55036]">Models</span>
+                All <span className="text-[#FF5A1F]">Models</span>
               </h1>
               <p className="mt-5 text-[15.5px] text-gray-600 leading-2 max-w-md">
                 Discover the full landscape of AI foundation models through {facets?.modelFamilies?.length || 0} model families spanning reasoning, vision, code, audio, robotics, healthcare, and more.
@@ -498,7 +498,7 @@ function ModelsContent() {
             <aside className="w-[240px] shrink-0 sticky top-24 h-fit border-r border-[#ececec] pr-6 hidden lg:block" aria-label="Domain navigation">
               <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)] overflow-y-auto">
                 <div className="px-4 pt-6 pb-4">
-                  <h3 className="text-[15px] font-semibold uppercase text-[#e11d48] mb-3">Browse Models</h3>
+                  <h3 className="text-[15px] font-semibold uppercase text-[#FF5A1F] mb-3">Browse Models</h3>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
@@ -538,7 +538,7 @@ function ModelsContent() {
                               const el = document.getElementById(item.id);
                               if (el) el.scrollIntoView({ behavior: "smooth" });
                             }}
-                            className={`block w-full text-left text-[15px] transition-colors mb-3 ${isActive ? 'text-[#F55036] font-bold' : 'text-[#555] hover:text-[#F55036]'}`}
+                            className={`block w-full text-left text-[15px] transition-colors mb-3 ${isActive ? 'text-[#FF5A1F] font-bold' : 'text-[#555] hover:text-[#FF5A1F]'}`}
                           >
                             {item.label}
                           </button>
@@ -588,7 +588,7 @@ function ModelsContent() {
                       <div
                         key={cap.name}
                         onClick={() => handleCapabilityClick(cap.name)}
-                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
@@ -625,7 +625,7 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -666,7 +666,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -680,7 +680,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     <SkeletalIcon size={20} style={{ color: strokeColor }} />
   )}
 </div>
-                          <h3 className={`text-[15.5px] font-medium leading-5 ${isActive ? "text-[#F55036] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
+                          <h3 className={`text-[15.5px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
                         </div>
                         <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
                       </div>
@@ -705,7 +705,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#F55036] shadow-[0_0_0_1px_#F55036] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">

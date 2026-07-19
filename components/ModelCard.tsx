@@ -16,14 +16,14 @@ export default function ModelCard({
         <div className="font-mono text-[10px] uppercase tracking-wider text-[#8B8B8B] mb-2 flex items-center justify-between">
           <span>{model.org}</span>
           {model.elo && (
-            <span className="text-[#F55036] font-semibold">ELO {model.elo}</span>
+            <span className="text-[#FF5A1F] font-semibold">ELO {model.elo}</span>
           )}
         </div>
 
         {/* Serif Title */}
         <Link href={`/models/${model.id}`}>
           <h3
-            className="text-[22px] font-medium text-[#111111] leading-tight mb-2.5 group-hover:text-[#F55036] transition-colors"
+            className="text-[22px] font-medium text-[#111111] leading-tight mb-2.5 group-hover:text-[#FF5A1F] transition-colors"
             style={{ fontFamily: "'EB Garamond', 'Iowan Old Style', Palatino, Georgia, serif" }}
           >
             {model.name}
@@ -63,7 +63,7 @@ export default function ModelCard({
 
         <button
           onClick={() => onInspect(model)}
-          className="font-mono text-[11px] text-[#111111] hover:text-[#F55036] font-semibold uppercase tracking-wider underline underline-offset-4"
+          className="font-mono text-[11px] text-[#111111] hover:text-[#FF5A1F] font-semibold uppercase tracking-wider underline underline-offset-4"
         >
           Inspect -&gt;
         </button>
