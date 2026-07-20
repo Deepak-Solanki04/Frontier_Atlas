@@ -7,7 +7,7 @@ import {
   Share2, Sparkles, BookOpen, Terminal, FileText, Award, Zap, ShieldCheck, 
   Eye, Activity, Box, Sliders, Info, ChevronRight, Play, RefreshCw, BarChart3, Database
 } from "lucide-react";
-import { getModelById, getAllModelIds, type ModelItem } from "@/lib/models";
+import { getModels, type ModelItem } from "@/lib/models";
 import PaperCard from "@/components/PaperCard";
 import { topicData } from "@/data/topicData";
 
@@ -36,9 +36,19 @@ export default function ModelDetailPage({
 
   useEffect(() => {
     if (resolvedParams?.slug) {
-      const found = getModelById(resolvedParams.slug);
-      setModel(found || null);
-      setLoading(false);
+      const cleanId = resolvedParams.slug.toLowerCase().trim();
+      getModels().then(allModels => {
+        const found = allModels.find(
+          (m) =>
+            m.id.toLowerCase() === cleanId ||
+            m.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") === cleanId
+        );
+        setModel(found || null);
+        setLoading(false);
+      }).catch(err => {
+        console.error("Failed to load model:", err);
+        setLoading(false);
+      });
     }
   }, [resolvedParams?.slug]);
 
