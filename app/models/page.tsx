@@ -163,7 +163,7 @@ function ModelsContent() {
   const [selectedFamily, setSelectedFamily] = useState<string | null>(null);
   const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [inspectedModel, setInspectedModel] = useState<ModelItem | null>(null);
+
   const [copied, setCopied] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
@@ -736,7 +736,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                     return (
                       <div
                         key={m.id}
-                        onClick={() => setInspectedModel(m)}
+                        onClick={() => router.push('/models/' + m.id)}
                         className="bg-white rounded-[12px] border border-[#F0F0F0] p-5 min-h-[149.5px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
                       >
                         <div className="flex items-start gap-4">
@@ -790,7 +790,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                 </thead>
                 <tbody>
                   {filteredRecentlyReleasedTable.map((model, idx) => (
-                    <tr key={model.id} onClick={() => setInspectedModel(model)} style={{ borderBottom: "1px solid #EAE9E4", cursor: "pointer", transition: "background 0.15s ease" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}>
+                    <tr key={model.id} onClick={() => router.push('/models/' + model.id)} style={{ borderBottom: "1px solid #EAE9E4", cursor: "pointer", transition: "background 0.15s ease" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}>
                       <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", fontWeight: 400, color: "#8B8B8B", width: "1%", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3", paddingRight: "12px" }}>{(idx + 1).toString().padStart(3, "0")}</td>
                       <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "12.5px", color: "#111111", minWidth: "160px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "12px", paddingRight: "8px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -896,7 +896,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               <button
                 onClick={() => {
                   const match = allModels.find(x => x.name.toLowerCase() === topModelForSelection.name.toLowerCase() || x.name.toLowerCase().includes(topModelForSelection.name.toLowerCase()));
-                  if (match) setInspectedModel(match);
+                  if (match) router.push('/models/' + match.id);
                 }}
                 style={{ padding: "10px 20px", background: "#111111", color: "#ffffff", borderRadius: "2px", fontWeight: 400, fontSize: "13px", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px" }}
               >
@@ -937,7 +937,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                 </thead>
                 <tbody>
                   {filteredCatalogModels.map((model, idx) => (
-                    <tr key={model.id} onClick={() => setInspectedModel(model)} style={{ borderBottom: "1px solid #EAE9E4", cursor: "pointer", transition: "background 0.15s ease" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}>
+                    <tr key={model.id} onClick={() => router.push('/models/' + model.id)} style={{ borderBottom: "1px solid #EAE9E4", cursor: "pointer", transition: "background 0.15s ease" }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FFF8F6"; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}>
                       <td style={{ padding: "12px 12px", fontFamily: "monospace", fontSize: "11px", fontWeight: 400, color: "#8B8B8B", width: "1%", whiteSpace: "nowrap", verticalAlign: "middle", lineHeight: "1.3", paddingRight: "12px" }}>{(idx + 1).toString().padStart(3, "0")}</td>
                       <td style={{ padding: "12px 12px", fontWeight: 400, fontSize: "12.5px", color: "#111111", minWidth: "160px", whiteSpace: "nowrap", wordBreak: "normal", verticalAlign: "middle", lineHeight: "1.3", paddingLeft: "12px", paddingRight: "8px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -974,104 +974,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
           </div>
         </div>
 
-      {/* INSPECT MODEL SLIDE-OVER MODAL */}
-      {inspectedModel && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999, display: "flex", alignItems: "center", justifyContent: "flex-end", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)" }}>
-          <div style={{ background: "#ffffff", width: "100%", maxWidth: "660px", height: "100%", overflowY: "auto", padding: "32px", boxShadow: "-10px 0 30px rgba(0,0,0,0.15)", display: "flex", flexDirection: "column", justifyContent: "space-between", borderLeft: "1px solid var(--border)" }}>
-            <div>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: "16px", borderBottom: "1px solid var(--border)", marginBottom: "24px" }}>
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", padding: "4px 10px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5" }}>
-                      {inspectedModel.vendor}
-                    </span>
-                    {inspectedModel.modelFamily && (
-                      <span style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", padding: "4px 10px", background: "#F8F7F2", color: "#333333", borderRadius: "2px", border: "1px solid var(--border)" }}>
-                        Family: {inspectedModel.modelFamily}
-                      </span>
-                    )}
-                  </div>
-                  <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#111111", marginTop: "8px" }}>
-                    {inspectedModel.name}
-                  </h2>
-                </div>
-                <button
-                  onClick={() => setInspectedModel(null)}
-                  style={{ width: "40px", height: "40px", borderRadius: "2px", background: "#F8F7F2", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", color: "#555555", cursor: "pointer" }}
-                >
-                  <X size={20} />
-                </button>
-              </div>
 
-              {inspectedModel.description && (
-                <p style={{ fontSize: "15px", color: "#555555", fontWeight: 500, lineHeight: "1.6", marginBottom: "24px" }}>
-                  {inspectedModel.description}
-                </p>
-              )}
-
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "24px", background: "#F8F7F2", padding: "16px", borderRadius: "2px", border: "1px solid var(--border)", fontSize: "12px" }}>
-                <div>
-                  <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Architecture</span>
-                  <span style={{ fontWeight: 800, color: "#111111" }}>{inspectedModel.parameterCount || inspectedModel.architecture}</span>
-                </div>
-                <div>
-                  <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Context</span>
-                  <span style={{ fontWeight: 800, color: "#111111" }}>{inspectedModel.contextWindow}</span>
-                </div>
-                <div>
-                  <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Elo / SOTA</span>
-                  <span style={{ fontWeight: 800, color: "#16A34A" }}>{inspectedModel.trendingScore ? `⚡ ${inspectedModel.trendingScore}` : ''}</span>
-                </div>
-                <div>
-                  <span style={{ fontSize: "10px", fontWeight: 800, textTransform: "uppercase", color: "#8B8B8B", display: "block", marginBottom: "4px" }}>Citations</span>
-                  <span style={{ fontWeight: 800, color: "#111111" }}>{inspectedModel.paperCount}</span>
-                </div>
-              </div>
-
-              {inspectedModel.benchmarkScore && Object.keys(inspectedModel.benchmarkScore).length > 0 && (
-                <div style={{ marginBottom: "24px" }}>
-                  <h3 style={{ fontSize: "14px", fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.5px", color: "#111111", marginBottom: "12px", display: "flex", alignItems: "center", gap: "8px" }}>
-                    <Trophy size={16} style={{ color: "#FF5A1F" }} />
-                    <span>Verified Academic Benchmarks</span>
-                  </h3>
-                  <div style={{ background: "#F8F7F2", borderRadius: "2px", padding: "16px", border: "1px solid var(--border)", display: "flex", flexDirection: "column", gap: "14px" }}>
-                    {Object.entries(inspectedModel.benchmarkScore).map(([name, value], i) => (
-                      <div key={i}>
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "13px", fontWeight: 700, marginBottom: "4px" }}>
-                          <span style={{ color: "#333333" }}>{name}</span>
-                          <span style={{ color: "#111111", fontWeight: 900 }}>{value}%</span>
-                        </div>
-                        <div style={{ width: "100%", background: "#E5E5E0", height: "8px", borderRadius: "2px", overflow: "hidden" }}>
-                          <div
-                            style={{ height: "100%", borderRadius: "2px", width: `${Math.min(value, 100)}%`, backgroundColor: "#FF5A1F" }}
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-            </div>
-
-            <div style={{ paddingTop: "24px", borderTop: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <Link
-                href={`/models/${inspectedModel.slug}`}
-                style={{ padding: "10px 20px", background: "#FF5A1F", color: "#ffffff", borderRadius: "2px", fontWeight: 800, fontSize: "13px", textDecoration: "none", display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                <span>View Full Model Detail Page</span>
-                <ExternalLink size={14} />
-              </Link>
-              <button
-                onClick={() => setInspectedModel(null)}
-                style={{ padding: "10px 20px", background: "#F8F7F2", color: "#111111", borderRadius: "2px", fontWeight: 700, fontSize: "13px", border: "1px solid var(--border)", cursor: "pointer" }}
-              >
-                Close Panel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
