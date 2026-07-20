@@ -205,7 +205,7 @@ export default function ModelDetailPage({
           <div className="flex items-center gap-3">
             <button onClick={handleShare} className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[#555555] hover:text-[#111111] transition-colors text-[13px] font-semibold">
               <Share2 size={15} />
-              <span>{shareCopied ? "Link Copied!" : "Share Profile"}</span>
+              <span className="hidden sm:inline">{shareCopied ? "Link Copied!" : "Share Profile"}</span>
             </button>
             
             <Link href="/trending" className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-[13px] font-bold no-underline">
@@ -476,7 +476,7 @@ export default function ModelDetailPage({
               </div>
 
               {/* Language Switcher */}
-              <div className="flex items-center bg-[#EAE9E4] p-1 rounded-[8px]">
+              <div className="flex items-center bg-[#EAE9E4] p-1 rounded-[8px] overflow-x-auto w-full md:w-auto">
                 {(["python", "typescript", "curl", "ollama"] as const).map((lang) => (
                   <button
                     key={lang}
@@ -584,8 +584,8 @@ export default function ModelDetailPage({
             </div>
 
             {/* Bottom API Quick Specs */}
-            <div className="bg-[#1A1A1A] px-5 py-3 flex items-center justify-between border-t border-[#333333]">
-              <div className="flex items-center gap-4 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex-wrap">
+            <div className="bg-[#1A1A1A] px-5 py-3 flex flex-col md:flex-row md:items-center justify-between gap-3 border-t border-[#333333]">
+              <div className="flex flex-wrap items-center gap-2 md:gap-4 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">
                 <span>API Endpoint: <strong className="text-white">api.anthropic.com/v1/messages</strong></span>
                 <span className="text-[#333333]">•</span>
                 <span>Context Window: <strong className="text-[#FF5A1F]">{model.context || "200k tokens"}</strong></span>
