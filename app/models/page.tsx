@@ -458,7 +458,7 @@ function ModelsContent() {
       }}
     >
       <div className="w-full max-w-[1600px] mx-auto px-[44px] md:px-[90px] xl:px-[170px] pt-[28px] pb-16">
-        <nav className="flex items-center gap-2 text-[13px] text-[#8B8B8B] mb-6">
+        <nav className="flex items-center gap-2 text-[13.5px] text-[#8B8B8B] mb-6">
           <Link href="/" className="hover:text-[#FF5A1F] transition-colors no-underline">
             Home
           </Link>
@@ -472,7 +472,7 @@ function ModelsContent() {
               <h1 className="text-[35px] font-extrabold text-[#111827] leading-none">
                 All <span className="text-[#FF5A1F]">Models</span>
               </h1>
-              <p className="mt-5 text-[15px] text-gray-600 leading-2 max-w-md">
+              <p className="mt-5 text-[15.5px] text-gray-600 leading-2 max-w-md">
                 Discover the full landscape of AI foundation models through {facets?.modelFamilies?.length || 0} model families spanning reasoning, vision, code, audio, robotics, healthcare, and more.
               </p>
               <div className="flex items-center gap-10 mt-4 whitespace-nowrap text-xs md:text-sm">
@@ -505,7 +505,7 @@ function ModelsContent() {
             <aside className="w-[240px] shrink-0 sticky top-24 h-fit border-r border-[#ececec] pr-6 hidden lg:block" aria-label="Domain navigation">
               <div className="sticky top-20 flex flex-col h-[calc(100vh-5rem)] overflow-y-auto">
                 <div className="px-4 pt-6 pb-4">
-                  <h3 className="text-[15px] font-semibold uppercase text-[#FF5A1F] mb-3">Browse Models</h3>
+                  <h3 className="text-[15.5px] font-semibold uppercase text-[#FF5A1F] mb-3">Browse Models</h3>
 
                 </div>
 
@@ -528,7 +528,7 @@ function ModelsContent() {
                               const el = document.getElementById(item.id);
                               if (el) el.scrollIntoView({ behavior: "smooth" });
                             }}
-                            className={`block w-full text-left text-[15px] transition-colors mb-3 ${isActive ? 'text-[#FF5A1F] font-bold' : 'text-[#555] hover:text-[#FF5A1F]'}`}
+                            className={`block w-full text-left text-[15.5px] transition-colors mb-3 ${isActive ? 'text-[#FF5A1F] font-bold' : 'text-[#555] hover:text-[#FF5A1F]'}`}
                           >
                             {item.label}
                           </button>
@@ -568,7 +568,7 @@ function ModelsContent() {
               <section id="section-capability" className="mb-12 scroll-mt-24">
                 <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
                   <h2 className="text-[27px] font-bold text-[#111827]">Browse by Capability</h2>
-                  <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.capabilities?.length} Tasks &amp; Modalities</span>
+                  <span className="models-block-count text-[11.5px] font-normal uppercase tracking-wider text-gray-400">{facets?.capabilities?.length} Tasks &amp; Modalities</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {filteredCapabilities.map((cap, idx) => {
@@ -578,19 +578,19 @@ function ModelsContent() {
                       <div
                         key={cap.name}
                         onClick={() => handleCapabilityClick(cap.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
+                        <div className="flex items-start gap-4">
+                          <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
   {getCardDescription(cap.name)}
 </p>
 
-<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
   {cap.count} Models</span></div>
                       </div>
                     );
@@ -604,7 +604,7 @@ function ModelsContent() {
               <section id="section-family" className="mb-12 scroll-mt-24">
                 <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
                   <h2 className="text-[27px] font-bold text-[#111827]">Browse by Model Family</h2>
-                  <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.modelFamilies?.length} Model Families</span>
+                  <span className="models-block-count text-[11.5px] font-normal uppercase tracking-wider text-gray-400">{facets?.modelFamilies?.length} Model Families</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {filteredModelFamilies.map((fam, idx) => {
@@ -615,22 +615,22 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
+                        <div className="flex items-start gap-4">
+                          <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
                             {familyLogo ? (
                               <img src={familyLogo} alt={fam.name} className="w-[30px] h-[30px] object-contain rounded" />
                             ) : (
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
                           {getCardDescription(fam.name)}
                         </p>
-                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
+                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -643,7 +643,7 @@ function ModelsContent() {
               <section id="section-organization" className="mb-12 scroll-mt-24">
                 <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
                   <h2 className="text-[27px] font-bold text-[#111827]">Browse by Organization</h2>
-                  <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.vendors?.length} Leading Labs</span>
+                  <span className="models-block-count text-[11.5px] font-normal uppercase tracking-wider text-gray-400">{facets?.vendors?.length} Leading Labs</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {filteredVendors.map((v, idx) => {
@@ -659,10 +659,10 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
+                        <div className="flex items-start gap-4">
+                          <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
   {vendorLogo ? (
     <img
       src={vendorLogo}
@@ -673,12 +673,12 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     <SkeletalIcon size={20} style={{ color: strokeColor }} />
   )}
 </div>
-                          <h3 className={`text-[15px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
+                          <h3 className={`text-[15.5px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
                           {getCardDescription(v.name)}
                         </p>
-                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
+                        <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
                       </div>
                     );
                   })}
@@ -691,7 +691,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               <section id="section-research" className="mb-12 scroll-mt-24">
                 <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
                   <h2 className="text-[27px] font-bold text-[#111827]">Browse by Research Area</h2>
-                  <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">{facets?.researchAreas?.length} Modalities &amp; Domains</span>
+                  <span className="models-block-count text-[11.5px] font-normal uppercase tracking-wider text-gray-400">{facets?.researchAreas?.length} Modalities &amp; Domains</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {filteredResearchAreas.map((d, idx) => {
@@ -701,19 +701,19 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-[20px] border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
+                        <div className="flex items-start gap-4">
+                          <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{d.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{d.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
   {getCardDescription(d.name)}
 </p>
 
-<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
+<div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">
   {d.count} Models</span></div>
                       </div>
                     );
@@ -727,7 +727,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
               <section id="section-trending" className="mb-12 scroll-mt-24">
                 <div className="flex items-center justify-between mb-6 border-b border-[#ececec] pb-3">
                   <h2 className="text-[27px] font-bold text-[#111827]">Trending Models</h2>
-                  <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">Most Active in 2025</span>
+                  <span className="models-block-count text-[11.5px] font-normal uppercase tracking-wider text-gray-400">Most Active in 2025</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                   {filteredTrending.map((m, idx) => {
@@ -737,19 +737,19 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={m.id}
                         onClick={() => setInspectedModel(m)}
-                        className="bg-white rounded-md border border-[#ECECEC] p-5 min-h-[150px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
+                        className="bg-white rounded-[20px] border border-[#ECECEC] p-5 min-h-[150px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
                       >
-                        <div className="flex items-center gap-2">
-                          <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
+                        <div className="flex items-start gap-4">
+                          <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
                             {modelLogo ? (
                               <img src={modelLogo} alt={m.name} className="w-[30px] h-[30px] object-contain rounded" />
                             ) : (
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{m.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{m.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
                           {m.description || getCardDescription(m.name)}
                         </p>
                       </div>
@@ -767,7 +767,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
 <Calendar size={22} style={{ color: "#FF5A1F" }} />
 <span>Recently Released</span>
 </h2>
-            <span className="models-block-count text-[11px] font-normal uppercase tracking-wider text-gray-400">Latest Foundation Arrivals</span>
+            <span className="models-block-count text-[11.5px] font-normal uppercase tracking-wider text-gray-400">Latest Foundation Arrivals</span>
           </div>
           <div style={{ background: "#ffffff", border: "1px solid #E5E5E0", borderRadius: "2px", overflow: "hidden", boxShadow: "0 8px 30px rgba(0, 0, 0, 0.04)", padding: "20px 14px" }}>
             <div style={{ overflowX: "auto" }}>
