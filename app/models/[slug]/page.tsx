@@ -218,7 +218,8 @@ export default function ModelDetailPage({
 
       {/* ── HERO SECTION: CLEAN LIGHT CARD ── */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
-        <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-6 md:p-10 shadow-sm relative overflow-hidden">
+        <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-6 md:p-10 shadow-sm relative overflow-hidden flex flex-col md:flex-row gap-8 justify-between">
+          <div className="flex-1">
           
           {/* Top Metadata Strip */}
           <div className="flex flex-wrap items-center justify-between gap-4 mb-6 relative z-10">
@@ -301,8 +302,19 @@ export default function ModelDetailPage({
               </div>
               <span className="text-[11px] font-bold text-[#8B5CF6]"><BookOpen size={12} className="inline mr-1 relative -top-[1px]" /> Indexed in Frontier Repository</span>
             </div>
-
+          
           </div>
+          </div>
+
+          {/* Logo on the Right Side */}
+          {model.vendorLogoUrl && (
+            <div className="hidden md:flex flex-col items-end justify-start shrink-0">
+              <div className="w-24 h-24 rounded-[12px] bg-[#F8F7F2] border border-[#EAE9E4] p-3 flex items-center justify-center">
+                <img src={model.vendorLogoUrl} alt={model.vendor} className="max-w-full max-h-full object-contain" />
+              </div>
+            </div>
+          )}
+
         </div>
       </section>
 

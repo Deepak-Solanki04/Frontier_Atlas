@@ -916,6 +916,7 @@ export async function getModels(): Promise<ModelItem[]> {
       const dbModels: ModelItem[] = rawItems.map((item: any, idx: number) => {
         return enrichModelItem({
           id: item.id || item.slug || `db-model-${idx}`,
+          slug: item.slug,
           name: item.name || item.title || "Foundation Model",
           vendor: item.vendor || item.organization || item.platform || "Open Weights / Research",
           vendorLogoUrl: item.vendorLogoUrl,
