@@ -19,7 +19,7 @@ function getEnrichedAbstract(paper: any): string {
 }
 
 function getSotaRankingHtml(paper: any): string {
-  const badge = '<span style="display: inline-flex; align-items: center; background: var(--brand-orange-light); color: var(--brand-orange); font-weight: 700; font-size: 11px; padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(255, 77, 0, 0.3);">🏆 SOTA Ranking</span>';
+  const badge = '<span class="inline-flex items-center gap-1 bg-[#FFF6F3] text-[#FF5A1F] font-bold text-[11px] px-2 py-0.5 rounded border border-[#FFEDD5] uppercase tracking-wider mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> SOTA Ranking</span>';
   const titleLower = (paper.title || "").toLowerCase();
   
   if (titleLower.includes("lora") || titleLower.includes("qlora") || titleLower.includes("adaptation")) {
@@ -77,28 +77,39 @@ export default function PaperCard({ paper }: { paper: any }) {
   const sotaRankingHtml = getSotaRankingHtml(paper);
 
   return (
-    <article className="paper-card">
+    <article className="bg-white rounded-[12px] border border-[#F0F0F0] p-5 hover:shadow-md transition-shadow mb-4 flex flex-col md:flex-row gap-5">
       {/* Thumbnail */}
-      <Link href="#" className="card-thumb">
-        {paper.thumbnail ? (
-          <img src={paper.thumbnail} alt={paper.title} />
-        ) : (
-          <div className="card-thumb-placeholder" />
-        )}
-      </Link>
+      {paper.thumbnail && (
+        <Link href="#" className="shrink-0">
+          <img 
+            src={paper.thumbnail} 
+            alt={paper.title} 
+            className="w-full md:w-48 h-32 md:h-full max-h-40 object-cover rounded-[8px] bg-[#F8F7F2] border border-[#EAE9E4]"
+          />
+        </Link>
+      )}
 
       {/* Body */}
-      <div className="card-body">
-        <h2 className="card-title">
-          <Link href="#">{paper.title}</Link>
+      <div className="flex-1 min-w-0 flex flex-col">
+        <h2 className="text-xl font-extrabold text-[#111111] leading-snug mb-1 tracking-tight">
+          <Link href="#" className="hover:text-[#FF5A1F] transition-colors no-underline">{paper.title}</Link>
         </h2>
-        <div className="card-meta">{paper.meta}</div>
-        <p className="card-abstract">{enrichedAbstract}</p>
+        
+        <div className="text-[13px] font-medium text-[#555555] mb-3">
+          {paper.meta}
+        </div>
+        
+        <p className="text-[14px] text-[#555555] leading-relaxed mb-4 line-clamp-3">
+          {enrichedAbstract}
+        </p>
 
         {/* SOTA Ranking */}
-        <div className="card-sota-ranking" dangerouslySetInnerHTML={{ __html: sotaRankingHtml }} />
+        <div 
+          className="mb-4 text-[13px] text-[#111111] font-medium leading-relaxed" 
+          dangerouslySetInnerHTML={{ __html: sotaRankingHtml }} 
+        />
 
-        {/* Domain tags (Orange scheme only) */}
+        {/* Domain tags */}
         {(() => {
           const allTags = [
             ...(paper.tagsRow1 || []).map((t: any) => typeof t === 'object' ? t.text : t),
@@ -106,40 +117,42 @@ export default function PaperCard({ paper }: { paper: any }) {
           ].filter((t: string) => t && !t.startsWith('+'));
 
           return allTags.length > 0 ? (
-            <div className="card-tags-row">
+            <div className="flex flex-wrap gap-2 mb-4">
               {allTags.map((tagText: string, i: number) => (
-                <span key={i} className="tag-pill orange-brand">
-                  <span className="tag-dot" />
+                <span key={i} className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[#555555] text-[11px] font-bold uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]" />
                   {tagText}
                 </span>
               ))}
             </div>
           ) : null;
         })()}
-      </div>
 
-      {/* Metrics */}
-      <div className="card-metrics">
-        {paper.metrics?.map((metric: any, i: number) => {
-          const isUpvote = metric.icon === '↑' || metric.label === 'Upvotes';
-          return (
-            <div key={i} className="metric-item">
-              <div className="metric-icon">
-                {metric.icon === '↑' ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff4d00" strokeWidth="2.5"><polyline points="18 15 12 9 6 15"/></svg>
-                ) : metric.icon === 'github' ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#374151"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-                ) : metric.icon === 'chat' ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#6b7280"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                ) : null}
-                <span className={`metric-value ${isUpvote ? 'orange-brand-text' : ''}`}>{metric.value}</span>
+        {/* Metrics */}
+        <div className="flex flex-wrap items-center gap-6 mt-auto pt-4 border-t border-[#F0F0F0]">
+          {paper.metrics?.map((metric: any, i: number) => {
+            const isUpvote = metric.icon === '↑' || metric.label === 'Upvotes';
+            return (
+              <div key={i} className="flex items-center gap-2">
+                <div className={`flex items-center justify-center ${isUpvote ? 'text-[#FF5A1F]' : 'text-[#8B8B8B]'}`}>
+                  {metric.icon === '↑' ? (
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                  ) : metric.icon === 'github' ? (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                  ) : metric.icon === 'chat' ? (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  ) : null}
+                </div>
+                <div className="flex flex-col">
+                  <span className={`text-[13px] font-extrabold leading-none ${isUpvote ? 'text-[#FF5A1F]' : 'text-[#111111]'}`}>{metric.value}</span>
+                  {metric.label && <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-widest mt-0.5">{metric.label}</span>}
+                </div>
               </div>
-              <span className="metric-label">{metric.label}</span>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
 
+      </div>
     </article>
   );
 }
