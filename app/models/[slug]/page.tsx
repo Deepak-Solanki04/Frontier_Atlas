@@ -6,6 +6,7 @@ import {
   Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, ArrowLeft, 
   Share2, Sparkles, BookOpen, Terminal, FileText, Award, Zap, ShieldCheck, 
   Eye, Activity, Box, Sliders, Info, ChevronRight, Play, RefreshCw, BarChart3, Database
+  Brain, Wrench, Link2
 } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
 import PaperCard from "@/components/PaperCard";
@@ -169,7 +170,7 @@ export default function ModelDetailPage({
           <div className="w-16 h-16 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mx-auto mb-5 border border-[#FFEDD5]">
             <Sparkles size={32} />
           </div>
-          <h1 className="text-2xl font-black text-[#111111] mb-3 tracking-tight">Model Profile Not Found</h1>
+          <h1 className="text-2xl font-extrabold text-[#111111] mb-3 tracking-tight">Model Profile Not Found</h1>
           <p className="text-base text-[#555555] mb-8 leading-relaxed font-medium">
             We couldn&apos;t find an indexed AI foundation model matching <code className="bg-[#F8F7F2] border border-[#EAE9E4] px-2 py-1 rounded text-[#FF5A1F] text-[13px] font-bold mx-1">{resolvedParams.slug}</code>.
           </p>
@@ -245,7 +246,7 @@ export default function ModelDetailPage({
             </div>
 
             {model.elo && (
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-black uppercase tracking-wider shadow-sm">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-sm">
                 <Zap size={13} style={{ fill: "#ffffff" }} />
                 <span>GLOBAL ELO RATING: {model.elo}</span>
               </div>
@@ -253,7 +254,7 @@ export default function ModelDetailPage({
           </div>
 
           {/* Title & Core Summary */}
-          <h1 className="text-3xl md:text-5xl font-black text-[#111111] tracking-tight mb-4 relative z-10">
+          <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] tracking-tight mb-4 relative z-10">
             {model.name}
           </h1>
           <p className="text-[#555555] text-lg max-w-3xl leading-relaxed mb-10 relative z-10 font-medium">
@@ -265,46 +266,46 @@ export default function ModelDetailPage({
             
             <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Architecture Specs</span>
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Architecture Specs</span>
                 <Cpu size={16} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-lg font-black text-[#111111] mb-1">
+              <div className="text-lg font-extrabold text-[#111111] mb-1">
                 {model.parameterCount || "Dense / MoE 180B"}
               </div>
-              <span className="text-[11px] font-bold text-[#10B981]">✓ High-Density Mixture-of-Experts</span>
+              <span className="text-[11px] font-bold text-[#10B981]"><Check size={12} className="inline mr-1 relative -top-[1px]" /> High-Density Mixture-of-Experts</span>
             </div>
 
             <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Context Capacity</span>
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Context Capacity</span>
                 <Box size={16} className="text-[#3B82F6]" />
               </div>
-              <div className="text-lg font-black text-[#111111] mb-1">
+              <div className="text-lg font-extrabold text-[#111111] mb-1">
                 {model.context || "200,000 Tokens"}
               </div>
-              <span className="text-[11px] font-bold text-[#3B82F6]">✓ Native Prompt Caching Supported</span>
+              <span className="text-[11px] font-bold text-[#3B82F6]"><Check size={12} className="inline mr-1 relative -top-[1px]" /> Native Prompt Caching Supported</span>
             </div>
 
             <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Primary Specialization</span>
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Primary Specialization</span>
                 <Activity size={16} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-lg font-black text-[#111111] mb-1">
+              <div className="text-lg font-extrabold text-[#111111] mb-1">
                 {model.area}
               </div>
-              <span className="text-[11px] font-bold text-[#A8A39E]">⚡ Instantaneous vs Extended CoT</span>
+              <span className="text-[11px] font-bold text-[#A8A39E]"><Activity size={12} className="inline mr-1 relative -top-[1px]" /> Instantaneous vs Extended CoT</span>
             </div>
 
             <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Literature Citations</span>
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Literature Citations</span>
                 <BookOpen size={16} className="text-[#8B5CF6]" />
               </div>
-              <div className="text-lg font-black text-[#111111] mb-1">
+              <div className="text-lg font-extrabold text-[#111111] mb-1">
                 {model.paperCount} Verified Papers
               </div>
-              <span className="text-[11px] font-bold text-[#8B5CF6]">📚 Indexed in Frontier Repository</span>
+              <span className="text-[11px] font-bold text-[#8B5CF6]"><BookOpen size={12} className="inline mr-1 relative -top-[1px]" /> Indexed in Frontier Repository</span>
             </div>
 
           </div>
@@ -332,7 +333,7 @@ export default function ModelDetailPage({
           >
             <Terminal size={16} className={activeTab === "workbench" ? "text-[#10B981]" : ""} />
             <span>Interactive SDK Workbench</span>
-            <span className={`ml-1 px-2 py-0.5 rounded text-xs font-black ${activeTab === "workbench" ? "bg-[#10B981] text-white" : "bg-[#F8F7F2] text-[#555555] border border-[#EAE9E4]"}`}>
+            <span className={`ml-1 px-2 py-0.5 rounded text-xs font-extrabold ${activeTab === "workbench" ? "bg-[#10B981] text-white" : "bg-[#F8F7F2] text-[#555555] border border-[#EAE9E4]"}`}>
               LIVE
             </span>
           </button>
@@ -372,7 +373,7 @@ export default function ModelDetailPage({
                 <BarChart3 size={24} />
               </div>
               <div>
-                <h2 className="text-xl font-black text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
+                <h2 className="text-xl font-extrabold text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
                 <p className="text-sm font-medium text-[#555555]">Official verified evaluations vs baseline human expert threshold</p>
               </div>
             </div>
@@ -382,13 +383,13 @@ export default function ModelDetailPage({
                 onClick={() => setEvalMode("standard")}
                 className={`px-4 py-2 rounded-[6px] text-[13px] font-bold transition-all ${evalMode === "standard" ? "bg-white shadow-sm text-[#111111] border border-[#EAE9E4]" : "text-[#8B8B8B] hover:text-[#555555] border border-transparent"}`}
               >
-                📊 Standard Matrix
+                <BarChart3 size={14} className="inline mr-1.5 relative -top-[1px]" /> Standard Matrix
               </button>
               <button
                 onClick={() => setEvalMode("human")}
                 className={`px-4 py-2 rounded-[6px] text-[13px] font-bold transition-all ${evalMode === "human" ? "bg-white shadow-sm text-[#16A34A] border border-[#EAE9E4]" : "text-[#8B8B8B] hover:text-[#555555] border border-transparent"}`}
               >
-                ⚖️ Human Baseline
+                <Zap size={14} className="inline mr-1.5 relative -top-[1px]" /> Human Baseline
               </button>
             </div>
           </div>
@@ -407,13 +408,13 @@ export default function ModelDetailPage({
                         <div>
                           <div className="flex items-center gap-2 mb-1">
                             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
-                            <span className="text-base font-black text-[#111111] tracking-tight">{bm.name}</span>
+                            <span className="text-base font-extrabold text-[#111111] tracking-tight">{bm.name}</span>
                           </div>
                           <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Peer-Reviewed Verification Suite</span>
                         </div>
                         
                         <div className="flex flex-col items-end">
-                          <span className="text-xl font-black text-[#111111] tracking-tighter">{bm.score}</span>
+                          <span className="text-xl font-extrabold text-[#111111] tracking-tighter">{bm.score}</span>
                           <span className="text-[11px] font-bold text-[#10B981] bg-[#ECFDF5] px-1.5 py-0.5 rounded">Top 0.8% Global</span>
                         </div>
                       </div>
@@ -442,7 +443,7 @@ export default function ModelDetailPage({
                               style={{ left: `${humanBaseline}%` }}
                               title={`Human Expert Baseline: ${humanBaseline}%`}
                             >
-                              <span className="absolute -top-[20px] -translate-x-1/2 whitespace-nowrap text-[9px] font-black text-[#111111] uppercase tracking-wider">
+                              <span className="absolute -top-[20px] -translate-x-1/2 whitespace-nowrap text-[9px] font-extrabold text-[#111111] uppercase tracking-wider">
                                 Human: {humanBaseline}%
                               </span>
                             </div>
@@ -489,7 +490,7 @@ export default function ModelDetailPage({
                   <Terminal size={24} />
                 </div>
                 <div>
-                  <h2 className="text-lg font-black text-[#111111] mb-1">Interactive SDK Workbench</h2>
+                  <h2 className="text-lg font-extrabold text-[#111111] mb-1">Interactive SDK Workbench</h2>
                   <p className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider">Generate live inference code dynamically</p>
                 </div>
               </div>
@@ -628,10 +629,10 @@ export default function ModelDetailPage({
         <section className="max-w-7xl mx-auto px-4 md:px-8 mt-12">
           
           <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="inline-block px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[11px] font-black uppercase tracking-wider mb-4">
+            <span className="inline-block px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[11px] font-extrabold uppercase tracking-wider mb-4">
               System Topology & Engine
             </span>
-            <h2 className="text-3xl font-black text-[#111111] tracking-tight mb-3">
+            <h2 className="text-3xl font-extrabold text-[#111111] tracking-tight mb-3">
               Architectural Capabilities Suite
             </h2>
             <p className="text-base font-medium text-[#555555] leading-relaxed">
@@ -643,79 +644,79 @@ export default function ModelDetailPage({
             
             <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-full bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] flex items-center justify-center text-xl mb-4">
-                🧠
+                <Brain size={24} />
               </div>
-              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Hybrid Reasoning Engine</h3>
+              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Hybrid Reasoning Engine</h3>
               <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Seamlessly transitions between instantaneous high-throughput generation and deep mathematical verification where intermediate thought tokens are evaluated and self-corrected before final output.
               </p>
               <div className="text-[12px] font-bold text-[#FF5A1F]">
-                ✓ Dynamic compute scaling per prompt
+                <Check size={12} className="inline mr-1 relative -top-[1px]" /> Dynamic compute scaling per prompt
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-full bg-[#EFF6FF] text-[#3B82F6] border border-[#DBEAFE] flex items-center justify-center text-xl mb-4">
-                🛠️
+                <Wrench size={24} />
               </div>
-              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Autonomous Agentic Orchestration</h3>
+              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Autonomous Agentic Orchestration</h3>
               <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Native training for multi-step tool execution, structured JSON schema enforcement, sandboxed terminal command generation, and browser navigation across complex full-repository coding tasks.
               </p>
               <div className="text-[12px] font-bold text-[#3B82F6]">
-                ✓ 50%+ SWE-Bench Verified SOTA
+                <Check size={12} className="inline mr-1 relative -top-[1px]" /> 50%+ SWE-Bench Verified SOTA
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-full bg-[#F0FDF4] text-[#10B981] border border-[#DCFCE7] flex items-center justify-center text-xl mb-4">
-                👁️
+                <Eye size={24} />
               </div>
-              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Multimodal Vision Understanding</h3>
+              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Multimodal Vision Understanding</h3>
               <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 State-of-the-art visual reasoning capable of reading dense engineering diagrams, extracting UI design systems from raw Figma screenshots, and interpreting multi-page academic PDFs with sub-pixel OCR.
               </p>
               <div className="text-[12px] font-bold text-[#10B981]">
-                ✓ 1M pixel spatial resolution
+                <Check size={12} className="inline mr-1 relative -top-[1px]" /> 1M pixel spatial resolution
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-full bg-[#FAF5FF] text-[#8B5CF6] border border-[#F3E8FF] flex items-center justify-center text-xl mb-4">
-                ⚡
+                <Zap size={24} />
               </div>
-              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">High-Speed Token Economics</h3>
+              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">High-Speed Token Economics</h3>
               <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Optimized attention heads capable of delivering up to 60 tokens per second on commercial infrastructure, combined with automatic prompt caching that reduces repeated systemic context costs by over 50%.
               </p>
               <div className="text-[12px] font-bold text-[#8B5CF6]">
-                ✓ Ultra-low latency TTFT (~250ms)
+                <Check size={12} className="inline mr-1 relative -top-[1px]" /> Ultra-low latency TTFT (~250ms)
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-full bg-[#FFF1F2] text-[#E11D48] border border-[#FFE4E6] flex items-center justify-center text-xl mb-4">
-                🛡️
+                <ShieldCheck size={24} />
               </div>
-              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Constitutional Safeguards</h3>
+              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Constitutional Safeguards</h3>
               <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Trained using advanced Direct Preference Optimization (DPO) and Constitutional AI principles to prevent reward hacking, hallucination loops, and unauthorized adversarial prompt injection.
               </p>
               <div className="text-[12px] font-bold text-[#E11D48]">
-                ✓ ASL-3 Security Alignment Standard
+                <Check size={12} className="inline mr-1 relative -top-[1px]" /> ASL-3 Security Alignment Standard
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] flex items-center justify-center text-xl mb-4">
-                🔗
+                <Link2 size={24} />
               </div>
-              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Ecosystem Compatibility</h3>
+              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Ecosystem Compatibility</h3>
               <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Native drop-in integration across major enterprise frameworks including LangChain, Vercel AI SDK, LlamaIndex, Cursor IDE, OpenWebUI, and cloud providers (Amazon Bedrock / Google Cloud Vertex AI).
               </p>
               <div className="text-[12px] font-bold text-[#D97706]">
-                ✓ Multi-cloud deployment ready
+                <Check size={12} className="inline mr-1 relative -top-[1px]" /> Multi-cloud deployment ready
               </div>
             </div>
 
@@ -736,19 +737,19 @@ export default function ModelDetailPage({
                 <BookOpen size={24} />
               </div>
               <div>
-                <h2 className="text-xl font-black text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
+                <h2 className="text-xl font-extrabold text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
                 <p className="text-sm font-medium text-[#555555]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
               </div>
             </div>
 
-            <span className="px-3 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] text-[12px] font-black uppercase tracking-wider text-[#111111]">
+            <span className="px-3 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] text-[12px] font-extrabold uppercase tracking-wider text-[#111111]">
               {relatedPapers.length} Papers Found
             </span>
           </div>
 
           {relatedPapers.length === 0 ? (
             <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-16 text-center">
-              <p className="text-lg font-black text-[#555555] mb-5 tracking-tight">No direct paper citations indexed yet.</p>
+              <p className="text-lg font-extrabold text-[#555555] mb-5 tracking-tight">No direct paper citations indexed yet.</p>
               <Link href="/trending" className="inline-flex items-center gap-2 px-6 py-3 rounded-[8px] bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-sm font-bold no-underline shadow-sm">
                 <span>Browse All Trending AI Research</span>
                 <ExternalLink size={15} />
