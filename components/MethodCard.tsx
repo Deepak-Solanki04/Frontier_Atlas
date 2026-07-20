@@ -606,7 +606,7 @@ const Icon =
       </h3>
     </div>
 
-    <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-2">
+    <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
   {method.description}
 </p>
 
