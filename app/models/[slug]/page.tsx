@@ -151,12 +151,12 @@ export default function ModelDetailPage({
 
   if (loading) {
     return (
-      <div className="model-profile-wrapper" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ textAlign: "center", padding: "40px" }}>
-          <div style={{ width: "48px", height: "48px", borderRadius: "50%", background: "#111111", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
-            <Cpu size={24} style={{ color: "#FF5A1F" }} />
+      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
+        <div className="text-center p-10">
+          <div className="w-12 h-12 rounded-full bg-[#111111] flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <Cpu size={24} className="text-[#FF5A1F]" />
           </div>
-          <div style={{ fontSize: "16px", fontWeight: 700, color: "#8B8B8B", fontFamily: "monospace" }}>Loading Neural Architecture Profile...</div>
+          <div className="text-[13px] font-bold text-[#8B8B8B] uppercase tracking-wider animate-pulse">Loading Architecture Profile...</div>
         </div>
       </div>
     );
@@ -164,19 +164,18 @@ export default function ModelDetailPage({
 
   if (!model) {
     return (
-      <div className="model-profile-wrapper" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div className="ds-card" style={{ maxWidth: "480px", width: "100%", padding: "40px", textAlign: "center", margin: "24px" }}>
-          <div style={{ width: "64px", height: "64px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-6">
+        <div className="bg-white border border-[#F0F0F0] rounded-[12px] p-10 max-w-md w-full text-center shadow-sm">
+          <div className="w-16 h-16 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mx-auto mb-5 border border-[#FFEDD5]">
             <Sparkles size={32} />
           </div>
-          <h1 style={{ fontSize: "24px", fontWeight: 900, marginBottom: "12px", color: "#111111" }}>Model Profile Not Found</h1>
-          <p style={{ fontSize: "15px", color: "#555555", marginBottom: "28px", lineHeight: 1.6 }}>
-            We couldn&apos;t find an indexed AI foundation model matching <code style={{ background: "#F8F7F2", padding: "4px 8px", borderRadius: "6px", color: "#FF5A1F", fontFamily: "monospace", fontWeight: 700 }}>{resolvedParams.slug}</code>.
+          <h1 className="text-2xl font-black text-[#111111] mb-3 tracking-tight">Model Profile Not Found</h1>
+          <p className="text-base text-[#555555] mb-8 leading-relaxed font-medium">
+            We couldn&apos;t find an indexed AI foundation model matching <code className="bg-[#F8F7F2] border border-[#EAE9E4] px-2 py-1 rounded text-[#FF5A1F] text-[13px] font-bold mx-1">{resolvedParams.slug}</code>.
           </p>
           <Link
             href="/models"
-            className="ds-button"
-            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "10px", width: "100%", padding: "14px", textDecoration: "none" }}
+            className="flex items-center justify-center gap-2 w-full p-3.5 bg-[#111111] hover:bg-[#222222] text-white rounded-[8px] transition-colors font-bold text-sm no-underline shadow-sm"
           >
             <ArrowLeft size={16} />
             <span>Return to Models Directory</span>
@@ -187,34 +186,34 @@ export default function ModelDetailPage({
   }
 
   return (
-    <div className="model-profile-wrapper">
+    <div className="min-h-screen bg-[#FAFAFA] pb-24">
       
       {/* ── TOP LUXURY NAVIGATION BAR (Glassmorphism + Sticky) ── */}
-      <header className="model-sticky-header">
-        <div className="model-sticky-inner">
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <Link href="/models" className="model-back-btn" style={{ textDecoration: "none" }}>
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#F0F0F0]">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Link href="/models" className="flex items-center gap-2 text-[#555555] hover:text-[#111111] transition-colors text-sm font-semibold no-underline">
               <ArrowLeft size={16} />
               <span>Directory</span>
             </Link>
-            <div className="topic-breadcrumbs" style={{ margin: 0, fontSize: "13px" }}>
-              <Link href="/" className="crumb-link" style={{ textDecoration: "none" }}>Home</Link>
-              <span className="crumb-sep">&gt;</span>
-              <Link href="/models" className="crumb-link" style={{ textDecoration: "none" }}>Directory</Link>
-              <span className="crumb-sep">&gt;</span>
-              <Link href="/models" className="crumb-link" style={{ textDecoration: "none" }}>Models</Link>
-              <span className="crumb-sep">&gt;</span>
-              <span className="crumb-current">{model.name}</span>
+            <div className="hidden md:flex items-center gap-2 text-[13px] text-[#8B8B8B]">
+              <Link href="/" className="hover:text-[#111111] transition-colors no-underline">Home</Link>
+              <span>&gt;</span>
+              <Link href="/models" className="hover:text-[#111111] transition-colors no-underline">Directory</Link>
+              <span>&gt;</span>
+              <Link href="/models" className="hover:text-[#111111] transition-colors no-underline">Models</Link>
+              <span>&gt;</span>
+              <span className="text-[#111111] font-medium">{model.name}</span>
             </div>
           </div>
 
-          <div className="model-header-actions">
-            <button onClick={handleShare} className="model-share-btn">
+          <div className="flex items-center gap-3">
+            <button onClick={handleShare} className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[#555555] hover:text-[#111111] transition-colors text-[13px] font-semibold">
               <Share2 size={15} />
               <span>{shareCopied ? "Link Copied!" : "Share Profile"}</span>
             </button>
             
-            <Link href="/trending" className="model-explore-btn" style={{ textDecoration: "none" }}>
+            <Link href="/trending" className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-[13px] font-bold no-underline">
               <span>Explore Research</span>
               <ExternalLink size={14} />
             </Link>
@@ -222,94 +221,90 @@ export default function ModelDetailPage({
         </div>
       </header>
 
-      {/* ── HERO SECTION: CYBER-OBSIDIAN LUXURY CARD ── */}
-      <section className="model-hero-container">
-        <div className="model-obsidian-card">
+      {/* ── HERO SECTION: CLEAN LIGHT CARD ── */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
+        <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-6 md:p-10 shadow-sm relative overflow-hidden">
           
-          {/* Ambient Glowing Aura */}
-          <div className="model-obsidian-glow-top" />
-          <div className="model-obsidian-glow-bottom" />
-
           {/* Top Metadata Strip */}
-          <div className="model-hero-meta-strip">
-            <div className="model-hero-badges">
-              <span className="model-cert-badge">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 relative z-10">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] text-[11px] font-bold uppercase tracking-wide">
                 <Sparkles size={13} />
                 <span>{model.vendor} Certified</span>
               </span>
-              <span className="model-license-badge">
+              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[11px] font-bold uppercase tracking-wide text-[#555555]">
                 <span>License:</span>
-                <span className="model-license-val">{model.license || "Proprietary Commercial"}</span>
+                <span className="text-[#111111]">{model.license || "Proprietary Commercial"}</span>
               </span>
               {model.releaseDate && (
-                <span className="model-license-badge">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[11px] font-bold uppercase tracking-wide text-[#555555]">
                   <span>Released:</span>
-                  <span className="model-license-val">{model.releaseDate}</span>
+                  <span className="text-[#111111]">{model.releaseDate}</span>
                 </span>
               )}
             </div>
 
             {model.elo && (
-              <div className="model-elo-badge">
-                <Zap size={15} style={{ fill: "#ffffff" }} />
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-black uppercase tracking-wider shadow-sm">
+                <Zap size={13} style={{ fill: "#ffffff" }} />
                 <span>GLOBAL ELO RATING: {model.elo}</span>
               </div>
             )}
           </div>
 
           {/* Title & Core Summary */}
-          <h1 className="model-hero-title">
+          <h1 className="text-3xl md:text-5xl font-black text-[#111111] tracking-tight mb-4 relative z-10">
             {model.name}
           </h1>
-          <p className="model-hero-desc">
+          <p className="text-[#555555] text-lg max-w-3xl leading-relaxed mb-10 relative z-10 font-medium">
             {model.description}
           </p>
 
           {/* 4-Cell Interactive Architecture & Spec Pods inside Hero */}
-          <div className="model-spec-grid">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
             
-            <div className="model-spec-pod">
-              <div className="model-spec-pod-header">
-                <span className="model-spec-pod-label">Architecture Specs</span>
-                <Cpu size={16} style={{ color: "#FF5A1F" }} />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Architecture Specs</span>
+                <Cpu size={16} className="text-[#FF5A1F]" />
               </div>
-              <div className="model-spec-pod-val">
+              <div className="text-lg font-black text-[#111111] mb-1">
                 {model.parameterCount || "Dense / MoE 180B"}
               </div>
-              <span className="model-spec-pod-sub" style={{ color: "#10B981" }}>✓ High-Density Mixture-of-Experts</span>
+              <span className="text-[11px] font-bold text-[#10B981]">✓ High-Density Mixture-of-Experts</span>
             </div>
 
-            <div className="model-spec-pod">
-              <div className="model-spec-pod-header">
-                <span className="model-spec-pod-label">Context Capacity</span>
-                <Box size={16} style={{ color: "#3B82F6" }} />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Context Capacity</span>
+                <Box size={16} className="text-[#3B82F6]" />
               </div>
-              <div className="model-spec-pod-val">
+              <div className="text-lg font-black text-[#111111] mb-1">
                 {model.context || "200,000 Tokens"}
               </div>
-              <span className="model-spec-pod-sub" style={{ color: "#3B82F6" }}>✓ Native Prompt Caching Supported</span>
+              <span className="text-[11px] font-bold text-[#3B82F6]">✓ Native Prompt Caching Supported</span>
             </div>
 
-            <div className="model-spec-pod">
-              <div className="model-spec-pod-header">
-                <span className="model-spec-pod-label">Primary Specialization</span>
-                <Activity size={16} style={{ color: "#FF5A1F" }} />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Primary Specialization</span>
+                <Activity size={16} className="text-[#FF5A1F]" />
               </div>
-              <div className="model-spec-pod-val">
+              <div className="text-lg font-black text-[#111111] mb-1">
                 {model.area}
               </div>
-              <span className="model-spec-pod-sub" style={{ color: "#E0E0E0" }}>⚡ Instantaneous vs Extended CoT</span>
+              <span className="text-[11px] font-bold text-[#A8A39E]">⚡ Instantaneous vs Extended CoT</span>
             </div>
 
-            <div className="model-spec-pod">
-              <div className="model-spec-pod-header">
-                <span className="model-spec-pod-label">Literature Citations</span>
-                <BookOpen size={16} style={{ color: "#8B5CF6" }} />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#8B8B8B]">Literature Citations</span>
+                <BookOpen size={16} className="text-[#8B5CF6]" />
               </div>
-              <div className="model-spec-pod-val">
+              <div className="text-lg font-black text-[#111111] mb-1">
                 {model.paperCount} Verified Papers
               </div>
-              <span className="model-spec-pod-sub" style={{ color: "#8B5CF6" }}>📚 Indexed in Frontier Repository</span>
+              <span className="text-[11px] font-bold text-[#8B5CF6]">📚 Indexed in Frontier Repository</span>
             </div>
 
           </div>
@@ -317,46 +312,46 @@ export default function ModelDetailPage({
       </section>
 
       {/* ── STATE-OF-THE-ART INTERACTIVE TAB BAR ── */}
-      <section className="model-tabs-container">
-        <div className="model-tabs-bar">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
+        <div className="flex items-center overflow-x-auto border-b-2 border-[#EAE9E4] pb-[-2px] gap-2 md:gap-8 hide-scrollbar">
           
           <button
             onClick={() => setActiveTab("evals")}
-            className={`model-tab-btn ${activeTab === "evals" ? "active" : ""}`}
+            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "evals" ? "border-[#FF5A1F] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
           >
-            <Trophy size={18} style={{ color: activeTab === "evals" ? "#FF5A1F" : "#8B8B8B" }} />
+            <Trophy size={16} className={activeTab === "evals" ? "text-[#FF5A1F]" : ""} />
             <span>Verified Academic Benchmarks</span>
-            <span className="model-tab-count">
+            <span className="ml-1 bg-[#F8F7F2] text-[#555555] px-2 py-0.5 rounded text-xs border border-[#EAE9E4]">
               {model.benchmarks?.length || 0}
             </span>
           </button>
 
           <button
             onClick={() => setActiveTab("workbench")}
-            className={`model-tab-btn ${activeTab === "workbench" ? "active" : ""}`}
+            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "workbench" ? "border-[#10B981] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
           >
-            <Terminal size={18} style={{ color: activeTab === "workbench" ? "#10B981" : "#8B8B8B" }} />
+            <Terminal size={16} className={activeTab === "workbench" ? "text-[#10B981]" : ""} />
             <span>Interactive SDK Workbench</span>
-            <span className="model-tab-count" style={{ background: activeTab === "workbench" ? "#10B981" : "#EAE9E4", color: activeTab === "workbench" ? "#fff" : "#555" }}>
+            <span className={`ml-1 px-2 py-0.5 rounded text-xs font-black ${activeTab === "workbench" ? "bg-[#10B981] text-white" : "bg-[#F8F7F2] text-[#555555] border border-[#EAE9E4]"}`}>
               LIVE
             </span>
           </button>
 
           <button
             onClick={() => setActiveTab("architecture")}
-            className={`model-tab-btn ${activeTab === "architecture" ? "active" : ""}`}
+            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "architecture" ? "border-[#3B82F6] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
           >
-            <Layers size={18} style={{ color: activeTab === "architecture" ? "#3B82F6" : "#8B8B8B" }} />
+            <Layers size={16} className={activeTab === "architecture" ? "text-[#3B82F6]" : ""} />
             <span>Architecture & Capabilities</span>
           </button>
 
           <button
             onClick={() => setActiveTab("literature")}
-            className={`model-tab-btn ${activeTab === "literature" ? "active" : ""}`}
+            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "literature" ? "border-[#8B5CF6] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
           >
-            <BookOpen size={18} style={{ color: activeTab === "literature" ? "#8B5CF6" : "#8B8B8B" }} />
+            <BookOpen size={16} className={activeTab === "literature" ? "text-[#8B5CF6]" : ""} />
             <span>Research Literature</span>
-            <span className="model-tab-count">
+            <span className="ml-1 bg-[#F8F7F2] text-[#555555] px-2 py-0.5 rounded text-xs border border-[#EAE9E4]">
               {relatedPapers.length}
             </span>
           </button>
@@ -368,65 +363,65 @@ export default function ModelDetailPage({
           TAB 1: VERIFIED ACADEMIC BENCHMARKS & EVALUATION MATRIX
       ───────────────────────────────────────────────────────────────────────────── */}
       {activeTab === "evals" && (
-        <section className="model-section-container">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
           
           {/* Controls Bar */}
-          <div className="model-controls-bar">
-            <div className="model-controls-title-group">
-              <div className="model-controls-icon">
-                <BarChart3 size={22} />
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#FFF6F3] flex items-center justify-center text-[#FF5A1F]">
+                <BarChart3 size={24} />
               </div>
               <div>
-                <h2 className="model-controls-h2">Empirical Evaluation Leaderboard</h2>
-                <p className="model-controls-sub">Official verified evaluations vs baseline human expert threshold</p>
+                <h2 className="text-xl font-black text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
+                <p className="text-sm font-medium text-[#555555]">Official verified evaluations vs baseline human expert threshold</p>
               </div>
             </div>
 
-            <div className="model-mode-switcher">
+            <div className="flex items-center p-1 bg-[#F8F7F2] rounded-[8px] border border-[#EAE9E4]">
               <button
                 onClick={() => setEvalMode("standard")}
-                className={`model-mode-btn ${evalMode === "standard" ? "active" : ""}`}
+                className={`px-4 py-2 rounded-[6px] text-[13px] font-bold transition-all ${evalMode === "standard" ? "bg-white shadow-sm text-[#111111] border border-[#EAE9E4]" : "text-[#8B8B8B] hover:text-[#555555] border border-transparent"}`}
               >
                 📊 Standard Matrix
               </button>
               <button
                 onClick={() => setEvalMode("human")}
-                className={`model-mode-btn ${evalMode === "human" ? "active-human" : ""}`}
+                className={`px-4 py-2 rounded-[6px] text-[13px] font-bold transition-all ${evalMode === "human" ? "bg-white shadow-sm text-[#16A34A] border border-[#EAE9E4]" : "text-[#8B8B8B] hover:text-[#555555] border border-transparent"}`}
               >
-                ⚖️ Human Baseline Comparison
+                ⚖️ Human Baseline
               </button>
             </div>
           </div>
 
-          {/* Benchmarks Grid (Responsive Cards with Gauges) */}
-          <div className="model-benchmark-grid">
+          {/* Benchmarks Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {model.benchmarks && model.benchmarks.length > 0 ? (
               model.benchmarks.map((bm, i) => {
                 const humanBaseline = bm.name.includes("SWE-Bench") ? 48.0 : bm.name.includes("MMLU") ? 89.8 : 85.0;
                 const delta = (bm.value - humanBaseline).toFixed(1);
 
                 return (
-                  <div key={i} className="model-benchmark-card">
-                    <div>
-                      <div className="model-bm-header">
+                  <div key={i} className="bg-white rounded-[12px] border border-[#F0F0F0] overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div className="p-5">
+                      <div className="flex items-start justify-between mb-5">
                         <div>
-                          <div>
-                            <span className="model-bm-dot" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
-                            <span className="model-bm-name">{bm.name}</span>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
+                            <span className="text-base font-black text-[#111111] tracking-tight">{bm.name}</span>
                           </div>
-                          <span className="model-bm-sub">Peer-Reviewed Verification Suite</span>
+                          <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Peer-Reviewed Verification Suite</span>
                         </div>
                         
-                        <div className="model-bm-score-col">
-                          <span className="model-bm-score">{bm.score}</span>
-                          <span className="model-bm-percentile">Top 0.8% Global</span>
+                        <div className="flex flex-col items-end">
+                          <span className="text-xl font-black text-[#111111] tracking-tighter">{bm.score}</span>
+                          <span className="text-[11px] font-bold text-[#10B981] bg-[#ECFDF5] px-1.5 py-0.5 rounded">Top 0.8% Global</span>
                         </div>
                       </div>
 
                       {/* Gauge Bar */}
-                      <div className="model-gauge-wrapper">
-                        <div className="model-gauge-label">
-                          <span>Model Capability vs Threshold</span>
+                      <div className="mb-2">
+                        <div className="flex justify-between items-end mb-2 text-[11px] font-bold">
+                          <span className="text-[#8B8B8B] uppercase">Model Capability</span>
                           {evalMode === "human" && (
                             <span style={{ color: Number(delta) >= 0 ? "#16A34A" : "#FF5A1F" }}>
                               {Number(delta) >= 0 ? `+${delta}% vs Human Expert` : `${delta}% vs Human Expert`}
@@ -434,20 +429,20 @@ export default function ModelDetailPage({
                           )}
                         </div>
 
-                        <div className="model-gauge-track">
+                        <div className="relative w-full h-3 bg-[#F0F0F0] rounded-full overflow-hidden">
                           <div
-                            className="model-gauge-fill"
+                            className="absolute top-0 left-0 h-full rounded-full transition-all duration-1000 ease-out"
                             style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
                           />
 
-                          {/* Human Expert Marker line if human mode */}
+                          {/* Human Expert Marker */}
                           {evalMode === "human" && (
                             <div
-                              className="model-gauge-marker"
+                              className="absolute top-0 h-full w-[2px] bg-[#111111] z-10"
                               style={{ left: `${humanBaseline}%` }}
                               title={`Human Expert Baseline: ${humanBaseline}%`}
                             >
-                              <span className="model-gauge-marker-label">
+                              <span className="absolute -top-[20px] -translate-x-1/2 whitespace-nowrap text-[9px] font-black text-[#111111] uppercase tracking-wider">
                                 Human: {humanBaseline}%
                               </span>
                             </div>
@@ -457,12 +452,12 @@ export default function ModelDetailPage({
                     </div>
 
                     {/* Bottom Methodology Note */}
-                    <div className="model-bm-footer">
-                      <span className="model-bm-verified">
-                        <ShieldCheck size={14} />
-                        <span>Verified Zero-Shot Chain-of-Thought</span>
+                    <div className="bg-[#F8F7F2] px-5 py-3 border-t border-[#EAE9E4] flex items-center justify-between">
+                      <span className="flex items-center gap-1.5 text-[11px] font-bold text-[#555555] uppercase tracking-wider">
+                        <ShieldCheck size={14} className="text-[#10B981]" />
+                        <span>Verified Zero-Shot CoT</span>
                       </span>
-                      <span className="model-bm-link">
+                      <span className="text-[11px] font-bold text-[#FF5A1F] hover:underline cursor-pointer">
                         View Prompt Spec →
                       </span>
                     </div>
@@ -470,8 +465,8 @@ export default function ModelDetailPage({
                 );
               })
             ) : (
-              <div className="ds-card" style={{ gridColumn: "1 / -1", padding: "48px", textAlign: "center" }}>
-                <p style={{ fontSize: "16px", fontWeight: 700, color: "#555555" }}>Extensive evaluation suites are currently being compiled for this model.</p>
+              <div className="col-span-full bg-white rounded-[12px] border border-[#F0F0F0] p-12 text-center">
+                <p className="text-base font-bold text-[#555555]">Extensive evaluation suites are currently being compiled for this model.</p>
               </div>
             )}
           </div>
@@ -483,133 +478,141 @@ export default function ModelDetailPage({
           TAB 2: INTERACTIVE SDK WORKBENCH & CODE PLAYGROUND
       ───────────────────────────────────────────────────────────────────────────── */}
       {activeTab === "workbench" && (
-        <section className="model-section-container">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
           
-          <div className="model-workbench-box">
+          <div className="bg-white border border-[#F0F0F0] rounded-[12px] overflow-hidden shadow-sm">
             
             {/* Top Workbench Header */}
-            <div className="model-wb-top-bar">
-              <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                <div style={{ width: "48px", height: "48px", borderRadius: "14px", background: "rgba(255, 90, 31, 0.15)", color: "#FF5A1F", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255, 90, 31, 0.3)" }}>
+            <div className="bg-[#F8F7F2] border-b border-[#EAE9E4] p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-[10px] bg-white border border-[#EAE9E4] text-[#10B981] flex items-center justify-center shadow-sm">
                   <Terminal size={24} />
                 </div>
                 <div>
-                  <h2 style={{ fontSize: "22px", fontWeight: 900, color: "#ffffff", marginBottom: "4px" }}>Interactive SDK Workbench</h2>
-                  <p style={{ fontSize: "13px", fontFamily: "monospace", color: "#A8A39E" }}>Generate live inference code with dynamic architectural capabilities</p>
+                  <h2 className="text-lg font-black text-[#111111] mb-1">Interactive SDK Workbench</h2>
+                  <p className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider">Generate live inference code dynamically</p>
                 </div>
               </div>
 
               {/* Language Switcher */}
-              <div className="model-wb-lang-pills">
+              <div className="flex items-center bg-[#EAE9E4] p-1 rounded-[8px]">
                 {(["python", "typescript", "curl", "ollama"] as const).map((lang) => (
                   <button
                     key={lang}
                     onClick={() => setSdkLang(lang)}
-                    className={`model-wb-lang-btn ${sdkLang === lang ? "active" : ""}`}
+                    className={`px-3 py-1.5 rounded-[6px] text-[12px] font-bold transition-all ${sdkLang === lang ? "bg-white shadow-sm text-[#111111]" : "text-[#555555] hover:text-[#111111]"}`}
                   >
-                    {lang === "curl" ? "REST / cURL" : lang === "typescript" ? "TypeScript / Node" : lang}
+                    {lang === "curl" ? "REST / cURL" : lang === "typescript" ? "TypeScript" : lang}
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Interactive Capability Feature Toggles */}
-            <div className="model-wb-toggles-strip">
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#F0F0F0] border-b border-[#F0F0F0]">
               
-              <label className="model-wb-toggle-card">
-                <div className="model-wb-toggle-left">
-                  <span className="model-wb-toggle-icon">🧠</span>
+              <label className="flex items-center justify-between p-5 cursor-pointer hover:bg-[#FAFAFA] transition-colors group">
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#FFF6F3] text-[#FF5A1F] flex items-center justify-center shrink-0 border border-[#FFEDD5]">
+                    <Cpu size={16} />
+                  </div>
                   <div>
-                    <span className="model-wb-toggle-title">Extended CoT Reasoning</span>
-                    <span className="model-wb-toggle-sub">Allocate 12k thinking tokens</span>
+                    <div className="text-[13px] font-bold text-[#111111] mb-0.5 group-hover:text-[#FF5A1F] transition-colors">Extended CoT Reasoning</div>
+                    <div className="text-[11px] font-medium text-[#8B8B8B]">Allocate 12k thinking tokens</div>
                   </div>
                 </div>
                 <input
                   type="checkbox"
                   checked={enableThinking}
                   onChange={(e) => setEnableThinking(e.target.checked)}
-                  className="model-wb-checkbox"
+                  className="w-4 h-4 rounded border-gray-300 text-[#FF5A1F] focus:ring-[#FF5A1F]"
                 />
               </label>
 
-              <label className="model-wb-toggle-card">
-                <div className="model-wb-toggle-left">
-                  <span className="model-wb-toggle-icon">🛠️</span>
+              <label className="flex items-center justify-between p-5 cursor-pointer hover:bg-[#FAFAFA] transition-colors group">
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#EFF6FF] text-[#3B82F6] flex items-center justify-center shrink-0 border border-[#DBEAFE]">
+                    <Sliders size={16} />
+                  </div>
                   <div>
-                    <span className="model-wb-toggle-title">Autonomous Tool Calling</span>
-                    <span className="model-wb-toggle-sub">Attach sandboxed execute_code</span>
+                    <div className="text-[13px] font-bold text-[#111111] mb-0.5 group-hover:text-[#3B82F6] transition-colors">Autonomous Tool Calling</div>
+                    <div className="text-[11px] font-medium text-[#8B8B8B]">Attach execute_code sandbox</div>
                   </div>
                 </div>
                 <input
                   type="checkbox"
                   checked={enableTools}
                   onChange={(e) => setEnableTools(e.target.checked)}
-                  className="model-wb-checkbox"
+                  className="w-4 h-4 rounded border-gray-300 text-[#3B82F6] focus:ring-[#3B82F6]"
                 />
               </label>
 
-              <label className="model-wb-toggle-card">
-                <div className="model-wb-toggle-left">
-                  <span className="model-wb-toggle-icon">⚡</span>
+              <label className="flex items-center justify-between p-5 cursor-pointer hover:bg-[#FAFAFA] transition-colors group">
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#F0FDF4] text-[#10B981] flex items-center justify-center shrink-0 border border-[#DCFCE7]">
+                    <Zap size={16} />
+                  </div>
                   <div>
-                    <span className="model-wb-toggle-title">Response Buffer Stream</span>
-                    <span className="model-wb-toggle-sub">Real-time token delta output</span>
+                    <div className="text-[13px] font-bold text-[#111111] mb-0.5 group-hover:text-[#10B981] transition-colors">Response Buffer Stream</div>
+                    <div className="text-[11px] font-medium text-[#8B8B8B]">Real-time token delta output</div>
                   </div>
                 </div>
                 <input
                   type="checkbox"
                   checked={enableStreaming}
                   onChange={(e) => setEnableStreaming(e.target.checked)}
-                  className="model-wb-checkbox"
+                  className="w-4 h-4 rounded border-gray-300 text-[#10B981] focus:ring-[#10B981]"
                 />
               </label>
 
             </div>
 
             {/* Code Display Area */}
-            <div className="model-wb-code-area">
-              <div className="model-wb-code-header">
-                <div className="model-wb-dots">
-                  <span className="model-wb-dot" style={{ background: "#FF5F56" }} />
-                  <span className="model-wb-dot" style={{ background: "#FFBD2E" }} />
-                  <span className="model-wb-dot" style={{ background: "#27C93F" }} />
-                  <span style={{ marginLeft: "8px", color: "#ffffff", fontWeight: 700 }}>{model.id}.{sdkLang === "python" ? "py" : sdkLang === "typescript" ? "ts" : "sh"}</span>
+            <div className="bg-[#111111] p-5">
+              <div className="flex items-center justify-between mb-4 pb-4 border-b border-[#333333]">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1.5">
+                    <span className="w-3 h-3 rounded-full bg-[#FF5F56]" />
+                    <span className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+                    <span className="w-3 h-3 rounded-full bg-[#27C93F]" />
+                  </div>
+                  <span className="ml-2 text-[12px] font-bold text-[#8B8B8B] tracking-wider">{model.id}.{sdkLang === "python" ? "py" : sdkLang === "typescript" ? "ts" : "sh"}</span>
                 </div>
                 
                 <button
                   onClick={() => handleCopyCode()}
-                  className="model-wb-copy-btn"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-[#222222] hover:bg-[#333333] border border-[#333333] transition-colors text-[11px] font-bold text-white uppercase tracking-wider"
                 >
                   {copied ? (
                     <>
-                      <Check size={14} style={{ color: "#10B981" }} />
-                      <span style={{ color: "#10B981" }}>Copied to Clipboard!</span>
+                      <Check size={14} className="text-[#10B981]" />
+                      <span className="text-[#10B981]">Copied!</span>
                     </>
                   ) : (
                     <>
                       <Copy size={14} />
-                      <span>Copy Generated Spec</span>
+                      <span>Copy Spec</span>
                     </>
                   )}
                 </button>
               </div>
 
-              <pre className="model-code-pre">
+              <pre className="text-[13px] font-mono text-[#E0E0E0] overflow-x-auto whitespace-pre-wrap leading-relaxed">
                 <code>{generatedCode}</code>
               </pre>
             </div>
 
             {/* Bottom API Quick Specs */}
-            <div className="model-wb-footer">
-              <div style={{ display: "flex", alignItems: "center", gap: "16px", flexWrap: "wrap" }}>
-                <span>API Endpoint: <strong style={{ color: "#ffffff" }}>api.anthropic.com/v1/messages</strong></span>
-                <span>•</span>
-                <span>Context Window: <strong style={{ color: "#FF5A1F" }}>{model.context || "200k tokens"}</strong></span>
-                <span>•</span>
-                <span>Prompt Caching: <strong style={{ color: "#10B981" }}>Enabled (50% discount)</strong></span>
+            <div className="bg-[#1A1A1A] px-5 py-3 flex items-center justify-between border-t border-[#333333]">
+              <div className="flex items-center gap-4 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex-wrap">
+                <span>API Endpoint: <strong className="text-white">api.anthropic.com/v1/messages</strong></span>
+                <span className="text-[#333333]">•</span>
+                <span>Context Window: <strong className="text-[#FF5A1F]">{model.context || "200k tokens"}</strong></span>
+                <span className="text-[#333333]">•</span>
+                <span>Prompt Caching: <strong className="text-[#10B981]">Enabled (-50% Cost)</strong></span>
               </div>
-              <a href="https://docs.anthropic.com" target="_blank" rel="noreferrer" className="model-wb-docs-link">
-                View Full Documentation →
+              <a href="https://docs.anthropic.com" target="_blank" rel="noreferrer" className="text-[11px] font-bold text-[#3B82F6] hover:underline uppercase tracking-wider whitespace-nowrap ml-4">
+                View Docs →
               </a>
             </div>
 
@@ -622,96 +625,96 @@ export default function ModelDetailPage({
           TAB 3: ARCHITECTURE & CAPABILITIES DEEP-DIVE
       ───────────────────────────────────────────────────────────────────────────── */}
       {activeTab === "architecture" && (
-        <section className="model-section-container">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-12">
           
-          <div style={{ textAlign: "center", maxWidth: "760px", margin: "0 auto 36px" }}>
-            <span style={{ display: "inline-block", padding: "6px 14px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "100px", fontFamily: "monospace", fontWeight: 800, fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.5px", border: "1px solid #FFEDD5", marginBottom: "12px" }}>
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <span className="inline-block px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[11px] font-black uppercase tracking-wider mb-4">
               System Topology & Engine
             </span>
-            <h2 style={{ fontSize: "36px", fontWeight: 900, color: "#111111", marginBottom: "12px", letterSpacing: "-0.5px" }}>
+            <h2 className="text-3xl font-black text-[#111111] tracking-tight mb-3">
               Architectural Capabilities Suite
             </h2>
-            <p style={{ fontSize: "16px", color: "#555555", lineHeight: 1.6 }}>
+            <p className="text-base font-medium text-[#555555] leading-relaxed">
               Detailed technical breakdown of core sub-systems, token economics, and agentic safeguards.
             </p>
           </div>
 
-          <div className="model-arch-grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             
-            <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#FFF6F3", color: "#FF5A1F", border: "1px solid #FFEDD5" }}>
+            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-full bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] flex items-center justify-center text-xl mb-4">
                 🧠
               </div>
-              <h3 className="model-arch-title">Hybrid Reasoning Engine</h3>
-              <p className="model-arch-desc">
-                Seamlessly transitions between instantaneous high-throughput generation (`Flash mode`) and deep mathematical verification (`Thinking mode`) where intermediate thought tokens are evaluated and self-corrected before final output.
+              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Hybrid Reasoning Engine</h3>
+              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
+                Seamlessly transitions between instantaneous high-throughput generation and deep mathematical verification where intermediate thought tokens are evaluated and self-corrected before final output.
               </p>
-              <div className="model-arch-check" style={{ color: "#FF5A1F" }}>
+              <div className="text-[12px] font-bold text-[#FF5A1F]">
                 ✓ Dynamic compute scaling per prompt
               </div>
             </div>
 
-            <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#EFF6FF", color: "#3B82F6", border: "1px solid #DBEAFE" }}>
+            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] text-[#3B82F6] border border-[#DBEAFE] flex items-center justify-center text-xl mb-4">
                 🛠️
               </div>
-              <h3 className="model-arch-title">Autonomous Agentic Orchestration</h3>
-              <p className="model-arch-desc">
+              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Autonomous Agentic Orchestration</h3>
+              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Native training for multi-step tool execution, structured JSON schema enforcement, sandboxed terminal command generation, and browser navigation across complex full-repository coding tasks.
               </p>
-              <div className="model-arch-check" style={{ color: "#3B82F6" }}>
+              <div className="text-[12px] font-bold text-[#3B82F6]">
                 ✓ 50%+ SWE-Bench Verified SOTA
               </div>
             </div>
 
-            <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#F0FDF4", color: "#10B981", border: "1px solid #DCFCE7" }}>
+            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-full bg-[#F0FDF4] text-[#10B981] border border-[#DCFCE7] flex items-center justify-center text-xl mb-4">
                 👁️
               </div>
-              <h3 className="model-arch-title">Multimodal Vision Understanding</h3>
-              <p className="model-arch-desc">
+              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Multimodal Vision Understanding</h3>
+              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 State-of-the-art visual reasoning capable of reading dense engineering diagrams, extracting UI design systems from raw Figma screenshots, and interpreting multi-page academic PDFs with sub-pixel OCR.
               </p>
-              <div className="model-arch-check" style={{ color: "#10B981" }}>
+              <div className="text-[12px] font-bold text-[#10B981]">
                 ✓ 1M pixel spatial resolution
               </div>
             </div>
 
-            <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#FAF5FF", color: "#8B5CF6", border: "1px solid #F3E8FF" }}>
+            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-full bg-[#FAF5FF] text-[#8B5CF6] border border-[#F3E8FF] flex items-center justify-center text-xl mb-4">
                 ⚡
               </div>
-              <h3 className="model-arch-title">High-Speed Token Economics</h3>
-              <p className="model-arch-desc">
+              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">High-Speed Token Economics</h3>
+              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Optimized attention heads capable of delivering up to 60 tokens per second on commercial infrastructure, combined with automatic prompt caching that reduces repeated systemic context costs by over 50%.
               </p>
-              <div className="model-arch-check" style={{ color: "#8B5CF6" }}>
+              <div className="text-[12px] font-bold text-[#8B5CF6]">
                 ✓ Ultra-low latency TTFT (~250ms)
               </div>
             </div>
 
-            <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#FFF1F2", color: "#FF5A1F", border: "1px solid #FFE4E6" }}>
+            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-full bg-[#FFF1F2] text-[#E11D48] border border-[#FFE4E6] flex items-center justify-center text-xl mb-4">
                 🛡️
               </div>
-              <h3 className="model-arch-title">Constitutional Safeguards</h3>
-              <p className="model-arch-desc">
+              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Constitutional Safeguards</h3>
+              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Trained using advanced Direct Preference Optimization (DPO) and Constitutional AI principles to prevent reward hacking, hallucination loops, and unauthorized adversarial prompt injection.
               </p>
-              <div className="model-arch-check" style={{ color: "#FF5A1F" }}>
+              <div className="text-[12px] font-bold text-[#E11D48]">
                 ✓ ASL-3 Security Alignment Standard
               </div>
             </div>
 
-            <div className="model-arch-card">
-              <div className="model-arch-icon-box" style={{ background: "#FEF3C7", color: "#D97706", border: "1px solid #FDE68A" }}>
+            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] flex items-center justify-center text-xl mb-4">
                 🔗
               </div>
-              <h3 className="model-arch-title">Ecosystem Compatibility</h3>
-              <p className="model-arch-desc">
+              <h3 className="text-lg font-black text-[#111111] tracking-tight mb-2">Ecosystem Compatibility</h3>
+              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
                 Native drop-in integration across major enterprise frameworks including LangChain, Vercel AI SDK, LlamaIndex, Cursor IDE, OpenWebUI, and cloud providers (Amazon Bedrock / Google Cloud Vertex AI).
               </p>
-              <div className="model-arch-check" style={{ color: "#D97706" }}>
+              <div className="text-[12px] font-bold text-[#D97706]">
                 ✓ Multi-cloud deployment ready
               </div>
             </div>
@@ -725,34 +728,34 @@ export default function ModelDetailPage({
           TAB 4: RESEARCH LITERATURE & ACADEMIC BIBLIOGRAPHY
       ───────────────────────────────────────────────────────────────────────────── */}
       {activeTab === "literature" && (
-        <section className="model-section-container">
+        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
           
-          <div className="model-controls-bar">
-            <div className="model-controls-title-group">
-              <div className="model-controls-icon">
-                <BookOpen size={22} />
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#FAF5FF] text-[#8B5CF6] flex items-center justify-center">
+                <BookOpen size={24} />
               </div>
               <div>
-                <h2 className="model-controls-h2">Indexed Academic Citations</h2>
-                <p className="model-controls-sub">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
+                <h2 className="text-xl font-black text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
+                <p className="text-sm font-medium text-[#555555]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
               </div>
             </div>
 
-            <span style={{ padding: "8px 16px", background: "#F8F7F2", border: "1px solid #EAE9E4", borderRadius: "12px", fontFamily: "monospace", fontWeight: 800, fontSize: "13px", color: "#111111" }}>
+            <span className="px-3 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] text-[12px] font-black uppercase tracking-wider text-[#111111]">
               {relatedPapers.length} Papers Found
             </span>
           </div>
 
           {relatedPapers.length === 0 ? (
-            <div className="ds-card" style={{ padding: "64px", textAlign: "center" }}>
-              <p style={{ fontSize: "18px", fontWeight: 800, color: "#555555", marginBottom: "20px" }}>No direct paper citations indexed yet.</p>
-              <Link href="/trending" className="model-explore-btn" style={{ display: "inline-flex", textDecoration: "none" }}>
+            <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-16 text-center">
+              <p className="text-lg font-black text-[#555555] mb-5 tracking-tight">No direct paper citations indexed yet.</p>
+              <Link href="/trending" className="inline-flex items-center gap-2 px-6 py-3 rounded-[8px] bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-sm font-bold no-underline shadow-sm">
                 <span>Browse All Trending AI Research</span>
                 <ExternalLink size={15} />
               </Link>
             </div>
           ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div className="flex flex-col gap-4">
               {relatedPapers.map((paper: any, i: number) => (
                 <PaperCard key={i} paper={paper} />
               ))}
