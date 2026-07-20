@@ -867,44 +867,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
             </div>
           </div>
 
-          {/* Top model highlighted normally at start of directory when filter is active (styled cleanly without bulky box) */}
-          {activeFilterLabel && topModelForSelection && (
-            <div style={{ marginBottom: "32px", paddingBottom: "24px", borderBottom: "1px solid #E5E5E0", background: "#F8F7F2", padding: "24px", borderRadius: "2px", border: "1px solid #E5E5E0", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
-                  <span style={{ fontSize: "11px", fontFamily: "monospace", textTransform: "uppercase", padding: "3px 8px", background: "#FFF6F3", color: "#FF5A1F", borderRadius: "2px", border: "1px solid #FFEDD5", fontWeight: 400 }}>
-                    ⚡ SOTA Leader &middot; {topModelForSelection.vendor} ({activeFilterLabel})
-                  </span>
-                  <span style={{ fontSize: "12px", fontFamily: "monospace", color: "#666666", fontWeight: 400 }}>
-                    Rank #1 verified benchmark leader
-                  </span>
-                </div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: "14px", flexWrap: "wrap" }}>
-                  <h3 style={{ fontSize: "24px", fontWeight: 400, color: "#111111", letterSpacing: "-0.5px" }}>
-                    {topModelForSelection.name}
-                  </h3>
-                  <span style={{ fontSize: "14.5px", fontWeight: 400, color: "#FF5A1F" }}>
-                    {topModelForSelection.trendingScore ? `Elo: ${topModelForSelection.trendingScore}` : 'Top Rated'}
-                  </span>
-                </div>
-                {topModelForSelection.description && (
-                  <p style={{ fontSize: "14px", color: "#555555", fontWeight: 400, marginTop: "6px", maxWidth: "780px", lineHeight: "1.5" }}>
-                    {topModelForSelection.description}
-                  </p>
-                )}
-              </div>
-              <button
-                onClick={() => {
-                  const match = allModels.find(x => x.name.toLowerCase() === topModelForSelection.name.toLowerCase() || x.name.toLowerCase().includes(topModelForSelection.name.toLowerCase()));
-                  if (match) router.push('/models/' + (match.slug || match.id));
-                }}
-                style={{ padding: "10px 20px", background: "#111111", color: "#ffffff", borderRadius: "2px", fontWeight: 400, fontSize: "13px", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px" }}
-              >
-                <span>Inspect Specs</span>
-                <ExternalLink size={14} />
-              </button>
-            </div>
-          )}
+
 
           {filteredCatalogModels.length === 0 ? (
             <div style={{ padding: "60px 20px", textAlign: "center", background: "#F8F7F2", borderRadius: "2px", border: "1px dashed #E5E5E0" }}>
