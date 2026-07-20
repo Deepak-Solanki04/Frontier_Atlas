@@ -5,7 +5,7 @@ import Link from "next/link";
 import { 
   Trophy, Cpu, Layers, ExternalLink, Code2, Check, Copy, ArrowLeft, 
   Share2, Sparkles, BookOpen, Terminal, FileText, Award, Zap, ShieldCheck, 
-  Eye, Activity, Box, Sliders, Info, ChevronRight, Play, RefreshCw, BarChart3, Database
+  Eye, Activity, Box, Sliders, Info, ChevronRight, Play, RefreshCw, BarChart3, Database,
   Brain, Wrench, Link2
 } from "lucide-react";
 import { getModels, type ModelItem } from "@/lib/models";
