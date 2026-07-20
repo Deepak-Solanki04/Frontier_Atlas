@@ -8,6 +8,7 @@ import {
   Eye, Activity, Box, Sliders, Info, ChevronRight, Play, RefreshCw, BarChart3, Database,
   Brain, Wrench, Link2
 } from "lucide-react";
+import { fetchApi } from "@/lib/api";
 import { getModels, type ModelItem } from "@/lib/models";
 import PaperCard from "@/components/PaperCard";
 import { topicData } from "@/data/topicData";
@@ -38,15 +39,16 @@ export default function ModelDetailPage({
   useEffect(() => {
     if (resolvedParams?.slug) {
       const cleanId = resolvedParams.slug.toLowerCase().trim();
-      getModels().then(allModels => {
-        const found = allModels.find(
-          (m) =>
-            m.id.toLowerCase() === cleanId ||
-            m.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "") === cleanId
-        );
-        setModel(found || null);
-        setLoading(false);
-      }).catch(err => {
+      fetchApi<{ status: string, data: any }>(`/api/v1/models/${cleanId}`)
+        .then(response => {
+          if (response.status === "success" && response.data) {
+            setModel(response.data);
+          } else {
+            setModel(null);
+          }
+          setLoading(false);
+        })
+        .catch(err => {
         console.error("Failed to load model:", err);
         setLoading(false);
       });
@@ -55,34 +57,26 @@ export default function ModelDetailPage({
 
   // Find related research papers citing or mentioning this model
   const relatedPapers = useMemo(() => {
-    if (!model) return [];
-    const allPapers = Object.values(topicData).flatMap((t: any) => t?.papers || []);
-    const uniqueMap = new Map();
-    allPapers.forEach((p: any) => {
-      if (p && p.title && !uniqueMap.has(p.title)) {
-        uniqueMap.set(p.title, p);
-      }
+    if (!model || !model.papers) return [];
+    return model.papers.map((p: any) => p.paper).filter(Boolean).slice(0, 10);
+  }, [model]);
+  
+  const benchmarkArray = useMemo(() => {
+    if (!model || !model.benchmarkScore) return [];
+    return Object.entries(model.benchmarkScore).map(([key, value]) => {
+      return {
+        name: key.toUpperCase(),
+        score: typeof value === 'number' ? value.toFixed(1) : value,
+        value: Number(value) || 0,
+        color: "#FF5A1F" // fallback brand color
+      };
     });
-
-    const list = Array.from(uniqueMap.values());
-    const modelNameLower = model.name.toLowerCase();
-    const orgLower = model.vendor.toLowerCase();
-    const tagsLower = model.capabilities.map((t: string) => t.toLowerCase());
-
-    return list.filter((paper: any) => {
-      const title = (paper.title || "").toLowerCase();
-      const abstract = (paper.abstract || "").toLowerCase();
-      
-      if (title.includes(modelNameLower) || abstract.includes(modelNameLower)) return true;
-      if (title.includes(orgLower) || abstract.includes(orgLower)) return true;
-      return tagsLower.some((t: string) => title.includes(t) || abstract.includes(t));
-    }).slice(0, 10);
   }, [model]);
 
   // Dynamic Interactive Code Generator based on user toggles
   const generatedCode = useMemo(() => {
     if (!model) return "";
-    const baseId = model.id;
+    const baseId = model.slug || model.id;
 
     if (sdkLang === "python") {
       let code = `import anthropic\n\nclient = anthropic.Anthropic()\n\n`;
@@ -270,7 +264,7 @@ export default function ModelDetailPage({
                 <Cpu size={16} className="text-[#FF5A1F]" />
               </div>
               <div className="text-lg font-extrabold text-[#111111] mb-1">
-                {model.parameterCount || "Dense / MoE 180B"}
+                {model.parameterCount || "Not Specified"}
               </div>
               <span className="text-[11px] font-bold text-[#10B981]"><Check size={12} className="inline mr-1 relative -top-[1px]" /> High-Density Mixture-of-Experts</span>
             </div>
@@ -281,7 +275,7 @@ export default function ModelDetailPage({
                 <Box size={16} className="text-[#3B82F6]" />
               </div>
               <div className="text-lg font-extrabold text-[#111111] mb-1">
-                {model.context || "200,000 Tokens"}
+                {model.contextWindow || "Not Specified"}
               </div>
               <span className="text-[11px] font-bold text-[#3B82F6]"><Check size={12} className="inline mr-1 relative -top-[1px]" /> Native Prompt Caching Supported</span>
             </div>
@@ -292,7 +286,7 @@ export default function ModelDetailPage({
                 <Activity size={16} className="text-[#FF5A1F]" />
               </div>
               <div className="text-lg font-extrabold text-[#111111] mb-1">
-                {model.area}
+                {model.category || "General Purpose"}
               </div>
               <span className="text-[11px] font-bold text-[#A8A39E]"><Activity size={12} className="inline mr-1 relative -top-[1px]" /> Instantaneous vs Extended CoT</span>
             </div>
@@ -396,10 +390,10 @@ export default function ModelDetailPage({
 
           {/* Benchmarks Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {model.benchmarks && model.benchmarks.length > 0 ? (
-              model.benchmarks.map((bm, i) => {
-                const humanBaseline = bm.name.includes("SWE-Bench") ? 48.0 : bm.name.includes("MMLU") ? 89.8 : 85.0;
-                const delta = (bm.value - humanBaseline).toFixed(1);
+            {benchmarkArray && benchmarkArray.length > 0 ? (
+              benchmarkArray.map((bm, i) => {
+                
+                
 
                 return (
                   <div key={i} className="bg-white rounded-[12px] border border-[#F0F0F0] overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
@@ -423,11 +417,7 @@ export default function ModelDetailPage({
                       <div className="mb-2">
                         <div className="flex justify-between items-end mb-2 text-[11px] font-bold">
                           <span className="text-[#8B8B8B] uppercase">Model Capability</span>
-                          {evalMode === "human" && (
-                            <span style={{ color: Number(delta) >= 0 ? "#16A34A" : "#FF5A1F" }}>
-                              {Number(delta) >= 0 ? `+${delta}% vs Human Expert` : `${delta}% vs Human Expert`}
-                            </span>
-                          )}
+                          
                         </div>
 
                         <div className="relative w-full h-3 bg-[#F0F0F0] rounded-full overflow-hidden">
@@ -437,17 +427,7 @@ export default function ModelDetailPage({
                           />
 
                           {/* Human Expert Marker */}
-                          {evalMode === "human" && (
-                            <div
-                              className="absolute top-0 h-full w-[2px] bg-[#111111] z-10"
-                              style={{ left: `${humanBaseline}%` }}
-                              title={`Human Expert Baseline: ${humanBaseline}%`}
-                            >
-                              <span className="absolute -top-[20px] -translate-x-1/2 whitespace-nowrap text-[9px] font-extrabold text-[#111111] uppercase tracking-wider">
-                                Human: {humanBaseline}%
-                              </span>
-                            </div>
-                          )}
+                          
                         </div>
                       </div>
                     </div>
