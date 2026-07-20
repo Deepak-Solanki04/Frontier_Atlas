@@ -584,9 +584,9 @@ function ModelsContent() {
                           <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] truncate" title={cap.name}>{cap.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3 h-[60px]">
   {getCardDescription(cap.name)}
 </p>
 
@@ -625,9 +625,9 @@ function ModelsContent() {
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] truncate" title={fam.name}>{fam.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3 h-[60px]">
                           {getCardDescription(fam.name)}
                         </p>
                         <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
@@ -673,9 +673,9 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
     <SkeletalIcon size={20} style={{ color: strokeColor }} />
   )}
 </div>
-                          <h3 className={`text-[15.5px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
+                          <h3 className={`text-[15.5px] font-medium leading-5 truncate ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`} title={v.name}>{v.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3 h-[60px]">
                           {getCardDescription(v.name)}
                         </p>
                         <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11.5px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
@@ -707,9 +707,9 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                           <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
                             <SkeletalIcon size={20} style={{ color: strokeColor }} />
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{d.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] truncate" title={d.name}>{d.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3 h-[60px]">
   {getCardDescription(d.name)}
 </p>
 
@@ -747,9 +747,9 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                               <SkeletalIcon size={20} style={{ color: strokeColor }} />
                             )}
                           </div>
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111]">{m.name}</h3>
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] truncate" title={m.name}>{m.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+                        <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3 h-[60px]">
                           {m.description || getCardDescription(m.name)}
                         </p>
                       </div>
