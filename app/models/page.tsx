@@ -578,7 +578,7 @@ function ModelsContent() {
                       <div
                         key={cap.name}
                         onClick={() => handleCapabilityClick(cap.name)}
-                        className={`bg-white rounded-md border p-5 h-[164px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
@@ -586,7 +586,7 @@ function ModelsContent() {
                           </div>
                           <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{cap.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3 h-[60px]">
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
   {getCardDescription(cap.name)}
 </p>
 
@@ -615,7 +615,7 @@ function ModelsContent() {
                       <div
                         key={fam.name}
                         onClick={() => handleFamilyClick(fam.name)}
-                        className={`bg-white rounded-md border p-5 h-[164px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -627,7 +627,7 @@ function ModelsContent() {
                           </div>
                           <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{fam.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3 h-[60px]">
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
                           {getCardDescription(fam.name)}
                         </p>
                         <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{fam.count} Models</span></div>
@@ -659,7 +659,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={v.name}
                         onClick={() => handleVendorClick(v.name)}
-                        className={`bg-white rounded-md border p-5 h-[164px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -675,7 +675,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
 </div>
                           <h3 className={`text-[15px] font-medium leading-5 ${isActive ? "text-[#FF5A1F] font-bold" : "text-[#111111]"}`}>{v.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3 h-[60px]">
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
                           {getCardDescription(v.name)}
                         </p>
                         <div className="mt-auto pt-5"><span className="inline-flex items-center rounded-full border border-[#D9D9D9] bg-white px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[0.06em] text-[#666666]">{v.count} Models</span></div>
@@ -701,7 +701,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={d.name}
                         onClick={() => handleDomainClick(d.name)}
-                        className={`bg-white rounded-md border p-5 h-[164px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+                        className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-150">
@@ -709,7 +709,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                           </div>
                           <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{d.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3 h-[60px]">
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
   {getCardDescription(d.name)}
 </p>
 
@@ -737,7 +737,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                       <div
                         key={m.id}
                         onClick={() => setInspectedModel(m)}
-                        className="bg-white rounded-md border border-[#ECECEC] p-5 h-[164px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
+                        className="bg-white rounded-md border border-[#ECECEC] p-5 min-h-[150px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
                       >
                         <div className="flex items-center gap-2">
                           <div className="flex-shrink-0 p-2 rounded-lg transition-transform group-hover:scale-110">
@@ -749,7 +749,7 @@ const vendorLogo = vendorModel?.vendorLogoUrl || getOrgLogo(v.name);
                           </div>
                           <h3 className="text-[15px] font-medium leading-5 text-[#111111]">{m.name}</h3>
                         </div>
-                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3 h-[60px]">
+                        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
                           {m.description || getCardDescription(m.name)}
                         </p>
                       </div>
