@@ -1,117 +1,49 @@
-/**
- * This file contains a massive dictionary of 100% unique, handcrafted 3-line descriptions
- * for every single capability, family, developer, and domain present in the Frontier Atlas models.
- */
 
 export const cardDescriptions: Record<string, string> = {
+  // We can keep the existing exact matches here if we want, but the true fix is the algorithmic fallback below.
   "hybrid reasoning": "Pioneering systems that merge neural intuition with symbolic logic, enabling instantaneous responses seamlessly paired with rigorous step-by-step verification.",
   "coding agents": "Autonomous programming entities capable of navigating codebases, writing complex functions, and independently debugging errors without human intervention.",
   "tool use": "Models trained to interact dynamically with external environments by interpreting API schemas, executing web searches, and querying live databases.",
-  "multimodal": "The bleeding edge of AI research focused on unifying text, vision, and audio into single, cohesive neural architectures capable of holistic real-world understanding.",
-  "reasoning": "Advanced cognitive domains focused on developing neural architectures capable of deep logic, step-by-step problem solving, and deductive inference across complex fields.",
+  "multimodal": "Unified foundation models designed from the ground up to simultaneously interpret, synthesize, and generate text, audio, and visual data streams.",
+  "reasoning": "Advanced cognitive systems built to execute deep logical deductions, solve intricate mathematical puzzles, and perform long-horizon strategic planning.",
   "realtime audio": "Ultra-low-latency models optimized for instantaneous voice interactions, capable of capturing nuanced tone, emotion, and conversational cadence.",
-  "reinforcement learning": "Algorithms fundamentally trained through trial and error, developing robust decision-making strategies by maximizing rewards in complex simulated environments.",
-  "math": "Precision-driven architectures highly specialized in proving complex mathematical theorems, solving algebraic equations, and executing quantitative reasoning.",
-  "agentic ai": "The pursuit of autonomous, goal-oriented systems capable of breaking free from passive chat interfaces to actively plan and execute tasks across the digital world.",
+  "agentic ai": "Goal-oriented foundation models that translate high-level user instructions into concrete multi-step digital actions across diverse digital workflows.",
   "long context": "Memory-intensive models boasting massive token windows, capable of ingesting entire books, code repositories, or hours of video in a single prompt.",
-  "open weight": "Democratized artificial intelligence systems where the core neural network parameters are made publicly available for the broader community to study and fine-tune.",
-  "language modeling": "The foundational science of predicting the next token in a sequence, driving the core generative capabilities behind modern conversational artificial intelligence.",
-  "distillation": "Efficiency techniques focused on transferring the vast knowledge of massive teacher networks into much smaller, faster, and more cost-effective student models.",
-  "moe": "Mixture-of-Experts routing architectures that selectively activate specific neural pathways based on the prompt, vastly increasing capacity without exploding inference costs.",
-  "math & code": "Dual-specialized models that bridge the gap between logical syntax structuring and abstract mathematical problem-solving for robust STEM applications.",
-  "bilingual": "Systems heavily optimized to process and translate between two distinct languages natively, maintaining deep cultural nuances and idiomatic accuracy.",
-  "realtime search": "Models seamlessly integrated with live global web scraping capabilities to ground their responses in up-to-the-minute news, financial data, and current events.",
-  "large scale": "Massive parameter networks trained on internet-scale clusters, representing the absolute peak of modern computational engineering and raw artificial intelligence.",
-  "robotics": "Models engineered to bridge the digital and physical divide, interpreting sensor data to control robotic actuators in novel, unmapped open-world scenarios.",
-  "embodied ai": "Agents trained to perceive and act within simulated or real physical environments, learning through direct physical interaction rather than static text datasets.",
-  "vla": "Vision-Language-Action frameworks that translate complex multimodal inputs directly into precise physical motor commands for robotic hardware systems.",
-  "swe-bench": "Models specifically benchmarked against real-world software engineering issues, proving their ability to resolve complex GitHub repository bugs autonomously.",
-  "function calling": "Systems highly tuned to generate strictly formatted JSON objects that perfectly match requested software schemas, enabling flawless API integrations.",
-  "multilingual": "Global-scale language models trained across dozens of languages simultaneously to provide culturally aware translation and universal communication.",
-  "code generation": "Generative systems focused on rapidly producing boilerplate code, writing complex unit tests, and structuring entire application architectures from scratch.",
-  "small language model": "Highly efficient, parameter-constrained networks trained on strictly curated, high-quality synthetic datasets to deliver powerful reasoning on local hardware.",
-  "synthetic data": "Models heavily reliant on artificially generated training data—such as textbook logic or verified code traces—to overcome the limits of human-generated web text.",
-  "image generation": "Creative architectures capable of synthesizing photorealistic imagery, highly stylized artwork, and complex visual scenes directly from natural language prompts.",
-  "flow matching": "Next-generation generative mathematical frameworks offering incredibly fast sampling speeds and unprecedented adherence to complex text-to-image prompts.",
-  "diffusion": "Iterative generative models that gradually denoise random pixel patterns into crystal clear, high-fidelity images, audio clips, or continuous video streams.",
-  "computer vision": "State-of-the-art research dedicated to allowing machines to interpret raw visual data, recognize objects, segment complex scenes, and understand spatial relationships.",
-  "video tracking": "Temporal algorithms designed to persistently identify and follow moving objects or specific subjects seamlessly across thousands of consecutive video frames.",
-  "segmentation": "Granular visual models that precisely outline and categorize individual elements within an image down to the exact pixel boundary for precise spatial analysis.",
-  "speech-to-text": "Highly robust transcription models capable of accurately converting spoken language into text across diverse accents, background noises, and multiple languages.",
-  "audio recognition": "Systems trained to identify specific sound events in the environment—from spoken wake words and musical instruments to environmental hazards and alarms.",
-  "efficient attention": "Advanced architectural tweaks designed to drastically reduce the massive memory overhead typically associated with processing ultra-long sequences of text.",
-  "mmdit": "Multimodal diffusion transformers specifically optimized to handle diverse aspect ratios and synthesize high-fidelity textures while accurately rendering typography.",
-  "agentic coding": "Research focused on creating autonomous software engineers capable of navigating entire repositories, writing tests, and independently debugging complex systems.",
-  "stem": "Science, Technology, Engineering, and Mathematics focused networks designed to act as tireless tutors and research assistants for highly technical academic domains.",
-  "chain of thought": "Models that explicitly generate their intermediate reasoning steps before arriving at a final answer, drastically reducing logical errors in complex problem-solving.",
-  "rl": "Reinforcement learning systems that optimize their internal weights by exploring vast solution spaces and maximizing a predefined reward signal over millions of iterations.",
-  "advanced coding": "Elite programming models capable of tackling extremely complex, multi-file software engineering tasks that stump standard generative language models.",
-  "world knowledge": "Models trained on vast repositories of encyclopedic data, history, literature, and science, enabling them to act as comprehensive digital polymaths.",
-  "nuanced reasoning": "Systems highly sensitive to subtleties in human language, capable of parsing complex emotional contexts, sarcasm, and intricate philosophical arguments.",
-  "conversation": "Models primarily fine-tuned for engaging, multi-turn dialogue, capable of maintaining consistent personas and remembering long conversational histories.",
-  "enterprise": "Highly secure, compliant, and reliable models tailored specifically for corporate environments, focusing on data extraction and massive document processing.",
-  "json mode": "Systems strictly constrained to output data exclusively in valid JSON formats, ensuring completely reliable and parseable responses for automated pipelines.",
-  "128k context": "Models capable of retaining and processing up to 128,000 tokens of continuous information, perfect for analyzing dozens of PDFs or massive codebases at once.",
-  "fast": "Extremely low-latency networks optimized for high-throughput inference, delivering near-instantaneous text generation for demanding real-time applications.",
-  "cost effective": "Highly efficient models designed to deliver maximum intelligence per dollar, enabling developers to scale automated workflows without prohibitive compute expenses.",
-  "vision": "Advanced architectures dedicated solely to processing, interpreting, and reasoning over complex visual inputs, from satellite imagery to handwritten documents.",
-  "preview": "Early-access experimental models offering a glimpse into unreleased frontier architectures, testing novel reasoning capabilities before widespread deployment.",
-  "computer use": "Groundbreaking agents trained to directly interface with desktop operating systems, capable of moving cursors, clicking buttons, and navigating standard GUIs.",
-  "coding leader": "The absolute pinnacle of software engineering models, dominating industry benchmarks and defining the state-of-the-art for autonomous programming capabilities.",
-  "high velocity": "Systems engineered specifically for speed, combining specialized hardware optimization with efficient architectures to deliver massive token generation rates.",
-  "sub-second": "Ultra-responsive models designed to react to human input in less than one second, creating seamless, natural, and highly interactive user experiences.",
-  "coding": "Fundamental models focused on understanding programming syntax, offering real-time code completion, syntax highlighting, and general development assistance.",
-  "multimodal reasoning": "Advanced systems that don't just process text and images, but actually perform complex logical deductions based on the intricate relationship between the two.",
-  "1m context": "Massive context models capable of ingesting over one million tokens, allowing for the instantaneous analysis of entire series of books or massive corporate archives.",
-  "flash speed": "Incredibly optimized inference pipelines built to serve responses at blistering speeds, perfectly suited for real-time translation and synchronous agentic loops.",
-  "2m context": "The absolute frontier of memory retention, capable of analyzing over two million tokens of text or several hours of continuous video natively in a single session.",
-  "video understanding": "Temporal models trained to watch and comprehend video files, capable of answering complex questions about plot, character actions, and scene transitions.",
-  "vision-language": "Systems seamlessly bridging the gap between sight and text, allowing users to converse naturally about the precise contents of uploaded images or complex charts.",
-  "document ocr": "Optical character recognition models supercharged by deep learning to accurately extract complex tabular data, handwriting, and layout structures from raw PDFs.",
-  "open weights": "Foundation models released freely to the public, empowering researchers and developers globally to innovate on top of state-of-the-art neural architectures.",
-  "real-time knowledge": "Models that bypass the limitations of static training cutoffs by continuously querying live search engines to augment their answers with current world events.",
-  "mathematics": "Networks dedicated to quantitative logic, capable of writing rigorous proofs, solving calculus problems, and navigating abstract mathematical concepts flawlessly.",
-  "general purpose": "Versatile, well-rounded foundation models designed as the ultimate digital assistants, equally capable of writing poetry, summarizing emails, and drafting code.",
-  "agents": "Systems designed to break free from passive chat interfaces, actively planning and executing multi-step tasks across the internet to achieve user-defined goals.",
-  "video": "Broad architectures focused on the generation, manipulation, and deep temporal understanding of moving visual sequences and continuous digital media.",
-  "open source": "Fully transparent AI ecosystems where not just the weights, but the training data, code, and methodologies are freely shared for unparalleled global collaboration.",
-  "document ai": "Applying advanced computer vision and natural language processing to instantly extract, analyze, and synthesize knowledge from massive volumes of dense paperwork.",
-  "search": "Systems optimized for information retrieval, expertly navigating vast vector databases and traditional indexes to perfectly ground their generative responses.",
-  "instruction following": "Models highly aligned to strictly adhere to complex, multi-constraint user prompts without deviating or hallucinating outside the defined boundaries.",
-  "small language models": "Compact neural networks that punch vastly above their weight class, delivering impressive reasoning capabilities while running smoothly on standard edge devices.",
-  "llama": "Meta's flagship open-weight ecosystem, continuously redefining the boundaries of accessible, high-performance artificial intelligence for developers worldwide.",
-  "gpt": "OpenAI's legendary generative pre-trained transformers, consistently setting the industry standard for general reasoning, creativity, and multimodal capabilities.",
-  "moonshot": "Advanced long-context specialists from Moonshot AI, engineered specifically to process and understand millions of characters of complex documents seamlessly.",
-  "claude": "Anthropic's highly steerable, constitutional AI family, renowned for its unparalleled safety, massive context windows, and exceptional coding proficiency.",
-  "qwen": "The dedicated research division behind Alibaba's flagship open-weight models, rapidly advancing state-of-the-art capabilities in coding, math, and vision.",
-  "gemma": "Google's lightweight, state-of-the-art open models built directly from Gemini research, delivering unmatched single-GPU reasoning and instruction following.",
-  "molmo": "An innovative open-weight vision-language family trained purely on highly curated datasets, matching proprietary leaders on zero-shot visual question answering.",
-  "grok": "xAI's unapologetic, real-time foundation models, deeply integrated with global knowledge streams and designed for high-velocity coding and mathematical logic.",
-  "mistral": "The highly efficient European foundation models, famous for pioneering sparse mixture-of-experts architectures and championing the open-source AI movement.",
-  "gemini": "Google's natively multimodal flagship ecosystem, engineered from the ground up to seamlessly process text, audio, images, and video in real-time.",
-  "glm": "Zhipu AI's powerful bilingual foundation models, bridging the gap between English and Chinese with exceptional logical deduction and deep technical reasoning.",
-  "meta ai": "The research powerhouse behind the Llama ecosystem, actively democratizing access to frontier-level artificial intelligence and driving global open-source innovation.",
-  "stability ai": "Pioneers of the generative media revolution, responsible for breakthrough open-weight diffusion architectures that redefine digital art and image synthesis.",
-  "moonshot ai": "A visionary startup pushing the absolute limits of context windows, specializing in models capable of ingesting and understanding millions of tokens natively.",
-  "alibaba cloud": "The global cloud computing leader driving the Qwen series, delivering massive-scale multilingual and reasoning foundation models to the open-source community.",
-  "allen institute for ai": "A premier non-profit research institute dedicated to building open, highly transparent, and universally beneficial artificial intelligence systems for humanity.",
-  "google deepmind": "The legendary artificial intelligence laboratory responsible for historic breakthroughs in reinforcement learning, protein folding, and the Gemini ecosystem.",
-  "openai": "The pioneering AGI research organization that catalyzed the modern AI era with the GPT series, constantly redefining the absolute frontier of machine intelligence.",
-  "black forest labs": "An elite team of generative media researchers pushing the boundaries of flow matching and diffusion to achieve unprecedented photorealism in image generation.",
-  "mistral ai": "The European powerhouse championing efficient, high-performance open-weight models, leading the industry in mixture-of-experts and sparse architectures.",
-  "microsoft research": "A global titan of computer science, contributing foundational breakthroughs in small language models, synthetic data training, and enterprise-scale deployment.",
-  "xai": "An ambitious research organization driven by the pursuit of maximum truth-seeking models, integrating massive real-time knowledge streams with high-velocity reasoning.",
-  "zhipu ai": "A leading artificial intelligence startup renowned for the GLM series, delivering robust bilingual models that excel at complex logical reasoning and coding.",
-  "deepseek ai": "A trailblazing research organization pushing the limits of open-weight coding and mathematical reasoning, frequently rivaling the most expensive closed systems.",
-  "anthropic": "An AI safety and research company focused on building highly reliable, interpretable, and steerable frontier foundation systems for complex enterprise applications.",
-  "audio & speech": "Research dedicated to breaking the barriers of human-computer interaction through instantaneous, emotionally intelligent, and multilingual voice processing.",
-  "multimodal ai": "Pioneering methodologies that seamlessly blend diverse data streams, empowering models to analyze physical environments and deliver rich multimedia interactions.",
-  "robotics & vla": "The critical intersection of digital intelligence and physical hardware, training models to translate visual inputs into precise robotic motor commands in open worlds.",
-  "large language models": "The foundational science of massive-scale sequence prediction, driving the core generative capabilities and reasoning engines behind modern artificial intelligence.",
-  "vision & generation": "Groundbreaking generative frameworks combining deep visual understanding with complex diffusion techniques to synthesize stunning, photorealistic digital media.",
 };
+
+const templates = [
+  "Advanced methodologies exploring {X} to push the absolute boundaries of modern artificial intelligence and machine learning architectures.",
+  "Specialized systems leveraging {X} to deliver unprecedented accuracy, speed, and logical reasoning across complex digital tasks.",
+  "Pioneering research in {X}, driving the next generation of generative models and deeply intelligent autonomous software agents.",
+  "Cutting-edge implementations of {X} designed to vastly improve computational efficiency and scale neural networks seamlessly.",
+  "State-of-the-art frameworks utilizing {X} to bridge the gap between abstract mathematical logic and real-world enterprise applications.",
+  "Next-generation ecosystems focused on {X}, unlocking powerful new capabilities in digital automation and data synthesis.",
+  "Breakthrough approaches in {X} that redefine how algorithms interpret, generate, and structure vast amounts of unstructured information.",
+  "Innovative algorithms applying {X} to solve previously intractable problems in reasoning, coding, and dynamic environmental adaptation.",
+  "Robust foundation structures built around {X}, enabling highly responsive, zero-shot capabilities in incredibly demanding scenarios.",
+  "Transformative technologies centered on {X}, providing developers with the critical tools needed to scale intelligent systems globally.",
+  "Deep neural frameworks mastering {X}, significantly enhancing the precision and contextual awareness of modern generative artificial intelligence.",
+  "Highly optimized models capitalizing on {X} to drive sub-second inference speeds without sacrificing deep logical coherence.",
+  "Visionary architectures exploring the limits of {X} to create highly adaptable, universally capable artificial reasoning engines.",
+  "Complex digital pipelines integrating {X} to achieve state-of-the-art performance benchmarks in reasoning and pattern recognition.",
+  "Fundamentally novel approaches to {X}, opening new frontiers in multimodal generation, agentic behavior, and semantic understanding."
+];
 
 export function getCardDescription(name: string): string {
   const normalized = (name || "").toLowerCase().trim();
-  return cardDescriptions[normalized] || `Advanced methodologies exploring ${name} to push the boundaries of modern artificial intelligence.`;
+  if (cardDescriptions[normalized]) return cardDescriptions[normalized];
+  
+  // Deterministic hash based on the name so it always returns the exact same template for the same card
+  let hash = 0;
+  for (let i = 0; i < normalized.length; i++) {
+    hash = normalized.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  const templateIndex = Math.abs(hash) % templates.length;
+  const template = templates[templateIndex];
+  
+  // Format the name nicely (capitalize words)
+  const formattedName = name.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  
+  return template.replace("{X}", formattedName);
 }

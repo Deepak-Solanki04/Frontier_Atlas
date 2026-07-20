@@ -590,7 +590,7 @@ const Icon =
   return (
   <Link
     href={`/methods/${method.slug ?? method.id}`}
-    className="bg-white rounded-[20px] border border-[#ECECEC] p-5 min-h-[150px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
+    className="bg-white rounded-[20px] border border-[#ECECEC] p-5 h-[164px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline"
   >
     <div className="flex items-start gap-4">
       <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
@@ -606,7 +606,7 @@ const Icon =
       </h3>
     </div>
 
-    <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3">
+    <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-2">
   {method.description}
 </p>
 

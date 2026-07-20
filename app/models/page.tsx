@@ -975,7 +975,7 @@ function UniversalCard({
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-md border p-5 min-h-[150px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
+      className={`bg-white rounded-md border p-5 h-[164px] flex flex-col transition-shadow duration-200 group no-underline cursor-pointer ${isActive ? 'border-[#FF5A1F] shadow-[0_0_0_1px_#FF5A1F] bg-[#FFF6F3]' : 'border-[#ECECEC] hover:shadow-md' }`}
     >
       <div className="flex items-start gap-4">
         <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125">
@@ -985,7 +985,7 @@ function UniversalCard({
       </div>
       
       {description && (
-        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-3">
+        <p className="mt-3 text-[13px] leading-5 text-[#666] line-clamp-2">
           {description}
         </p>
       )}
