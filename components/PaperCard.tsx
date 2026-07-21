@@ -91,7 +91,7 @@ export default function PaperCard({ paper }: { paper: any }) {
 
       {/* Body */}
       <div className="flex-1 min-w-0 flex flex-col">
-        <h2 className="text-xl font-extrabold text-[#111111] leading-snug mb-1 tracking-tight">
+        <h2 className="text-lg font-medium text-[#111111] leading-snug mb-1 tracking-tight">
           <Link href="#" className="hover:text-[#FF5A1F] transition-colors no-underline">{paper.title}</Link>
         </h2>
         
