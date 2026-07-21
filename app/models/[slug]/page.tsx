@@ -210,8 +210,8 @@ export default function ModelDetailPage({
 
   // Find related research papers citing or mentioning this model
   const relatedPapers = useMemo(() => {
-    if (!model || !model.papers) return [];
-    return model.papers.map((p: any) => p.paper).filter(Boolean).slice(0, 10);
+    if (!model || !(model as any).papers) return [];
+    return (model as any).papers.map((p: any) => p.paper).filter(Boolean).slice(0, 10);
   }, [model]);
   
   const benchmarkArray = useMemo(() => {

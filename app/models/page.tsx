@@ -425,13 +425,6 @@ function ModelsContent() {
       filteredCatalogModels.length > 0;
   }, [searchQuery, filteredCapabilities, filteredModelFamilies, filteredVendors, filteredResearchAreas, filteredTrending, filteredRecentlyReleasedTable, filteredCatalogModels]);
 
-  const handleCopyQuickstart = () => {
-    if (inspectedModel?.description) {
-      navigator.clipboard.writeText(inspectedModel.description);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
 
   if (loading) {
     return (
