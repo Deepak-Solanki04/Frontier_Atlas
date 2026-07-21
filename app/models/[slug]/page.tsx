@@ -25,7 +25,7 @@ export default function ModelDetailPage({
   const [shareCopied, setShareCopied] = useState(false);
 
   // Active Main Tab ("evals" | "workbench" | "architecture" | "literature")
-  const [activeTab, setActiveTab] = useState<"evals" | "workbench" | "architecture" | "literature">("evals");
+
 
   // Workbench Interactive Toggles & State
   const [sdkLang, setSdkLang] = useState<"python" | "typescript" | "curl" | "ollama">("python");
@@ -201,18 +201,6 @@ export default function ModelDetailPage({
               <span className="text-[#111111] font-medium">{model.name}</span>
             </div>
           </div>
-
-          <div className="flex items-center gap-3">
-            <button onClick={handleShare} className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[#555555] hover:text-[#111111] transition-colors text-[13px] font-semibold">
-              <Share2 size={15} />
-              <span className="hidden sm:inline">{shareCopied ? "Link Copied!" : "Share Profile"}</span>
-            </button>
-            
-            <Link href="/trending" className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-[13px] font-bold no-underline">
-              <span>Explore Research</span>
-              <ExternalLink size={14} />
-            </Link>
-          </div>
         </div>
       </header>
 
@@ -241,7 +229,7 @@ export default function ModelDetailPage({
             </div>
 
             {model.elo && (
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-extrabold uppercase tracking-wider shadow-sm">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
                 <Zap size={13} style={{ fill: "#ffffff" }} />
                 <span>GLOBAL ELO RATING: {model.elo}</span>
               </div>
@@ -249,7 +237,7 @@ export default function ModelDetailPage({
           </div>
 
           {/* Title & Core Summary */}
-          <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] tracking-tight mb-4 relative z-10">
+          <h1 className="text-2xl md:text-4xl font-bold text-[#111111] tracking-tight mb-4 relative z-10">
             {model.name}
           </h1>
           <p className="text-[#555555] text-lg max-w-3xl leading-relaxed mb-10 relative z-10 font-medium">
@@ -259,48 +247,48 @@ export default function ModelDetailPage({
           {/* 4-Cell Interactive Architecture & Spec Pods inside Hero */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
             
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Architecture Specs</span>
-                <Cpu size={16} className="text-[#FF5A1F]" />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Architecture Specs</span>
+                <Cpu size={14} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-lg font-extrabold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111] mb-1">
                 {model.parameterCount || "Not Specified"}
               </div>
-              <span className="text-[11px] font-bold text-[#10B981]"><Check size={12} className="inline mr-1 relative -top-[1px]" /> High-Density Mixture-of-Experts</span>
+              <span className="text-[10px] font-semibold text-[#10B981]"><Check size={10} className="inline mr-1 relative -top-[1px]" /> High-Density Mixture-of-Experts</span>
             </div>
 
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Context Capacity</span>
-                <Box size={16} className="text-[#3B82F6]" />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Context Capacity</span>
+                <Box size={14} className="text-[#3B82F6]" />
               </div>
-              <div className="text-lg font-extrabold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111] mb-1">
                 {model.contextWindow || "Not Specified"}
               </div>
-              <span className="text-[11px] font-bold text-[#3B82F6]"><Check size={12} className="inline mr-1 relative -top-[1px]" /> Native Prompt Caching Supported</span>
+              <span className="text-[10px] font-semibold text-[#3B82F6]"><Check size={10} className="inline mr-1 relative -top-[1px]" /> Native Prompt Caching Supported</span>
             </div>
 
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Primary Specialization</span>
-                <Activity size={16} className="text-[#FF5A1F]" />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Primary Specialization</span>
+                <Activity size={14} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-lg font-extrabold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111] mb-1">
                 {model.category || "General Purpose"}
               </div>
-              <span className="text-[11px] font-bold text-[#A8A39E]"><Activity size={12} className="inline mr-1 relative -top-[1px]" /> Instantaneous vs Extended CoT</span>
+              <span className="text-[10px] font-semibold text-[#A8A39E]"><Activity size={10} className="inline mr-1 relative -top-[1px]" /> Instantaneous vs Extended CoT</span>
             </div>
 
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-4 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#8B8B8B]">Literature Citations</span>
-                <BookOpen size={16} className="text-[#8B5CF6]" />
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Literature Citations</span>
+                <BookOpen size={14} className="text-[#8B5CF6]" />
               </div>
-              <div className="text-lg font-extrabold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111] mb-1">
                 {model.paperCount} Verified Papers
               </div>
-              <span className="text-[11px] font-bold text-[#8B5CF6]"><BookOpen size={12} className="inline mr-1 relative -top-[1px]" /> Indexed in Frontier Repository</span>
+              <span className="text-[10px] font-semibold text-[#8B5CF6]"><BookOpen size={10} className="inline mr-1 relative -top-[1px]" /> Indexed in Frontier Repository</span>
             </div>
           
           </div>
@@ -318,58 +306,9 @@ export default function ModelDetailPage({
         </div>
       </section>
 
-      {/* ── STATE-OF-THE-ART INTERACTIVE TAB BAR ── */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
-        <div className="flex items-center overflow-x-auto border-b-2 border-[#EAE9E4] pb-[-2px] gap-2 md:gap-8 hide-scrollbar">
-          
-          <button
-            onClick={() => setActiveTab("evals")}
-            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "evals" ? "border-[#FF5A1F] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
-          >
-            <Trophy size={16} className={activeTab === "evals" ? "text-[#FF5A1F]" : ""} />
-            <span>Verified Academic Benchmarks</span>
-            <span className="ml-1 bg-[#F8F7F2] text-[#555555] px-2 py-0.5 rounded text-xs border border-[#EAE9E4]">
-              {model.benchmarks?.length || 0}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("workbench")}
-            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "workbench" ? "border-[#10B981] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
-          >
-            <Terminal size={16} className={activeTab === "workbench" ? "text-[#10B981]" : ""} />
-            <span>Interactive SDK Workbench</span>
-            <span className={`ml-1 px-2 py-0.5 rounded text-xs font-extrabold ${activeTab === "workbench" ? "bg-[#10B981] text-white" : "bg-[#F8F7F2] text-[#555555] border border-[#EAE9E4]"}`}>
-              LIVE
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("architecture")}
-            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "architecture" ? "border-[#3B82F6] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
-          >
-            <Layers size={16} className={activeTab === "architecture" ? "text-[#3B82F6]" : ""} />
-            <span>Architecture & Capabilities</span>
-          </button>
-
-          <button
-            onClick={() => setActiveTab("literature")}
-            className={`flex items-center gap-2 pb-3 px-2 border-b-2 transition-colors whitespace-nowrap text-sm font-bold ${activeTab === "literature" ? "border-[#8B5CF6] text-[#111111]" : "border-transparent text-[#8B8B8B] hover:text-[#555555]"}`}
-          >
-            <BookOpen size={16} className={activeTab === "literature" ? "text-[#8B5CF6]" : ""} />
-            <span>Research Literature</span>
-            <span className="ml-1 bg-[#F8F7F2] text-[#555555] px-2 py-0.5 rounded text-xs border border-[#EAE9E4]">
-              {relatedPapers.length}
-            </span>
-          </button>
-
-        </div>
-      </section>
-
       {/* ─────────────────────────────────────────────────────────────────────────────
           TAB 1: VERIFIED ACADEMIC BENCHMARKS & EVALUATION MATRIX
       ───────────────────────────────────────────────────────────────────────────── */}
-      {activeTab === "evals" && (
         <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
           
           {/* Controls Bar */}
@@ -465,12 +404,10 @@ export default function ModelDetailPage({
           </div>
 
         </section>
-      )}
 
       {/* ─────────────────────────────────────────────────────────────────────────────
           TAB 2: INTERACTIVE SDK WORKBENCH & CODE PLAYGROUND
       ───────────────────────────────────────────────────────────────────────────── */}
-      {activeTab === "workbench" && (
         <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
           
           <div className="bg-white border border-[#F0F0F0] rounded-[12px] overflow-hidden shadow-sm">
@@ -612,12 +549,10 @@ export default function ModelDetailPage({
           </div>
 
         </section>
-      )}
 
       {/* ─────────────────────────────────────────────────────────────────────────────
           TAB 3: ARCHITECTURE & CAPABILITIES DEEP-DIVE
       ───────────────────────────────────────────────────────────────────────────── */}
-      {activeTab === "architecture" && (
         <section className="max-w-7xl mx-auto px-4 md:px-8 mt-12">
           
           <div className="text-center max-w-2xl mx-auto mb-10">
@@ -715,12 +650,10 @@ export default function ModelDetailPage({
           </div>
 
         </section>
-      )}
 
       {/* ─────────────────────────────────────────────────────────────────────────────
           TAB 4: RESEARCH LITERATURE & ACADEMIC BIBLIOGRAPHY
       ───────────────────────────────────────────────────────────────────────────── */}
-      {activeTab === "literature" && (
         <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
           
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
@@ -754,9 +687,7 @@ export default function ModelDetailPage({
               ))}
             </div>
           )}
-
         </section>
-      )}
 
     </div>
   );
