@@ -555,94 +555,94 @@ export default function ModelDetailPage({
       ───────────────────────────────────────────────────────────────────────────── */}
         <section className="max-w-7xl mx-auto px-4 md:px-8 mt-12">
           
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="inline-block px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[11px] font-extrabold uppercase tracking-wider mb-4">
+          <div className="text-left mb-8">
+            <span className="inline-block px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[10px] font-bold uppercase tracking-wider mb-3">
               System Topology & Engine
             </span>
-            <h2 className="text-3xl font-extrabold text-[#111111] tracking-tight mb-3">
+            <h2 className="text-2xl font-bold text-[#111111] tracking-tight mb-2">
               Architectural Capabilities Suite
             </h2>
-            <p className="text-base font-medium text-[#555555] leading-relaxed">
+            <p className="text-sm font-medium text-[#555555] leading-relaxed max-w-3xl">
               Detailed technical breakdown of core sub-systems, token economics, and agentic safeguards.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             
-            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] flex items-center justify-center text-xl mb-4">
-                <Brain size={24} />
+            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-full bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] flex items-center justify-center text-xl mb-3">
+                <Brain size={20} />
               </div>
-              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Hybrid Reasoning Engine</h3>
-              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
+              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Hybrid Reasoning Engine</h3>
+              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
                 Seamlessly transitions between instantaneous high-throughput generation and deep mathematical verification where intermediate thought tokens are evaluated and self-corrected before final output.
               </p>
-              <div className="text-[12px] font-bold text-[#FF5A1F]">
+              <div className="text-[11px] font-bold text-[#FF5A1F]">
                 <Check size={12} className="inline mr-1 relative -top-[1px]" /> Dynamic compute scaling per prompt
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] text-[#3B82F6] border border-[#DBEAFE] flex items-center justify-center text-xl mb-4">
-                <Wrench size={24} />
+            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-full bg-[#EFF6FF] text-[#3B82F6] border border-[#DBEAFE] flex items-center justify-center text-xl mb-3">
+                <Wrench size={20} />
               </div>
-              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Autonomous Agentic Orchestration</h3>
-              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
+              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Autonomous Agentic Orchestration</h3>
+              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
                 Native training for multi-step tool execution, structured JSON schema enforcement, sandboxed terminal command generation, and browser navigation across complex full-repository coding tasks.
               </p>
-              <div className="text-[12px] font-bold text-[#3B82F6]">
+              <div className="text-[11px] font-bold text-[#3B82F6]">
                 <Check size={12} className="inline mr-1 relative -top-[1px]" /> 50%+ SWE-Bench Verified SOTA
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#F0FDF4] text-[#10B981] border border-[#DCFCE7] flex items-center justify-center text-xl mb-4">
-                <Eye size={24} />
+            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-full bg-[#F0FDF4] text-[#10B981] border border-[#DCFCE7] flex items-center justify-center text-xl mb-3">
+                <Eye size={20} />
               </div>
-              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Multimodal Vision Understanding</h3>
-              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
+              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Multimodal Vision Understanding</h3>
+              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
                 State-of-the-art visual reasoning capable of reading dense engineering diagrams, extracting UI design systems from raw Figma screenshots, and interpreting multi-page academic PDFs with sub-pixel OCR.
               </p>
-              <div className="text-[12px] font-bold text-[#10B981]">
+              <div className="text-[11px] font-bold text-[#10B981]">
                 <Check size={12} className="inline mr-1 relative -top-[1px]" /> 1M pixel spatial resolution
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#FAF5FF] text-[#8B5CF6] border border-[#F3E8FF] flex items-center justify-center text-xl mb-4">
-                <Zap size={24} />
+            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-full bg-[#FAF5FF] text-[#8B5CF6] border border-[#F3E8FF] flex items-center justify-center text-xl mb-3">
+                <Zap size={20} />
               </div>
-              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">High-Speed Token Economics</h3>
-              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
+              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">High-Speed Token Economics</h3>
+              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
                 Optimized attention heads capable of delivering up to 60 tokens per second on commercial infrastructure, combined with automatic prompt caching that reduces repeated systemic context costs by over 50%.
               </p>
-              <div className="text-[12px] font-bold text-[#8B5CF6]">
+              <div className="text-[11px] font-bold text-[#8B5CF6]">
                 <Check size={12} className="inline mr-1 relative -top-[1px]" /> Ultra-low latency TTFT (~250ms)
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#FFF1F2] text-[#E11D48] border border-[#FFE4E6] flex items-center justify-center text-xl mb-4">
-                <ShieldCheck size={24} />
+            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-full bg-[#FFF1F2] text-[#E11D48] border border-[#FFE4E6] flex items-center justify-center text-xl mb-3">
+                <ShieldCheck size={20} />
               </div>
-              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Constitutional Safeguards</h3>
-              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
+              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Constitutional Safeguards</h3>
+              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
                 Trained using advanced Direct Preference Optimization (DPO) and Constitutional AI principles to prevent reward hacking, hallucination loops, and unauthorized adversarial prompt injection.
               </p>
-              <div className="text-[12px] font-bold text-[#E11D48]">
+              <div className="text-[11px] font-bold text-[#E11D48]">
                 <Check size={12} className="inline mr-1 relative -top-[1px]" /> ASL-3 Security Alignment Standard
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-[12px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] flex items-center justify-center text-xl mb-4">
-                <Link2 size={24} />
+            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] flex items-center justify-center text-xl mb-3">
+                <Link2 size={20} />
               </div>
-              <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2">Ecosystem Compatibility</h3>
-              <p className="text-[13px] font-medium text-[#555555] leading-relaxed mb-4">
+              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Ecosystem Compatibility</h3>
+              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
                 Native drop-in integration across major enterprise frameworks including LangChain, Vercel AI SDK, LlamaIndex, Cursor IDE, OpenWebUI, and cloud providers (Amazon Bedrock / Google Cloud Vertex AI).
               </p>
-              <div className="text-[12px] font-bold text-[#D97706]">
+              <div className="text-[11px] font-bold text-[#D97706]">
                 <Check size={12} className="inline mr-1 relative -top-[1px]" /> Multi-cloud deployment ready
               </div>
             </div>
