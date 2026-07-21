@@ -210,31 +210,14 @@ export default function ModelDetailPage({
           <div className="flex-1">
           
           {/* Top Metadata Strip */}
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 relative z-10">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] text-[11px] font-bold uppercase tracking-wide">
-                <Sparkles size={13} />
-                <span>{model.vendor} Certified</span>
-              </span>
-              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[11px] font-bold uppercase tracking-wide text-[#555555]">
-                <span>License:</span>
-                <span className="text-[#111111]">{model.license || "Proprietary Commercial"}</span>
-              </span>
-              {model.releaseDate && (
-                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#F8F7F2] border border-[#EAE9E4] text-[11px] font-bold uppercase tracking-wide text-[#555555]">
-                  <span>Released:</span>
-                  <span className="text-[#111111]">{model.releaseDate}</span>
-                </span>
-              )}
-            </div>
-
-            {model.elo && (
+          {model.elo && (
+            <div className="flex mb-4 relative z-10">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
                 <Zap size={13} style={{ fill: "#ffffff" }} />
                 <span>GLOBAL ELO RATING: {model.elo}</span>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* Title & Core Summary */}
           <h1 className="text-2xl md:text-4xl font-bold text-[#111111] tracking-tight mb-4 relative z-10">
