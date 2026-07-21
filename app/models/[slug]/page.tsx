@@ -360,11 +360,11 @@ export default function ModelDetailPage({
           <div className="flex-1">
           
           {/* Top Metadata Strip */}
-          {model.elo && (
+          {(model as any).elo && (
             <div className="flex mb-4 relative z-10">
               <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
                 <Zap size={13} style={{ fill: "#ffffff" }} />
-                <span>GLOBAL ELO RATING: {model.elo}</span>
+                <span>GLOBAL ELO RATING: {(model as any).elo}</span>
               </div>
             </div>
           )}
@@ -681,7 +681,7 @@ export default function ModelDetailPage({
               <div className="flex flex-wrap items-center gap-2 md:gap-4 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">
                 <span>API Endpoint: <strong className="text-white">api.anthropic.com/v1/messages</strong></span>
                 <span className="text-[#333333]">•</span>
-                <span>Context Window: <strong className="text-[#FF5A1F]">{model.context || "200k tokens"}</strong></span>
+                <span>Context Window: <strong className="text-[#FF5A1F]">{(model as any).context || "200k tokens"}</strong></span>
                 <span className="text-[#333333]">•</span>
                 <span>Prompt Caching: <strong className="text-[#10B981]">Enabled (-50% Cost)</strong></span>
               </div>
