@@ -190,6 +190,7 @@ export default function ModelDetailPage({
   const [evalMode, setEvalMode] = useState<"standard" | "human">("standard");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (resolvedParams?.slug) {
       const cleanId = resolvedParams.slug.toLowerCase().trim();
       fetchApi<{ status: string, data: any }>(`/api/v1/models/${cleanId}`)
@@ -425,10 +426,16 @@ export default function ModelDetailPage({
           </div>
 
           {/* Logo on the Right Side */}
-          {model.vendorLogoUrl && (
+          {model.vendorLogoUrl ? (
             <div className="hidden md:flex flex-col items-end justify-start shrink-0">
               <div className="w-24 h-24 rounded-[12px] bg-[#F8F7F2] border border-[#EAE9E4] p-3 flex items-center justify-center">
                 <img src={model.vendorLogoUrl} alt={model.vendor} className="max-w-full max-h-full object-contain" />
+              </div>
+            </div>
+          ) : (
+            <div className="hidden md:flex flex-col items-end justify-start shrink-0">
+              <div className="w-24 h-24 rounded-[12px] bg-[#F8F7F2] border border-[#EAE9E4] p-3 flex items-center justify-center text-[#8B8B8B]">
+                <Cpu size={40} />
               </div>
             </div>
           )}
