@@ -220,7 +220,7 @@ export default function ModelDetailPage({
           )}
 
           {/* Title & Core Summary */}
-          <h1 className="text-xl md:text-3xl font-bold text-[#111111] tracking-tight mb-4 relative z-10">
+          <h1 className="text-lg md:text-2xl font-bold text-[#111111] tracking-tight mb-3 relative z-10">
             {model.name}
           </h1>
           <p className="text-[#555555] text-lg max-w-3xl leading-relaxed mb-10 relative z-10 font-medium">
@@ -301,7 +301,7 @@ export default function ModelDetailPage({
                 <BarChart3 size={24} />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
+                <h2 className="text-xl font-bold text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
                 <p className="text-sm font-medium text-[#555555]">Official verified evaluations vs baseline human expert threshold</p>
               </div>
             </div>
@@ -402,7 +402,7 @@ export default function ModelDetailPage({
                   <Terminal size={24} />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-[#111111] mb-1 tracking-tight">Interactive SDK Workbench</h2>
+                  <h2 className="text-xl font-bold text-[#111111] mb-1 tracking-tight">Interactive SDK Workbench</h2>
                   <p className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider">Generate live inference code dynamically</p>
                 </div>
               </div>
@@ -538,16 +538,23 @@ export default function ModelDetailPage({
       ───────────────────────────────────────────────────────────────────────────── */}
         <section className="max-w-7xl mx-auto px-4 md:px-8 mt-12">
           
-          <div className="text-left mb-8">
-            <span className="inline-block px-3 py-1 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[10px] font-bold uppercase tracking-wider mb-3">
-              System Topology & Engine
-            </span>
-            <h2 className="text-2xl font-bold text-[#111111] tracking-tight mb-2">
-              Architectural Capabilities Suite
-            </h2>
-            <p className="text-sm font-medium text-[#555555] leading-relaxed max-w-3xl">
-              Detailed technical breakdown of core sub-systems, token economics, and agentic safeguards.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] flex items-center justify-center text-[#3B82F6]">
+                <Layers size={24} />
+              </div>
+              <div>
+                <span className="inline-block px-2.5 py-0.5 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[9px] font-bold uppercase tracking-wider mb-1.5">
+                  System Topology & Engine
+                </span>
+                <h2 className="text-xl font-bold text-[#111111] tracking-tight mb-1">
+                  Architectural Capabilities Suite
+                </h2>
+                <p className="text-sm font-medium text-[#555555] leading-relaxed max-w-3xl">
+                  Detailed technical breakdown of core sub-systems, token economics, and agentic safeguards.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -645,7 +652,7 @@ export default function ModelDetailPage({
                 <BookOpen size={24} />
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
+                <h2 className="text-xl font-bold text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
                 <p className="text-sm font-medium text-[#555555]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
               </div>
             </div>
