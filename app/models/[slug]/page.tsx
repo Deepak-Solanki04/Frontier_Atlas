@@ -176,6 +176,7 @@ export default function ModelDetailPage({
   const [model, setModel] = useState<ModelItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [logoError, setLogoError] = useState(false);
 
   // Active Main Tab ("evals" | "workbench" | "architecture" | "literature")
 
@@ -191,6 +192,7 @@ export default function ModelDetailPage({
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setLogoError(false);
     if (resolvedParams?.slug) {
       const cleanId = resolvedParams.slug.toLowerCase().trim();
       fetchApi<{ status: string, data: any }>(`/api/v1/models/${cleanId}`)
@@ -426,10 +428,15 @@ export default function ModelDetailPage({
           </div>
 
           {/* Logo on the Right Side */}
-          {model.vendorLogoUrl ? (
+          {model.vendorLogoUrl && !logoError ? (
             <div className="hidden md:flex flex-col items-end justify-start shrink-0">
               <div className="w-24 h-24 rounded-[12px] bg-[#F8F7F2] border border-[#EAE9E4] p-3 flex items-center justify-center">
-                <img src={model.vendorLogoUrl} alt={model.vendor} className="max-w-full max-h-full object-contain" />
+                <img 
+                  src={model.vendorLogoUrl} 
+                  alt={model.vendor} 
+                  onError={() => setLogoError(true)}
+                  className="w-full h-full object-contain" 
+                />
               </div>
             </div>
           ) : (
