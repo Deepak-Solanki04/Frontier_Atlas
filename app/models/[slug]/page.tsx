@@ -220,7 +220,7 @@ export default function ModelDetailPage({
           )}
 
           {/* Title & Core Summary */}
-          <h1 className="text-2xl md:text-4xl font-bold text-[#111111] tracking-tight mb-4 relative z-10">
+          <h1 className="text-xl md:text-3xl font-bold text-[#111111] tracking-tight mb-4 relative z-10">
             {model.name}
           </h1>
           <p className="text-[#555555] text-lg max-w-3xl leading-relaxed mb-10 relative z-10 font-medium">
@@ -301,7 +301,7 @@ export default function ModelDetailPage({
                 <BarChart3 size={24} />
               </div>
               <div>
-                <h2 className="text-xl font-extrabold text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
+                <h2 className="text-2xl font-bold text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
                 <p className="text-sm font-medium text-[#555555]">Official verified evaluations vs baseline human expert threshold</p>
               </div>
             </div>
@@ -402,7 +402,7 @@ export default function ModelDetailPage({
                   <Terminal size={24} />
                 </div>
                 <div>
-                  <h2 className="text-lg font-extrabold text-[#111111] mb-1">Interactive SDK Workbench</h2>
+                  <h2 className="text-2xl font-bold text-[#111111] mb-1 tracking-tight">Interactive SDK Workbench</h2>
                   <p className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider">Generate live inference code dynamically</p>
                 </div>
               </div>
@@ -645,7 +645,7 @@ export default function ModelDetailPage({
                 <BookOpen size={24} />
               </div>
               <div>
-                <h2 className="text-xl font-extrabold text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
+                <h2 className="text-2xl font-bold text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
                 <p className="text-sm font-medium text-[#555555]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
               </div>
             </div>
