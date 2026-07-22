@@ -1038,7 +1038,50 @@ export async function getLineages(): Promise<LineageItem[]> {
         };
       });
 
-    return lineages;
+    if (lineages.length > 0) {
+      return lineages;
+    }
+
+    // FALLBACK FOR DESIGN PREVIEW:
+    // If the database is completely empty (no papers with models), we return mock data 
+    // just so the frontend design can be previewed on Vercel.
+    console.warn("Database returned no lineages. Using mock data for design preview.");
+    return [
+      {
+        id: "gpt",
+        name: "GPT Lineage",
+        vendor: "OpenAI",
+        description: "The pioneering generative pre-trained transformer models that popularized instruction tuning.",
+        color: "#10B981",
+        bgStyle: "bg-emerald-50 border-emerald-200 text-emerald-600",
+        latestModel: "GPT-4o",
+        timeline: "2018 - Present",
+        nodes: [
+          { name: "GPT-1", year: 2018, isSota: false },
+          { name: "GPT-2", year: 2019, isSota: false },
+          { name: "GPT-3", year: 2020, isSota: false },
+          { name: "GPT-4", year: 2023, isSota: false },
+          { name: "GPT-4o", year: 2024, isSota: true }
+        ]
+      },
+      {
+        id: "llama",
+        name: "LLaMA Lineage",
+        vendor: "Meta AI",
+        description: "A foundational open-weight language model family designed for research.",
+        color: "#3B82F6",
+        bgStyle: "bg-blue-50 border-blue-200 text-blue-600",
+        latestModel: "Llama 3.1",
+        timeline: "2023 - Present",
+        nodes: [
+          { name: "LLaMA 1", year: 2023, isSota: false },
+          { name: "Llama 2", year: 2023, isSota: false },
+          { name: "Llama 3", year: 2024, isSota: false },
+          { name: "Llama 3.1", year: 2024, isSota: true }
+        ]
+      }
+    ];
+
   } catch (err) {
     console.error("Failed to fetch lineages:", err);
     return [];
