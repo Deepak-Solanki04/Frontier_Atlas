@@ -428,8 +428,6 @@ export default function ModelDetailPage({
 
         </section>
 
-        </section>
-
       {/* ─────────────────────────────────────────────────────────────────────────────
           TAB 3: ARCHITECTURE & CAPABILITIES DEEP-DIVE
       ───────────────────────────────────────────────────────────────────────────── */}
@@ -575,7 +573,6 @@ export default function ModelDetailPage({
             </div>
           )}
         </section>
-
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import React, { use } from "react";
 import Link from "next/link";
 import { 
-  ArrowLeft, GitCommit, Calendar, Cpu, Brain, Sparkles, Box, CheckCircle2, Zap
+  ArrowLeft, GitCommit, Calendar, Cpu, Brain, Sparkles, Box, CheckCircle2, Zap, ArrowRight
 } from "lucide-react";
 
 // Mock Data for a Specific Lineage Tree
