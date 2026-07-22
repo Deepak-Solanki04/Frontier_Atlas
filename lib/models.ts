@@ -974,15 +974,34 @@ export async function getModels(): Promise<ModelItem[]> {
 
 export async function getLineages(): Promise<LineageItem[]> {
   try {
-    const response = await fetchApi<any>("/api/v1/research-papers?limit=100");
-    const rawPapers = Array.isArray(response) ? response : (Array.isArray(response?.data) ? response.data : (Array.isArray(response?.data?.papers) ? response.data.papers : []));
+    // 1. Fetch papers categorized as 'lineage'
+    const listResponse = await fetchApi<any>("/api/v1/research-papers?task=lineage&limit=20");
+    const lineagePapers = Array.isArray(listResponse) ? listResponse : (Array.isArray(listResponse?.data) ? listResponse.data : (Array.isArray(listResponse?.data?.papers) ? listResponse.data.papers : []));
 
-    // Filter papers that have models attached, since they represent lineages
-    const lineages = rawPapers
+    if (lineagePapers.length === 0) {
+      console.warn("No lineages found with task=lineage. Trying fallback to known lineage slugs...");
+      // Fallback: If the backend hasn't tagged them with task=lineage yet,
+      // we try fetching known lineage slugs as a backup.
+      const fallbackSlugs = ["gpt-lineage", "llama-lineage", "claude-lineage", "gemini-lineage", "gpt", "llama", "claude"];
+      lineagePapers.push(...fallbackSlugs.map(slug => ({ slug })));
+    }
+
+    // 2. Fetch full details for each lineage paper to get its associated models
+    const detailedPapers = await Promise.all(
+      lineagePapers.map((paper: any) => 
+        fetchApi<any>(`/api/v1/research-papers/${paper.slug}`).catch(() => null)
+      )
+    );
+
+    // Filter out failed fetches
+    const validPapers = detailedPapers.filter(Boolean).map(p => p.data || p);
+
+    // 3. Transform into LineageItem format
+    const lineages = validPapers
       .filter((paper: any) => paper.models && paper.models.length > 0)
       .map((paper: any, idx: number) => {
         
-        // Sort models by release date or name to form a timeline
+        // Sort models by release date to form a timeline
         const sortedModels = [...paper.models].sort((a, b) => {
           const dateA = a.model?.releaseDate ? new Date(a.model.releaseDate).getTime() : 0;
           const dateB = b.model?.releaseDate ? new Date(b.model.releaseDate).getTime() : 0;
@@ -997,7 +1016,7 @@ export async function getLineages(): Promise<LineageItem[]> {
 
         const latestModelName = nodes.length > 0 ? nodes[nodes.length - 1].name : "N/A";
         
-        // Dynamic colors based on index or vendor
+        // Dynamic colors based on index
         const colors = [
           { color: "#10B981", bg: "bg-emerald-50 border-emerald-200 text-emerald-600" },
           { color: "#3B82F6", bg: "bg-blue-50 border-blue-200 text-blue-600" },
