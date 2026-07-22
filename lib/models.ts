@@ -36,6 +36,24 @@ export interface ModelItem {
   category?: string;
 }
 
+export interface LineageNode {
+  name: string;
+  year?: number;
+  isSota?: boolean;
+}
+
+export interface LineageItem {
+  id: string;
+  name: string;
+  vendor: string;
+  description: string;
+  color: string;
+  bgStyle: string;
+  nodes: LineageNode[];
+  latestModel: string;
+  timeline: string;
+}
+
 const mockModels: ModelItem[] = [
   {
     id: "claude-3-7-sonnet",
@@ -944,13 +962,68 @@ export async function getModels(): Promise<ModelItem[]> {
       ];
       return combined;
     }
+    // Silently fall back to catalog if API endpoint is unreachable or loading
   } catch (err) {
     // Silently fall back to catalog if API endpoint is unreachable or loading
   }
 
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(mockModels.map(enrichModelItem)), 50);
-  });
+  return mockModels.map(enrichModelItem);
+}
+
+
+
+export async function getLineages(): Promise<LineageItem[]> {
+  try {
+    const response = await fetchApi<any>("/api/v1/research-papers?limit=100");
+    const rawPapers = Array.isArray(response) ? response : (Array.isArray(response?.data) ? response.data : (Array.isArray(response?.data?.papers) ? response.data.papers : []));
+
+    // Filter papers that have models attached, since they represent lineages
+    const lineages = rawPapers
+      .filter((paper: any) => paper.models && paper.models.length > 0)
+      .map((paper: any, idx: number) => {
+        
+        // Sort models by release date or name to form a timeline
+        const sortedModels = [...paper.models].sort((a, b) => {
+          const dateA = a.model?.releaseDate ? new Date(a.model.releaseDate).getTime() : 0;
+          const dateB = b.model?.releaseDate ? new Date(b.model.releaseDate).getTime() : 0;
+          return dateA - dateB;
+        });
+
+        const nodes: LineageNode[] = sortedModels.map((m: any, i: number) => ({
+          name: m.model?.name || "Unknown Model",
+          year: m.model?.releaseDate ? new Date(m.model.releaseDate).getFullYear() : undefined,
+          isSota: i === sortedModels.length - 1 // Assume last model is latest/SOTA
+        }));
+
+        const latestModelName = nodes.length > 0 ? nodes[nodes.length - 1].name : "N/A";
+        
+        // Dynamic colors based on index or vendor
+        const colors = [
+          { color: "#10B981", bg: "bg-emerald-50 border-emerald-200 text-emerald-600" },
+          { color: "#3B82F6", bg: "bg-blue-50 border-blue-200 text-blue-600" },
+          { color: "#FF5A1F", bg: "bg-orange-50 border-orange-200 text-orange-600" },
+          { color: "#8B5CF6", bg: "bg-purple-50 border-purple-200 text-purple-600" },
+        ];
+        const theme = colors[idx % colors.length];
+
+        return {
+          id: paper.slug || `lineage-${idx}`,
+          name: paper.title || "Model Lineage",
+          vendor: sortedModels[0]?.model?.vendor || "Research Lab",
+          description: paper.abstract || "Evolutionary tree of this foundation model family.",
+          color: theme.color,
+          bgStyle: theme.bg,
+          nodes: nodes,
+          latestModel: latestModelName,
+          timeline: nodes.length > 0 ? `${nodes[0].year || "Early"} - Present` : "Present"
+        };
+      });
+
+    return lineages;
+  } catch (err) {
+    console.error("Failed to fetch lineages:", err);
+    return [];
+  }
 }
 
 export function getAllModelIds(): string[] {

@@ -1,61 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { 
   GitCommit, ArrowRight, Sparkles, Box, Activity, ChevronRight, Layers, ArrowLeft
 } from "lucide-react";
-
-// Mock Data for Lineages Index
-const MOCK_LINEAGES = [
-  {
-    id: "gpt",
-    name: "GPT Lineage",
-    vendor: "OpenAI",
-    description: "The pioneering generative pre-trained transformer models that popularized instruction tuning and RLHF, establishing the modern LLM paradigm.",
-    color: "#10B981", // Emerald
-    bgStyle: "bg-emerald-50 border-emerald-200 text-emerald-600",
-    nodeCount: 7,
-    latestModel: "GPT-4o",
-    timeline: "2018 - Present"
-  },
-  {
-    id: "llama",
-    name: "LLaMA Lineage",
-    vendor: "Meta AI",
-    description: "A foundational open-weight language model family designed for research, scaling from efficient 7B models up to massive 400B dense architectures.",
-    color: "#3B82F6", // Blue
-    bgStyle: "bg-blue-50 border-blue-200 text-blue-600",
-    nodeCount: 6,
-    latestModel: "Llama 3.1",
-    timeline: "2023 - Present"
-  },
-  {
-    id: "claude",
-    name: "Claude Lineage",
-    vendor: "Anthropic",
-    description: "Constitutional AI models focused on safety, highly steerable reasoning, and massive context window capabilities for enterprise tasks.",
-    color: "#D97757", // Anthropic-ish
-    bgStyle: "bg-orange-50 border-orange-200 text-orange-600",
-    nodeCount: 5,
-    latestModel: "Claude 3.5 Sonnet",
-    timeline: "2023 - Present"
-  },
-  {
-    id: "gemini",
-    name: "Gemini Lineage",
-    vendor: "Google DeepMind",
-    description: "Natively multimodal foundation models trained simultaneously across text, images, audio, and video for highly capable general intelligence.",
-    color: "#8B5CF6", // Purple
-    bgStyle: "bg-purple-50 border-purple-200 text-purple-600",
-    nodeCount: 4,
-    latestModel: "Gemini 1.5 Pro",
-    timeline: "2023 - Present"
-  }
-];
+import { getLineages, LineageItem } from "@/lib/models";
 
 export default function LineagesDirectoryPage() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [lineages, setLineages] = useState<LineageItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getLineages()
+      .then(setLineages)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] pb-24 font-sans">
@@ -93,8 +55,19 @@ export default function LineagesDirectoryPage() {
         </div>
 
         {/* LINEAGES GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {MOCK_LINEAGES.map((lineage) => (
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="bg-white rounded-[16px] border border-[#F0F0F0] p-8 h-[380px] animate-pulse" />
+            ))}
+          </div>
+        ) : lineages.length === 0 ? (
+          <div className="text-center py-20 bg-white rounded-xl border border-[#F0F0F0]">
+            <p className="text-[#555555] font-medium">No lineages found yet. The backend might still be synchronizing.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {lineages.map((lineage) => (
             <Link 
               href={`/lineages/${lineage.id}`} 
               key={lineage.id}
@@ -124,9 +97,61 @@ export default function LineagesDirectoryPage() {
                     {lineage.name}
                   </h2>
                   
-                  <p className="text-[15px] font-medium text-[#555555] leading-relaxed mb-8">
+                  <p className="text-[15px] font-medium text-[#555555] leading-relaxed mb-6">
                     {lineage.description}
                   </p>
+                  
+                  {/* SVG TIMELINE VISUALIZER */}
+                  <div className="mb-8 pt-4 border-t border-[#F0F0F0]">
+                    <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-4">Evolutionary Path</div>
+                    <div className="relative w-full h-[60px] flex items-center">
+                      <svg viewBox="0 0 400 60" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
+                        <defs>
+                          <marker id={`arrow-${lineage.id}`} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                            <path d="M 0 0 L 8 4 L 0 8 z" fill="#D1D5DB" />
+                          </marker>
+                        </defs>
+                        {/* Lines connecting nodes */}
+                        {lineage.nodes.slice(0, 4).map((node, i, arr) => {
+                          if (i === arr.length - 1) return null;
+                          const spacing = 400 / (Math.min(arr.length, 4) || 1);
+                          const x1 = (i * spacing) + 30;
+                          const x2 = ((i + 1) * spacing) + 10;
+                          return (
+                            <line key={`line-${i}`} x1={x1} y1="20" x2={x2} y2="20" stroke="#D1D5DB" strokeWidth="1.5" markerEnd={`url(#arrow-${lineage.id})`} />
+                          );
+                        })}
+                        {/* Nodes */}
+                        {lineage.nodes.slice(0, 4).map((node, i, arr) => {
+                          const spacing = 400 / (Math.min(arr.length, 4) || 1);
+                          const cx = (i * spacing) + 20;
+                          const isLast = i === arr.length - 1;
+                          const fill = isLast ? lineage.color : "#FFFFFF";
+                          const stroke = isLast ? lineage.color : "#9CA3AF";
+                          const textColor = isLast ? "#111111" : "#555555";
+                          const fontWeight = isLast ? "700" : "500";
+                          return (
+                            <g key={`node-${i}`}>
+                              <circle cx={cx} cy="20" r="6" fill={fill} stroke={stroke} strokeWidth="1.5" />
+                              <text x={cx} y="45" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "10px", fill: textColor, fontWeight }}>
+                                {node.name.length > 12 ? node.name.substring(0, 10) + '..' : node.name}
+                              </text>
+                              {node.year && (
+                                <text x={cx} y="6" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "8px", fill: "#9CA3AF" }}>
+                                  {node.year}
+                                </text>
+                              )}
+                            </g>
+                          );
+                        })}
+                        {lineage.nodes.length > 4 && (
+                          <text x="390" y="24" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "10px", fill: "#9CA3AF" }}>
+                            +{lineage.nodes.length - 4}
+                          </text>
+                        )}
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-[#F0F0F0]">
@@ -151,6 +176,7 @@ export default function LineagesDirectoryPage() {
             </Link>
           ))}
         </div>
+      )}
 
       </main>
     </div>
