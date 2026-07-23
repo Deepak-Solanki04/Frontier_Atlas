@@ -296,28 +296,28 @@ const PaperCard = memo(({ paper }: { paper: any }) => {
 
           {/* Authors + Date + Citations */}
           <div className="flex flex-wrap items-center gap-x-2 text-[13px] text-[#666666] mb-3">
-            <div className="flex flex-wrap items-center">
-              {visibleAuthors.length > 0 ? (
-                visibleAuthors.map((a: any, i: number) => (
-                  <span key={a.slug || i}>
-                    {i > 0 && <span>, </span>}
-                    <span className="hover:text-[#F55036]">
-                      {a.name}
+            {visibleAuthors.length > 0 && (
+              <>
+                <div className="flex flex-wrap items-center">
+                  {visibleAuthors.map((a: any, i: number) => (
+                    <span key={a.slug || i}>
+                      {i > 0 && <span>, </span>}
+                      <span className="hover:text-[#F55036]">
+                        {a.name}
+                      </span>
                     </span>
-                  </span>
-                ))
-              ) : (
-                <span>Unknown Author</span>
-              )}
-              {remaining > 0 && <span>, +{remaining}</span>}
-            </div>
-            <span className="text-[#CCCCCC]">·</span>
+                  ))}
+                  {remaining > 0 && <span>, +{remaining}</span>}
+                </div>
+                <span className="text-[#CCCCCC]">·</span>
+              </>
+            )}
 
             <span>{paper.date}</span>
 
             <span className="text-[#CCCCCC]">·</span>
 
-            <span>{paper.citations || 0} citations</span>
+            <span>{paper.citations || paper.citationCount || 0} citations</span>
           </div>
 
           {/* Description */}
@@ -675,20 +675,7 @@ export default function ModelDetailPage({
               </div>
             </div>
 
-            <div className="flex items-center p-1 bg-[#F8F7F2] rounded-[8px] border border-[#EAE9E4]">
-              <button
-                onClick={() => setEvalMode("standard")}
-                className={`px-4 py-2 rounded-[6px] text-[13px] font-bold transition-all ${evalMode === "standard" ? "bg-white shadow-sm text-[#111111] border border-[#EAE9E4]" : "text-[#8B8B8B] hover:text-[#555555] border border-transparent"}`}
-              >
-                <BarChart3 size={14} className="inline mr-1.5 relative -top-[1px]" /> Standard Matrix
-              </button>
-              <button
-                onClick={() => setEvalMode("human")}
-                className={`px-4 py-2 rounded-[6px] text-[13px] font-bold transition-all ${evalMode === "human" ? "bg-white shadow-sm text-[#16A34A] border border-[#EAE9E4]" : "text-[#8B8B8B] hover:text-[#555555] border border-transparent"}`}
-              >
-                <Zap size={14} className="inline mr-1.5 relative -top-[1px]" /> Human Baseline
-              </button>
-            </div>
+
           </div>
 
           {/* Benchmarks Grid */}
