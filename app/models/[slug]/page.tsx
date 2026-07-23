@@ -18,19 +18,8 @@ function getEnrichedAbstract(paper: any): string {
 function getSotaRankingHtml(paper: any): string {
   const badge = '<span class="inline-flex items-center gap-1 bg-[#FFF6F3] text-[#FF5A1F] font-bold text-[11px] px-2 py-0.5 rounded border border-[#FFEDD5] uppercase tracking-wider mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg> SOTA Ranking</span>';
   
-  if (paper.sotaHtml && paper.sotaHtml.includes("on ") && !paper.sotaHtml.endsWith("SOTA</strong>")) {
-    let clean = paper.sotaHtml
-      .replace(/🏆\s*/g, "")
-      .replace(/<strong[^>]*>\s*SOTA\s*<\/strong>\s*on/gi, "")
-      .replace(/SOTA\s*on/gi, "")
-      .replace(/<span style="[^"]*">\s*\|\s*<\/span>/g, " · ")
-      .replace(/\|\s*/g, " · ")
-      .trim();
-    if (clean.startsWith("on ")) clean = clean.substring(3);
-    if (!clean.includes("#")) {
-      clean = '<strong>#1</strong> on ' + clean;
-    }
-    return badge + clean;
+  if (paper.sotaHtml) {
+    return badge + paper.sotaHtml;
   }
   
   return "";
@@ -264,10 +253,9 @@ export default function ModelDetailPage({
                 <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Architecture Specs</span>
                 <Cpu size={14} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-base font-bold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111]">
                 {model.parameterCount || "Not Specified"}
               </div>
-              <span className="text-[10px] font-semibold text-[#10B981]"><Check size={10} className="inline mr-1 relative -top-[1px]" /> High-Density Mixture-of-Experts</span>
             </div>
 
             <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
@@ -275,10 +263,9 @@ export default function ModelDetailPage({
                 <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Context Capacity</span>
                 <Box size={14} className="text-[#3B82F6]" />
               </div>
-              <div className="text-base font-bold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111]">
                 {model.contextWindow || "Not Specified"}
               </div>
-              <span className="text-[10px] font-semibold text-[#3B82F6]"><Check size={10} className="inline mr-1 relative -top-[1px]" /> Native Prompt Caching Supported</span>
             </div>
 
             <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
@@ -286,10 +273,9 @@ export default function ModelDetailPage({
                 <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Primary Specialization</span>
                 <Activity size={14} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-base font-bold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111]">
                 {model.category || "General Purpose"}
               </div>
-              <span className="text-[10px] font-semibold text-[#A8A39E]"><Activity size={10} className="inline mr-1 relative -top-[1px]" /> Instantaneous vs Extended CoT</span>
             </div>
 
             <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
@@ -297,10 +283,9 @@ export default function ModelDetailPage({
                 <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Literature Citations</span>
                 <BookOpen size={14} className="text-[#8B5CF6]" />
               </div>
-              <div className="text-base font-bold text-[#111111] mb-1">
+              <div className="text-base font-bold text-[#111111]">
                 {model.paperCount} Verified Papers
               </div>
-              <span className="text-[10px] font-semibold text-[#8B5CF6]"><BookOpen size={10} className="inline mr-1 relative -top-[1px]" /> Indexed in Frontier Repository</span>
             </div>
           
           </div>
@@ -383,7 +368,6 @@ export default function ModelDetailPage({
                         
                         <div className="flex flex-col items-end">
                           <span className="text-xl font-extrabold text-[#111111] tracking-tighter">{bm.score}</span>
-                          <span className="text-[11px] font-bold text-[#10B981] bg-[#ECFDF5] px-1.5 py-0.5 rounded">Top 0.8% Global</span>
                         </div>
                       </div>
 
@@ -405,17 +389,6 @@ export default function ModelDetailPage({
                         </div>
                       </div>
                     </div>
-
-                    {/* Bottom Methodology Note */}
-                    <div className="bg-[#F8F7F2] px-5 py-3 border-t border-[#EAE9E4] flex items-center justify-between">
-                      <span className="flex items-center gap-1.5 text-[11px] font-bold text-[#555555] uppercase tracking-wider">
-                        <ShieldCheck size={14} className="text-[#10B981]" />
-                        <span>Verified Zero-Shot CoT</span>
-                      </span>
-                      <span className="text-[11px] font-bold text-[#FF5A1F] hover:underline cursor-pointer">
-                        View Prompt Spec →
-                      </span>
-                    </div>
                   </div>
                 );
               })
@@ -428,113 +401,7 @@ export default function ModelDetailPage({
 
         </section>
 
-      {/* ─────────────────────────────────────────────────────────────────────────────
-          TAB 3: ARCHITECTURE & CAPABILITIES DEEP-DIVE
-      ───────────────────────────────────────────────────────────────────────────── */}
-        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-12">
-          
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#EFF6FF] flex items-center justify-center text-[#3B82F6]">
-                <Layers size={24} />
-              </div>
-              <div>
-                <span className="inline-block px-2.5 py-0.5 bg-[#FFF6F3] text-[#FF5A1F] rounded-full border border-[#FFEDD5] text-[9px] font-bold uppercase tracking-wider mb-1.5">
-                  System Topology & Engine
-                </span>
-                <h2 className="text-xl font-bold text-[#111111] tracking-tight mb-1">
-                  Architectural Capabilities Suite
-                </h2>
-                <p className="text-sm font-medium text-[#555555] leading-relaxed max-w-3xl">
-                  Detailed technical breakdown of core sub-systems, token economics, and agentic safeguards.
-                </p>
-              </div>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            
-            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] flex items-center justify-center text-xl mb-3">
-                <Brain size={20} />
-              </div>
-              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Hybrid Reasoning Engine</h3>
-              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
-                Seamlessly transitions between instantaneous high-throughput generation and deep mathematical verification where intermediate thought tokens are evaluated and self-corrected before final output.
-              </p>
-              <div className="text-[11px] font-bold text-[#FF5A1F]">
-                <Check size={12} className="inline mr-1 relative -top-[1px]" /> Dynamic compute scaling per prompt
-              </div>
-            </div>
-
-            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-[#EFF6FF] text-[#3B82F6] border border-[#DBEAFE] flex items-center justify-center text-xl mb-3">
-                <Wrench size={20} />
-              </div>
-              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Autonomous Agentic Orchestration</h3>
-              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
-                Native training for multi-step tool execution, structured JSON schema enforcement, sandboxed terminal command generation, and browser navigation across complex full-repository coding tasks.
-              </p>
-              <div className="text-[11px] font-bold text-[#3B82F6]">
-                <Check size={12} className="inline mr-1 relative -top-[1px]" /> 50%+ SWE-Bench Verified SOTA
-              </div>
-            </div>
-
-            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-[#F0FDF4] text-[#10B981] border border-[#DCFCE7] flex items-center justify-center text-xl mb-3">
-                <Eye size={20} />
-              </div>
-              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Multimodal Vision Understanding</h3>
-              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
-                State-of-the-art visual reasoning capable of reading dense engineering diagrams, extracting UI design systems from raw Figma screenshots, and interpreting multi-page academic PDFs with sub-pixel OCR.
-              </p>
-              <div className="text-[11px] font-bold text-[#10B981]">
-                <Check size={12} className="inline mr-1 relative -top-[1px]" /> 1M pixel spatial resolution
-              </div>
-            </div>
-
-            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-[#FAF5FF] text-[#8B5CF6] border border-[#F3E8FF] flex items-center justify-center text-xl mb-3">
-                <Zap size={20} />
-              </div>
-              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">High-Speed Token Economics</h3>
-              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
-                Optimized attention heads capable of delivering up to 60 tokens per second on commercial infrastructure, combined with automatic prompt caching that reduces repeated systemic context costs by over 50%.
-              </p>
-              <div className="text-[11px] font-bold text-[#8B5CF6]">
-                <Check size={12} className="inline mr-1 relative -top-[1px]" /> Ultra-low latency TTFT (~250ms)
-              </div>
-            </div>
-
-            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-[#FFF1F2] text-[#E11D48] border border-[#FFE4E6] flex items-center justify-center text-xl mb-3">
-                <ShieldCheck size={20} />
-              </div>
-              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Constitutional Safeguards</h3>
-              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
-                Trained using advanced Direct Preference Optimization (DPO) and Constitutional AI principles to prevent reward hacking, hallucination loops, and unauthorized adversarial prompt injection.
-              </p>
-              <div className="text-[11px] font-bold text-[#E11D48]">
-                <Check size={12} className="inline mr-1 relative -top-[1px]" /> ASL-3 Security Alignment Standard
-              </div>
-            </div>
-
-            <div className="bg-white p-4 rounded-[10px] border border-[#F0F0F0] hover:shadow-md transition-shadow">
-              <div className="w-10 h-10 rounded-full bg-[#FEF3C7] text-[#D97706] border border-[#FDE68A] flex items-center justify-center text-xl mb-3">
-                <Link2 size={20} />
-              </div>
-              <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">Ecosystem Compatibility</h3>
-              <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">
-                Native drop-in integration across major enterprise frameworks including LangChain, Vercel AI SDK, LlamaIndex, Cursor IDE, OpenWebUI, and cloud providers (Amazon Bedrock / Google Cloud Vertex AI).
-              </p>
-              <div className="text-[11px] font-bold text-[#D97706]">
-                <Check size={12} className="inline mr-1 relative -top-[1px]" /> Multi-cloud deployment ready
-              </div>
-            </div>
-
-          </div>
-
-        </section>
 
       {/* ─────────────────────────────────────────────────────────────────────────────
           TAB 4: RESEARCH LITERATURE & ACADEMIC BIBLIOGRAPHY
