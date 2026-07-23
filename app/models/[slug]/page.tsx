@@ -214,7 +214,7 @@ function GeneratedCover({ title }: { title: string }) {
     <div className="absolute inset-0 bg-[#3A3F45]">
       <img
         src={dataUrl}
-        alt={\`Cover for \${title}\`}
+        alt={`Cover for ${title}`}
         className="w-full h-full object-cover block"
       />
     </div>
@@ -271,12 +271,12 @@ const PaperCard = memo(({ paper }: { paper: any }) => {
   );
 
   const handlePrefetch = useCallback(() => {
-    router.prefetch(\`/papers/\${paper.slug}\`);
+    router.prefetch(`/papers/${paper.slug}`);
   }, [router, paper.slug]);
 
   return (
     <Link
-      href={\`/papers/\${paper.slug}\`}
+      href={`/papers/${paper.slug}`}
       className="no-underline block mb-4"
       onMouseEnter={handlePrefetch}
       onTouchStart={handlePrefetch}
@@ -415,7 +415,7 @@ const PaperCard = memo(({ paper }: { paper: any }) => {
                   <div className="flex flex-col items-start">
                     <span className="font-medium lg:font-semibold xl:font-medium text-[7.5px] min-[375px]:text-[8.5px] sm:text-[9.5px] md:text-[11.5px] lg:text-[13px] xl:text-[11.5px] whitespace-nowrap tracking-tighter min-[375px]:tracking-tight">GitHub</span>
                     <span className="hidden lg:block text-[11px] text-[#666] xl:hidden">
-                      {upvotesNum > 0 ? \`\${upvotesNum >= 1000 ? (upvotesNum / 1000).toFixed(1) + "k" : upvotesNum} stars\` : "0 stars"}
+                      {upvotesNum > 0 ? `${upvotesNum >= 1000 ? (upvotesNum / 1000).toFixed(1) + "k" : upvotesNum} stars` : "0 stars"}
                     </span>
                   </div>
                 </div>
