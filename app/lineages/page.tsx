@@ -112,7 +112,7 @@ export default function LineagesDirectoryPage() {
                 <p className="text-[#555555] font-medium">No lineages found yet. The backend might still be synchronizing.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {lineages.map((lineage) => (
                 <Link 
                   href={`/lineages/${lineage.id}`} 
@@ -121,35 +121,28 @@ export default function LineagesDirectoryPage() {
                   onMouseEnter={() => setHoveredId(lineage.id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
-                  <div className="bg-white rounded-[16px] border border-[#F0F0F0] p-4 md:p-5 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between">
+                  <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-5 h-full flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline relative overflow-hidden justify-between">
                     
-                    {/* Background decorative glow */}
-                    <div 
-                      className={`absolute -right-20 -top-20 w-64 h-64 rounded-full blur-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-700 pointer-events-none`}
-                      style={{ backgroundColor: lineage.color }}
-                    />
-
                     <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <div className={`w-10 h-10 rounded-[12px] flex items-center justify-center border ${lineage.bgStyle}`}>
-                          <Layers size={24} />
+                      <div className="flex items-start gap-3">
+                        <div className={`w-[30px] h-[30px] rounded flex items-center justify-center border ${lineage.bgStyle}`}>
+                          <Layers size={16} />
                         </div>
-                        <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider bg-[#F8F7F2] px-2.5 py-0.5 rounded-full border border-[#EAE9E4]">
-                          {lineage.vendor}
-                        </span>
+                        <div className="flex flex-col min-w-0 flex-1">
+                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] truncate" title={lineage.name}>
+                            {lineage.name}
+                          </h3>
+                          <span className="text-[11px] font-medium text-[#8B8B8B] truncate">{lineage.vendor}</span>
+                        </div>
                       </div>
-
-                      <h2 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2 group-hover:text-[#FF5A1F] transition-colors">
-                        {lineage.name}
-                      </h2>
                       
-                      <p className="text-[12.5px] font-medium text-[#555555] leading-relaxed mb-3 line-clamp-2">
+                      <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-2">
                         {lineage.description}
                       </p>
                       
                       {/* SVG TIMELINE VISUALIZER */}
-                      <div className="mb-4 pt-3 border-t border-[#F0F0F0]">
-                        <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-3">Evolutionary Path</div>
+                      <div className="mt-4 pt-4 border-t border-[#F0F0F0]">
+                        <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">Evolutionary Path</div>
                         <div className="relative w-full h-[75px] flex items-center mt-2">
                           <svg viewBox="0 0 400 80" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
                             <defs>
@@ -200,21 +193,21 @@ export default function LineagesDirectoryPage() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-3 border-t border-[#F0F0F0]">
+                    <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#F0F0F0]">
                       <div className="flex gap-4">
                         <div className="flex flex-col">
-                          <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-1">Nodes</span>
-                          <span className="text-[13px] font-extrabold text-[#111111]">{lineage.nodeCount || lineage.nodes.length} Generations</span>
+                          <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-0.5">Nodes</span>
+                          <span className="text-[12.5px] font-semibold text-[#111111]">{lineage.nodeCount || lineage.nodes.length} Gens</span>
                         </div>
-                        <div className="w-[1px] h-8 bg-[#EAE9E4]" />
+                        <div className="w-[1px] h-6 bg-[#EAE9E4] mt-1" />
                         <div className="flex flex-col">
-                          <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-1">Latest</span>
-                          <span className="text-[13px] font-extrabold text-[#111111]">{lineage.latestModel}</span>
+                          <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-0.5">Latest</span>
+                          <span className="text-[12.5px] font-semibold text-[#111111] truncate max-w-[80px]" title={lineage.latestModel}>{lineage.latestModel}</span>
                         </div>
                       </div>
                       
-                      <div className={`flex items-center justify-center w-8 h-8 rounded-full bg-[#FAFAFA] border border-[#F0F0F0] text-[#111111] transition-transform duration-300 ${hoveredId === lineage.id ? 'translate-x-2 bg-[#111111] text-white border-[#111111]' : ''}`}>
-                        <ArrowRight size={14} />
+                      <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-[#FAFAFA] border border-[#F0F0F0] text-[#111111] transition-transform duration-300 ${hoveredId === lineage.id ? 'translate-x-1 bg-[#111111] text-white border-[#111111]' : ''}`}>
+                        <ArrowRight size={12} />
                       </div>
                     </div>
 
