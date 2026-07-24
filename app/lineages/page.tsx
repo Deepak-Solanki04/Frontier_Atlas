@@ -121,7 +121,7 @@ export default function LineagesDirectoryPage() {
                   onMouseEnter={() => setHoveredId(lineage.id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
-                  <div className="bg-white rounded-[16px] border border-[#F0F0F0] p-5 md:p-6 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between">
+                  <div className="bg-white rounded-[16px] border border-[#F0F0F0] p-4 md:p-5 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between">
                     
                     {/* Background decorative glow */}
                     <div 
@@ -134,24 +134,24 @@ export default function LineagesDirectoryPage() {
                         <div className={`w-10 h-10 rounded-[12px] flex items-center justify-center border ${lineage.bgStyle}`}>
                           <Layers size={24} />
                         </div>
-                        <span className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider bg-[#F8F7F2] px-3 py-1 rounded-full border border-[#EAE9E4]">
+                        <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider bg-[#F8F7F2] px-2.5 py-0.5 rounded-full border border-[#EAE9E4]">
                           {lineage.vendor}
                         </span>
                       </div>
 
-                      <h2 className="text-xl font-extrabold text-[#111111] tracking-tight mb-2 group-hover:text-[#FF5A1F] transition-colors">
+                      <h2 className="text-lg font-extrabold text-[#111111] tracking-tight mb-2 group-hover:text-[#FF5A1F] transition-colors">
                         {lineage.name}
                       </h2>
                       
-                      <p className="text-[13.5px] font-medium text-[#555555] leading-relaxed mb-4 line-clamp-2">
+                      <p className="text-[12.5px] font-medium text-[#555555] leading-relaxed mb-3 line-clamp-2">
                         {lineage.description}
                       </p>
                       
                       {/* SVG TIMELINE VISUALIZER */}
                       <div className="mb-4 pt-3 border-t border-[#F0F0F0]">
                         <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-3">Evolutionary Path</div>
-                        <div className="relative w-full h-[65px] flex items-center mt-2">
-                          <svg viewBox="0 0 400 75" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
+                        <div className="relative w-full h-[75px] flex items-center mt-2">
+                          <svg viewBox="0 0 400 80" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
                             <defs>
                               <marker id={`arrow-${lineage.id}`} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
                                 <path d="M 0 0 L 8 4 L 0 8 z" fill="#D1D5DB" />
@@ -164,7 +164,7 @@ export default function LineagesDirectoryPage() {
                               const x1 = (i * spacing) + 30;
                               const x2 = ((i + 1) * spacing) + 10;
                               return (
-                                <line key={`line-${i}`} x1={x1} y1="28" x2={x2} y2="28" stroke="#D1D5DB" strokeWidth="2" markerEnd={`url(#arrow-${lineage.id})`} />
+                                <line key={`line-${i}`} x1={x1} y1="30" x2={x2} y2="30" stroke="#D1D5DB" strokeWidth="2.5" markerEnd={`url(#arrow-${lineage.id})`} />
                               );
                             })}
                             {/* Nodes */}
@@ -178,12 +178,12 @@ export default function LineagesDirectoryPage() {
                               const fontWeight = isLast ? "700" : "500";
                               return (
                                 <g key={`node-${i}`}>
-                                  <circle cx={cx} cy="28" r="8" fill={fill} stroke={stroke} strokeWidth="2" />
-                                  <text x={cx} y="55" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "12.5px", fill: textColor, fontWeight }}>
+                                  <circle cx={cx} cy="30" r="10" fill={fill} stroke={stroke} strokeWidth="2.5" />
+                                  <text x={cx} y="58" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "13.5px", fill: textColor, fontWeight }}>
                                     {node.name.length > 12 ? node.name.substring(0, 10) + '..' : node.name}
                                   </text>
                                   {node.year && (
-                                    <text x={cx} y="10" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "10.5px", fill: "#9CA3AF" }}>
+                                    <text x={cx} y="11" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "11.5px", fill: "#9CA3AF" }}>
                                       {node.year}
                                     </text>
                                   )}
@@ -191,7 +191,7 @@ export default function LineagesDirectoryPage() {
                               );
                             })}
                             {lineage.nodes.length > 4 && (
-                              <text x="390" y="32" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "13px", fill: "#9CA3AF" }}>
+                              <text x="390" y="34" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "14px", fill: "#9CA3AF" }}>
                                 +{lineage.nodes.length - 4}
                               </text>
                             )}
@@ -200,21 +200,21 @@ export default function LineagesDirectoryPage() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-[#F0F0F0]">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-3 border-t border-[#F0F0F0]">
                       <div className="flex gap-4">
                         <div className="flex flex-col">
                           <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-1">Nodes</span>
-                          <span className="text-sm font-extrabold text-[#111111]">{lineage.nodeCount || lineage.nodes.length} Generations</span>
+                          <span className="text-[13px] font-extrabold text-[#111111]">{lineage.nodeCount || lineage.nodes.length} Generations</span>
                         </div>
                         <div className="w-[1px] h-8 bg-[#EAE9E4]" />
                         <div className="flex flex-col">
                           <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-1">Latest</span>
-                          <span className="text-sm font-extrabold text-[#111111]">{lineage.latestModel}</span>
+                          <span className="text-[13px] font-extrabold text-[#111111]">{lineage.latestModel}</span>
                         </div>
                       </div>
                       
-                      <div className={`flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAFAFA] border border-[#F0F0F0] text-[#111111] transition-transform duration-300 ${hoveredId === lineage.id ? 'translate-x-2 bg-[#111111] text-white border-[#111111]' : ''}`}>
-                        <ArrowRight size={16} />
+                      <div className={`flex items-center justify-center w-8 h-8 rounded-full bg-[#FAFAFA] border border-[#F0F0F0] text-[#111111] transition-transform duration-300 ${hoveredId === lineage.id ? 'translate-x-2 bg-[#111111] text-white border-[#111111]' : ''}`}>
+                        <ArrowRight size={14} />
                       </div>
                     </div>
 
