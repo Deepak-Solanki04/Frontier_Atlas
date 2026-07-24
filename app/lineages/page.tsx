@@ -150,8 +150,8 @@ export default function LineagesDirectoryPage() {
                       {/* SVG TIMELINE VISUALIZER */}
                       <div className="mb-4 pt-3 border-t border-[#F0F0F0]">
                         <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-3">Evolutionary Path</div>
-                        <div className="relative w-full h-[45px] flex items-center">
-                          <svg viewBox="0 0 400 60" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
+                        <div className="relative w-full h-[65px] flex items-center mt-2">
+                          <svg viewBox="0 0 400 75" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
                             <defs>
                               <marker id={`arrow-${lineage.id}`} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
                                 <path d="M 0 0 L 8 4 L 0 8 z" fill="#D1D5DB" />
@@ -164,7 +164,7 @@ export default function LineagesDirectoryPage() {
                               const x1 = (i * spacing) + 30;
                               const x2 = ((i + 1) * spacing) + 10;
                               return (
-                                <line key={`line-${i}`} x1={x1} y1="20" x2={x2} y2="20" stroke="#D1D5DB" strokeWidth="1.5" markerEnd={`url(#arrow-${lineage.id})`} />
+                                <line key={`line-${i}`} x1={x1} y1="28" x2={x2} y2="28" stroke="#D1D5DB" strokeWidth="2" markerEnd={`url(#arrow-${lineage.id})`} />
                               );
                             })}
                             {/* Nodes */}
@@ -178,12 +178,12 @@ export default function LineagesDirectoryPage() {
                               const fontWeight = isLast ? "700" : "500";
                               return (
                                 <g key={`node-${i}`}>
-                                  <circle cx={cx} cy="20" r="6" fill={fill} stroke={stroke} strokeWidth="1.5" />
-                                  <text x={cx} y="45" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "10px", fill: textColor, fontWeight }}>
+                                  <circle cx={cx} cy="28" r="8" fill={fill} stroke={stroke} strokeWidth="2" />
+                                  <text x={cx} y="55" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "12.5px", fill: textColor, fontWeight }}>
                                     {node.name.length > 12 ? node.name.substring(0, 10) + '..' : node.name}
                                   </text>
                                   {node.year && (
-                                    <text x={cx} y="6" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "8px", fill: "#9CA3AF" }}>
+                                    <text x={cx} y="10" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "10.5px", fill: "#9CA3AF" }}>
                                       {node.year}
                                     </text>
                                   )}
@@ -191,7 +191,7 @@ export default function LineagesDirectoryPage() {
                               );
                             })}
                             {lineage.nodes.length > 4 && (
-                              <text x="390" y="24" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "10px", fill: "#9CA3AF" }}>
+                              <text x="390" y="32" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "13px", fill: "#9CA3AF" }}>
                                 +{lineage.nodes.length - 4}
                               </text>
                             )}
