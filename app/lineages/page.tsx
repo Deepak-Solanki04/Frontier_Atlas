@@ -138,6 +138,61 @@ export default function LineagesDirectoryPage() {
                       <div className="flex-1" />
                     )}
 
+                    {/* SVG TIMELINE VISUALIZER */}
+                    <div className="mt-auto pt-4 border-t border-[#F0F0F0]">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider">Evolutionary Path</div>
+                        <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider">{lineage.nodeCount || lineage.nodes.length} Gens</div>
+                      </div>
+                      <div className="relative w-full h-[65px] flex items-center">
+                        <svg viewBox="0 0 400 80" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
+                          <defs>
+                            <marker id={`arrow-${lineage.id}`} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                              <path d="M 0 0 L 8 4 L 0 8 z" fill="#D1D5DB" />
+                            </marker>
+                          </defs>
+                          {/* Lines connecting nodes */}
+                          {lineage.nodes.slice(0, 4).map((node, i, arr) => {
+                            if (i === arr.length - 1) return null;
+                            const spacing = 400 / (Math.min(arr.length, 4) || 1);
+                            const x1 = (i * spacing) + 30;
+                            const x2 = ((i + 1) * spacing) + 10;
+                            return (
+                              <line key={`line-${i}`} x1={x1} y1="30" x2={x2} y2="30" stroke="#D1D5DB" strokeWidth="2.5" markerEnd={`url(#arrow-${lineage.id})`} />
+                            );
+                          })}
+                          {/* Nodes */}
+                          {lineage.nodes.slice(0, 4).map((node, i, arr) => {
+                            const spacing = 400 / (Math.min(arr.length, 4) || 1);
+                            const cx = (i * spacing) + 20;
+                            const isLast = i === arr.length - 1;
+                            const fill = isLast ? lineage.color : "#FFFFFF";
+                            const stroke = isLast ? lineage.color : "#9CA3AF";
+                            const textColor = isLast ? "#111111" : "#555555";
+                            const fontWeight = isLast ? "700" : "500";
+                            return (
+                              <g key={`node-${i}`}>
+                                <circle cx={cx} cy="30" r="10" fill={fill} stroke={stroke} strokeWidth="2.5" />
+                                <text x={cx} y="58" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "13.5px", fill: textColor, fontWeight }}>
+                                  {node.name.length > 12 ? node.name.substring(0, 10) + '..' : node.name}
+                                </text>
+                                {node.year && (
+                                  <text x={cx} y="11" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "11.5px", fill: "#9CA3AF" }}>
+                                    {node.year}
+                                  </text>
+                                )}
+                              </g>
+                            );
+                          })}
+                          {lineage.nodes.length > 4 && (
+                            <text x="390" y="34" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "14px", fill: "#9CA3AF" }}>
+                              +{lineage.nodes.length - 4}
+                            </text>
+                          )}
+                        </svg>
+                      </div>
+                    </div>
+
                   </div>
                 </Link>
               ))}
