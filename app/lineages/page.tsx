@@ -111,80 +111,32 @@ export default function LineagesDirectoryPage() {
                 <p className="text-[#555555] font-medium">No lineages found yet. The backend might still be synchronizing.</p>
               </div>
             ) : (
-              <div className="models-trending-grid">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {lineages.map((lineage, idx) => (
                 <Link 
                   href={`/lineages/${lineage.id}`} 
                   key={lineage.id}
-                  className="block no-underline"
+                  className="block group no-underline"
                 >
-                  <div className="models-trending-card" style={{ height: "100%" }}>
+                  <div className="bg-white rounded-md border border-[#ECECEC] p-3.5 min-h-[155px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline">
                     
-                    <div>
-                      <div className="models-trending-header">
-                        <span className="models-trending-rank">
-                          #{idx + 1} Lineage
-                        </span>
-                        <span className="models-trending-elo" style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#666" }}>
-                          <Layers size={13} /> {lineage.nodeCount || lineage.nodes.length} Gens
-                        </span>
+                    <div className="flex items-start gap-4">
+                      <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125 w-[30px] h-[30px] rounded border" style={{ backgroundColor: lineage.bgStyle, borderColor: lineage.color + "40" }}>
+                        <Layers size={16} />
                       </div>
-                      <h3 className="models-trending-title">{lineage.name}</h3>
-                      <div className="models-trending-sub">{lineage.vendor} &middot; Latest: {lineage.latestModel}</div>
-                      <p className="models-trending-desc line-clamp-2">{lineage.description}</p>
-                      
-                      {/* SVG TIMELINE VISUALIZER */}
-                      <div className="mt-4 pt-4 border-t border-[#F0F0F0]">
-                        <div className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">Evolutionary Path</div>
-                        <div className="relative w-full h-[75px] flex items-center mt-2">
-                          <svg viewBox="0 0 400 80" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" className="overflow-visible">
-                            <defs>
-                              <marker id={`arrow-${lineage.id}`} viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-                                <path d="M 0 0 L 8 4 L 0 8 z" fill="#D1D5DB" />
-                              </marker>
-                            </defs>
-                            {/* Lines connecting nodes */}
-                            {lineage.nodes.slice(0, 4).map((node, i, arr) => {
-                              if (i === arr.length - 1) return null;
-                              const spacing = 400 / (Math.min(arr.length, 4) || 1);
-                              const x1 = (i * spacing) + 30;
-                              const x2 = ((i + 1) * spacing) + 10;
-                              return (
-                                <line key={`line-${i}`} x1={x1} y1="30" x2={x2} y2="30" stroke="#D1D5DB" strokeWidth="2.5" markerEnd={`url(#arrow-${lineage.id})`} />
-                              );
-                            })}
-                            {/* Nodes */}
-                            {lineage.nodes.slice(0, 4).map((node, i, arr) => {
-                              const spacing = 400 / (Math.min(arr.length, 4) || 1);
-                              const cx = (i * spacing) + 20;
-                              const isLast = i === arr.length - 1;
-                              const fill = isLast ? lineage.color : "#FFFFFF";
-                              const stroke = isLast ? lineage.color : "#9CA3AF";
-                              const textColor = isLast ? "#111111" : "#555555";
-                              const fontWeight = isLast ? "700" : "500";
-                              return (
-                                <g key={`node-${i}`}>
-                                  <circle cx={cx} cy="30" r="10" fill={fill} stroke={stroke} strokeWidth="2.5" />
-                                  <text x={cx} y="58" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "13.5px", fill: textColor, fontWeight }}>
-                                    {node.name.length > 12 ? node.name.substring(0, 10) + '..' : node.name}
-                                  </text>
-                                  {node.year && (
-                                    <text x={cx} y="11" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "11.5px", fill: "#9CA3AF" }}>
-                                      {node.year}
-                                    </text>
-                                  )}
-                                </g>
-                              );
-                            })}
-                            {lineage.nodes.length > 4 && (
-                              <text x="390" y="34" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "14px", fill: "#9CA3AF" }}>
-                                +{lineage.nodes.length - 4}
-                              </text>
-                            )}
-                          </svg>
-                        </div>
+                      <div className="flex flex-col">
+                        <h3 className="text-[#111111] text-[15px] font-medium leading-5">{lineage.name}</h3>
+                        <span className="text-[11px] font-medium text-[#8B8B8B] truncate mt-0.5">{lineage.vendor}</span>
                       </div>
                     </div>
+
+                    {lineage.description ? (
+                      <p className="mt-2 text-[13px] leading-5 text-[#666] line-clamp-3">
+                        {lineage.description}
+                      </p>
+                    ) : (
+                      <div className="flex-1" />
+                    )}
 
                   </div>
                 </Link>
