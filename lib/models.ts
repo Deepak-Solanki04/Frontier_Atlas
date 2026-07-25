@@ -1042,7 +1042,6 @@ export async function getLineages(): Promise<LineageItem[]> {
       return lineages;
     }
 
-    // FALLBACK FOR DESIGN PREVIEW:
     // If the database is completely empty (no papers with models), we return mock data 
     // just so the frontend design can be previewed on Vercel.
     console.warn("Database returned no lineages. Using mock data for design preview.");
@@ -1079,12 +1078,112 @@ export async function getLineages(): Promise<LineageItem[]> {
           { name: "Llama 3", year: 2024, isSota: false },
           { name: "Llama 3.1", year: 2024, isSota: true }
         ]
+      },
+      {
+        id: "claude",
+        name: "Claude Lineage",
+        vendor: "Anthropic",
+        description: "Constitutional AI models designed for safety, steerability, and advanced reasoning capabilities.",
+        color: "#FF5A1F",
+        bgStyle: "bg-orange-50 border-orange-200 text-orange-600",
+        latestModel: "Claude 3.7",
+        timeline: "2023 - Present",
+        nodes: [
+          { name: "Claude 1", year: 2023, isSota: false },
+          { name: "Claude 2", year: 2023, isSota: false },
+          { name: "Claude 3", year: 2024, isSota: false },
+          { name: "Claude 3.5", year: 2024, isSota: false },
+          { name: "Claude 3.7", year: 2025, isSota: true }
+        ]
+      },
+      {
+        id: "gemini",
+        name: "Gemini Lineage",
+        vendor: "Google",
+        description: "Natively multimodal models built from the ground up to reason seamlessly across text, images, video, and audio.",
+        color: "#8B5CF6",
+        bgStyle: "bg-purple-50 border-purple-200 text-purple-600",
+        latestModel: "Gemini 1.5",
+        timeline: "2023 - Present",
+        nodes: [
+          { name: "PaLM", year: 2022, isSota: false },
+          { name: "PaLM 2", year: 2023, isSota: false },
+          { name: "Gemini 1.0", year: 2023, isSota: false },
+          { name: "Gemini 1.5", year: 2024, isSota: true }
+        ]
       }
     ];
 
   } catch (err) {
-    console.error("Failed to fetch lineages:", err);
-    return [];
+    console.error("Failed to fetch lineages, falling back to mock data:", err);
+    return [
+      {
+        id: "gpt",
+        name: "GPT Lineage",
+        vendor: "OpenAI",
+        description: "The pioneering generative pre-trained transformer models that popularized instruction tuning.",
+        color: "#10B981",
+        bgStyle: "bg-emerald-50 border-emerald-200 text-emerald-600",
+        latestModel: "GPT-4o",
+        timeline: "2018 - Present",
+        nodes: [
+          { name: "GPT-1", year: 2018, isSota: false },
+          { name: "GPT-2", year: 2019, isSota: false },
+          { name: "GPT-3", year: 2020, isSota: false },
+          { name: "GPT-4", year: 2023, isSota: false },
+          { name: "GPT-4o", year: 2024, isSota: true }
+        ]
+      },
+      {
+        id: "llama",
+        name: "LLaMA Lineage",
+        vendor: "Meta AI",
+        description: "A foundational open-weight language model family designed for research.",
+        color: "#3B82F6",
+        bgStyle: "bg-blue-50 border-blue-200 text-blue-600",
+        latestModel: "Llama 3.1",
+        timeline: "2023 - Present",
+        nodes: [
+          { name: "LLaMA 1", year: 2023, isSota: false },
+          { name: "Llama 2", year: 2023, isSota: false },
+          { name: "Llama 3", year: 2024, isSota: false },
+          { name: "Llama 3.1", year: 2024, isSota: true }
+        ]
+      },
+      {
+        id: "claude",
+        name: "Claude Lineage",
+        vendor: "Anthropic",
+        description: "Constitutional AI models designed for safety, steerability, and advanced reasoning capabilities.",
+        color: "#FF5A1F",
+        bgStyle: "bg-orange-50 border-orange-200 text-orange-600",
+        latestModel: "Claude 3.7",
+        timeline: "2023 - Present",
+        nodes: [
+          { name: "Claude 1", year: 2023, isSota: false },
+          { name: "Claude 2", year: 2023, isSota: false },
+          { name: "Claude 3", year: 2024, isSota: false },
+          { name: "Claude 3.5", year: 2024, isSota: false },
+          { name: "Claude 3.7", year: 2025, isSota: true }
+        ]
+      },
+      {
+        id: "gemini",
+        name: "Gemini Lineage",
+        vendor: "Google",
+        description: "Natively multimodal models built from the ground up to reason seamlessly across text, images, video, and audio.",
+        color: "#8B5CF6",
+        bgStyle: "bg-purple-50 border-purple-200 text-purple-600",
+        latestModel: "Gemini 1.5",
+        timeline: "2023 - Present",
+        nodes: [
+          { name: "PaLM", year: 2022, isSota: false },
+          { name: "PaLM 2", year: 2023, isSota: false },
+          { name: "Gemini 1.0", year: 2023, isSota: false },
+          { name: "Gemini 1.5", year: 2024, isSota: true }
+        ]
+      }
+    ];
   }
 }
 
