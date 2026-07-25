@@ -8,7 +8,6 @@ import {
 import { getLineages, LineageItem } from "@/lib/models";
 
 export default function LineagesDirectoryPage() {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [lineages, setLineages] = useState<LineageItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<"models" | "domains">("models");
@@ -112,33 +111,27 @@ export default function LineagesDirectoryPage() {
                 <p className="text-[#555555] font-medium">No lineages found yet. The backend might still be synchronizing.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {lineages.map((lineage) => (
+              <div className="models-trending-grid">
+                {lineages.map((lineage, idx) => (
                 <Link 
                   href={`/lineages/${lineage.id}`} 
                   key={lineage.id}
-                  className="block group no-underline"
-                  onMouseEnter={() => setHoveredId(lineage.id)}
-                  onMouseLeave={() => setHoveredId(null)}
+                  className="block no-underline"
                 >
-                  <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-5 h-full flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline relative overflow-hidden justify-between">
+                  <div className="models-trending-card" style={{ height: "100%" }}>
                     
                     <div>
-                      <div className="flex items-start gap-3">
-                        <div className={`w-[30px] h-[30px] rounded flex items-center justify-center border ${lineage.bgStyle}`}>
-                          <Layers size={16} />
-                        </div>
-                        <div className="flex flex-col min-w-0 flex-1">
-                          <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] truncate" title={lineage.name}>
-                            {lineage.name}
-                          </h3>
-                          <span className="text-[11px] font-medium text-[#8B8B8B] truncate">{lineage.vendor}</span>
-                        </div>
+                      <div className="models-trending-header">
+                        <span className="models-trending-rank">
+                          #{idx + 1} Lineage
+                        </span>
+                        <span className="models-trending-elo" style={{ display: "inline-flex", alignItems: "center", gap: "4px", color: "#666" }}>
+                          <Layers size={13} /> {lineage.nodeCount || lineage.nodes.length} Gens
+                        </span>
                       </div>
-                      
-                      <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-2">
-                        {lineage.description}
-                      </p>
+                      <h3 className="models-trending-title">{lineage.name}</h3>
+                      <div className="models-trending-sub">{lineage.vendor} &middot; Latest: {lineage.latestModel}</div>
+                      <p className="models-trending-desc line-clamp-2">{lineage.description}</p>
                       
                       {/* SVG TIMELINE VISUALIZER */}
                       <div className="mt-4 pt-4 border-t border-[#F0F0F0]">
@@ -190,24 +183,6 @@ export default function LineagesDirectoryPage() {
                             )}
                           </svg>
                         </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#F0F0F0]">
-                      <div className="flex gap-4">
-                        <div className="flex flex-col">
-                          <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-0.5">Nodes</span>
-                          <span className="text-[12.5px] font-semibold text-[#111111]">{lineage.nodeCount || lineage.nodes.length} Gens</span>
-                        </div>
-                        <div className="w-[1px] h-6 bg-[#EAE9E4] mt-1" />
-                        <div className="flex flex-col">
-                          <span className="text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-0.5">Latest</span>
-                          <span className="text-[12.5px] font-semibold text-[#111111] truncate max-w-[80px]" title={lineage.latestModel}>{lineage.latestModel}</span>
-                        </div>
-                      </div>
-                      
-                      <div className={`flex items-center justify-center w-6 h-6 rounded-full bg-[#FAFAFA] border border-[#F0F0F0] text-[#111111] transition-transform duration-300 ${hoveredId === lineage.id ? 'translate-x-1 bg-[#111111] text-white border-[#111111]' : ''}`}>
-                        <ArrowRight size={12} />
                       </div>
                     </div>
 
