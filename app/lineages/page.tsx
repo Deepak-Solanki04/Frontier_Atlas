@@ -118,26 +118,26 @@ export default function LineagesDirectoryPage() {
                   key={lineage.id}
                   className="block group no-underline"
                 >
-                  <div className="bg-white rounded-md border border-[#ECECEC] p-3.5 min-h-[155px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline">
+                  <div className="bg-white rounded-[16px] border border-[#ECECEC] p-4 min-h-[155px] flex flex-col hover:shadow-md hover:border-[#FF5A1F] transition-all duration-200 group no-underline">
                     
                     <div className="flex items-start gap-4">
-                      <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125 w-[30px] h-[30px] rounded border" style={{ backgroundColor: lineage.bgStyle, borderColor: lineage.color + "40" }}>
+                      <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-110 w-[30px] h-[30px] rounded-lg border bg-[#FFF6F3] border-[#FFEDD5] text-[#FF5A1F]">
                         <Layers size={16} />
                       </div>
                       <div className="flex flex-col">
-                        <h3 className="text-[#111111] text-[15px] font-medium leading-5">{lineage.name}</h3>
+                        <h3 className="text-[#111111] text-[15px] font-semibold leading-5 tracking-tight">{lineage.name}</h3>
                         <span className="text-[11px] font-medium text-[#8B8B8B] truncate mt-0.5">{lineage.vendor}</span>
                       </div>
                     </div>
 
                     {lineage.description ? (
-                      <p className="mt-2 text-[13px] leading-5 text-[#666] line-clamp-3">
+                      <p className="mt-3 text-[13px] leading-relaxed text-[#666] line-clamp-3">
                         {lineage.description}
                       </p>
                     ) : (
                       <div className="flex-1" />
                     )}
-
+                    
                     {/* SVG TIMELINE VISUALIZER */}
                     <div className="mt-auto pt-4 border-t border-[#F0F0F0]">
                       <div className="flex justify-between items-center mb-2">
@@ -166,18 +166,18 @@ export default function LineagesDirectoryPage() {
                             const spacing = 400 / (Math.min(arr.length, 4) || 1);
                             const cx = (i * spacing) + 20;
                             const isLast = i === arr.length - 1;
-                            const fill = isLast ? lineage.color : "#FFFFFF";
-                            const stroke = isLast ? lineage.color : "#9CA3AF";
+                            const fill = isLast ? "#FF5A1F" : "#FFFFFF";
+                            const stroke = isLast ? "#FF5A1F" : "#9CA3AF";
                             const textColor = isLast ? "#111111" : "#555555";
                             const fontWeight = isLast ? "700" : "500";
                             return (
                               <g key={`node-${i}`}>
                                 <circle cx={cx} cy="30" r="10" fill={fill} stroke={stroke} strokeWidth="2.5" />
-                                <text x={cx} y="58" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "13.5px", fill: textColor, fontWeight }}>
+                                <text x={cx} y="58" textAnchor="middle" style={{ fontFamily: "inherit", fontSize: "13px", fill: textColor, fontWeight, letterSpacing: "-0.01em" }}>
                                   {node.name.length > 12 ? node.name.substring(0, 10) + '..' : node.name}
                                 </text>
                                 {node.year && (
-                                  <text x={cx} y="11" textAnchor="middle" style={{ fontFamily: "monospace", fontSize: "11.5px", fill: "#9CA3AF" }}>
+                                  <text x={cx} y="11" textAnchor="middle" style={{ fontFamily: "inherit", fontSize: "11px", fill: "#9CA3AF", fontWeight: "500" }}>
                                     {node.year}
                                   </text>
                                 )}
@@ -185,7 +185,7 @@ export default function LineagesDirectoryPage() {
                             );
                           })}
                           {lineage.nodes.length > 4 && (
-                            <text x="390" y="34" textAnchor="start" style={{ fontFamily: "monospace", fontSize: "14px", fill: "#9CA3AF" }}>
+                            <text x="390" y="34" textAnchor="start" style={{ fontFamily: "inherit", fontSize: "13px", fill: "#9CA3AF", fontWeight: "600" }}>
                               +{lineage.nodes.length - 4}
                             </text>
                           )}
