@@ -47,7 +47,7 @@ export default function LineagesDirectoryPage() {
             <span>Evolutionary Trees</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] tracking-tight mb-4">
-            AI Evolution Lineages
+            AI <span className="text-[#FF5A1F]">Lineages</span>
           </h1>
           <p className="text-lg text-[#555555] max-w-2xl font-medium leading-relaxed">
             Trace the architectural evolution, capability scaling, and chronological development of the world's most influential AI models and domains.
@@ -116,9 +116,9 @@ export default function LineagesDirectoryPage() {
                 <Link 
                   href={`/lineages/${lineage.id}`} 
                   key={lineage.id}
-                  className="block group no-underline"
+                  className="block h-full group no-underline"
                 >
-                  <div className="bg-white rounded-[16px] border border-[#ECECEC] p-4 min-h-[155px] flex flex-col hover:shadow-md hover:border-[#FF5A1F] transition-all duration-200 group no-underline">
+                  <div className="h-full bg-white rounded-[16px] border border-[#ECECEC] p-4 min-h-[155px] flex flex-col hover:shadow-md hover:border-[#FF5A1F] transition-all duration-200 group no-underline">
                     
                     <div className="flex items-start gap-4">
                       <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-110 w-[30px] h-[30px] rounded-lg border bg-[#FFF6F3] border-[#FFEDD5] text-[#FF5A1F]">
