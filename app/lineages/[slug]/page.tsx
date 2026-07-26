@@ -121,9 +121,9 @@ export default function LineageDetailPage({
         {/* TIMELINE TREE */}
         <div className="relative">
           {/* Central Line */}
-          <div className="absolute left-[16px] md:left-1/2 top-0 bottom-0 w-[2px] bg-[#EAE9E4] -translate-x-1/2" />
+          <div className="absolute left-[12px] md:left-1/2 top-0 bottom-0 w-[2px] bg-[#EAE9E4] -translate-x-1/2" />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             {lineage.nodes.map((node: any, index: number) => {
               const isEven = index % 2 === 0;
               const isSota = node.status === "State of the Art";
@@ -133,54 +133,54 @@ export default function LineageDetailPage({
                 <div key={node.id} className={`relative flex items-center ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
                   
                   {/* Timeline Center Node */}
-                  <div className="absolute left-[16px] md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-2 border-[#FAFAFA] shadow-sm flex items-center justify-center z-10" style={{ color: isSota ? lineage.color : '#8B8B8B' }}>
-                    <Icon size={14} strokeWidth={isSota ? 2.5 : 2} />
+                  <div className="absolute left-[12px] md:left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-white border-2 border-[#FAFAFA] shadow-sm flex items-center justify-center z-10" style={{ color: isSota ? lineage.color : '#8B8B8B' }}>
+                    <Icon size={12} strokeWidth={isSota ? 2.5 : 2} />
                   </div>
 
                   {/* Spacer for the opposite side on desktop */}
                   <div className="hidden md:block w-1/2" />
 
                   {/* Card Content */}
-                  <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isEven ? 'md:pr-6 text-left md:text-right' : 'md:pl-6 text-left'}`}>
-                    <div className={`bg-white rounded-[12px] border ${isSota ? 'border-2' : 'border'} p-3 transition-all hover:shadow-md relative group cursor-pointer`}
+                  <div className={`w-full md:w-1/2 pl-8 md:pl-0 ${isEven ? 'md:pr-4 text-left md:text-right' : 'md:pl-4 text-left'}`}>
+                    <div className={`bg-white rounded-[12px] border ${isSota ? 'border-2' : 'border'} p-2.5 transition-all hover:shadow-md relative group cursor-pointer`}
                          style={{ borderColor: isSota ? lineage.color : '#F0F0F0' }}>
                       
                       {/* Connection Line to Center Node (Desktop only) */}
-                      <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-6 h-[2px] bg-[#EAE9E4] transition-colors group-hover:bg-[#111111] ${isEven ? '-right-6' : '-left-6'}`} />
+                      <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-4 h-[2px] bg-[#EAE9E4] transition-colors group-hover:bg-[#111111] ${isEven ? '-right-4' : '-left-4'}`} />
 
-                      <div className={`flex items-center gap-3 mb-2 ${isEven ? 'md:justify-end' : ''}`}>
-                        <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">
-                          <Calendar size={12} />
+                      <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'md:justify-end' : ''}`}>
+                        <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider">
+                          <Calendar size={10} />
                           {node.date}
                         </div>
                         {isSota && (
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5]">
+                          <span className="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5]">
                             SOTA
                           </span>
                         )}
                       </div>
 
-                      <h3 className="text-2xl font-extrabold text-[#111111] tracking-tight mb-2 group-hover:text-[#FF5A1F] transition-colors">
+                      <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-1 group-hover:text-[#FF5A1F] transition-colors">
                         {node.name}
                       </h3>
 
-                      <div className={`text-sm font-bold text-[#555555] mb-4 ${isEven ? 'md:justify-end' : ''}`}>
+                      <div className={`text-xs font-bold text-[#555555] mb-2.5 ${isEven ? 'md:justify-end' : ''}`}>
                         {node.parameters} Parameters
                       </div>
 
-                      <ul className={`space-y-2 ${isEven ? 'md:text-right' : 'text-left'}`}>
+                      <ul className={`space-y-1.5 ${isEven ? 'md:text-right' : 'text-left'}`}>
                         {node.highlights.map((highlight: string, i: number) => (
-                          <li key={i} className={`flex items-start gap-2 text-[13px] font-medium text-[#555555] ${isEven ? 'md:flex-row-reverse' : ''}`}>
-                            <CheckCircle2 size={14} className="shrink-0 mt-0.5 text-[#10B981]" />
+                          <li key={i} className={`flex items-start gap-1.5 text-[12px] font-medium text-[#555555] ${isEven ? 'md:flex-row-reverse' : ''}`}>
+                            <CheckCircle2 size={12} className="shrink-0 mt-0.5 text-[#10B981]" />
                             <span className="leading-snug">{highlight}</span>
                           </li>
                         ))}
                       </ul>
 
                       {/* View Model Button (Mock) */}
-                      <div className={`mt-5 pt-4 border-t border-[#F0F0F0] ${isEven ? 'md:text-right' : 'text-left'}`}>
-                        <span className="inline-flex items-center gap-1 text-[12px] font-bold text-[#111111] uppercase tracking-wider group-hover:text-[#FF5A1F] transition-colors">
-                          View Specs <ArrowRight size={14} />
+                      <div className={`mt-3 pt-2.5 border-t border-[#F0F0F0] ${isEven ? 'md:text-right' : 'text-left'}`}>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#111111] uppercase tracking-wider group-hover:text-[#FF5A1F] transition-colors">
+                          View Specs <ArrowRight size={12} />
                         </span>
                       </div>
 
@@ -193,7 +193,7 @@ export default function LineageDetailPage({
           </div>
 
           {/* Bottom faded fade out line */}
-          <div className="absolute left-[16px] md:left-1/2 -bottom-20 w-[2px] h-20 bg-gradient-to-b from-[#EAE9E4] to-transparent -translate-x-1/2" />
+          <div className="absolute left-[12px] md:left-1/2 -bottom-20 w-[2px] h-20 bg-gradient-to-b from-[#EAE9E4] to-transparent -translate-x-1/2" />
         </div>
 
       </main>
