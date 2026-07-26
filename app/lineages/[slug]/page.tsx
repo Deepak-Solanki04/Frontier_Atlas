@@ -111,7 +111,7 @@ export default function LineageDetailPage({
             <span>{lineage.vendor} Family Tree</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] tracking-tight mb-4">
-            {lineage.name}
+            <span className="text-[#FF5A1F]">{lineage.name.split(' ')[0]}</span> {lineage.name.split(' ').slice(1).join(' ')}
           </h1>
           <p className="text-lg text-[#555555] font-medium leading-relaxed">
             {lineage.description}
