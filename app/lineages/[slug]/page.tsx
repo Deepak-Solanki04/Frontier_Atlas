@@ -102,7 +102,7 @@ export default function LineageDetailPage({
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 md:px-8 mt-12">
+      <main className="max-w-xl mx-auto px-4 md:px-8 mt-12">
         
         {/* HEADER */}
         <div className="text-center mb-16">
@@ -142,13 +142,13 @@ export default function LineageDetailPage({
 
                   {/* Card Content */}
                   <div className={`w-full md:w-1/2 pl-8 md:pl-0 ${isEven ? 'md:pr-4 text-left md:text-right' : 'md:pl-4 text-left'}`}>
-                    <div className={`bg-white rounded-[12px] border ${isSota ? 'border-2' : 'border'} p-2.5 transition-all hover:shadow-md relative group cursor-pointer`}
+                    <div className={`bg-white rounded-[12px] border ${isSota ? 'border-2' : 'border'} p-2 transition-all hover:shadow-md relative group cursor-pointer`}
                          style={{ borderColor: isSota ? lineage.color : '#F0F0F0' }}>
                       
                       {/* Connection Line to Center Node (Desktop only) */}
                       <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-4 h-[2px] bg-[#EAE9E4] transition-colors group-hover:bg-[#111111] ${isEven ? '-right-4' : '-left-4'}`} />
 
-                      <div className={`flex items-center gap-2 mb-1.5 ${isEven ? 'md:justify-end' : ''}`}>
+                      <div className={`flex items-center gap-2 mb-1 ${isEven ? 'md:justify-end' : ''}`}>
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#8B8B8B] uppercase tracking-wider">
                           <Calendar size={10} />
                           {node.date}
@@ -160,25 +160,25 @@ export default function LineageDetailPage({
                         )}
                       </div>
 
-                      <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-1 group-hover:text-[#FF5A1F] transition-colors">
+                      <h3 className="text-lg font-extrabold text-[#111111] tracking-tight mb-0.5 group-hover:text-[#FF5A1F] transition-colors">
                         {node.name}
                       </h3>
 
-                      <div className={`text-xs font-bold text-[#555555] mb-2.5 ${isEven ? 'md:justify-end' : ''}`}>
+                      <div className={`text-xs font-bold text-[#555555] mb-1.5 ${isEven ? 'md:justify-end' : ''}`}>
                         {node.parameters} Parameters
                       </div>
 
-                      <ul className={`space-y-1.5 ${isEven ? 'md:text-right' : 'text-left'}`}>
+                      <ul className={`space-y-1 ${isEven ? 'md:text-right' : 'text-left'}`}>
                         {node.highlights.map((highlight: string, i: number) => (
                           <li key={i} className={`flex items-start gap-1.5 text-[12px] font-medium text-[#555555] ${isEven ? 'md:flex-row-reverse' : ''}`}>
                             <CheckCircle2 size={12} className="shrink-0 mt-0.5 text-[#10B981]" />
-                            <span className="leading-snug">{highlight}</span>
+                            <span className="leading-tight">{highlight}</span>
                           </li>
                         ))}
                       </ul>
 
                       {/* View Model Button (Mock) */}
-                      <div className={`mt-3 pt-2.5 border-t border-[#F0F0F0] ${isEven ? 'md:text-right' : 'text-left'}`}>
+                      <div className={`mt-2 pt-2 border-t border-[#F0F0F0] ${isEven ? 'md:text-right' : 'text-left'}`}>
                         <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#111111] uppercase tracking-wider group-hover:text-[#FF5A1F] transition-colors">
                           View Specs <ArrowRight size={12} />
                         </span>
