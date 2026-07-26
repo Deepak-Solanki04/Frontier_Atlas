@@ -102,7 +102,7 @@ export default function LineageDetailPage({
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 md:px-8 mt-12">
+      <main className="max-w-2xl mx-auto px-4 md:px-8 mt-12">
         
         {/* HEADER */}
         <div className="text-center mb-16">
