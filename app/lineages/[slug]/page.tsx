@@ -121,9 +121,9 @@ export default function LineageDetailPage({
         {/* TIMELINE TREE */}
         <div className="relative">
           {/* Central Line */}
-          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[2px] bg-[#EAE9E4] -translate-x-1/2" />
+          <div className="absolute left-[16px] md:left-1/2 top-0 bottom-0 w-[2px] bg-[#EAE9E4] -translate-x-1/2" />
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             {lineage.nodes.map((node: any, index: number) => {
               const isEven = index % 2 === 0;
               const isSota = node.status === "State of the Art";
@@ -133,20 +133,20 @@ export default function LineageDetailPage({
                 <div key={node.id} className={`relative flex items-center ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
                   
                   {/* Timeline Center Node */}
-                  <div className="absolute left-[20px] md:left-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white border-4 border-[#FAFAFA] shadow-sm flex items-center justify-center z-10" style={{ color: isSota ? lineage.color : '#8B8B8B' }}>
-                    <Icon size={18} strokeWidth={isSota ? 2.5 : 2} />
+                  <div className="absolute left-[16px] md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white border-2 border-[#FAFAFA] shadow-sm flex items-center justify-center z-10" style={{ color: isSota ? lineage.color : '#8B8B8B' }}>
+                    <Icon size={14} strokeWidth={isSota ? 2.5 : 2} />
                   </div>
 
                   {/* Spacer for the opposite side on desktop */}
                   <div className="hidden md:block w-1/2" />
 
                   {/* Card Content */}
-                  <div className={`w-full md:w-1/2 pl-14 md:pl-0 ${isEven ? 'md:pr-8 text-left md:text-right' : 'md:pl-8 text-left'}`}>
-                    <div className={`bg-white rounded-[16px] border ${isSota ? 'border-2' : 'border'} p-4 transition-all hover:shadow-md relative group cursor-pointer`}
+                  <div className={`w-full md:w-1/2 pl-10 md:pl-0 ${isEven ? 'md:pr-6 text-left md:text-right' : 'md:pl-6 text-left'}`}>
+                    <div className={`bg-white rounded-[12px] border ${isSota ? 'border-2' : 'border'} p-3 transition-all hover:shadow-md relative group cursor-pointer`}
                          style={{ borderColor: isSota ? lineage.color : '#F0F0F0' }}>
                       
                       {/* Connection Line to Center Node (Desktop only) */}
-                      <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-8 h-[2px] bg-[#EAE9E4] transition-colors group-hover:bg-[#111111] ${isEven ? '-right-8' : '-left-8'}`} />
+                      <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-6 h-[2px] bg-[#EAE9E4] transition-colors group-hover:bg-[#111111] ${isEven ? '-right-6' : '-left-6'}`} />
 
                       <div className={`flex items-center gap-3 mb-2 ${isEven ? 'md:justify-end' : ''}`}>
                         <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">
@@ -193,7 +193,7 @@ export default function LineageDetailPage({
           </div>
 
           {/* Bottom faded fade out line */}
-          <div className="absolute left-[20px] md:left-1/2 -bottom-20 w-[2px] h-20 bg-gradient-to-b from-[#EAE9E4] to-transparent -translate-x-1/2" />
+          <div className="absolute left-[16px] md:left-1/2 -bottom-20 w-[2px] h-20 bg-gradient-to-b from-[#EAE9E4] to-transparent -translate-x-1/2" />
         </div>
 
       </main>
