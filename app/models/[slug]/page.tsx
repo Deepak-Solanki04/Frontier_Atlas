@@ -464,6 +464,8 @@ export default function ModelDetailPage({
   const [loading, setLoading] = useState(true);
   const [logoError, setLogoError] = useState(false);
 
+  const [activeTab, setActiveTab] = useState<"overview" | "benchmarks" | "literature">("overview");
+
   // Benchmarks Comparison Mode ("standard" | "human")
   const [evalMode, setEvalMode] = useState<"standard" | "human">("standard");
 
@@ -582,52 +584,77 @@ export default function ModelDetailPage({
           )}
 
           {/* Title & Core Summary */}
-          <h1 className="text-lg md:text-2xl font-bold text-[#111111] tracking-tight mb-3 relative z-10">
+          <h1 className="text-lg md:text-3xl font-extrabold text-[#111111] tracking-tight mb-2 relative z-10">
             {model.name}
           </h1>
-          <p className="text-[#555555] text-lg max-w-3xl leading-relaxed mb-10 relative z-10 font-medium">
+
+          {/* Badges Row */}
+          <div className="flex flex-wrap items-center gap-2 mb-5 relative z-10">
+            {model.vendor && (
+              <span className="px-2.5 py-1 bg-[#F8F7F2] border border-[#EAE9E4] text-[#555555] text-[11px] font-bold rounded-full uppercase tracking-wider">
+                {model.vendor}
+              </span>
+            )}
+            {(model as any).license && (
+              <span className="px-2.5 py-1 bg-[#ECFDF5] border border-[#A7F3D0] text-[#047857] text-[11px] font-bold rounded-full uppercase tracking-wider">
+                {(model as any).license}
+              </span>
+            )}
+            {model.category && (
+              <span className="px-2.5 py-1 bg-[#F3E8FF] border border-[#D8B4FE] text-[#6B21A8] text-[11px] font-bold rounded-full uppercase tracking-wider">
+                {model.category}
+              </span>
+            )}
+            {model.year && (
+              <span className="px-2.5 py-1 bg-white border border-[#E5E5E0] text-[#111111] text-[11px] font-bold rounded-full uppercase tracking-wider">
+                {model.year}
+              </span>
+            )}
+          </div>
+
+          <p className="text-[#555555] text-[15px] md:text-[17px] max-w-3xl leading-relaxed mb-8 relative z-10 font-medium">
             {model.description}
           </p>
 
           {/* 4-Cell Interactive Architecture & Spec Pods inside Hero */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 relative z-10">
             
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Architecture Specs</span>
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Architecture</span>
                 <Cpu size={14} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-base font-bold text-[#111111]">
-                {model.parameterCount || "Not Specified"}
+              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
+                {model.parameterCount || "Unknown"}
               </div>
             </div>
 
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Context Capacity</span>
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Context Window</span>
                 <Box size={14} className="text-[#3B82F6]" />
               </div>
-              <div className="text-base font-bold text-[#111111]">
-                {model.contextWindow || "Not Specified"}
+              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
+                {model.contextWindow || "Unknown"}
               </div>
             </div>
 
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Primary Specialization</span>
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Specialization</span>
                 <Activity size={14} className="text-[#FF5A1F]" />
               </div>
-              <div className="text-base font-bold text-[#111111]">
+              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
                 {model.category || "General Purpose"}
               </div>
             </div>
 
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3 transition-shadow hover:shadow-md cursor-default">
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-[#8B8B8B]">Literature Citations</span>
+            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Literature</span>
                 <BookOpen size={14} className="text-[#8B5CF6]" />
               </div>
-              <div className="text-base font-bold text-[#111111]">
+              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
                 {model.paperCount} Verified Papers
               </div>
             </div>
@@ -638,7 +665,7 @@ export default function ModelDetailPage({
           {/* Logo on the Right Side */}
           {model.vendorLogoUrl && !logoError ? (
             <div className="hidden md:flex flex-col items-end justify-start shrink-0">
-              <div className="w-24 h-24 rounded-[12px] bg-[#F8F7F2] border border-[#EAE9E4] p-3 flex items-center justify-center">
+              <div className="w-24 h-24 rounded-[12px] bg-[#FAFAFA] border border-[#F0F0F0] p-3 flex items-center justify-center">
                 <img 
                   src={model.vendorLogoUrl} 
                   alt={model.vendor} 
@@ -649,7 +676,7 @@ export default function ModelDetailPage({
             </div>
           ) : (
             <div className="hidden md:flex flex-col items-end justify-start shrink-0">
-              <div className="w-24 h-24 rounded-[12px] bg-[#F8F7F2] border border-[#EAE9E4] p-3 flex items-center justify-center text-[#8B8B8B]">
+              <div className="w-24 h-24 rounded-[12px] bg-[#FAFAFA] border border-[#F0F0F0] p-3 flex items-center justify-center text-[#8B8B8B]">
                 <Cpu size={40} />
               </div>
             </div>
@@ -658,119 +685,150 @@ export default function ModelDetailPage({
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────────────────────────
-          TAB 1: VERIFIED ACADEMIC BENCHMARKS & EVALUATION MATRIX
-      ───────────────────────────────────────────────────────────────────────────── */}
-        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
-          
-          {/* Controls Bar */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#FFF6F3] flex items-center justify-center text-[#FF5A1F]">
-                <BarChart3 size={24} />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold text-[#111111] mb-1 tracking-tight">Empirical Evaluation Leaderboard</h2>
-                <p className="text-sm font-medium text-[#555555]">Official verified evaluations vs baseline human expert threshold</p>
+      {/* ── STICKY TAB NAVIGATION ── */}
+      <div className="sticky top-16 z-40 bg-white/90 backdrop-blur-md border-b border-[#F0F0F0] mt-8">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex gap-8">
+          <button 
+            onClick={() => setActiveTab('overview')}
+            className={`py-4 text-[13px] font-extrabold uppercase tracking-widest transition-colors relative ${activeTab === 'overview' ? 'text-[#FF5A1F]' : 'text-[#8B8B8B] hover:text-[#111111]'}`}
+          >
+            Overview
+            {activeTab === 'overview' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF5A1F]" />}
+          </button>
+          <button 
+            onClick={() => setActiveTab('benchmarks')}
+            className={`py-4 text-[13px] font-extrabold uppercase tracking-widest transition-colors relative ${activeTab === 'benchmarks' ? 'text-[#FF5A1F]' : 'text-[#8B8B8B] hover:text-[#111111]'}`}
+          >
+            Benchmarks
+            {activeTab === 'benchmarks' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF5A1F]" />}
+          </button>
+          <button 
+            onClick={() => setActiveTab('literature')}
+            className={`py-4 text-[13px] font-extrabold uppercase tracking-widest transition-colors relative ${activeTab === 'literature' ? 'text-[#FF5A1F]' : 'text-[#8B8B8B] hover:text-[#111111]'}`}
+          >
+            Literature
+            {activeTab === 'literature' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF5A1F]" />}
+          </button>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
+
+        {/* ─────────────────────────────────────────────────────────────────────────────
+            TAB: OVERVIEW
+        ───────────────────────────────────────────────────────────────────────────── */}
+        {activeTab === 'overview' && (
+          <section className="bg-white p-6 md:p-10 rounded-[12px] border border-[#F0F0F0] shadow-sm">
+            <h2 className="text-xl font-extrabold text-[#111111] tracking-tight mb-4">About {model.name}</h2>
+            <p className="text-[#555555] text-base leading-relaxed font-medium mb-6">
+              {model.description}
+            </p>
+          </section>
+        )}
+
+        {/* ─────────────────────────────────────────────────────────────────────────────
+            TAB: BENCHMARKS (Data-Dense Table)
+        ───────────────────────────────────────────────────────────────────────────── */}
+        {activeTab === 'benchmarks' && (
+          <section>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-[#FFF6F3] flex items-center justify-center text-[#FF5A1F]">
+                  <BarChart3 size={20} />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-[#111111] tracking-tight">Empirical Evaluation Leaderboard</h2>
+                  <p className="text-sm font-medium text-[#555555]">Official verified evaluations for this model</p>
+                </div>
               </div>
             </div>
 
+            <div className="bg-white rounded-[12px] border border-[#F0F0F0] overflow-hidden shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-[#F8F7F2] border-b border-[#EAE9E4]">
+                      <th className="py-3.5 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[40%]">Benchmark / Dataset</th>
+                      <th className="py-3.5 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[20%]">Score</th>
+                      <th className="py-3.5 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Performance Gauge</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#F0F0F0]">
+                    {benchmarkArray && benchmarkArray.length > 0 ? (
+                      benchmarkArray.map((bm, i) => (
+                        <tr key={i} className="hover:bg-[#FAFAFA] transition-colors">
+                          <td className="py-4 px-6">
+                            <div className="flex items-center gap-3">
+                              <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
+                              <span className="font-bold text-[#111111] text-[14px]">{bm.name}</span>
+                            </div>
+                          </td>
+                          <td className="py-4 px-6">
+                            <span className="font-extrabold text-[15.5px] text-[#111111] tracking-tight">{bm.score}</span>
+                          </td>
+                          <td className="py-4 px-6">
+                            <div className="w-full max-w-[240px] h-2.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-full overflow-hidden">
+                              <div
+                                className="h-full rounded-full transition-all duration-1000 ease-out"
+                                style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={3} className="py-16 text-center text-[#8B8B8B] font-medium">
+                          Extensive evaluation suites are currently being compiled for this model.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        )}
 
-          </div>
+        {/* ─────────────────────────────────────────────────────────────────────────────
+            TAB: LITERATURE
+        ───────────────────────────────────────────────────────────────────────────── */}
+        {activeTab === 'literature' && (
+          <section>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-[#F3E8FF] text-[#9333EA] flex items-center justify-center">
+                  <BookOpen size={20} />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-[#111111] tracking-tight">Indexed Academic Citations</h2>
+                  <p className="text-sm font-medium text-[#555555]">Peer-reviewed literature citing or evaluating {model.name}</p>
+                </div>
+              </div>
 
-          {/* Benchmarks Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {benchmarkArray && benchmarkArray.length > 0 ? (
-              benchmarkArray.map((bm, i) => {
-                
-                
+              <span className="px-3 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] text-[12px] font-extrabold uppercase tracking-wider text-[#111111]">
+                {relatedPapers.length} Papers Found
+              </span>
+            </div>
 
-                return (
-                  <div key={i} className="bg-white rounded-[12px] border border-[#F0F0F0] overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow">
-                    <div className="p-5">
-                      <div className="flex items-start justify-between mb-5">
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
-                            <span className="text-base font-extrabold text-[#111111] tracking-tight">{bm.name}</span>
-                          </div>
-                          <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Peer-Reviewed Verification Suite</span>
-                        </div>
-                        
-                        <div className="flex flex-col items-end">
-                          <span className="text-xl font-extrabold text-[#111111] tracking-tighter">{bm.score}</span>
-                        </div>
-                      </div>
-
-                      {/* Gauge Bar */}
-                      <div className="mb-2">
-                        <div className="flex justify-between items-end mb-2 text-[11px] font-bold">
-                          <span className="text-[#8B8B8B] uppercase">Model Capability</span>
-                          
-                        </div>
-
-                        <div className="relative w-full h-3 bg-[#F0F0F0] rounded-full overflow-hidden">
-                          <div
-                            className="absolute top-0 left-0 h-full rounded-full transition-all duration-1000 ease-out"
-                            style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
-                          />
-
-                          {/* Human Expert Marker */}
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
+            {relatedPapers.length === 0 ? (
+              <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-16 text-center shadow-sm">
+                <p className="text-lg font-extrabold text-[#555555] mb-5 tracking-tight">No direct paper citations indexed yet.</p>
+                <Link href="/trending" className="inline-flex items-center gap-2 px-6 py-3 rounded-[8px] bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-sm font-bold no-underline shadow-sm">
+                  <span>Browse All Trending AI Research</span>
+                  <ExternalLink size={15} />
+                </Link>
+              </div>
             ) : (
-              <div className="col-span-full bg-white rounded-[12px] border border-[#F0F0F0] p-12 text-center">
-                <p className="text-base font-bold text-[#555555]">Extensive evaluation suites are currently being compiled for this model.</p>
+              <div className="flex flex-col gap-4">
+                {relatedPapers.map((paper: any, i: number) => (
+                  <PaperCard key={i} paper={paper} />
+                ))}
               </div>
             )}
-          </div>
-
-        </section>
-
-
-
-      {/* ─────────────────────────────────────────────────────────────────────────────
-          TAB 4: RESEARCH LITERATURE & ACADEMIC BIBLIOGRAPHY
-      ───────────────────────────────────────────────────────────────────────────── */}
-        <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
-          
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-[#FAF5FF] text-[#8B5CF6] flex items-center justify-center">
-                <BookOpen size={24} />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold text-[#111111] mb-1 tracking-tight">Indexed Academic Citations</h2>
-                <p className="text-sm font-medium text-[#555555]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
-              </div>
-            </div>
-
-            <span className="px-3 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] text-[12px] font-extrabold uppercase tracking-wider text-[#111111]">
-              {relatedPapers.length} Papers Found
-            </span>
-          </div>
-
-          {relatedPapers.length === 0 ? (
-            <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-16 text-center">
-              <p className="text-lg font-extrabold text-[#555555] mb-5 tracking-tight">No direct paper citations indexed yet.</p>
-              <Link href="/trending" className="inline-flex items-center gap-2 px-6 py-3 rounded-[8px] bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-sm font-bold no-underline shadow-sm">
-                <span>Browse All Trending AI Research</span>
-                <ExternalLink size={15} />
-              </Link>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-4">
-              {relatedPapers.map((paper: any, i: number) => (
-                <PaperCard key={i} paper={paper} />
-              ))}
-            </div>
-          )}
-        </section>
+          </section>
+        )}
+      </div>
     </div>
   );
 }
