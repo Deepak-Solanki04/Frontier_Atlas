@@ -118,24 +118,24 @@ export default function LineagesDirectoryPage() {
                   key={lineage.id}
                   className="block h-full group no-underline"
                 >
-                  <div className="h-full bg-white rounded-[16px] border border-[#ECECEC] p-4 min-h-[155px] flex flex-col hover:shadow-md hover:border-[#FF5A1F] transition-all duration-200 group no-underline">
+                  <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-5 min-h-[149.5px] flex flex-col hover:shadow-md transition-shadow duration-200 group no-underline cursor-pointer">
                     
                     <div className="flex items-start gap-4">
-                      <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-110 w-[30px] h-[30px] rounded-lg border bg-[#FFF6F3] border-[#FFEDD5] text-[#FF5A1F]">
+                      <div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-125 w-[30px] h-[30px] rounded-lg border bg-[#FFF6F3] border-[#FFEDD5] text-[#FF5A1F]">
                         <Layers size={16} />
                       </div>
-                      <div className="flex flex-col">
-                        <h3 className="text-[#111111] text-[15px] font-semibold leading-5 tracking-tight">{lineage.name}</h3>
+                      <div className="flex flex-col overflow-hidden">
+                        <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] truncate" title={lineage.name}>{lineage.name}</h3>
                         <span className="text-[11px] font-medium text-[#8B8B8B] truncate mt-0.5">{lineage.vendor}</span>
                       </div>
                     </div>
 
                     {lineage.description ? (
-                      <p className="mt-3 text-[13px] leading-relaxed text-[#666] line-clamp-3">
+                      <p className="mt-3 text-[13.5px] leading-5 text-[#666] line-clamp-3 h-[59.5px]">
                         {lineage.description}
                       </p>
                     ) : (
-                      <div className="flex-1" />
+                      <div className="mt-3 h-[59.5px]" />
                     )}
                     
                     {/* SVG TIMELINE VISUALIZER */}
