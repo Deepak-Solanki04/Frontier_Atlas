@@ -464,8 +464,6 @@ export default function ModelDetailPage({
   const [loading, setLoading] = useState(true);
   const [logoError, setLogoError] = useState(false);
 
-  const [activeTab, setActiveTab] = useState<"overview" | "benchmarks" | "literature">("overview");
-
   // Benchmarks Comparison Mode ("standard" | "human")
   const [evalMode, setEvalMode] = useState<"standard" | "human">("standard");
 
@@ -549,7 +547,7 @@ export default function ModelDetailPage({
       
       {/* ── TOP LUXURY NAVIGATION BAR (Glassmorphism + Sticky) ── */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#F0F0F0]">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/models" className="flex items-center gap-2 text-[#555555] hover:text-[#111111] transition-colors text-sm font-semibold no-underline">
               <ArrowLeft size={16} />
@@ -568,104 +566,52 @@ export default function ModelDetailPage({
         </div>
       </header>
 
-      {/* ── HERO SECTION: CLEAN LIGHT CARD ── */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
-        <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-6 md:p-10 shadow-sm relative overflow-hidden flex flex-col md:flex-row gap-8 justify-between">
-          <div className="flex-1">
-          
-          {/* Top Metadata Strip */}
-          {(model as any).elo && (
-            <div className="flex mb-4 relative z-10">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#111111] text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
-                <Zap size={13} style={{ fill: "#ffffff" }} />
-                <span>GLOBAL ELO RATING: {(model as any).elo}</span>
+      {/* ── MAIN CONTENT CONTAINER (SINGLE COLUMN) ── */}
+      <div className="max-w-5xl mx-auto px-4 md:px-8 mt-12">
+        
+        {/* HEADER SECTION */}
+        <div className="mb-10">
+          <div className="flex items-start justify-between gap-6 mb-4">
+            <div>
+              {(model as any).elo && (
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-md bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
+                  <Zap size={12} style={{ fill: "#ffffff" }} />
+                  <span>GLOBAL ELO RATING: {(model as any).elo}</span>
+                </div>
+              )}
+              
+              <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] tracking-tight mb-4">
+                {model.name}
+              </h1>
+              
+              {/* Badges / Author list style */}
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-bold text-[#555555]">
+                {model.vendor && (
+                  <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">Developer:</span> <span className="text-[#111111]">{model.vendor}</span></span>
+                )}
+                {(model as any).license && (
+                  <>
+                    <span className="text-[#EAE9E4] hidden sm:inline">•</span>
+                    <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">License:</span> <span className="text-[#111111]">{(model as any).license}</span></span>
+                  </>
+                )}
+                {model.year && (
+                  <>
+                    <span className="text-[#EAE9E4] hidden sm:inline">•</span>
+                    <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">Year:</span> <span className="text-[#111111]">{model.year}</span></span>
+                  </>
+                )}
+                {model.category && (
+                  <>
+                    <span className="text-[#EAE9E4] hidden sm:inline">•</span>
+                    <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">Category:</span> <span className="text-[#FF5A1F]">{model.category}</span></span>
+                  </>
+                )}
               </div>
             </div>
-          )}
-
-          {/* Title & Core Summary */}
-          <h1 className="text-lg md:text-3xl font-extrabold text-[#111111] tracking-tight mb-2 relative z-10">
-            {model.name}
-          </h1>
-
-          {/* Badges Row */}
-          <div className="flex flex-wrap items-center gap-2 mb-5 relative z-10">
-            {model.vendor && (
-              <span className="px-2.5 py-1 bg-[#F8F7F2] border border-[#EAE9E4] text-[#555555] text-[11px] font-bold rounded-full uppercase tracking-wider">
-                {model.vendor}
-              </span>
-            )}
-            {(model as any).license && (
-              <span className="px-2.5 py-1 bg-[#ECFDF5] border border-[#A7F3D0] text-[#047857] text-[11px] font-bold rounded-full uppercase tracking-wider">
-                {(model as any).license}
-              </span>
-            )}
-            {model.category && (
-              <span className="px-2.5 py-1 bg-[#F3E8FF] border border-[#D8B4FE] text-[#6B21A8] text-[11px] font-bold rounded-full uppercase tracking-wider">
-                {model.category}
-              </span>
-            )}
-            {model.year && (
-              <span className="px-2.5 py-1 bg-white border border-[#E5E5E0] text-[#111111] text-[11px] font-bold rounded-full uppercase tracking-wider">
-                {model.year}
-              </span>
-            )}
-          </div>
-
-          <p className="text-[#555555] text-[15px] md:text-[17px] max-w-3xl leading-relaxed mb-8 relative z-10 font-medium">
-            {model.description}
-          </p>
-
-          {/* 4-Cell Interactive Architecture & Spec Pods inside Hero */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 relative z-10">
             
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Architecture</span>
-                <Cpu size={14} className="text-[#FF5A1F]" />
-              </div>
-              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
-                {model.parameterCount || "Unknown"}
-              </div>
-            </div>
-
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Context Window</span>
-                <Box size={14} className="text-[#3B82F6]" />
-              </div>
-              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
-                {model.contextWindow || "Unknown"}
-              </div>
-            </div>
-
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Specialization</span>
-                <Activity size={14} className="text-[#FF5A1F]" />
-              </div>
-              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
-                {model.category || "General Purpose"}
-              </div>
-            </div>
-
-            <div className="bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] p-3.5 transition-shadow hover:shadow-sm cursor-default">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[9.5px] font-bold uppercase tracking-wider text-[#8B8B8B]">Literature</span>
-                <BookOpen size={14} className="text-[#8B5CF6]" />
-              </div>
-              <div className="text-[14.5px] font-extrabold text-[#111111] truncate">
-                {model.paperCount} Verified Papers
-              </div>
-            </div>
-          
-          </div>
-          </div>
-
-          {/* Logo on the Right Side */}
-          {model.vendorLogoUrl && !logoError ? (
-            <div className="hidden md:flex flex-col items-end justify-start shrink-0">
-              <div className="w-24 h-24 rounded-[12px] bg-[#FAFAFA] border border-[#F0F0F0] p-3 flex items-center justify-center">
+            {model.vendorLogoUrl && !logoError && (
+              <div className="hidden sm:block shrink-0 w-20 h-20 bg-white border border-[#F0F0F0] rounded-[12px] p-2 shadow-sm">
                 <img 
                   src={model.vendorLogoUrl} 
                   alt={model.vendor} 
@@ -673,161 +619,124 @@ export default function ModelDetailPage({
                   className="w-full h-full object-contain" 
                 />
               </div>
-            </div>
-          ) : (
-            <div className="hidden md:flex flex-col items-end justify-start shrink-0">
-              <div className="w-24 h-24 rounded-[12px] bg-[#FAFAFA] border border-[#F0F0F0] p-3 flex items-center justify-center text-[#8B8B8B]">
-                <Cpu size={40} />
+            )}
+          </div>
+        </div>
+
+        {/* ABSTRACT */}
+        <section className="mb-12">
+          <h2 className="text-xl font-extrabold text-[#111111] border-b border-[#F0F0F0] pb-2 mb-4">Abstract</h2>
+          <p className="text-[#555555] text-[15px] md:text-[17px] leading-relaxed font-medium">
+            {model.description}
+          </p>
+        </section>
+
+        {/* TECHNICAL SPECS */}
+        <section className="mb-12">
+          <h2 className="text-xl font-extrabold text-[#111111] border-b border-[#F0F0F0] pb-2 mb-4">Model Specifications</h2>
+          <div className="bg-white border border-[#F0F0F0] rounded-[8px] overflow-hidden shadow-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#F0F0F0]">
+              <div className="p-5">
+                <div className="flex items-center gap-2 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">
+                  <Cpu size={14} className="text-[#FF5A1F]" />
+                  Architecture Specs
+                </div>
+                <div className="text-[17px] font-extrabold text-[#111111]">{model.parameterCount || "Not Specified"}</div>
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">
+                  <Box size={14} className="text-[#3B82F6]" />
+                  Context Capacity
+                </div>
+                <div className="text-[17px] font-extrabold text-[#111111]">{model.contextWindow || "Not Specified"}</div>
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">
+                  <BookOpen size={14} className="text-[#8B5CF6]" />
+                  Literature Indexed
+                </div>
+                <div className="text-[17px] font-extrabold text-[#111111]">{model.paperCount} Verified Papers</div>
               </div>
             </div>
-          )}
+          </div>
+        </section>
 
-        </div>
-      </section>
-
-      {/* ── STICKY TAB NAVIGATION ── */}
-      <div className="sticky top-16 z-40 bg-white/90 backdrop-blur-md border-b border-[#F0F0F0] mt-8">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 flex gap-8">
-          <button 
-            onClick={() => setActiveTab('overview')}
-            className={`py-4 text-[13px] font-extrabold uppercase tracking-widest transition-colors relative ${activeTab === 'overview' ? 'text-[#FF5A1F]' : 'text-[#8B8B8B] hover:text-[#111111]'}`}
-          >
-            Overview
-            {activeTab === 'overview' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF5A1F]" />}
-          </button>
-          <button 
-            onClick={() => setActiveTab('benchmarks')}
-            className={`py-4 text-[13px] font-extrabold uppercase tracking-widest transition-colors relative ${activeTab === 'benchmarks' ? 'text-[#FF5A1F]' : 'text-[#8B8B8B] hover:text-[#111111]'}`}
-          >
-            Benchmarks
-            {activeTab === 'benchmarks' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF5A1F]" />}
-          </button>
-          <button 
-            onClick={() => setActiveTab('literature')}
-            className={`py-4 text-[13px] font-extrabold uppercase tracking-widest transition-colors relative ${activeTab === 'literature' ? 'text-[#FF5A1F]' : 'text-[#8B8B8B] hover:text-[#111111]'}`}
-          >
-            Literature
-            {activeTab === 'literature' && <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF5A1F]" />}
-          </button>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8">
-
-        {/* ─────────────────────────────────────────────────────────────────────────────
-            TAB: OVERVIEW
-        ───────────────────────────────────────────────────────────────────────────── */}
-        {activeTab === 'overview' && (
-          <section className="bg-white p-6 md:p-10 rounded-[12px] border border-[#F0F0F0] shadow-sm">
-            <h2 className="text-xl font-extrabold text-[#111111] tracking-tight mb-4">About {model.name}</h2>
-            <p className="text-[#555555] text-base leading-relaxed font-medium mb-6">
-              {model.description}
-            </p>
-          </section>
-        )}
-
-        {/* ─────────────────────────────────────────────────────────────────────────────
-            TAB: BENCHMARKS (Data-Dense Table)
-        ───────────────────────────────────────────────────────────────────────────── */}
-        {activeTab === 'benchmarks' && (
-          <section>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#FFF6F3] flex items-center justify-center text-[#FF5A1F]">
-                  <BarChart3 size={20} />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold text-[#111111] tracking-tight">Empirical Evaluation Leaderboard</h2>
-                  <p className="text-sm font-medium text-[#555555]">Official verified evaluations for this model</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-[12px] border border-[#F0F0F0] overflow-hidden shadow-sm">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-[#F8F7F2] border-b border-[#EAE9E4]">
-                      <th className="py-3.5 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[40%]">Benchmark / Dataset</th>
-                      <th className="py-3.5 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[20%]">Score</th>
-                      <th className="py-3.5 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Performance Gauge</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#F0F0F0]">
-                    {benchmarkArray && benchmarkArray.length > 0 ? (
-                      benchmarkArray.map((bm, i) => (
-                        <tr key={i} className="hover:bg-[#FAFAFA] transition-colors">
-                          <td className="py-4 px-6">
-                            <div className="flex items-center gap-3">
-                              <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
-                              <span className="font-bold text-[#111111] text-[14px]">{bm.name}</span>
-                            </div>
-                          </td>
-                          <td className="py-4 px-6">
-                            <span className="font-extrabold text-[15.5px] text-[#111111] tracking-tight">{bm.score}</span>
-                          </td>
-                          <td className="py-4 px-6">
-                            <div className="w-full max-w-[240px] h-2.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-full overflow-hidden">
-                              <div
-                                className="h-full rounded-full transition-all duration-1000 ease-out"
-                                style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
-                              />
-                            </div>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan={3} className="py-16 text-center text-[#8B8B8B] font-medium">
-                          Extensive evaluation suites are currently being compiled for this model.
+        {/* BENCHMARKS */}
+        <section className="mb-12">
+          <div className="flex items-center justify-between border-b border-[#F0F0F0] pb-2 mb-4">
+            <h2 className="text-xl font-extrabold text-[#111111]">Empirical Evaluation</h2>
+          </div>
+          
+          <div className="bg-white border border-[#F0F0F0] rounded-[8px] overflow-hidden shadow-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-[#F8F7F2] border-b border-[#EAE9E4]">
+                    <th className="py-3 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[40%]">Benchmark / Dataset</th>
+                    <th className="py-3 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[20%]">Score</th>
+                    <th className="py-3 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Performance Gauge</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#F0F0F0]">
+                  {benchmarkArray && benchmarkArray.length > 0 ? (
+                    benchmarkArray.map((bm, i) => (
+                      <tr key={i} className="hover:bg-[#FAFAFA] transition-colors">
+                        <td className="py-4 px-6">
+                          <div className="flex items-center gap-3">
+                            <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
+                            <span className="font-bold text-[#111111] text-[14px]">{bm.name}</span>
+                          </div>
+                        </td>
+                        <td className="py-4 px-6">
+                          <span className="font-extrabold text-[15.5px] text-[#111111] tracking-tight">{bm.score}</span>
+                        </td>
+                        <td className="py-4 px-6">
+                          <div className="w-full max-w-[200px] h-2 bg-[#F8F7F2] border border-[#EAE9E4] rounded-full overflow-hidden">
+                            <div
+                              className="h-full rounded-full transition-all duration-1000 ease-out"
+                              style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
+                            />
+                          </div>
                         </td>
                       </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={3} className="py-12 text-center text-[#8B8B8B] font-medium">
+                        Extensive evaluation suites are currently being compiled for this model.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
-        {/* ─────────────────────────────────────────────────────────────────────────────
-            TAB: LITERATURE
-        ───────────────────────────────────────────────────────────────────────────── */}
-        {activeTab === 'literature' && (
-          <section>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 bg-white p-5 rounded-[12px] border border-[#F0F0F0]">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#F3E8FF] text-[#9333EA] flex items-center justify-center">
-                  <BookOpen size={20} />
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold text-[#111111] tracking-tight">Indexed Academic Citations</h2>
-                  <p className="text-sm font-medium text-[#555555]">Peer-reviewed literature citing or evaluating {model.name}</p>
-                </div>
-              </div>
+        {/* LITERATURE */}
+        <section className="mb-12">
+          <div className="flex items-center justify-between border-b border-[#F0F0F0] pb-2 mb-4">
+            <h2 className="text-xl font-extrabold text-[#111111]">Indexed Academic Citations</h2>
+            <span className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider">{relatedPapers.length} Papers</span>
+          </div>
 
-              <span className="px-3 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] rounded-[8px] text-[12px] font-extrabold uppercase tracking-wider text-[#111111]">
-                {relatedPapers.length} Papers Found
-              </span>
+          {relatedPapers.length === 0 ? (
+            <div className="bg-white rounded-[8px] border border-[#F0F0F0] p-12 text-center shadow-sm">
+              <p className="text-[15px] font-bold text-[#555555] mb-4">No direct paper citations indexed yet.</p>
+              <Link href="/trending" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[6px] bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-xs font-bold no-underline shadow-sm">
+                <span>Browse All Trending AI Research</span>
+                <ExternalLink size={14} />
+              </Link>
             </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {relatedPapers.map((paper: any, i: number) => (
+                <PaperCard key={i} paper={paper} />
+              ))}
+            </div>
+          )}
+        </section>
 
-            {relatedPapers.length === 0 ? (
-              <div className="bg-white rounded-[12px] border border-[#F0F0F0] p-16 text-center shadow-sm">
-                <p className="text-lg font-extrabold text-[#555555] mb-5 tracking-tight">No direct paper citations indexed yet.</p>
-                <Link href="/trending" className="inline-flex items-center gap-2 px-6 py-3 rounded-[8px] bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-sm font-bold no-underline shadow-sm">
-                  <span>Browse All Trending AI Research</span>
-                  <ExternalLink size={15} />
-                </Link>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-4">
-                {relatedPapers.map((paper: any, i: number) => (
-                  <PaperCard key={i} paper={paper} />
-                ))}
-              </div>
-            )}
-          </section>
-        )}
       </div>
     </div>
   );
