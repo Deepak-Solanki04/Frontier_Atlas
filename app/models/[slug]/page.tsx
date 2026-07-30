@@ -543,189 +543,220 @@ export default function ModelDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-24">
+    <div className="min-h-screen bg-[#FAFAFA] pb-24 font-sans text-[#111111]">
       
-      {/* ── TOP LUXURY NAVIGATION BAR (Glassmorphism + Sticky) ── */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#F0F0F0]">
-        <div className="max-w-5xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/models" className="flex items-center gap-2 text-[#555555] hover:text-[#111111] transition-colors text-sm font-semibold no-underline">
+      {/* ── TOP NAV ── */}
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#F0F0F0] shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 h-14 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link href="/models" className="flex items-center gap-2 text-[#555555] hover:text-[#111111] transition-colors text-[13px] font-semibold no-underline">
               <ArrowLeft size={16} />
               <span>Directory</span>
             </Link>
-            <div className="hidden md:flex items-center gap-2 text-[13px] text-[#8B8B8B]">
-              <Link href="/" className="hover:text-[#111111] transition-colors no-underline">Home</Link>
-              <span>&gt;</span>
-              <Link href="/models" className="hover:text-[#111111] transition-colors no-underline">Directory</Link>
-              <span>&gt;</span>
-              <Link href="/models" className="hover:text-[#111111] transition-colors no-underline">Models</Link>
-              <span>&gt;</span>
+            <div className="hidden md:flex items-center gap-2 text-[12px] text-[#8B8B8B]">
+              <span className="text-[#EAE9E4]">/</span>
               <span className="text-[#111111] font-medium">{model.name}</span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* ── MAIN CONTENT CONTAINER ── */}
-      <div className="max-w-5xl mx-auto px-4 md:px-8 mt-10">
-        
-        {/* ── HERO SECTION ── */}
-        <div className="mb-8">
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
-            <div className="flex-1">
-              {/* Title */}
-              <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] tracking-tight mb-4">
+      {/* ── HERO HEADER (Full Width White Background) ── */}
+      <div className="bg-white border-b border-[#F0F0F0] pt-12 pb-14 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.02)] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div>
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-[#111111] tracking-tight">
                 {model.name}
               </h1>
-              
-              {/* Top Badges (Category & Year) */}
-              <div className="flex flex-wrap items-center gap-2 mb-6">
-                {model.category && (
-                  <span className="px-3 py-1 bg-[#FFF6F3] border border-[#FFEDD5] text-[#FF5A1F] text-[12px] font-bold rounded-md uppercase tracking-wider">
-                    {model.category}
-                  </span>
-                )}
-                {model.year && (
-                  <span className="px-3 py-1 bg-white border border-[#F0F0F0] text-[#555555] text-[12px] font-bold rounded-md uppercase tracking-wider">
-                    {model.year}
-                  </span>
-                )}
-              </div>
-
-              {/* Description (Strictly Conditional) */}
-              {model.description && (
-                <p className="text-[#555555] text-[16px] md:text-[18px] leading-relaxed font-medium max-w-3xl">
-                  {model.description}
-                </p>
+              {(model as any).elo && (
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#111111] text-white text-[11px] font-bold uppercase tracking-widest shadow-md">
+                  <Zap size={12} className="text-[#FF5A1F]" /> ELO {(model as any).elo}
+                </span>
               )}
             </div>
             
-            {/* Logo */}
-            {model.vendorLogoUrl && !logoError && (
-              <div className="shrink-0 w-20 h-20 md:w-24 md:h-24 bg-white border border-[#F0F0F0] rounded-[14px] p-3 shadow-sm flex items-center justify-center">
-                <img 
-                  src={model.vendorLogoUrl} 
-                  alt={model.vendor || "Vendor"} 
-                  onError={() => setLogoError(true)}
-                  className="w-full h-full object-contain" 
-                />
-              </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {model.category && (
+                <span className="px-3 py-1.5 bg-[#FFF6F3] border border-[#FFEDD5] text-[#FF5A1F] text-[12px] font-bold rounded-md uppercase tracking-wider">
+                  {model.category}
+                </span>
+              )}
+              {model.year && (
+                <span className="px-3 py-1.5 bg-[#F8F7F2] border border-[#EAE9E4] text-[#555555] text-[12px] font-bold rounded-md uppercase tracking-wider">
+                  {model.year}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {model.vendorLogoUrl && !logoError && (
+            <div className="shrink-0 w-24 h-24 bg-white border border-[#F0F0F0] rounded-[16px] p-3.5 shadow-sm flex items-center justify-center">
+              <img 
+                src={model.vendorLogoUrl} 
+                alt={model.vendor || "Vendor"} 
+                onError={() => setLogoError(true)}
+                className="w-full h-full object-contain" 
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ── MAIN LAYOUT (2 Columns) ── */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-10">
+        <div className="flex flex-col lg:flex-row gap-10 items-start">
+          
+          {/* LEFT COLUMN: MAIN CONTENT (70%) */}
+          <div className="flex-1 min-w-0 w-full space-y-12">
+            
+            {/* Abstract */}
+            {model.description && (
+              <section>
+                <h2 className="text-xl font-bold text-[#111111] mb-4 tracking-tight border-b border-[#F0F0F0] pb-2">Overview</h2>
+                <p className="text-[#444444] text-[16px] leading-[1.8] font-medium">
+                  {model.description}
+                </p>
+              </section>
+            )}
+
+            {/* Benchmarks */}
+            {benchmarkArray && benchmarkArray.length > 0 && (
+              <section>
+                <div className="flex items-center gap-3 mb-5 border-b border-[#F0F0F0] pb-2">
+                  <div className="w-8 h-8 rounded-lg bg-[#FFF6F3] text-[#FF5A1F] flex items-center justify-center">
+                    <BarChart3 size={16} strokeWidth={2.5} />
+                  </div>
+                  <h2 className="text-xl font-bold text-[#111111] tracking-tight">Empirical Benchmarks</h2>
+                </div>
+                
+                <div className="bg-white border border-[#F0F0F0] rounded-xl shadow-sm overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse min-w-[500px]">
+                      <thead>
+                        <tr className="bg-[#FAFAFA] border-b border-[#F0F0F0]">
+                          <th className="py-4 px-5 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[40%]">Benchmark</th>
+                          <th className="py-4 px-5 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[20%]">Score</th>
+                          <th className="py-4 px-5 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Performance</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#F0F0F0]">
+                        {benchmarkArray.map((bm, i) => (
+                          <tr key={i} className="hover:bg-[#FAFAFA] transition-colors group">
+                            <td className="py-4 px-5">
+                              <span className="font-bold text-[#111111] text-[14px]">{bm.name}</span>
+                            </td>
+                            <td className="py-4 px-5">
+                              <span className="font-extrabold text-[15px] text-[#111111]">{bm.score}</span>
+                            </td>
+                            <td className="py-4 px-5">
+                              <div className="w-full max-w-[200px] h-2 bg-[#F0F0F0] rounded-full overflow-hidden">
+                                <div
+                                  className="h-full rounded-full bg-[#FF5A1F] group-hover:brightness-110 transition-all duration-300"
+                                  style={{ width: `${bm.value}%` }}
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Literature */}
+            {relatedPapers && relatedPapers.length > 0 && (
+              <section>
+                <div className="flex items-center justify-between mb-5 border-b border-[#F0F0F0] pb-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F3E8FF] text-[#8B5CF6] flex items-center justify-center">
+                      <BookOpen size={16} strokeWidth={2.5} />
+                    </div>
+                    <h2 className="text-xl font-bold text-[#111111] tracking-tight">Literature & Citations</h2>
+                  </div>
+                  <span className="text-[12px] font-bold text-[#555555] bg-[#F8F7F2] border border-[#EAE9E4] px-3 py-1 rounded-full">
+                    {relatedPapers.length} Papers
+                  </span>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                  {relatedPapers.map((paper: any, i: number) => (
+                    <PaperCard key={i} paper={paper} />
+                  ))}
+                </div>
+              </section>
             )}
           </div>
-        </div>
 
-        {/* ── METADATA GRID (Codesota Style) ── */}
-        <div className="bg-white border border-[#F0F0F0] rounded-[12px] p-1 shadow-sm mb-12">
-          <div className="bg-[#FAFAFA] rounded-[10px] p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          {/* RIGHT COLUMN: SIDEBAR (30%) */}
+          <div className="w-full lg:w-[320px] shrink-0 space-y-6 sticky top-24">
             
-            {/* Developer */}
-            {model.vendor && (
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
-                  <Activity size={13} /> Developer
-                </span>
-                <span className="text-[15px] font-extrabold text-[#111111]">{model.vendor}</span>
-              </div>
-            )}
+            {/* Model Information Card */}
+            <div className="bg-white rounded-xl border border-[#F0F0F0] p-6 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)]">
+              <h3 className="text-sm font-bold text-[#111111] uppercase tracking-wider mb-5">Model Information</h3>
+              
+              <ul className="space-y-4">
+                {model.vendor && (
+                  <li className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-2 text-[#8B8B8B]">
+                      <Activity size={16} />
+                      <span className="text-[13px] font-medium">Developer</span>
+                    </div>
+                    <span className="text-[14px] font-bold text-[#111111] text-right break-words">{model.vendor}</span>
+                  </li>
+                )}
 
-            {/* Architecture */}
-            {model.parameterCount && (
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
-                  <Cpu size={13} /> Architecture
-                </span>
-                <span className="text-[15px] font-extrabold text-[#111111]">{model.parameterCount}</span>
-              </div>
-            )}
+                {model.parameterCount && (
+                  <li className="flex items-start justify-between gap-4 pt-4 border-t border-[#F0F0F0]">
+                    <div className="flex items-center gap-2 text-[#8B8B8B]">
+                      <Cpu size={16} />
+                      <span className="text-[13px] font-medium">Parameters</span>
+                    </div>
+                    <span className="text-[14px] font-bold text-[#111111] text-right">{model.parameterCount}</span>
+                  </li>
+                )}
 
-            {/* Context Window */}
-            {model.contextWindow && (
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
-                  <Box size={13} /> Context Window
-                </span>
-                <span className="text-[15px] font-extrabold text-[#111111]">{model.contextWindow}</span>
-              </div>
-            )}
+                {model.contextWindow && (
+                  <li className="flex items-start justify-between gap-4 pt-4 border-t border-[#F0F0F0]">
+                    <div className="flex items-center gap-2 text-[#8B8B8B]">
+                      <Box size={16} />
+                      <span className="text-[13px] font-medium">Context</span>
+                    </div>
+                    <span className="text-[14px] font-bold text-[#111111] text-right">{model.contextWindow}</span>
+                  </li>
+                )}
 
-            {/* License */}
-            {(model as any).license && (
-              <div className="flex flex-col gap-1.5">
-                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
-                  <Zap size={13} /> License
-                </span>
-                <span className="text-[15px] font-extrabold text-[#111111]">{(model as any).license}</span>
+                {(model as any).license && (
+                  <li className="flex items-start justify-between gap-4 pt-4 border-t border-[#F0F0F0]">
+                    <div className="flex items-center gap-2 text-[#8B8B8B]">
+                      <Zap size={16} />
+                      <span className="text-[13px] font-medium">License</span>
+                    </div>
+                    <span className="text-[14px] font-bold text-[#111111] text-right break-words">{(model as any).license}</span>
+                  </li>
+                )}
+              </ul>
+            </div>
+
+            {/* Support / Quick Links Card */}
+            <div className="bg-[#FAFAFA] rounded-xl border border-[#F0F0F0] p-6 shadow-inner">
+              <div className="flex items-center gap-3 text-[#555555] mb-2">
+                <Sparkles size={16} className="text-[#FF5A1F]" />
+                <span className="text-[13px] font-bold uppercase tracking-wider">API Access</span>
               </div>
-            )}
+              <p className="text-[13px] text-[#666666] leading-relaxed mb-4">
+                Explore the developer endpoints and integrate this model into your applications.
+              </p>
+              <button className="w-full bg-white border border-[#EAE9E4] text-[#111111] text-[13px] font-bold py-2.5 rounded-lg hover:border-[#FF5A1F] hover:text-[#FF5A1F] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                View Documentation <ExternalLink size={14} />
+              </button>
+            </div>
 
           </div>
+
         </div>
-
-        {/* ── BENCHMARKS TABLE ── */}
-        {benchmarkArray && benchmarkArray.length > 0 && (
-          <section className="mb-12">
-            <h2 className="text-xl font-extrabold text-[#111111] mb-5 tracking-tight flex items-center gap-2">
-              <BarChart3 size={20} className="text-[#FF5A1F]" />
-              Empirical Benchmarks
-            </h2>
-            
-            <div className="bg-white border border-[#F0F0F0] rounded-[12px] shadow-sm overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-[#FAFAFA] border-b border-[#F0F0F0]">
-                      <th className="py-4 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[40%]">Benchmark / Dataset</th>
-                      <th className="py-4 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[20%]">Score</th>
-                      <th className="py-4 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Relative Performance</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#F0F0F0]">
-                    {benchmarkArray.map((bm, i) => (
-                      <tr key={i} className="hover:bg-[#FAFAFA] transition-colors">
-                        <td className="py-4 px-6">
-                          <span className="font-bold text-[#111111] text-[14px]">{bm.name}</span>
-                        </td>
-                        <td className="py-4 px-6">
-                          <span className="font-extrabold text-[15px] text-[#111111] tracking-tight">{bm.score}</span>
-                        </td>
-                        <td className="py-4 px-6">
-                          <div className="w-full max-w-[200px] h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
-                            <div
-                              className="h-full rounded-full bg-[#FF5A1F]"
-                              style={{ width: `${bm.value}%` }}
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ── LITERATURE ── */}
-        {relatedPapers && relatedPapers.length > 0 && (
-          <section className="mb-12">
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl font-extrabold text-[#111111] tracking-tight flex items-center gap-2">
-                <BookOpen size={20} className="text-[#8B5CF6]" />
-                Literature & Citations
-              </h2>
-              <span className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider bg-white border border-[#F0F0F0] px-3 py-1 rounded-md shadow-sm">
-                {relatedPapers.length} Papers
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              {relatedPapers.map((paper: any, i: number) => (
-                <PaperCard key={i} paper={paper} />
-              ))}
-            </div>
-          </section>
-        )}
-
       </div>
     </div>
   );
