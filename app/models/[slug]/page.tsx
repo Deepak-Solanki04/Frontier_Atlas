@@ -566,55 +566,46 @@ export default function ModelDetailPage({
         </div>
       </header>
 
-      {/* ── MAIN CONTENT CONTAINER (SINGLE COLUMN) ── */}
-      <div className="max-w-5xl mx-auto px-4 md:px-8 mt-12">
+      {/* ── MAIN CONTENT CONTAINER ── */}
+      <div className="max-w-5xl mx-auto px-4 md:px-8 mt-10">
         
-        {/* HEADER SECTION */}
-        <div className="mb-10">
-          <div className="flex items-start justify-between gap-6 mb-4">
-            <div>
-              {(model as any).elo && (
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-3 rounded-md bg-[#111111] text-white text-[10px] font-bold uppercase tracking-wider shadow-sm">
-                  <Zap size={12} style={{ fill: "#ffffff" }} />
-                  <span>GLOBAL ELO RATING: {(model as any).elo}</span>
-                </div>
-              )}
-              
+        {/* ── HERO SECTION ── */}
+        <div className="mb-8">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+            <div className="flex-1">
+              {/* Title */}
               <h1 className="text-3xl md:text-5xl font-extrabold text-[#111111] tracking-tight mb-4">
                 {model.name}
               </h1>
               
-              {/* Badges / Author list style */}
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-bold text-[#555555]">
-                {model.vendor && (
-                  <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">Developer:</span> <span className="text-[#111111]">{model.vendor}</span></span>
-                )}
-                {(model as any).license && (
-                  <>
-                    <span className="text-[#EAE9E4] hidden sm:inline">•</span>
-                    <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">License:</span> <span className="text-[#111111]">{(model as any).license}</span></span>
-                  </>
+              {/* Top Badges (Category & Year) */}
+              <div className="flex flex-wrap items-center gap-2 mb-6">
+                {model.category && (
+                  <span className="px-3 py-1 bg-[#FFF6F3] border border-[#FFEDD5] text-[#FF5A1F] text-[12px] font-bold rounded-md uppercase tracking-wider">
+                    {model.category}
+                  </span>
                 )}
                 {model.year && (
-                  <>
-                    <span className="text-[#EAE9E4] hidden sm:inline">•</span>
-                    <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">Year:</span> <span className="text-[#111111]">{model.year}</span></span>
-                  </>
-                )}
-                {model.category && (
-                  <>
-                    <span className="text-[#EAE9E4] hidden sm:inline">•</span>
-                    <span className="flex items-center gap-1.5"><span className="text-[#8B8B8B]">Category:</span> <span className="text-[#FF5A1F]">{model.category}</span></span>
-                  </>
+                  <span className="px-3 py-1 bg-white border border-[#F0F0F0] text-[#555555] text-[12px] font-bold rounded-md uppercase tracking-wider">
+                    {model.year}
+                  </span>
                 )}
               </div>
+
+              {/* Description (Strictly Conditional) */}
+              {model.description && (
+                <p className="text-[#555555] text-[16px] md:text-[18px] leading-relaxed font-medium max-w-3xl">
+                  {model.description}
+                </p>
+              )}
             </div>
             
+            {/* Logo */}
             {model.vendorLogoUrl && !logoError && (
-              <div className="hidden sm:block shrink-0 w-20 h-20 bg-white border border-[#F0F0F0] rounded-[12px] p-2 shadow-sm">
+              <div className="shrink-0 w-20 h-20 md:w-24 md:h-24 bg-white border border-[#F0F0F0] rounded-[14px] p-3 shadow-sm flex items-center justify-center">
                 <img 
                   src={model.vendorLogoUrl} 
-                  alt={model.vendor} 
+                  alt={model.vendor || "Vendor"} 
                   onError={() => setLogoError(true)}
                   className="w-full h-full object-contain" 
                 />
@@ -623,119 +614,117 @@ export default function ModelDetailPage({
           </div>
         </div>
 
-        {/* ABSTRACT */}
-        <section className="mb-12">
-          <h2 className="text-xl font-extrabold text-[#111111] border-b border-[#F0F0F0] pb-2 mb-4">Abstract</h2>
-          <p className="text-[#555555] text-[15px] md:text-[17px] leading-relaxed font-medium">
-            {model.description}
-          </p>
-        </section>
+        {/* ── METADATA GRID (Codesota Style) ── */}
+        <div className="bg-white border border-[#F0F0F0] rounded-[12px] p-1 shadow-sm mb-12">
+          <div className="bg-[#FAFAFA] rounded-[10px] p-4 md:p-6 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            
+            {/* Developer */}
+            {model.vendor && (
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
+                  <Activity size={13} /> Developer
+                </span>
+                <span className="text-[15px] font-extrabold text-[#111111]">{model.vendor}</span>
+              </div>
+            )}
 
-        {/* TECHNICAL SPECS */}
-        <section className="mb-12">
-          <h2 className="text-xl font-extrabold text-[#111111] border-b border-[#F0F0F0] pb-2 mb-4">Model Specifications</h2>
-          <div className="bg-white border border-[#F0F0F0] rounded-[8px] overflow-hidden shadow-sm">
-            <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[#F0F0F0]">
-              <div className="p-5">
-                <div className="flex items-center gap-2 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">
-                  <Cpu size={14} className="text-[#FF5A1F]" />
-                  Architecture Specs
-                </div>
-                <div className="text-[17px] font-extrabold text-[#111111]">{model.parameterCount || "Not Specified"}</div>
+            {/* Architecture */}
+            {model.parameterCount && (
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
+                  <Cpu size={13} /> Architecture
+                </span>
+                <span className="text-[15px] font-extrabold text-[#111111]">{model.parameterCount}</span>
               </div>
-              <div className="p-5">
-                <div className="flex items-center gap-2 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">
-                  <Box size={14} className="text-[#3B82F6]" />
-                  Context Capacity
-                </div>
-                <div className="text-[17px] font-extrabold text-[#111111]">{model.contextWindow || "Not Specified"}</div>
-              </div>
-              <div className="p-5">
-                <div className="flex items-center gap-2 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider mb-2">
-                  <BookOpen size={14} className="text-[#8B5CF6]" />
-                  Literature Indexed
-                </div>
-                <div className="text-[17px] font-extrabold text-[#111111]">{model.paperCount} Verified Papers</div>
-              </div>
-            </div>
-          </div>
-        </section>
+            )}
 
-        {/* BENCHMARKS */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between border-b border-[#F0F0F0] pb-2 mb-4">
-            <h2 className="text-xl font-extrabold text-[#111111]">Empirical Evaluation</h2>
+            {/* Context Window */}
+            {model.contextWindow && (
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
+                  <Box size={13} /> Context Window
+                </span>
+                <span className="text-[15px] font-extrabold text-[#111111]">{model.contextWindow}</span>
+              </div>
+            )}
+
+            {/* License */}
+            {(model as any).license && (
+              <div className="flex flex-col gap-1.5">
+                <span className="text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider flex items-center gap-1.5">
+                  <Zap size={13} /> License
+                </span>
+                <span className="text-[15px] font-extrabold text-[#111111]">{(model as any).license}</span>
+              </div>
+            )}
+
           </div>
-          
-          <div className="bg-white border border-[#F0F0F0] rounded-[8px] overflow-hidden shadow-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-[#F8F7F2] border-b border-[#EAE9E4]">
-                    <th className="py-3 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[40%]">Benchmark / Dataset</th>
-                    <th className="py-3 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[20%]">Score</th>
-                    <th className="py-3 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Performance Gauge</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#F0F0F0]">
-                  {benchmarkArray && benchmarkArray.length > 0 ? (
-                    benchmarkArray.map((bm, i) => (
+        </div>
+
+        {/* ── BENCHMARKS TABLE ── */}
+        {benchmarkArray && benchmarkArray.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-xl font-extrabold text-[#111111] mb-5 tracking-tight flex items-center gap-2">
+              <BarChart3 size={20} className="text-[#FF5A1F]" />
+              Empirical Benchmarks
+            </h2>
+            
+            <div className="bg-white border border-[#F0F0F0] rounded-[12px] shadow-sm overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-[#FAFAFA] border-b border-[#F0F0F0]">
+                      <th className="py-4 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[40%]">Benchmark / Dataset</th>
+                      <th className="py-4 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider w-[20%]">Score</th>
+                      <th className="py-4 px-6 text-[11px] font-bold text-[#8B8B8B] uppercase tracking-wider">Relative Performance</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#F0F0F0]">
+                    {benchmarkArray.map((bm, i) => (
                       <tr key={i} className="hover:bg-[#FAFAFA] transition-colors">
                         <td className="py-4 px-6">
-                          <div className="flex items-center gap-3">
-                            <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: bm.color || "#FF5A1F" }} />
-                            <span className="font-bold text-[#111111] text-[14px]">{bm.name}</span>
-                          </div>
+                          <span className="font-bold text-[#111111] text-[14px]">{bm.name}</span>
                         </td>
                         <td className="py-4 px-6">
-                          <span className="font-extrabold text-[15.5px] text-[#111111] tracking-tight">{bm.score}</span>
+                          <span className="font-extrabold text-[15px] text-[#111111] tracking-tight">{bm.score}</span>
                         </td>
                         <td className="py-4 px-6">
-                          <div className="w-full max-w-[200px] h-2 bg-[#F8F7F2] border border-[#EAE9E4] rounded-full overflow-hidden">
+                          <div className="w-full max-w-[200px] h-1.5 bg-[#F0F0F0] rounded-full overflow-hidden">
                             <div
-                              className="h-full rounded-full transition-all duration-1000 ease-out"
-                              style={{ width: `${bm.value}%`, backgroundColor: bm.color || "#FF5A1F" }}
+                              className="h-full rounded-full bg-[#FF5A1F]"
+                              style={{ width: `${bm.value}%` }}
                             />
                           </div>
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={3} className="py-12 text-center text-[#8B8B8B] font-medium">
-                        Extensive evaluation suites are currently being compiled for this model.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* LITERATURE */}
-        <section className="mb-12">
-          <div className="flex items-center justify-between border-b border-[#F0F0F0] pb-2 mb-4">
-            <h2 className="text-xl font-extrabold text-[#111111]">Indexed Academic Citations</h2>
-            <span className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider">{relatedPapers.length} Papers</span>
-          </div>
-
-          {relatedPapers.length === 0 ? (
-            <div className="bg-white rounded-[8px] border border-[#F0F0F0] p-12 text-center shadow-sm">
-              <p className="text-[15px] font-bold text-[#555555] mb-4">No direct paper citations indexed yet.</p>
-              <Link href="/trending" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[6px] bg-[#FF5A1F] text-white hover:bg-[#e04d16] transition-colors text-xs font-bold no-underline shadow-sm">
-                <span>Browse All Trending AI Research</span>
-                <ExternalLink size={14} />
-              </Link>
+        {/* ── LITERATURE ── */}
+        {relatedPapers && relatedPapers.length > 0 && (
+          <section className="mb-12">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-xl font-extrabold text-[#111111] tracking-tight flex items-center gap-2">
+                <BookOpen size={20} className="text-[#8B5CF6]" />
+                Literature & Citations
+              </h2>
+              <span className="text-[12px] font-bold text-[#8B8B8B] uppercase tracking-wider bg-white border border-[#F0F0F0] px-3 py-1 rounded-md shadow-sm">
+                {relatedPapers.length} Papers
+              </span>
             </div>
-          ) : (
+
             <div className="flex flex-col gap-4">
               {relatedPapers.map((paper: any, i: number) => (
                 <PaperCard key={i} paper={paper} />
               ))}
             </div>
-          )}
-        </section>
+          </section>
+        )}
 
       </div>
     </div>
