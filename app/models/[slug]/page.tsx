@@ -497,7 +497,7 @@ export default function ModelDetailPage({
 
   // Find related research papers citing or mentioning this model
   const relatedPapers = useMemo(() => {
-    if (!model || !(model as any).papers) return [];
+    if (!model || !Array.isArray((model as any).papers)) return [];
     return (model as any).papers.map((p: any) => p.paper).filter(Boolean).slice(0, 10);
   }, [model]);
   
@@ -652,24 +652,24 @@ export default function ModelDetailPage({
 
               {/* TAGS ROW: Tasks, Methods, Capabilities, Research Areas */}
               <div className="mt-8 flex flex-wrap gap-2 max-w-[42rem]">
-                {((model as any).capabilities || []).map((cap: string, i: number) => (
+                {Array.isArray((model as any).capabilities) && ((model as any).capabilities).map((cap: string, i: number) => (
                   <span key={`cap-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors">
                     {cap}
                   </span>
                 ))}
-                {((model as any).researchAreas || []).map((area: string, i: number) => (
+                {Array.isArray((model as any).researchAreas) && ((model as any).researchAreas).map((area: string, i: number) => (
                   <span key={`area-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors">
                     <Sparkles size={12} className="mr-1.5 text-orange-400" />
                     {area}
                   </span>
                 ))}
-                {((model as any).tasks || []).slice(0, 4).map((task: any, i: number) => (
+                {Array.isArray((model as any).tasks) && ((model as any).tasks).slice(0, 4).map((task: any, i: number) => (
                   <span key={`task-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors cursor-default" title={task.name}>
                     <div className="w-1.5 h-1.5 rounded-full mr-2" style={{ backgroundColor: task.color || '#3B82F6' }} />
                     {task.name}
                   </span>
                 ))}
-                {((model as any).methods || []).slice(0, 4).map((method: any, i: number) => (
+                {Array.isArray((model as any).methods) && ((model as any).methods).slice(0, 4).map((method: any, i: number) => (
                   <span key={`method-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors cursor-default" title={method.category}>
                     <Sliders size={12} className="mr-1.5 text-blue-400" />
                     {method.name}
@@ -679,14 +679,14 @@ export default function ModelDetailPage({
             </section>
 
             {/* DATASETS */}
-            {((model as any).datasets && (model as any).datasets.length > 0) && (
+            {Array.isArray((model as any).datasets) && ((model as any).datasets).length > 0 && (
               <section>
                 <div className="flex items-center gap-2 mb-6">
                   <Layers size={18} className="text-gray-400" />
                   <h2 className="text-[18px] font-semibold tracking-tight text-black">Training Datasets</h2>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {((model as any).datasets || []).map((ds: any, i: number) => (
+                  {((model as any).datasets).map((ds: any, i: number) => (
                     <div key={`ds-${i}`} className="inline-flex items-center px-3 py-2 rounded-lg bg-white border border-gray-200/60 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[13px] font-medium text-gray-700 hover:border-gray-300 transition-colors cursor-pointer group" onClick={() => window.open(`/datasets/${ds.slug}`, '_self')}>
                       <Box size={14} className="mr-2 text-gray-400 group-hover:text-black transition-colors" />
                       {ds.name}
@@ -874,7 +874,7 @@ export default function ModelDetailPage({
               </div>
 
               {/* Related Models */}
-              {((model as any).relatedModels && (model as any).relatedModels.length > 0) && (
+              {Array.isArray((model as any).relatedModels) && ((model as any).relatedModels).length > 0 && (
                 <div className="pt-8 border-t border-gray-200/60">
                   <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-4">Related Models</h3>
                   <div className="flex flex-col gap-2">
