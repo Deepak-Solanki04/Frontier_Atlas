@@ -454,6 +454,13 @@ const PaperCard = memo(({ paper }: { paper: any }) => {
 });
 PaperCard.displayName = "PaperCard";
 
+function formatDate(dateStr: string) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  return d.toLocaleDateString("en-US", { month: "short", year: "numeric", day: "numeric" });
+}
+
 export default function ModelDetailPage({
   params,
 }: {
@@ -495,15 +502,24 @@ export default function ModelDetailPage({
   }, [model]);
   
   const benchmarkArray = useMemo(() => {
-    if (!model || !model.benchmarkScore) return [];
-    return Object.entries(model.benchmarkScore).map(([key, value]) => {
-      return {
+    if (!model) return [];
+    if ((model as any).benchmarks && Array.isArray((model as any).benchmarks)) {
+      return (model as any).benchmarks.map((b: any) => ({
+        name: b.name.toUpperCase(),
+        score: `Rank #${b.rank}`,
+        value: Math.max(0, 100 - (b.rank * 2)),
+        color: "#111111"
+      }));
+    }
+    if (model.benchmarkScore) {
+      return Object.entries(model.benchmarkScore).map(([key, value]) => ({
         name: key.toUpperCase(),
         score: typeof value === 'number' ? value.toFixed(1) : value,
         value: Number(value) || 0,
-        color: "#FF5A1F" // fallback brand color
-      };
-    });
+        color: "#111111"
+      }));
+    }
+    return [];
   }, [model]);
 
   if (loading) {
@@ -574,7 +590,7 @@ export default function ModelDetailPage({
             
             {/* HERO SECTION */}
             <section className="relative">
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex flex-wrap items-center gap-3 mb-6">
                 {model.vendorLogoUrl && !logoError && (
                   <div className="w-6 h-6 flex items-center justify-center shrink-0">
                     <img 
@@ -588,19 +604,33 @@ export default function ModelDetailPage({
                 {model.vendor && (
                   <span className="text-[14px] font-medium text-gray-600">{model.vendor}</span>
                 )}
-                {model.category && (
+                
+                {/* Modality / Category */}
+                {((model as any).modality || model.category) && (
                   <>
                     <span className="text-gray-300">•</span>
                     <span className="text-[12px] font-semibold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">
-                      {model.category}
+                      {(model as any).modality || model.category}
                     </span>
                   </>
                 )}
-                {(model as any).elo && (
+
+                {/* Model Family */}
+                {(model as any).modelFamily && (
                   <>
                     <span className="text-gray-300">•</span>
-                    <span className="text-[12px] font-semibold text-orange-700 bg-orange-50 border border-orange-100 px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <Zap size={10} className="fill-orange-500"/> ELO {(model as any).elo}
+                    <span className="text-[12px] font-semibold text-purple-700 bg-purple-50 border border-purple-100 px-2 py-0.5 rounded-full">
+                      {(model as any).modelFamily}
+                    </span>
+                  </>
+                )}
+                
+                {/* Access Type */}
+                {(model as any).accessType && (
+                  <>
+                    <span className="text-gray-300">•</span>
+                    <span className="text-[12px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-full">
+                      {(model as any).accessType}
                     </span>
                   </>
                 )}
@@ -619,7 +649,52 @@ export default function ModelDetailPage({
                   <Activity size={14} className="animate-pulse" /> Profile data is currently being compiled
                 </div>
               )}
+
+              {/* TAGS ROW: Tasks, Methods, Capabilities, Research Areas */}
+              <div className="mt-8 flex flex-wrap gap-2 max-w-[42rem]">
+                {((model as any).capabilities || []).map((cap: string, i: number) => (
+                  <span key={`cap-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors">
+                    {cap}
+                  </span>
+                ))}
+                {((model as any).researchAreas || []).map((area: string, i: number) => (
+                  <span key={`area-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors">
+                    <Sparkles size={12} className="mr-1.5 text-orange-400" />
+                    {area}
+                  </span>
+                ))}
+                {((model as any).tasks || []).slice(0, 4).map((task: any, i: number) => (
+                  <span key={`task-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors cursor-default" title={task.name}>
+                    <div className="w-1.5 h-1.5 rounded-full mr-2" style={{ backgroundColor: task.color || '#3B82F6' }} />
+                    {task.name}
+                  </span>
+                ))}
+                {((model as any).methods || []).slice(0, 4).map((method: any, i: number) => (
+                  <span key={`method-${i}`} className="inline-flex items-center px-3 py-1.5 rounded-lg bg-white border border-gray-200 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[12px] font-medium text-gray-700 hover:border-gray-300 transition-colors cursor-default" title={method.category}>
+                    <Sliders size={12} className="mr-1.5 text-blue-400" />
+                    {method.name}
+                  </span>
+                ))}
+              </div>
             </section>
+
+            {/* DATASETS */}
+            {((model as any).datasets && (model as any).datasets.length > 0) && (
+              <section>
+                <div className="flex items-center gap-2 mb-6">
+                  <Layers size={18} className="text-gray-400" />
+                  <h2 className="text-[18px] font-semibold tracking-tight text-black">Training Datasets</h2>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {((model as any).datasets || []).map((ds: any, i: number) => (
+                    <div key={`ds-${i}`} className="inline-flex items-center px-3 py-2 rounded-lg bg-white border border-gray-200/60 shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-[13px] font-medium text-gray-700 hover:border-gray-300 transition-colors cursor-pointer group" onClick={() => window.open(`/datasets/${ds.slug}`, '_self')}>
+                      <Box size={14} className="mr-2 text-gray-400 group-hover:text-black transition-colors" />
+                      {ds.name}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* BENCHMARKS (Linear-style Table or Empty State) */}
             <section>
@@ -741,22 +816,28 @@ export default function ModelDetailPage({
                       <dd className="font-semibold text-black">{model.contextWindow}</dd>
                     </div>
                   )}
+                  {(model as any).architecture && (
+                    <div className="flex flex-col gap-1.5 pb-3.5 border-b border-gray-100">
+                      <dt className="text-gray-500 flex items-center gap-2"><Brain size={14}/> Architecture</dt>
+                      <dd className="font-semibold text-black leading-snug">{(model as any).architecture}</dd>
+                    </div>
+                  )}
                   {model.vendor && (
                     <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
                       <dt className="text-gray-500 flex items-center gap-2"><Activity size={14}/> Developer</dt>
                       <dd className="font-semibold text-black">{model.vendor}</dd>
                     </div>
                   )}
-                  {model.year && (
+                  {((model as any).releaseDate || model.year) && (
                     <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
                       <dt className="text-gray-500 flex items-center gap-2"><Layers size={14}/> Released</dt>
-                      <dd className="font-semibold text-black">{model.year}</dd>
+                      <dd className="font-semibold text-black">{formatDate((model as any).releaseDate) || model.year}</dd>
                     </div>
                   )}
                   {(model as any).license && (
                     <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
                       <dt className="text-gray-500 flex items-center gap-2"><ShieldCheck size={14}/> License</dt>
-                      <dd className="font-semibold text-black">{(model as any).license}</dd>
+                      <dd className="font-semibold text-black text-right max-w-[150px] truncate" title={(model as any).license}>{(model as any).license}</dd>
                     </div>
                   )}
                 </dl>
@@ -766,18 +847,48 @@ export default function ModelDetailPage({
               <div>
                 <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-4">Resources</h3>
                 <div className="space-y-2">
-                  <button className="w-full text-left px-4 py-2.5 rounded-lg border border-gray-200/60 hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.02)] bg-white text-[14px] font-medium text-black flex items-center justify-between group transition-all">
-                    <span className="flex items-center gap-2"><Terminal size={14} className="text-gray-400"/> API Reference</span>
-                    <ArrowUpRight size={14} className="text-gray-400 group-hover:text-black transition-colors"/>
-                  </button>
-                  {model.vendorLogoUrl && (
-                     <button className="w-full text-left px-4 py-2.5 rounded-lg border border-gray-200/60 hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.02)] bg-white text-[14px] font-medium text-black flex items-center justify-between group transition-all">
-                      <span className="flex items-center gap-2"><ExternalLink size={14} className="text-gray-400"/> Vendor Site</span>
+                  {(model as any).apiUrl && (
+                    <button onClick={() => window.open((model as any).apiUrl, '_blank')} className="w-full text-left px-4 py-2.5 rounded-lg border border-gray-200/60 hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.02)] bg-white text-[14px] font-medium text-black flex items-center justify-between group transition-all">
+                      <span className="flex items-center gap-2"><Terminal size={14} className="text-gray-400"/> API / Weights</span>
                       <ArrowUpRight size={14} className="text-gray-400 group-hover:text-black transition-colors"/>
                     </button>
                   )}
+                  {(model as any).repositoryUrl && (
+                    <button onClick={() => window.open((model as any).repositoryUrl, '_blank')} className="w-full text-left px-4 py-2.5 rounded-lg border border-gray-200/60 hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.02)] bg-white text-[14px] font-medium text-black flex items-center justify-between group transition-all">
+                      <span className="flex items-center gap-2"><svg className="w-[14px] h-[14px] text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg> Repository</span>
+                      <ArrowUpRight size={14} className="text-gray-400 group-hover:text-black transition-colors"/>
+                    </button>
+                  )}
+                  {(model as any).paperUrl && (
+                    <button onClick={() => window.open((model as any).paperUrl, '_blank')} className="w-full text-left px-4 py-2.5 rounded-lg border border-gray-200/60 hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.02)] bg-white text-[14px] font-medium text-black flex items-center justify-between group transition-all">
+                      <span className="flex items-center gap-2"><BookOpen size={14} className="text-gray-400"/> Research Paper</span>
+                      <ArrowUpRight size={14} className="text-gray-400 group-hover:text-black transition-colors"/>
+                    </button>
+                  )}
+                  {(!((model as any).apiUrl) && !((model as any).repositoryUrl) && !((model as any).paperUrl)) && (
+                     <div className="text-[13px] text-gray-500 p-4 bg-gray-50 rounded-lg border border-gray-100 text-center">
+                       No external resources linked
+                     </div>
+                  )}
                 </div>
               </div>
+
+              {/* Related Models */}
+              {((model as any).relatedModels && (model as any).relatedModels.length > 0) && (
+                <div className="pt-8 border-t border-gray-200/60">
+                  <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-4">Related Models</h3>
+                  <div className="flex flex-col gap-2">
+                    {((model as any).relatedModels).slice(0, 5).map((rm: any) => (
+                       <Link key={rm.id} href={`/models/${rm.slug}`} className="flex items-center justify-between p-3 rounded-lg hover:bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-transparent hover:border-gray-200/60 transition-all group">
+                         <span className="text-[14px] font-medium text-gray-900">{rm.name}</span>
+                         <div className="flex items-center text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <ArrowUpRight size={14} />
+                         </div>
+                       </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             </div>
           </aside>
