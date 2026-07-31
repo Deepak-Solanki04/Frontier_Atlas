@@ -562,11 +562,15 @@ export default function ModelDetailPage({
         </div>
       </header>
 
-      <main className="max-w-[1200px] mx-auto px-6 md:px-8 pt-12 md:pt-16 pb-24">
+      <main className="max-w-[1200px] mx-auto px-6 md:px-8 pt-12 md:pt-16 pb-24 relative">
+        
+        {/* Premium Background Grid MASK */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] -z-10 h-[600px] pointer-events-none"></div>
+
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-16 lg:gap-24">
           
           {/* ── LEFT COLUMN: MAIN CONTENT ── */}
-          <div className="space-y-16 lg:space-y-24">
+          <div className="space-y-16 lg:space-y-20">
             
             {/* HERO SECTION */}
             <section className="relative">
@@ -606,21 +610,25 @@ export default function ModelDetailPage({
                 {model.name}
               </h1>
 
-              {model.description && (
+              {model.description ? (
                 <p className="text-[16px] md:text-[18px] text-gray-600 leading-relaxed max-w-[42rem]">
                   {model.description}
                 </p>
+              ) : (
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-orange-50/50 border border-orange-100/50 text-orange-700 text-[13px] font-medium">
+                  <Activity size={14} className="animate-pulse" /> Profile data is currently being compiled
+                </div>
               )}
             </section>
 
-            {/* BENCHMARKS (Linear-style Table) */}
-            {benchmarkArray && benchmarkArray.length > 0 && (
-              <section>
-                <div className="flex items-center gap-2 mb-6">
-                  <BarChart3 size={18} className="text-gray-400" />
-                  <h2 className="text-[18px] font-semibold tracking-tight text-black">Performance Benchmarks</h2>
-                </div>
-                
+            {/* BENCHMARKS (Linear-style Table or Empty State) */}
+            <section>
+              <div className="flex items-center gap-2 mb-6">
+                <BarChart3 size={18} className="text-gray-400" />
+                <h2 className="text-[18px] font-semibold tracking-tight text-black">Performance Benchmarks</h2>
+              </div>
+              
+              {benchmarkArray && benchmarkArray.length > 0 ? (
                 <div className="border border-gray-200/60 rounded-xl overflow-hidden bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
                   <table className="w-full text-left border-collapse text-[14px]">
                     <thead>
@@ -648,20 +656,30 @@ export default function ModelDetailPage({
                     </tbody>
                   </table>
                 </div>
-              </section>
-            )}
+              ) : (
+                <div className="border border-gray-200/60 rounded-xl overflow-hidden bg-white/50 border-dashed p-10 flex flex-col items-center justify-center text-center">
+                  <div className="w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center mb-4">
+                    <BarChart3 size={16} className="text-gray-400" />
+                  </div>
+                  <h3 className="text-[14px] font-semibold text-gray-900 mb-1">Evaluations Pending</h3>
+                  <p className="text-[13px] text-gray-500 max-w-sm">Benchmark data and empirical evaluations are currently being verified for {model.name}.</p>
+                </div>
+              )}
+            </section>
 
             {/* LITERATURE */}
-            {relatedPapers && relatedPapers.length > 0 && (
-              <section>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-2">
-                    <BookOpen size={18} className="text-gray-400" />
-                    <h2 className="text-[18px] font-semibold tracking-tight text-black">Academic Citations</h2>
-                  </div>
-                  <span className="text-[13px] font-medium text-gray-500">{relatedPapers.length} Papers</span>
+            <section>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <BookOpen size={18} className="text-gray-400" />
+                  <h2 className="text-[18px] font-semibold tracking-tight text-black">Academic Citations</h2>
                 </div>
+                {relatedPapers && relatedPapers.length > 0 && (
+                  <span className="text-[13px] font-medium text-gray-500">{relatedPapers.length} Papers</span>
+                )}
+              </div>
 
+              {relatedPapers && relatedPapers.length > 0 ? (
                 <div className="grid gap-4">
                   {relatedPapers.map((paper: any, i: number) => (
                     <div 
@@ -690,8 +708,16 @@ export default function ModelDetailPage({
                     </div>
                   ))}
                 </div>
-              </section>
-            )}
+              ) : (
+                <div className="border border-gray-200/60 rounded-xl overflow-hidden bg-white/50 border-dashed p-10 flex flex-col items-center justify-center text-center">
+                  <div className="w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center mb-4">
+                    <BookOpen size={16} className="text-gray-400" />
+                  </div>
+                  <h3 className="text-[14px] font-semibold text-gray-900 mb-1">No Indexed Literature</h3>
+                  <p className="text-[13px] text-gray-500 max-w-sm">We haven't indexed any peer-reviewed papers or technical reports specifically citing {model.name} yet.</p>
+                </div>
+              )}
+            </section>
 
           </div>
 
