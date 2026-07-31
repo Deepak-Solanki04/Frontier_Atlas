@@ -543,272 +543,220 @@ export default function ModelDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F4F5] pb-32 font-sans text-[#111111] selection:bg-orange-100 selection:text-orange-900">
+    <div className="min-h-screen bg-[#FAFAFA] pb-32 font-sans text-[#111111] selection:bg-[#EAEAEA]">
       
-      {/* ── TOP NAV ── */}
-      <header className="sticky top-0 z-50 bg-[#F4F4F5]/90 backdrop-blur-md transition-all duration-300">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
-          <Link href="/models" className="flex items-center gap-2 text-[#71717A] hover:text-[#111111] transition-colors text-[13px] font-semibold no-underline">
-            <ArrowLeft size={16} />
-            <span>Directory</span>
+      {/* ── TOP NAV (Clean & Refined) ── */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/60 transition-all duration-300">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-8 h-14 flex items-center justify-between">
+          <nav className="flex items-center gap-2 text-[13px] font-medium text-gray-500">
+            <Link href="/" className="hover:text-black transition-colors">Frontier</Link>
+            <span className="text-gray-300">/</span>
+            <Link href="/models" className="hover:text-black transition-colors">Models</Link>
+            <span className="text-gray-300">/</span>
+            <span className="text-black font-semibold">{model.name}</span>
+          </nav>
+          
+          <Link href="/models" className="flex items-center gap-1.5 text-[13px] font-medium text-gray-500 hover:text-black transition-colors">
+            <ArrowLeft size={14} /> Back to Directory
           </Link>
-          <div className="hidden md:flex items-center gap-2 text-[12px] font-medium text-[#A1A1AA]">
-            <Link href="/" className="hover:text-[#111111] transition-colors">Home</Link>
-            <span className="text-[#D4D4D8]">/</span>
-            <Link href="/models" className="hover:text-[#111111] transition-colors">Models</Link>
-            <span className="text-[#D4D4D8]">/</span>
-            <span className="text-[#111111] font-bold">{model.name}</span>
-          </div>
         </div>
       </header>
 
-      <main className="max-w-[1200px] mx-auto px-6 md:px-8 pt-8 space-y-8">
-        
-        {/* ── HERO CARD with 4-Column Grid ── */}
-        <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] overflow-hidden">
-          <div className="p-8 md:p-12 pb-10">
-            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-12">
-              <div className="flex-1 max-w-4xl">
-                {/* Title */}
-                <h1 className="text-5xl md:text-[56px] font-extrabold text-[#18181B] tracking-tight leading-[1.1] mb-6">
-                  {model.name}
-                </h1>
-
-                {/* Abstract */}
-                {model.description && (
-                  <p className="text-[18px] md:text-[20px] text-[#52525B] leading-[1.7] font-medium max-w-3xl">
-                    {model.description}
-                  </p>
+      <main className="max-w-[1200px] mx-auto px-6 md:px-8 pt-12 md:pt-16 pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-16 lg:gap-24">
+          
+          {/* ── LEFT COLUMN: MAIN CONTENT ── */}
+          <div className="space-y-16 lg:space-y-24">
+            
+            {/* HERO SECTION */}
+            <section className="relative">
+              <div className="flex items-center gap-3 mb-6">
+                {model.vendorLogoUrl && !logoError && (
+                  <div className="w-6 h-6 flex items-center justify-center shrink-0">
+                    <img 
+                      src={model.vendorLogoUrl} 
+                      alt={model.vendor || "Vendor"} 
+                      onError={() => setLogoError(true)}
+                      className="w-full h-full object-contain grayscale opacity-80" 
+                    />
+                  </div>
+                )}
+                {model.vendor && (
+                  <span className="text-[14px] font-medium text-gray-600">{model.vendor}</span>
+                )}
+                {model.category && (
+                  <>
+                    <span className="text-gray-300">•</span>
+                    <span className="text-[12px] font-semibold text-blue-700 bg-blue-50 border border-blue-100 px-2 py-0.5 rounded-full">
+                      {model.category}
+                    </span>
+                  </>
+                )}
+                {(model as any).elo && (
+                  <>
+                    <span className="text-gray-300">•</span>
+                    <span className="text-[12px] font-semibold text-orange-700 bg-orange-50 border border-orange-100 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Zap size={10} className="fill-orange-500"/> ELO {(model as any).elo}
+                    </span>
+                  </>
                 )}
               </div>
 
-              {/* Logo */}
-              {model.vendorLogoUrl && !logoError && (
-                <div className="shrink-0 w-28 h-28 lg:w-36 lg:h-36 bg-white rounded-[20px] border border-[#E4E4E7] p-5 shadow-sm flex items-center justify-center relative">
-                  <img 
-                    src={model.vendorLogoUrl} 
-                    alt={model.vendor || "Vendor"} 
-                    onError={() => setLogoError(true)}
-                    className="w-full h-full object-contain" 
-                  />
-                </div>
+              <h1 className="text-4xl md:text-[52px] font-semibold tracking-tighter text-black leading-[1.1] mb-6">
+                {model.name}
+              </h1>
+
+              {model.description && (
+                <p className="text-[16px] md:text-[18px] text-gray-600 leading-relaxed max-w-[42rem]">
+                  {model.description}
+                </p>
               )}
-            </div>
-          </div>
+            </section>
 
-          {/* 4-COLUMN METADATA GRID (Requested feature) */}
-          <div className="grid grid-cols-2 md:grid-cols-4 bg-[#FAFAFA] border-t border-[#F4F4F5] divide-x divide-y md:divide-y-0 divide-[#F4F4F5]">
-            
-            {/* Grid Item 1: Architecture */}
-            {model.parameterCount && (
-              <div className="p-6 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-[11px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-2">
-                  <Cpu size={14} className="text-[#FF5A1F]"/> Architecture Specs
-                </div>
-                <div className="text-[18px] font-extrabold text-[#18181B]">{model.parameterCount}</div>
-              </div>
-            )}
-
-            {/* Grid Item 2: Context */}
-            {model.contextWindow && (
-              <div className="p-6 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-[11px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-2">
-                  <Box size={14} className="text-[#3B82F6]"/> Context Capacity
-                </div>
-                <div className="text-[18px] font-extrabold text-[#18181B]">{model.contextWindow}</div>
-              </div>
-            )}
-
-            {/* Grid Item 3: Specialization/Category */}
-            {model.category && (
-              <div className="p-6 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-[11px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-2">
-                  <Activity size={14} className="text-[#10B981]"/> Primary Specialization
-                </div>
-                <div className="text-[18px] font-extrabold text-[#18181B]">{model.category}</div>
-              </div>
-            )}
-
-            {/* Grid Item 4: ELO / Citations */}
-            {(model as any).elo ? (
-              <div className="p-6 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-[11px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-2">
-                  <Zap size={14} className="text-[#8B5CF6]"/> Global ELO
-                </div>
-                <div className="text-[18px] font-extrabold text-[#18181B]">{(model as any).elo}</div>
-              </div>
-            ) : relatedPapers && relatedPapers.length > 0 ? (
-              <div className="p-6 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-[11px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-2">
-                  <BookOpen size={14} className="text-[#8B5CF6]"/> Literature Citations
-                </div>
-                <div className="text-[18px] font-extrabold text-[#18181B]">{relatedPapers.length} Verified Papers</div>
-              </div>
-            ) : null}
-
-          </div>
-        </div>
-
-        {/* ── 2-COLUMN MAIN CONTENT ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-16">
-          
-          {/* LEFT COLUMN (Benchmarks & Literature) */}
-          <div className="lg:col-span-2 space-y-8">
-            
-            {/* Benchmarks Card */}
+            {/* BENCHMARKS (Linear-style Table) */}
             {benchmarkArray && benchmarkArray.length > 0 && (
-              <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] overflow-hidden">
-                <div className="p-8 border-b border-[#F4F4F5] flex items-center gap-5">
-                  <div className="w-12 h-12 rounded-2xl bg-[#FFF7ED] text-[#FF5A1F] flex items-center justify-center shrink-0">
-                    <BarChart3 size={24} strokeWidth={2.5} />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-extrabold text-[#18181B] tracking-tight mb-1">Empirical Evaluation Leaderboard</h2>
-                    <p className="text-[#71717A] text-[15px]">Official verified evaluations vs baseline human expert threshold</p>
-                  </div>
+              <section>
+                <div className="flex items-center gap-2 mb-6">
+                  <BarChart3 size={18} className="text-gray-400" />
+                  <h2 className="text-[18px] font-semibold tracking-tight text-black">Performance Benchmarks</h2>
                 </div>
                 
-                <div className="p-8">
-                  <div className="overflow-x-auto rounded-[16px] border border-[#F4F4F5]">
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="bg-[#FAFAFA] border-b border-[#F4F4F5]">
-                          <th className="py-5 px-6 text-[12px] font-extrabold text-[#A1A1AA] uppercase tracking-widest w-[40%]">Benchmark / Dataset</th>
-                          <th className="py-5 px-6 text-[12px] font-extrabold text-[#A1A1AA] uppercase tracking-widest w-[20%]">Score</th>
-                          <th className="py-5 px-6 text-[12px] font-extrabold text-[#A1A1AA] uppercase tracking-widest">Performance Metric</th>
+                <div className="border border-gray-200/60 rounded-xl overflow-hidden bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                  <table className="w-full text-left border-collapse text-[14px]">
+                    <thead>
+                      <tr className="bg-gray-50/50 border-b border-gray-200/60">
+                        <th className="py-3 px-5 font-medium text-gray-500 w-[50%]">Dataset</th>
+                        <th className="py-3 px-5 font-medium text-gray-500 w-[20%] text-right">Score</th>
+                        <th className="py-3 px-5 font-medium text-gray-500 w-[30%]">Metric Level</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-100">
+                      {benchmarkArray.map((bm, i) => (
+                        <tr key={i} className="hover:bg-gray-50/50 transition-colors group">
+                          <td className="py-3 px-5 font-medium text-gray-900">{bm.name}</td>
+                          <td className="py-3 px-5 text-right font-mono text-[13px] text-gray-700">{bm.score}</td>
+                          <td className="py-3 px-5">
+                            <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-black rounded-full transition-all duration-700 ease-out"
+                                style={{ width: `${bm.value}%` }}
+                              />
+                            </div>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody className="divide-y divide-[#F4F4F5]">
-                        {benchmarkArray.map((bm, i) => (
-                          <tr key={i} className="hover:bg-[#FAFAFA] transition-colors group">
-                            <td className="py-5 px-6">
-                              <span className="font-extrabold text-[#18181B] text-[15px]">{bm.name}</span>
-                            </td>
-                            <td className="py-5 px-6">
-                              <span className="font-extrabold text-[16px] text-[#18181B] bg-white border border-[#E4E4E7] px-3 py-1 rounded-md shadow-sm">{bm.score}</span>
-                            </td>
-                            <td className="py-5 px-6">
-                              <div className="w-full max-w-[280px] h-2.5 bg-[#F4F4F5] rounded-full overflow-hidden border border-[#E4E4E7]">
-                                <div
-                                  className="h-full rounded-full bg-[#FF5A1F] transition-all duration-700 ease-out"
-                                  style={{ width: `${bm.value}%` }}
-                                />
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              </div>
+              </section>
             )}
 
-            {/* Literature Card */}
+            {/* LITERATURE */}
             {relatedPapers && relatedPapers.length > 0 && (
-              <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] overflow-hidden">
-                <div className="p-8 border-b border-[#F4F4F5] flex items-center justify-between">
-                  <div className="flex items-center gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-[#F3E8FF] text-[#8B5CF6] flex items-center justify-center shrink-0">
-                      <BookOpen size={24} strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-extrabold text-[#18181B] tracking-tight mb-1">Indexed Academic Citations</h2>
-                      <p className="text-[#71717A] text-[15px]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
-                    </div>
+              <section>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2">
+                    <BookOpen size={18} className="text-gray-400" />
+                    <h2 className="text-[18px] font-semibold tracking-tight text-black">Academic Citations</h2>
                   </div>
+                  <span className="text-[13px] font-medium text-gray-500">{relatedPapers.length} Papers</span>
                 </div>
 
-                <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid gap-4">
                   {relatedPapers.map((paper: any, i: number) => (
-                    <div key={i} className="bg-white rounded-[20px] border border-[#E4E4E7] p-6 hover:shadow-lg hover:border-[#D4D4D8] transition-all duration-300 group cursor-pointer flex flex-col h-full relative" onClick={() => window.open(`/papers/${paper.slug}`, '_self')}>
-                      <div className="flex-1">
-                        <h3 className="text-[18px] font-serif font-medium text-[#18181B] leading-[1.4] mb-3 group-hover:text-[#8B5CF6] transition-colors line-clamp-3">
+                    <div 
+                      key={i} 
+                      className="group bg-white border border-gray-200/60 rounded-xl p-5 hover:border-gray-300 hover:shadow-[0_4px_12px_rgba(0,0,0,0.03)] transition-all cursor-pointer flex flex-col md:flex-row gap-5"
+                      onClick={() => window.open(`/papers/${paper.slug}`, '_self')}
+                    >
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-[16px] font-medium text-black leading-snug mb-2 group-hover:text-blue-600 transition-colors truncate">
                           {paper.title}
                         </h3>
-                        <p className="text-[14px] text-[#52525B] leading-[1.6] line-clamp-3 mb-6">
+                        <p className="text-[14px] text-gray-500 leading-relaxed line-clamp-2 mb-3">
                           {paper.abstract || paper.description}
                         </p>
-                      </div>
-                      <div className="flex items-center justify-between pt-5 border-t border-[#F4F4F5]">
-                        <span className="text-[12px] font-bold text-[#A1A1AA] uppercase tracking-wider">{paper.date}</span>
-                        <div className="flex items-center gap-2">
-                          <span className="text-[13px] font-extrabold text-[#18181B] bg-[#FAFAFA] border border-[#F0F0F0] px-2.5 py-1 rounded-md">
-                            {paper.citations || paper.citationCount || 0} Citations
-                          </span>
+                        <div className="flex items-center gap-3 text-[13px] text-gray-400 font-medium">
+                          <span>{paper.date}</span>
+                          <span className="w-1 h-1 rounded-full bg-gray-300" />
+                          <span className="flex items-center gap-1"><Activity size={12}/> {paper.citations || paper.citationCount || 0} Citations</span>
                         </div>
+                      </div>
+                      
+                      {/* Action Button */}
+                      <div className="hidden md:flex items-center justify-center border border-gray-200 rounded-lg px-3 py-1.5 self-center text-[13px] font-medium text-gray-600 group-hover:bg-gray-50 transition-colors">
+                        View Paper <ArrowUpRight size={14} className="ml-1" />
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
+              </section>
             )}
 
           </div>
 
-          {/* RIGHT COLUMN (Codesota Style Sidebar) */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24 space-y-6">
+          {/* ── RIGHT COLUMN: SIDEBAR ── */}
+          <aside className="lg:border-l lg:border-gray-200/60 lg:pl-12">
+            <div className="sticky top-24 space-y-12">
               
-              <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-8">
-                <h3 className="text-[13px] font-extrabold text-[#18181B] uppercase tracking-widest mb-6">Model Information</h3>
-                
-                <div className="space-y-4">
-                  {model.vendor && (
-                    <div className="flex flex-col gap-1 py-3 border-b border-[#F4F4F5] last:border-0">
-                      <span className="text-[13px] text-[#71717A] flex items-center gap-2">
-                        <Activity size={14} className="text-[#A1A1AA]"/> Developer
-                      </span>
-                      <span className="text-[15px] font-bold text-[#18181B]">{model.vendor}</span>
+              {/* Specs List */}
+              <div>
+                <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-5">Specifications</h3>
+                <dl className="space-y-3.5 text-[14px]">
+                  {model.parameterCount && (
+                    <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
+                      <dt className="text-gray-500 flex items-center gap-2"><Cpu size={14}/> Parameters</dt>
+                      <dd className="font-semibold text-black">{model.parameterCount}</dd>
                     </div>
                   )}
-                  {model.category && (
-                    <div className="flex flex-col gap-1 py-3 border-b border-[#F4F4F5] last:border-0">
-                      <span className="text-[13px] text-[#71717A] flex items-center gap-2">
-                        <Layers size={14} className="text-[#A1A1AA]"/> Classification
-                      </span>
-                      <span className="text-[15px] font-bold text-[#18181B]">{model.category}</span>
+                  {model.contextWindow && (
+                    <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
+                      <dt className="text-gray-500 flex items-center gap-2"><Box size={14}/> Context</dt>
+                      <dd className="font-semibold text-black">{model.contextWindow}</dd>
+                    </div>
+                  )}
+                  {model.vendor && (
+                    <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
+                      <dt className="text-gray-500 flex items-center gap-2"><Activity size={14}/> Developer</dt>
+                      <dd className="font-semibold text-black">{model.vendor}</dd>
                     </div>
                   )}
                   {model.year && (
-                    <div className="flex flex-col gap-1 py-3 border-b border-[#F4F4F5] last:border-0">
-                      <span className="text-[13px] text-[#71717A] flex items-center gap-2">
-                        <Box size={14} className="text-[#A1A1AA]"/> Release Year
-                      </span>
-                      <span className="text-[15px] font-bold text-[#18181B]">{model.year}</span>
+                    <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
+                      <dt className="text-gray-500 flex items-center gap-2"><Layers size={14}/> Released</dt>
+                      <dd className="font-semibold text-black">{model.year}</dd>
                     </div>
                   )}
                   {(model as any).license && (
-                    <div className="flex flex-col gap-1 py-3 border-b border-[#F4F4F5] last:border-0">
-                      <span className="text-[13px] text-[#71717A] flex items-center gap-2">
-                        <ShieldCheck size={14} className="text-[#A1A1AA]"/> License
-                      </span>
-                      <span className="text-[15px] font-bold text-[#18181B]">{(model as any).license}</span>
+                    <div className="flex justify-between items-center pb-3.5 border-b border-gray-100">
+                      <dt className="text-gray-500 flex items-center gap-2"><ShieldCheck size={14}/> License</dt>
+                      <dd className="font-semibold text-black">{(model as any).license}</dd>
                     </div>
+                  )}
+                </dl>
+              </div>
+
+              {/* Developer Links */}
+              <div>
+                <h3 className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.15em] mb-4">Resources</h3>
+                <div className="space-y-2">
+                  <button className="w-full text-left px-4 py-2.5 rounded-lg border border-gray-200/60 hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.02)] bg-white text-[14px] font-medium text-black flex items-center justify-between group transition-all">
+                    <span className="flex items-center gap-2"><Terminal size={14} className="text-gray-400"/> API Reference</span>
+                    <ArrowUpRight size={14} className="text-gray-400 group-hover:text-black transition-colors"/>
+                  </button>
+                  {model.vendorLogoUrl && (
+                     <button className="w-full text-left px-4 py-2.5 rounded-lg border border-gray-200/60 hover:border-gray-300 hover:shadow-[0_2px_4px_rgba(0,0,0,0.02)] bg-white text-[14px] font-medium text-black flex items-center justify-between group transition-all">
+                      <span className="flex items-center gap-2"><ExternalLink size={14} className="text-gray-400"/> Vendor Site</span>
+                      <ArrowUpRight size={14} className="text-gray-400 group-hover:text-black transition-colors"/>
+                    </button>
                   )}
                 </div>
               </div>
 
-              {/* API Access / Links Card */}
-              <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-full bg-[#FFF7ED] text-[#FF5A1F] flex items-center justify-center">
-                    <Terminal size={14} strokeWidth={2.5}/>
-                  </div>
-                  <h3 className="text-[13px] font-extrabold text-[#18181B] uppercase tracking-widest">API Access</h3>
-                </div>
-                <p className="text-[14px] text-[#71717A] mb-6 leading-relaxed">
-                  Explore the developer endpoints and integrate this model into your applications.
-                </p>
-                <button className="w-full py-3.5 px-4 bg-white border border-[#E4E4E7] hover:bg-[#F4F4F5] hover:border-[#D4D4D8] text-[#18181B] rounded-[12px] font-bold text-[14px] flex justify-center items-center gap-2 transition-all">
-                  View Documentation <ExternalLink size={16} />
-                </button>
-              </div>
-
             </div>
-          </div>
-        </div>
+          </aside>
 
+        </div>
       </main>
     </div>
   );
