@@ -543,177 +543,169 @@ export default function ModelDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-32 font-sans selection:bg-orange-100 selection:text-orange-900">
+    <div className="min-h-screen bg-[#F4F4F5] pb-32 font-sans text-[#111111] selection:bg-orange-100 selection:text-orange-900">
       
       {/* ── TOP NAV ── */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#F0F0F0] transition-all duration-300">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
-          <Link href="/models" className="flex items-center gap-2 text-[#555555] hover:text-[#111111] transition-colors text-[13px] font-semibold no-underline">
+      <header className="sticky top-0 z-50 bg-[#F4F4F5]/90 backdrop-blur-md transition-all duration-300">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
+          <Link href="/models" className="flex items-center gap-2 text-[#71717A] hover:text-[#111111] transition-colors text-[13px] font-semibold no-underline">
             <ArrowLeft size={16} />
             <span>Directory</span>
           </Link>
-          <div className="hidden md:flex items-center gap-2 text-[12px] font-medium text-[#8B8B8B]">
+          <div className="hidden md:flex items-center gap-2 text-[12px] font-medium text-[#A1A1AA]">
             <Link href="/" className="hover:text-[#111111] transition-colors">Home</Link>
-            <span className="text-[#EAE9E4]">/</span>
+            <span className="text-[#D4D4D8]">/</span>
             <Link href="/models" className="hover:text-[#111111] transition-colors">Models</Link>
-            <span className="text-[#EAE9E4]">/</span>
+            <span className="text-[#D4D4D8]">/</span>
             <span className="text-[#111111] font-bold">{model.name}</span>
           </div>
         </div>
       </header>
 
-      {/* ── HERO SECTION (Visually Rich) ── */}
-      <div className="relative bg-white border-b border-[#F0F0F0] overflow-hidden">
-        {/* Subtle Background Mesh Gradient to avoid 'basic' look */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-br from-[#FF5A1F]/[0.03] to-[#8B5CF6]/[0.03] blur-[100px] rounded-full pointer-events-none" />
+      <main className="max-w-[1100px] mx-auto px-6 md:px-8 pt-8 space-y-8">
         
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8 pt-16 md:pt-24 pb-16 relative z-10">
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-12">
-            
-            <div className="flex-1 max-w-4xl">
-              {/* Badges */}
-              <div className="flex flex-wrap items-center gap-3 mb-8">
-                {(model as any).elo && (
-                  <div className="px-3 py-1.5 bg-gradient-to-r from-[#111111] to-[#333333] text-white text-[11px] font-bold uppercase tracking-widest rounded-md flex items-center gap-2 shadow-sm">
-                    <Zap size={14} className="text-[#FF5A1F] fill-[#FF5A1F]" />
-                    Global ELO {(model as any).elo}
-                  </div>
-                )}
-                {model.category && (
-                  <div className="px-3 py-1.5 bg-[#FFF6F3] text-[#FF5A1F] border border-[#FFEDD5] text-[11px] font-bold uppercase tracking-widest rounded-md shadow-[0_2px_10px_rgba(255,90,31,0.05)]">
-                    {model.category}
-                  </div>
-                )}
-                {model.year && (
-                  <div className="px-3 py-1.5 bg-white text-[#555555] border border-[#E5E5E0] text-[11px] font-bold uppercase tracking-widest rounded-md shadow-sm">
-                    {model.year}
-                  </div>
+        {/* ── HERO & SPECS CARD ── */}
+        <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+          <div className="p-8 md:p-12">
+            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-12 mb-12">
+              <div className="flex-1 max-w-4xl">
+                {/* Badges */}
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  {(model as any).elo && (
+                    <div className="px-3 py-1.5 bg-[#18181B] text-white text-[11px] font-bold uppercase tracking-widest rounded-md flex items-center gap-2 shadow-sm">
+                      <Zap size={14} className="text-[#FF5A1F] fill-[#FF5A1F]" />
+                      Global ELO {(model as any).elo}
+                    </div>
+                  )}
+                  {model.category && (
+                    <div className="px-3 py-1.5 bg-[#FFF7ED] text-[#EA580C] border border-[#FFEDD5] text-[11px] font-bold uppercase tracking-widest rounded-md">
+                      {model.category}
+                    </div>
+                  )}
+                  {model.year && (
+                    <div className="px-3 py-1.5 bg-[#F4F4F5] text-[#52525B] border border-[#E4E4E7] text-[11px] font-bold uppercase tracking-widest rounded-md">
+                      {model.year}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Title */}
+                <h1 className="text-5xl md:text-[56px] font-extrabold text-[#18181B] tracking-tight leading-[1.1] mb-6">
+                  {model.name}
+                </h1>
+
+                {/* Abstract */}
+                {model.description && (
+                  <p className="text-[18px] md:text-[20px] text-[#52525B] leading-[1.7] font-medium max-w-3xl">
+                    {model.description}
+                  </p>
                 )}
               </div>
-              
-              {/* Title */}
-              <h1 className="text-5xl md:text-[64px] font-extrabold text-[#111111] tracking-tight mb-8 leading-[1.05]">
-                {model.name}
-              </h1>
 
-              {/* Abstract */}
-              {model.description && (
-                <p className="text-[18px] md:text-[22px] text-[#444444] leading-[1.7] font-medium mb-12 max-w-3xl">
-                  {model.description}
-                </p>
+              {/* Logo */}
+              {model.vendorLogoUrl && !logoError && (
+                <div className="shrink-0 w-28 h-28 lg:w-36 lg:h-36 bg-white rounded-[20px] border border-[#E4E4E7] p-5 shadow-sm flex items-center justify-center relative">
+                  <img 
+                    src={model.vendorLogoUrl} 
+                    alt={model.vendor || "Vendor"} 
+                    onError={() => setLogoError(true)}
+                    className="w-full h-full object-contain" 
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Micro-Card Grid (Like the screenshot, but beautiful and non-hardcoded) */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-[#F4F4F5] pt-10">
+              {model.vendor && (
+                <div className="bg-[#FAFAFA] border border-[#F0F0F0] rounded-[16px] p-5 flex flex-col items-start gap-3 transition-colors hover:bg-white hover:border-[#E4E4E7] hover:shadow-sm">
+                  <div className="text-[#FF5A1F]">
+                    <Activity size={20} strokeWidth={2.5} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-1">Developer</div>
+                    <div className="text-[15px] font-extrabold text-[#18181B]">{model.vendor}</div>
+                  </div>
+                </div>
+              )}
+              
+              {model.parameterCount && (
+                <div className="bg-[#FAFAFA] border border-[#F0F0F0] rounded-[16px] p-5 flex flex-col items-start gap-3 transition-colors hover:bg-white hover:border-[#E4E4E7] hover:shadow-sm">
+                  <div className="text-[#8B5CF6]">
+                    <Cpu size={20} strokeWidth={2.5} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-1">Architecture</div>
+                    <div className="text-[15px] font-extrabold text-[#18181B]">{model.parameterCount}</div>
+                  </div>
+                </div>
               )}
 
-              {/* Rich Spec Cards (Not basic text) */}
-              <div className="flex flex-wrap items-center gap-4">
-                {model.vendor && (
-                  <div className="bg-white border border-[#E5E5E0] rounded-[16px] p-4 flex items-center gap-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-transform duration-300 min-w-[200px]">
-                    <div className="w-12 h-12 rounded-full bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-center text-[#111111]">
-                      <Activity size={20} strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-extrabold text-[#8B8B8B] uppercase tracking-widest mb-0.5">Developer</div>
-                      <div className="text-[15px] font-extrabold text-[#111111]">{model.vendor}</div>
-                    </div>
+              {model.contextWindow && (
+                <div className="bg-[#FAFAFA] border border-[#F0F0F0] rounded-[16px] p-5 flex flex-col items-start gap-3 transition-colors hover:bg-white hover:border-[#E4E4E7] hover:shadow-sm">
+                  <div className="text-[#3B82F6]">
+                    <Box size={20} strokeWidth={2.5} />
                   </div>
-                )}
-                
-                {model.parameterCount && (
-                  <div className="bg-white border border-[#E5E5E0] rounded-[16px] p-4 flex items-center gap-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-transform duration-300 min-w-[200px]">
-                    <div className="w-12 h-12 rounded-full bg-[#FFF6F3] border border-[#FFEDD5] flex items-center justify-center text-[#FF5A1F]">
-                      <Cpu size={20} strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-extrabold text-[#8B8B8B] uppercase tracking-widest mb-0.5">Architecture</div>
-                      <div className="text-[15px] font-extrabold text-[#111111]">{model.parameterCount}</div>
-                    </div>
+                  <div>
+                    <div className="text-[10px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-1">Context</div>
+                    <div className="text-[15px] font-extrabold text-[#18181B]">{model.contextWindow}</div>
                   </div>
-                )}
+                </div>
+              )}
 
-                {model.contextWindow && (
-                  <div className="bg-white border border-[#E5E5E0] rounded-[16px] p-4 flex items-center gap-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-transform duration-300 min-w-[200px]">
-                    <div className="w-12 h-12 rounded-full bg-[#F3E8FF] border border-[#E9D5FF] flex items-center justify-center text-[#8B5CF6]">
-                      <Box size={20} strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-extrabold text-[#8B8B8B] uppercase tracking-widest mb-0.5">Context Window</div>
-                      <div className="text-[15px] font-extrabold text-[#111111]">{model.contextWindow}</div>
-                    </div>
+              {(model as any).license && (
+                <div className="bg-[#FAFAFA] border border-[#F0F0F0] rounded-[16px] p-5 flex flex-col items-start gap-3 transition-colors hover:bg-white hover:border-[#E4E4E7] hover:shadow-sm">
+                  <div className="text-[#10B981]">
+                    <ShieldCheck size={20} strokeWidth={2.5} />
                   </div>
-                )}
-
-                {(model as any).license && (
-                  <div className="bg-white border border-[#E5E5E0] rounded-[16px] p-4 flex items-center gap-4 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-transform duration-300 min-w-[200px]">
-                    <div className="w-12 h-12 rounded-full bg-[#ECFDF5] border border-[#D1FAE5] flex items-center justify-center text-[#10B981]">
-                      <Zap size={20} strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <div className="text-[10px] font-extrabold text-[#8B8B8B] uppercase tracking-widest mb-0.5">License</div>
-                      <div className="text-[15px] font-extrabold text-[#111111]">{(model as any).license}</div>
-                    </div>
+                  <div>
+                    <div className="text-[10px] font-extrabold text-[#A1A1AA] uppercase tracking-widest mb-1">License</div>
+                    <div className="text-[15px] font-extrabold text-[#18181B]">{(model as any).license}</div>
                   </div>
-                )}
-              </div>
-
+                </div>
+              )}
             </div>
-
-            {/* Logo */}
-            {model.vendorLogoUrl && !logoError && (
-              <div className="shrink-0 w-32 h-32 lg:w-40 lg:h-40 bg-white rounded-[24px] border border-[#F0F0F0] p-6 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.08)] flex items-center justify-center relative group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white to-white opacity-0 group-hover:opacity-100 transition-opacity rounded-[24px] pointer-events-none" />
-                <img 
-                  src={model.vendorLogoUrl} 
-                  alt={model.vendor || "Vendor"} 
-                  onError={() => setLogoError(true)}
-                  className="w-full h-full object-contain relative z-10 drop-shadow-sm" 
-                />
-              </div>
-            )}
           </div>
         </div>
-      </div>
 
-      <main className="max-w-[1200px] mx-auto px-6 md:px-8 pt-16">
-        
-        {/* ── BENCHMARKS SECTION ── */}
+        {/* ── BENCHMARKS CARD ── */}
         {benchmarkArray && benchmarkArray.length > 0 && (
-          <section className="mb-24">
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-[#111111] flex items-center justify-center shadow-md">
-                <BarChart3 size={20} className="text-[#FF5A1F]" />
+          <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+            <div className="p-8 border-b border-[#F4F4F5] flex items-center gap-5">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFF7ED] text-[#FF5A1F] border border-[#FFEDD5] flex items-center justify-center shrink-0">
+                <BarChart3 size={24} strokeWidth={2.5} />
               </div>
-              <h2 className="text-3xl font-extrabold text-[#111111] tracking-tight">Empirical Benchmarks</h2>
+              <div>
+                <h2 className="text-2xl font-extrabold text-[#18181B] tracking-tight mb-1">Empirical Evaluation Leaderboard</h2>
+                <p className="text-[#71717A] text-[15px]">Official verified evaluations vs baseline human expert threshold</p>
+              </div>
             </div>
             
-            <div className="bg-white border border-[#E5E5E0] rounded-[24px] shadow-[0_8px_30px_-12px_rgba(0,0,0,0.06)] p-2">
-              <div className="overflow-x-auto rounded-[20px]">
+            <div className="p-8">
+              <div className="overflow-x-auto rounded-[16px] border border-[#F4F4F5]">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-[#FAFAFA] border-b border-[#E5E5E0]">
-                      <th className="py-6 px-8 text-[12px] font-extrabold text-[#8B8B8B] uppercase tracking-widest w-[40%] rounded-tl-[20px]">Benchmark / Dataset</th>
-                      <th className="py-6 px-8 text-[12px] font-extrabold text-[#8B8B8B] uppercase tracking-widest w-[20%]">Score</th>
-                      <th className="py-6 px-8 text-[12px] font-extrabold text-[#8B8B8B] uppercase tracking-widest rounded-tr-[20px]">Performance Metric</th>
+                    <tr className="bg-[#FAFAFA] border-b border-[#F4F4F5]">
+                      <th className="py-5 px-6 text-[12px] font-extrabold text-[#A1A1AA] uppercase tracking-widest w-[40%]">Benchmark / Dataset</th>
+                      <th className="py-5 px-6 text-[12px] font-extrabold text-[#A1A1AA] uppercase tracking-widest w-[20%]">Score</th>
+                      <th className="py-5 px-6 text-[12px] font-extrabold text-[#A1A1AA] uppercase tracking-widest">Performance Metric</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[#F0F0F0]">
+                  <tbody className="divide-y divide-[#F4F4F5]">
                     {benchmarkArray.map((bm, i) => (
                       <tr key={i} className="hover:bg-[#FAFAFA] transition-colors group">
-                        <td className="py-6 px-8">
-                          <span className="font-extrabold text-[#111111] text-[16px] flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity" />
-                            {bm.name}
-                          </span>
+                        <td className="py-5 px-6">
+                          <span className="font-extrabold text-[#18181B] text-[15px]">{bm.name}</span>
                         </td>
-                        <td className="py-6 px-8">
-                          <span className="font-extrabold text-[18px] text-[#111111] bg-white border border-[#F0F0F0] px-3 py-1 rounded-lg shadow-sm">{bm.score}</span>
+                        <td className="py-5 px-6">
+                          <span className="font-extrabold text-[16px] text-[#18181B] bg-white border border-[#E4E4E7] px-3 py-1 rounded-md shadow-sm">{bm.score}</span>
                         </td>
-                        <td className="py-6 px-8">
-                          <div className="w-full max-w-[280px] h-3 bg-[#F0F0F0] rounded-full overflow-hidden border border-[#E5E5E0] shadow-inner">
+                        <td className="py-5 px-6">
+                          <div className="w-full max-w-[280px] h-2.5 bg-[#F4F4F5] rounded-full overflow-hidden border border-[#E4E4E7]">
                             <div
-                              className="h-full rounded-full bg-gradient-to-r from-[#FF5A1F] to-[#FFA07A] transition-all duration-700 ease-out relative overflow-hidden"
+                              className="h-full rounded-full bg-[#FF5A1F] transition-all duration-700 ease-out"
                               style={{ width: `${bm.value}%` }}
-                            >
-                              <div className="absolute inset-0 bg-white/20 w-full h-full transform -skew-x-12 translate-x-full group-hover:-translate-x-full transition-transform duration-1000" />
-                            </div>
+                            />
                           </div>
                         </td>
                       </tr>
@@ -722,50 +714,50 @@ export default function ModelDetailPage({
                 </table>
               </div>
             </div>
-          </section>
+          </div>
         )}
 
-        {/* ── LITERATURE SECTION ── */}
+        {/* ── LITERATURE CARD ── */}
         {relatedPapers && relatedPapers.length > 0 && (
-          <section className="mb-24">
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-white border border-[#E5E5E0] shadow-sm flex items-center justify-center">
-                  <BookOpen size={20} className="text-[#8B5CF6]" />
+          <div className="bg-white rounded-[24px] border border-[#E4E4E7] shadow-[0_2px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+            <div className="p-8 border-b border-[#F4F4F5] flex items-center justify-between">
+              <div className="flex items-center gap-5">
+                <div className="w-12 h-12 rounded-2xl bg-[#F3E8FF] text-[#8B5CF6] border border-[#E9D5FF] flex items-center justify-center shrink-0">
+                  <BookOpen size={24} strokeWidth={2.5} />
                 </div>
-                <h2 className="text-3xl font-extrabold text-[#111111] tracking-tight">Literature & Citations</h2>
+                <div>
+                  <h2 className="text-2xl font-extrabold text-[#18181B] tracking-tight mb-1">Indexed Academic Citations</h2>
+                  <p className="text-[#71717A] text-[15px]">Peer-reviewed literature citing, evaluating, or comparing {model.name}</p>
+                </div>
               </div>
-              <span className="text-[12px] font-extrabold text-[#111111] uppercase tracking-widest bg-white border border-[#E5E5E0] px-4 py-2 rounded-xl shadow-sm">
-                {relatedPapers.length} Papers Found
+              <span className="hidden md:flex text-[12px] font-extrabold text-[#18181B] uppercase tracking-widest bg-[#F4F4F5] px-4 py-2 rounded-xl">
+                {relatedPapers.length} Papers
               </span>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedPapers.map((paper: any, i: number) => (
-                <div key={i} className="bg-white rounded-[24px] border border-[#E5E5E0] p-8 hover:shadow-[0_12px_40px_-12px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-300 group cursor-pointer relative overflow-hidden" onClick={() => window.open(`/papers/${paper.slug}`, '_self')}>
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#F3E8FF] to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-[100px] pointer-events-none" />
-                  
-                  <div className="flex flex-col h-full justify-between relative z-10">
-                    <div>
-                      <h3 className="text-[20px] font-serif font-medium text-[#111111] leading-[1.4] mb-4 group-hover:text-[#8B5CF6] transition-colors line-clamp-3">
-                        {paper.title}
-                      </h3>
-                      <p className="text-[15px] text-[#555555] leading-[1.7] line-clamp-3 mb-6">
-                        {paper.abstract || paper.description}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between mt-auto pt-6 border-t border-[#F0F0F0]">
-                      <span className="text-[13px] font-bold text-[#8B8B8B] uppercase tracking-wider">{paper.date}</span>
-                      <div className="flex items-center gap-2 bg-[#FAFAFA] border border-[#F0F0F0] px-3 py-1.5 rounded-lg">
-                        <Activity size={14} className="text-[#111111]" />
-                        <span className="text-[13px] font-extrabold text-[#111111]">{paper.citations || paper.citationCount || 0} Citations</span>
-                      </div>
+                <div key={i} className="bg-white rounded-[20px] border border-[#E4E4E7] p-6 hover:shadow-lg hover:border-[#D4D4D8] transition-all duration-300 group cursor-pointer flex flex-col h-full relative" onClick={() => window.open(`/papers/${paper.slug}`, '_self')}>
+                  <div className="flex-1">
+                    <h3 className="text-[18px] font-serif font-medium text-[#18181B] leading-[1.4] mb-3 group-hover:text-[#8B5CF6] transition-colors line-clamp-3">
+                      {paper.title}
+                    </h3>
+                    <p className="text-[14px] text-[#52525B] leading-[1.6] line-clamp-3 mb-6">
+                      {paper.abstract || paper.description}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between pt-5 border-t border-[#F4F4F5]">
+                    <span className="text-[12px] font-bold text-[#A1A1AA] uppercase tracking-wider">{paper.date}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-extrabold text-[#18181B] bg-[#FAFAFA] border border-[#F0F0F0] px-2.5 py-1 rounded-md">
+                        {paper.citations || paper.citationCount || 0} Citations
+                      </span>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
         )}
 
       </main>
