@@ -7,7 +7,7 @@ import {
   Sparkles, BookOpen, Terminal, Zap, ShieldCheck, 
   Eye, Activity, Box, Sliders, BarChart3,
   Brain, Wrench, Link2, ArrowUpRight, FileText,
-  Star, Calendar, ChevronRight, Github
+  Star, Calendar, ChevronRight
 } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { type ModelItem } from "@/lib/models";
@@ -270,7 +270,7 @@ export default function ModelDetailPage({
                 )}
                 {(model as any).repositoryUrl && (
                   <a href={(model as any).repositoryUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-orange-500 transition-colors">
-                    <Github size={18} className="opacity-80" /> GitHub <ArrowUpRight size={14} className="text-gray-400"/>
+                    <img src="https://cdn.simpleicons.org/github/000000" alt="GitHub" className="w-[18px] h-[18px] opacity-80" /> GitHub <ArrowUpRight size={14} className="text-gray-400"/>
                   </a>
                 )}
                 {(model as any).paperUrl && (
