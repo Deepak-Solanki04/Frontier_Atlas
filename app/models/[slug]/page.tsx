@@ -34,10 +34,12 @@ export default function ModelDetailPage({
     setLogoError(false);
     if (resolvedParams?.slug) {
       const cleanId = resolvedParams.slug.toLowerCase().trim();
-      fetchApi<{ status: string, data: any }>(`/api/v1/models/${cleanId}`)
+      fetchApi<any>(`/api/v1/models/${cleanId}`)
         .then(response => {
-          if (response.status === "success" && response.data) {
+          if (response && response.status === "success" && response.data) {
             setModel(response.data);
+          } else if (response && (response.id || response.slug)) {
+            setModel(response);
           } else {
             setModel(null);
           }
