@@ -189,7 +189,16 @@ export default function ModelDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] font-sans text-[#111111] selection:bg-[#FFF6F3] selection:text-[#FF5A1F]">
+    <div 
+      className="min-h-screen bg-[#F8F7F2] font-sans text-[#111111] selection:bg-[#FFF6F3] selection:text-[#FF5A1F]"
+      style={{
+        color: "rgb(23, 23, 23)",
+        fontSize: "14px",
+        letterSpacing: "-0.14px",
+        wordSpacing: "0.5px",
+        lineHeight: "21px",
+      }}
+    >
       
       <main className="max-w-[1240px] mx-auto px-6 lg:px-8 py-8 md:py-10">
         
@@ -220,13 +229,13 @@ export default function ModelDetailPage({
 
               {/* Middle Column - Details */}
               <div className="flex-1 min-w-0 flex flex-col justify-center py-2">
-                 <h1 className="text-lg md:text-2xl font-bold text-[#111111] tracking-tight mb-3">{model.name}</h1>
-                 <div className="text-[15px] font-medium text-[#555555] mb-6">
+                 <h1 className="text-[35px] font-extrabold text-[#111827] leading-none mb-3">{model.name}</h1>
+                 <div className="text-[15.5px] font-medium text-gray-600 mb-6">
                     by <span className="text-[#FF5A1F] font-bold">{model.vendor || "Unknown"}</span>
                  </div>
                  
                  {model.description && (
-                   <p className="text-lg text-[#555555] leading-relaxed max-w-2xl mb-8 font-medium">
+                   <p className="text-[15.5px] text-gray-600 leading-relaxed max-w-2xl mb-8">
                      {model.description}
                    </p>
                  )}
@@ -328,7 +337,7 @@ export default function ModelDetailPage({
         {/* ── CAPABILITIES ROW ── */}
         {((model as any).capabilities && (model as any).capabilities.length > 0) && (
           <div className="mb-16">
-            <h2 className="text-xl font-bold tracking-tight text-[#111111] mb-6">Capabilities</h2>
+            <h2 className="text-[27px] font-bold text-[#111827] mb-6">Capabilities</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                {((model as any).capabilities).map((cap: any, idx: number) => {
                  // For hardcoded capabilities (with objects) vs simple strings
@@ -345,8 +354,8 @@ export default function ModelDetailPage({
                       <div className="w-12 h-12 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mb-1">
                          <Icon size={20} strokeWidth={2} />
                       </div>
-                      <h3 className="text-base font-bold text-[#111111] tracking-tight mb-1.5">{title}</h3>
-                      <p className="text-[12px] font-medium text-[#555555] leading-relaxed mb-3">{desc}</p>
+                      <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] mb-1.5">{title}</h3>
+                      <p className="text-[13.5px] leading-5 text-[#666] mb-3">{desc}</p>
                    </div>
                  );
                })}
@@ -360,7 +369,7 @@ export default function ModelDetailPage({
             
             {/* Header & View All */}
             <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-4 mb-6">
-               <h2 className="text-xl font-bold tracking-tight text-[#111111]">Recent Research Papers</h2>
+               <h2 className="text-[27px] font-bold text-[#111827]">Recent Research Papers</h2>
                <Link href={`/models/${model.slug}/papers`} className="text-[13px] font-bold text-[#FF5A1F] hover:text-[#E04D1A] transition-colors flex items-center gap-1">
                  View all papers ({relatedPapers.length}) <Icons.ArrowRight size={14} />
                </Link>
@@ -398,8 +407,8 @@ export default function ModelDetailPage({
                       
                       {/* Left: Content */}
                       <div className="flex-1 flex flex-col min-w-0">
-                         <h3 className="text-lg font-normal text-[#111111] tracking-tight leading-snug mb-2">{paper.title}</h3>
-                         <div className="text-[12.5px] font-medium text-[#555555] mb-4 flex flex-wrap gap-2 items-center">
+                         <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] mb-2">{paper.title}</h3>
+                         <div className="text-[13.5px] text-[#666] mb-4 flex flex-wrap gap-2 items-center">
                             <span>{paper.authors || "Unknown Authors"}</span>
                             <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
                             <span>{paper.date || "Unknown Date"}</span>
@@ -408,7 +417,7 @@ export default function ModelDetailPage({
                          </div>
                          
                          {paper.abstract && (
-                           <p className="text-[14px] text-[#555555] leading-relaxed mb-5 max-w-4xl line-clamp-3">
+                           <p className="text-[13.5px] leading-5 text-[#666] mb-5 max-w-4xl line-clamp-3">
                              {paper.abstract}
                            </p>
                          )}
