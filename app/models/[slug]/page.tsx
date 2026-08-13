@@ -226,12 +226,12 @@ export default function ModelDetailPage({
            <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
               
               {/* Left Column - Logo */}
-              <div className="w-[180px] shrink-0 flex flex-col items-center justify-start">
-                 <div className="w-full aspect-square bg-white border border-[#EAE9E4] rounded-2xl shadow-sm flex items-center justify-center p-6 mb-4 overflow-hidden">
+              <div className="w-[240px] shrink-0 flex flex-col items-center justify-start">
+                 <div className="w-full aspect-square flex items-center justify-center mb-4 overflow-hidden">
                     {!logoError && model.vendorLogoUrl ? (
                       <img src={model.vendorLogoUrl} alt={model.vendor || "Vendor"} onError={() => setLogoError(true)} className="w-full h-full object-contain" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-300 font-bold text-3xl">{model.name.charAt(0)}</div>
+                      <div className="w-full h-full flex items-center justify-center text-gray-300 font-bold text-[80px]">{model.name.charAt(0)}</div>
                     )}
                  </div>
                  {model.vendor && <div className="text-[15px] font-extrabold text-black">{model.vendor}</div>}
