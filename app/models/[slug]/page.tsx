@@ -91,6 +91,11 @@ export default function ModelDetailPage({
             citationCount: 90715,
             githubStars: 282354,
             benchmarkScore: { "MMLU": 88.5 },
+            benchmarks: [
+              { name: "Coding Index", category: "CODING", score: 77.4, description: "Artificial Analysis Coding Index — a composite of coding evaluations including LiveCodeBench, SciCode and Terminal-Bench." },
+              { name: "GPQA Diamond", category: "REASONING", score: 94.1, description: "Graduate-level physics, chemistry & biology questions designed to resist Googling." },
+              { name: "Intelligence Index", category: "REASONING", score: 60.9, description: "Artificial Analysis Intelligence Index — a composite of multiple evaluations measuring overall model capability." }
+            ],
             modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
             papers: [
               { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
@@ -135,6 +140,11 @@ export default function ModelDetailPage({
             citationCount: 90715,
             githubStars: 282354,
             benchmarkScore: { "MMLU": 88.5 },
+            benchmarks: [
+              { name: "Coding Index", category: "CODING", score: 77.4, description: "Artificial Analysis Coding Index — a composite of coding evaluations including LiveCodeBench, SciCode and Terminal-Bench." },
+              { name: "GPQA Diamond", category: "REASONING", score: 94.1, description: "Graduate-level physics, chemistry & biology questions designed to resist Googling." },
+              { name: "Intelligence Index", category: "REASONING", score: 60.9, description: "Artificial Analysis Intelligence Index — a composite of multiple evaluations measuring overall model capability." }
+            ],
             modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
             papers: [
               { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
@@ -362,6 +372,50 @@ export default function ModelDetailPage({
             </div>
           </div>
         )}
+
+         {/* ── BENCHMARKS ── */}
+         {((model as any).benchmarks && (model as any).benchmarks.length > 0) && (
+           <div className="mb-16">
+              <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-4 mb-6">
+                 <h2 className="text-[27px] font-bold text-[#111827]">Benchmarks</h2>
+                 <div className="text-[12px] text-gray-400 font-mono uppercase tracking-wider">
+                    Released {model.releaseDate ? new Date(model.releaseDate).toISOString().split('T')[0].replace(/-/g, ' ') : "2026 07 09"}
+                 </div>
+              </div>
+
+              <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-8">
+                 <div className="flex flex-col gap-8">
+                    {((model as any).benchmarks).map((bm: any, idx: number) => (
+                       <div key={idx} className="flex flex-col">
+                          <div className="flex justify-between items-end mb-2">
+                             <div className="flex items-center gap-3">
+                                <span className="text-[15.5px] font-bold text-[#111111]">{bm.name}</span>
+                                <span className="text-[10px] font-bold tracking-wider uppercase text-[#8B8B8B] bg-[#F5F5F5] px-2 py-0.5 rounded-sm">{bm.category}</span>
+                             </div>
+                             <span className="text-[16px] font-extrabold text-[#111111]">{bm.score}%</span>
+                          </div>
+                          {/* Progress Bar Container */}
+                          <div className="w-full h-2.5 bg-[#F0F0F0] rounded-full overflow-hidden mb-3">
+                             <div className="h-full bg-gradient-to-r from-[#FF5A1F] to-[#FF8A5E] rounded-full" style={{ width: `${bm.score}%` }}></div>
+                          </div>
+                          {/* Description */}
+                          <p className="text-[13.5px] text-[#666] leading-relaxed">{bm.description}</p>
+                       </div>
+                    ))}
+                 </div>
+                 
+                 {/* Expand / Collapse (Mock) */}
+                 <div className="mt-8 flex items-center gap-2 cursor-pointer text-[#FF5A1F] hover:text-[#E04D1A] transition-colors text-[13.5px] font-bold">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    Show 4 more benchmarks
+                 </div>
+
+                 <div className="mt-8 pt-5 border-t border-[#EAE9E4] text-[12px] text-gray-400 leading-relaxed max-w-4xl">
+                    Scores are sourced from official model cards, Artificial Analysis, and public leaderboards. Benchmarks measure specific skills and do not capture every aspect of model quality. Always test on your own workload.
+                 </div>
+              </div>
+           </div>
+         )}
 
         {/* ── RECENT RESEARCH PAPERS ── */}
         {relatedPapers.length > 0 && (
