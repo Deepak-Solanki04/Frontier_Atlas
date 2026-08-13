@@ -1,132 +1,148 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, use } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
-import { 
-  FileText, Star, Activity, BookOpen, MessageSquare, 
-  BarChart2, Share2, Image as ImageIcon, Sparkles, 
-  ArrowRight, TrendingUp, Clock, FileCode, Check
-} from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { type ModelItem } from "@/lib/models";
 
-function formatDate(dateStr: string) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  if (isNaN(d.getTime())) return dateStr;
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-}
+// Inline SVGs to avoid any edge runtime or bundler crashes from lucide-react
+const Icons = {
+  FileText: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>,
+  Star: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
+  Activity: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
+  BookOpen: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
+  MessageSquare: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
+  BarChart2: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>,
+  Share2: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>,
+  Image: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>,
+  Sparkles: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>,
+  ArrowRight: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>,
+  ArrowUpRight: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>,
+  TrendingUp: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>,
+  Clock: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
+  FileCode: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>,
+  Check: (props: any) => <svg xmlns="http://www.w3.org/2000/svg" width={props.size||24} height={props.size||24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={props.strokeWidth||2} strokeLinecap="round" strokeLinejoin="round" className={props.className}><polyline points="20 6 9 17 4 12"/></svg>
+};
 
 export default function ModelDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }> | { slug: string };
 }) {
-  const resolvedParams = use(params);
+  const [slug, setSlug] = useState<string | null>(null);
   const [model, setModel] = useState<ModelItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [logoError, setLogoError] = useState(false);
   const [activeSort, setActiveSort] = useState("Popular");
 
+  // Robustly resolve params to avoid React `use()` Suspense crashes in Edge
   useEffect(() => {
+    if (params instanceof Promise) {
+      params.then(p => setSlug(p.slug)).catch(() => setSlug(null));
+    } else if (params) {
+      setSlug(params.slug);
+    }
+  }, [params]);
+
+  useEffect(() => {
+    if (!slug) return;
     window.scrollTo(0, 0);
     setLogoError(false);
-    if (resolvedParams?.slug) {
-      const cleanId = resolvedParams.slug.toLowerCase().trim();
-      fetchApi<any>(`/api/v1/models/${cleanId}`)
-        .then(response => {
-          if (response && response.status === "success" && response.data) {
-            setModel(response.data);
-          } else if (response && (response.id || response.slug)) {
-            setModel(response);
-          } else {
-            // BACKEND IS DOWN - USE HARDCODED DATA FOR VISUAL TESTING
-            setModel({
-              id: "m-chameleon",
-              slug: "chameleon",
-              name: "Chameleon",
-              vendor: "Meta AI",
-              vendorLogoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png",
-              description: "A unified multimodal model for perception, understanding, and generation across text, image, audio and video.",
-              accessType: "Open / API",
-              modality: "Multimodal / VLM",
-              modelFamily: "Foundation LM",
-              category: "Multimodal / VLM",
-              capabilities: [
-                { title: "Dialogue & Instruction Following", desc: "Natural, context-aware conversations with rich instructions.", icon: MessageSquare },
-                { title: "Reasoning & Analysis", desc: "Advanced reasoning, problem-solving and analytical abilities.", icon: BarChart2 },
-                { title: "Domain Adaptation", desc: "Adapts across domains and tasks with minimal fine-tuning.", icon: Share2 },
-                { title: "Multimodal Understanding", desc: "Seamlessly understands and connects text, images, audio and video.", icon: ImageIcon },
-                { title: "Generation & Creation", desc: "Generates high-quality content across modalities with consistency.", icon: Sparkles }
-              ],
-              tasks: [],
-              releaseDate: "2024-05-15T00:00:00.000Z",
-              parameterCount: "100B+",
-              opennessType: "Permissive / Commercial",
-              license: "Llama Community License",
-              architecture: "Decoder-only Transformer with RoPE and Grouped-Query Attention",
-              contextWindow: "32K Context Window",
-              releaseNotes: "Flagship Chameleon foundation AI model by meta-ai.",
-              apiUrl: "https://huggingface.co/meta-ai/chameleon",
-              repositoryUrl: "https://github.com/meta-ai/chameleon",
-              paperUrl: "https://arxiv.org/search/?query=chameleon",
-              paperCount: 68,
-              citationCount: 90715,
-              githubStars: 282354,
-              benchmarkScore: { "MMLU": 88.5 },
-              modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
-              papers: [
-                { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
-              ]
-            } as any);
-          }
-          setLoading(false);
-        })
-        .catch(err => {
-          console.error("Failed to load model:", err);
+    
+    const cleanId = slug.toLowerCase().trim();
+    fetchApi<any>(`/api/v1/models/${cleanId}`)
+      .then(response => {
+        if (response && response.status === "success" && response.data) {
+          setModel(response.data);
+        } else if (response && (response.id || response.slug)) {
+          setModel(response);
+        } else {
           // BACKEND IS DOWN - USE HARDCODED DATA FOR VISUAL TESTING
           setModel({
-              id: "m-chameleon",
-              slug: "chameleon",
-              name: "Chameleon",
-              vendor: "Meta AI",
-              vendorLogoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png",
-              description: "A unified multimodal model for perception, understanding, and generation across text, image, audio and video.",
-              accessType: "Open / API",
-              modality: "Multimodal / VLM",
-              modelFamily: "Foundation LM",
-              category: "Multimodal / VLM",
-              capabilities: [
-                { title: "Dialogue & Instruction Following", desc: "Natural, context-aware conversations with rich instructions.", icon: MessageSquare },
-                { title: "Reasoning & Analysis", desc: "Advanced reasoning, problem-solving and analytical abilities.", icon: BarChart2 },
-                { title: "Domain Adaptation", desc: "Adapts across domains and tasks with minimal fine-tuning.", icon: Share2 },
-                { title: "Multimodal Understanding", desc: "Seamlessly understands and connects text, images, audio and video.", icon: ImageIcon },
-                { title: "Generation & Creation", desc: "Generates high-quality content across modalities with consistency.", icon: Sparkles }
-              ],
-              tasks: [],
-              releaseDate: "2024-05-15T00:00:00.000Z",
-              parameterCount: "100B+ Parameters",
-              opennessType: "Permissive / Commercial",
-              license: "Llama Community License",
-              architecture: "Decoder-only Transformer with RoPE and Grouped-Query Attention",
-              contextWindow: "32K Context Window",
-              releaseNotes: "Flagship Chameleon foundation AI model by meta-ai.",
-              apiUrl: "https://huggingface.co/meta-ai/chameleon",
-              repositoryUrl: "https://github.com/meta-ai/chameleon",
-              paperUrl: "https://arxiv.org/search/?query=chameleon",
-              paperCount: 68,
-              citationCount: 90715,
-              githubStars: 282354,
-              benchmarkScore: { "MMLU": 88.5 },
-              modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
-              papers: [
-                { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
-              ]
-            } as any);
-          setLoading(false);
-        });
-    }
-  }, [resolvedParams?.slug]);
+            id: "m-chameleon",
+            slug: "chameleon",
+            name: "Chameleon",
+            vendor: "Meta AI",
+            vendorLogoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png",
+            description: "A unified multimodal model for perception, understanding, and generation across text, image, audio and video.",
+            accessType: "Open / API",
+            modality: "Multimodal / VLM",
+            modelFamily: "Foundation LM",
+            category: "Multimodal / VLM",
+            capabilities: [
+              { title: "Dialogue & Instruction Following", desc: "Natural, context-aware conversations with rich instructions.", iconName: "MessageSquare" },
+              { title: "Reasoning & Analysis", desc: "Advanced reasoning, problem-solving and analytical abilities.", iconName: "BarChart2" },
+              { title: "Domain Adaptation", desc: "Adapts across domains and tasks with minimal fine-tuning.", iconName: "Share2" },
+              { title: "Multimodal Understanding", desc: "Seamlessly understands and connects text, images, audio and video.", iconName: "Image" },
+              { title: "Generation & Creation", desc: "Generates high-quality content across modalities with consistency.", iconName: "Sparkles" }
+            ],
+            tasks: [],
+            releaseDate: "2024-05-15T00:00:00.000Z",
+            parameterCount: "100B+",
+            opennessType: "Permissive / Commercial",
+            license: "Llama Community License",
+            architecture: "Decoder-only Transformer with RoPE and Grouped-Query Attention",
+            contextWindow: "32K Context Window",
+            releaseNotes: "Flagship Chameleon foundation AI model by meta-ai.",
+            apiUrl: "https://huggingface.co/meta-ai/chameleon",
+            repositoryUrl: "https://github.com/meta-ai/chameleon",
+            paperUrl: "https://arxiv.org/search/?query=chameleon",
+            paperCount: 68,
+            citationCount: 90715,
+            githubStars: 282354,
+            benchmarkScore: { "MMLU": 88.5 },
+            modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
+            papers: [
+              { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
+            ]
+          } as any);
+        }
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load model:", err);
+        // BACKEND IS DOWN - USE HARDCODED DATA FOR VISUAL TESTING
+        setModel({
+            id: "m-chameleon",
+            slug: "chameleon",
+            name: "Chameleon",
+            vendor: "Meta AI",
+            vendorLogoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png",
+            description: "A unified multimodal model for perception, understanding, and generation across text, image, audio and video.",
+            accessType: "Open / API",
+            modality: "Multimodal / VLM",
+            modelFamily: "Foundation LM",
+            category: "Multimodal / VLM",
+            capabilities: [
+              { title: "Dialogue & Instruction Following", desc: "Natural, context-aware conversations with rich instructions.", iconName: "MessageSquare" },
+              { title: "Reasoning & Analysis", desc: "Advanced reasoning, problem-solving and analytical abilities.", iconName: "BarChart2" },
+              { title: "Domain Adaptation", desc: "Adapts across domains and tasks with minimal fine-tuning.", iconName: "Share2" },
+              { title: "Multimodal Understanding", desc: "Seamlessly understands and connects text, images, audio and video.", iconName: "Image" },
+              { title: "Generation & Creation", desc: "Generates high-quality content across modalities with consistency.", iconName: "Sparkles" }
+            ],
+            tasks: [],
+            releaseDate: "2024-05-15T00:00:00.000Z",
+            parameterCount: "100B+ Parameters",
+            opennessType: "Permissive / Commercial",
+            license: "Llama Community License",
+            architecture: "Decoder-only Transformer with RoPE and Grouped-Query Attention",
+            contextWindow: "32K Context Window",
+            releaseNotes: "Flagship Chameleon foundation AI model by meta-ai.",
+            apiUrl: "https://huggingface.co/meta-ai/chameleon",
+            repositoryUrl: "https://github.com/meta-ai/chameleon",
+            paperUrl: "https://arxiv.org/search/?query=chameleon",
+            paperCount: 68,
+            citationCount: 90715,
+            githubStars: 282354,
+            benchmarkScore: { "MMLU": 88.5 },
+            modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
+            papers: [
+              { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
+            ]
+          } as any);
+        setLoading(false);
+      });
+  }, [slug]);
 
   const relatedPapers = useMemo(() => {
     if (!model || !Array.isArray((model as any).papers)) return [];
@@ -144,7 +160,7 @@ export default function ModelDetailPage({
     return null;
   }, [model]);
 
-  if (loading) {
+  if (loading || !slug) {
     return (
       <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
         <div className="text-center">
@@ -162,7 +178,7 @@ export default function ModelDetailPage({
         <div className="bg-white border border-[#EAE9E4] rounded-2xl p-10 max-w-md w-full text-center shadow-sm">
           <h1 className="text-2xl font-bold mb-3 tracking-tight">Model Not Found</h1>
           <p className="text-sm text-gray-500 mb-8 leading-relaxed">
-            We couldn't locate an indexed model matching <code className="bg-[#F5F5F5] border border-[#EAE9E4] px-1.5 py-0.5 rounded text-[#FF5A1F] font-mono mx-1">{resolvedParams.slug}</code>.
+            We couldn't locate an indexed model matching <code className="bg-[#F5F5F5] border border-[#EAE9E4] px-1.5 py-0.5 rounded text-[#FF5A1F] font-mono mx-1">{slug}</code>.
           </p>
           <Link href="/models" className="flex items-center justify-center gap-2 w-full p-3 bg-white border border-[#EAE9E4] hover:bg-[#FAFAFA] text-[#111] rounded-lg transition-colors font-semibold text-sm">
             <span>Return to Registry</span>
@@ -246,17 +262,17 @@ export default function ModelDetailPage({
                  <div className="flex flex-wrap items-center gap-6 text-[13px] font-bold text-gray-700">
                     {(model as any).apiUrl && (
                       <a href={(model as any).apiUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-[#FF5A1F] transition-colors bg-[#FFF6F3] text-[#FF5A1F] px-2.5 py-1.5 rounded-md border border-[#FFE2D6]">
-                        <span className="text-lg leading-none mb-0.5">🤗</span> Hugging Face <ArrowUpRight size={13} className="opacity-70"/>
+                        <span className="text-lg leading-none mb-0.5">🤗</span> Hugging Face <Icons.ArrowUpRight size={13} className="opacity-70"/>
                       </a>
                     )}
                     {(model as any).repositoryUrl && (
                       <a href={(model as any).repositoryUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-black transition-colors bg-white border border-gray-200 px-2.5 py-1.5 rounded-md shadow-sm">
-                        <img src="https://cdn.simpleicons.org/github/000000" className="w-[15px] h-[15px] opacity-80" alt="GitHub" /> GitHub <ArrowUpRight size={13} className="opacity-70"/>
+                        <img src="https://cdn.simpleicons.org/github/000000" className="w-[15px] h-[15px] opacity-80" alt="GitHub" /> GitHub <Icons.ArrowUpRight size={13} className="opacity-70"/>
                       </a>
                     )}
                     {(model as any).paperUrl && (
                       <a href={(model as any).paperUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-black transition-colors bg-white border border-gray-200 px-2.5 py-1.5 rounded-md shadow-sm">
-                        <FileText size={15} /> Paper (arXiv) <ArrowUpRight size={13} className="opacity-70"/>
+                        <Icons.FileText size={15} /> Paper (arXiv) <Icons.ArrowUpRight size={13} className="opacity-70"/>
                       </a>
                     )}
                  </div>
@@ -267,7 +283,7 @@ export default function ModelDetailPage({
                  
                  {(model as any).paperCount !== undefined && (
                    <div className="flex items-start gap-4">
-                      <FileText size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <Icons.FileText size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
                       <div className="flex flex-col gap-0.5">
                          <span className="text-[20px] font-bold text-black leading-none">{(model as any).paperCount}</span>
                          <span className="text-[12px] font-medium text-gray-500">Papers</span>
@@ -277,7 +293,7 @@ export default function ModelDetailPage({
 
                  {(model as any).citationCount !== undefined && (
                    <div className="flex items-start gap-4">
-                      <BookOpen size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <Icons.BookOpen size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
                       <div className="flex flex-col gap-0.5">
                          <span className="text-[20px] font-bold text-black leading-none">{Number((model as any).citationCount).toLocaleString()}</span>
                          <span className="text-[12px] font-medium text-gray-500">Citations</span>
@@ -287,7 +303,7 @@ export default function ModelDetailPage({
 
                  {(model as any).githubStars !== undefined && (
                    <div className="flex items-start gap-4">
-                      <Star size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <Icons.Star size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
                       <div className="flex flex-col gap-0.5">
                          <span className="text-[20px] font-bold text-black leading-none">{Number((model as any).githubStars).toLocaleString()}</span>
                          <span className="text-[12px] font-medium text-gray-500">GitHub Stars</span>
@@ -297,7 +313,7 @@ export default function ModelDetailPage({
 
                  {mmluScore !== null && (
                    <div className="flex items-start gap-4">
-                      <Activity size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <Icons.Activity size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
                       <div className="flex flex-col gap-0.5">
                          <span className="text-[20px] font-bold text-black leading-none">{mmluScore}</span>
                          <span className="text-[12px] font-medium text-gray-500">MMLU Score</span>
@@ -319,7 +335,10 @@ export default function ModelDetailPage({
                  const isObj = typeof cap === 'object';
                  const title = isObj ? cap.title : cap;
                  const desc = isObj ? cap.desc : "General capability associated with this model.";
-                 const Icon = isObj && cap.icon ? cap.icon : Check;
+                 
+                 // Get the matching inline SVG or default to Check
+                 const iconKey = isObj && cap.iconName ? cap.iconName : "Check";
+                 const Icon = (Icons as any)[iconKey] || Icons.Check;
                  
                  return (
                    <div key={idx} className="flex flex-col gap-3">
@@ -343,7 +362,7 @@ export default function ModelDetailPage({
             <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-4 mb-6">
                <h2 className="text-[18px] font-extrabold text-black">Recent Research Papers</h2>
                <Link href={`/models/${model.slug}/papers`} className="text-[13px] font-bold text-[#FF5A1F] hover:text-[#E04D1A] transition-colors flex items-center gap-1">
-                 View all papers ({relatedPapers.length}) <ArrowRight size={14} />
+                 View all papers ({relatedPapers.length}) <Icons.ArrowRight size={14} />
                </Link>
             </div>
 
@@ -363,9 +382,9 @@ export default function ModelDetailPage({
                              : 'text-gray-500 hover:text-black'
                          }`}
                        >
-                         {sortItem === 'Popular' && <TrendingUp size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
-                         {sortItem === 'Recent' && <Clock size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
-                         {sortItem === 'Citations' && <Star size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
+                         {sortItem === 'Popular' && <Icons.TrendingUp size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
+                         {sortItem === 'Recent' && <Icons.Clock size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
+                         {sortItem === 'Citations' && <Icons.Star size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
                          {sortItem}
                        </button>
                      ))}
@@ -407,10 +426,10 @@ export default function ModelDetailPage({
                          {/* Action Buttons Row */}
                          <div className="flex flex-wrap items-center gap-3">
                             <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#FF5A1F] text-[#FF5A1F] hover:bg-[#FFF6F3] rounded-[8px] text-[12px] font-bold transition-colors">
-                               <FileCode size={14} className="text-[#FF5A1F]"/> arXiv
+                               <Icons.FileCode size={14} className="text-[#FF5A1F]"/> arXiv
                             </a>
                             <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#EAE9E4] text-gray-700 hover:bg-gray-50 rounded-[8px] text-[12px] font-bold transition-colors">
-                               <FileText size={14} className="text-[#EF4444]"/> PDF
+                               <Icons.FileText size={14} className="text-[#EF4444]"/> PDF
                             </a>
                             <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#EAE9E4] text-gray-700 hover:bg-gray-50 rounded-[8px] text-[12px] font-bold transition-colors">
                                <img src="https://cdn.simpleicons.org/github/000000" className="w-3.5 h-3.5 opacity-80" alt="GitHub" /> Code
