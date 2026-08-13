@@ -3,11 +3,9 @@
 import React, { useState, useEffect, useMemo, use } from "react";
 import Link from "next/link";
 import { 
-  Cpu, Layers, Check, Copy, ArrowLeft, 
-  Sparkles, BookOpen, Terminal, Zap, ShieldCheck, 
-  Eye, Activity, Box, Sliders, BarChart3,
-  Brain, Wrench, Link2, ArrowUpRight, FileText,
-  Star, Calendar, ChevronRight
+  FileText, Star, Activity, BookOpen, MessageSquare, 
+  BarChart2, Share2, Image as ImageIcon, Sparkles, 
+  ArrowRight, TrendingUp, Clock, Github, FileCode, Check
 } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { type ModelItem } from "@/lib/models";
@@ -16,7 +14,7 @@ function formatDate(dateStr: string) {
   if (!dateStr) return "";
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return dateStr;
-  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
 export default function ModelDetailPage({
@@ -28,6 +26,7 @@ export default function ModelDetailPage({
   const [model, setModel] = useState<ModelItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [logoError, setLogoError] = useState(false);
+  const [activeSort, setActiveSort] = useState("Popular");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -48,19 +47,25 @@ export default function ModelDetailPage({
               name: "Chameleon",
               vendor: "Meta AI",
               vendorLogoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png",
-              description: "Flagship Chameleon foundation AI model by meta-ai.",
+              description: "A unified multimodal model for perception, understanding, and generation across text, image, audio and video.",
               accessType: "Open / API",
-              modality: "Early-Fusion Multimodal",
+              modality: "Multimodal / VLM",
               modelFamily: "Foundation LM",
               category: "Multimodal / VLM",
-              capabilities: ["Dialogue & Instruction Following", "Reasoning & Analysis", "Domain Adaptation"],
+              capabilities: [
+                { title: "Dialogue & Instruction Following", desc: "Natural, context-aware conversations with rich instructions.", icon: MessageSquare },
+                { title: "Reasoning & Analysis", desc: "Advanced reasoning, problem-solving and analytical abilities.", icon: BarChart2 },
+                { title: "Domain Adaptation", desc: "Adapts across domains and tasks with minimal fine-tuning.", icon: Share2 },
+                { title: "Multimodal Understanding", desc: "Seamlessly understands and connects text, images, audio and video.", icon: ImageIcon },
+                { title: "Generation & Creation", desc: "Generates high-quality content across modalities with consistency.", icon: Sparkles }
+              ],
               tasks: [],
               releaseDate: "2024-05-15T00:00:00.000Z",
               parameterCount: "100B+",
               opennessType: "Permissive / Commercial",
               license: "Llama Community License",
               architecture: "Decoder-only Transformer with RoPE and Grouped-Query Attention",
-              contextWindow: "32,768 tokens",
+              contextWindow: "32K Context Window",
               releaseNotes: "Flagship Chameleon foundation AI model by meta-ai.",
               apiUrl: "https://huggingface.co/meta-ai/chameleon",
               repositoryUrl: "https://github.com/meta-ai/chameleon",
@@ -71,9 +76,7 @@ export default function ModelDetailPage({
               benchmarkScore: { "MMLU": 88.5 },
               modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
               papers: [
-                { paper: { title: "Double-Anonymous Review for Robotics", citations: 2854, slug: "paper-1" } },
-                { paper: { title: "Partial stochastic resetting with refractory periods", citations: 2853, slug: "paper-2" } },
-                { paper: { title: "Enhancing Question Answering on Charts Through Effective Pre-training Tasks", citations: 689, slug: "paper-3" } }
+                { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
               ]
             } as any);
           }
@@ -83,39 +86,43 @@ export default function ModelDetailPage({
           console.error("Failed to load model:", err);
           // BACKEND IS DOWN - USE HARDCODED DATA FOR VISUAL TESTING
           setModel({
-            id: "m-chameleon",
-            slug: "chameleon",
-            name: "Chameleon",
-            vendor: "Meta AI",
-            vendorLogoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png",
-            description: "Flagship Chameleon foundation AI model by meta-ai.",
-            accessType: "Open / API",
-            modality: "Early-Fusion Multimodal",
-            modelFamily: "Foundation LM",
-            category: "Multimodal / VLM",
-            capabilities: ["Dialogue & Instruction Following", "Reasoning & Analysis", "Domain Adaptation"],
-            tasks: [],
-            releaseDate: "2024-05-15T00:00:00.000Z",
-            parameterCount: "100B+",
-            opennessType: "Permissive / Commercial",
-            license: "Llama Community License",
-            architecture: "Decoder-only Transformer with RoPE and Grouped-Query Attention",
-            contextWindow: "32,768 tokens",
-            releaseNotes: "Flagship Chameleon foundation AI model by meta-ai.",
-            apiUrl: "https://huggingface.co/meta-ai/chameleon",
-            repositoryUrl: "https://github.com/meta-ai/chameleon",
-            paperUrl: "https://arxiv.org/search/?query=chameleon",
-            paperCount: 68,
-            citationCount: 90715,
-            githubStars: 282354,
-            benchmarkScore: { "MMLU": 88.5 },
-            modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
-            papers: [
-              { paper: { title: "Double-Anonymous Review for Robotics", citations: 2854, slug: "paper-1" } },
-              { paper: { title: "Partial stochastic resetting with refractory periods", citations: 2853, slug: "paper-2" } },
-              { paper: { title: "Enhancing Question Answering on Charts Through Effective Pre-training Tasks", citations: 689, slug: "paper-3" } }
-            ]
-          } as any);
+              id: "m-chameleon",
+              slug: "chameleon",
+              name: "Chameleon",
+              vendor: "Meta AI",
+              vendorLogoUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Meta-Logo.png",
+              description: "A unified multimodal model for perception, understanding, and generation across text, image, audio and video.",
+              accessType: "Open / API",
+              modality: "Multimodal / VLM",
+              modelFamily: "Foundation LM",
+              category: "Multimodal / VLM",
+              capabilities: [
+                { title: "Dialogue & Instruction Following", desc: "Natural, context-aware conversations with rich instructions.", icon: MessageSquare },
+                { title: "Reasoning & Analysis", desc: "Advanced reasoning, problem-solving and analytical abilities.", icon: BarChart2 },
+                { title: "Domain Adaptation", desc: "Adapts across domains and tasks with minimal fine-tuning.", icon: Share2 },
+                { title: "Multimodal Understanding", desc: "Seamlessly understands and connects text, images, audio and video.", icon: ImageIcon },
+                { title: "Generation & Creation", desc: "Generates high-quality content across modalities with consistency.", icon: Sparkles }
+              ],
+              tasks: [],
+              releaseDate: "2024-05-15T00:00:00.000Z",
+              parameterCount: "100B+ Parameters",
+              opennessType: "Permissive / Commercial",
+              license: "Llama Community License",
+              architecture: "Decoder-only Transformer with RoPE and Grouped-Query Attention",
+              contextWindow: "32K Context Window",
+              releaseNotes: "Flagship Chameleon foundation AI model by meta-ai.",
+              apiUrl: "https://huggingface.co/meta-ai/chameleon",
+              repositoryUrl: "https://github.com/meta-ai/chameleon",
+              paperUrl: "https://arxiv.org/search/?query=chameleon",
+              paperCount: 68,
+              citationCount: 90715,
+              githubStars: 282354,
+              benchmarkScore: { "MMLU": 88.5 },
+              modelVersions: ["Chameleon", "Chameleon-v1", "Chameleon-instruct"],
+              papers: [
+                { paper: { title: "Paper2Poster: Towards Multimodal Poster Automation from Scientific Papers", authors: "Wei Pang, Kevin Qinghong Lin, Xiangru Jian, +2 authors", citations: 44, date: "May 27, 2025", abstract: "Academic poster generation is a crucial yet challenging task in scientific communication, requiring the compression of long-context interleaved documents into a single, visually coherent page. To address this challenge, we introduce the first benchmark and metric suite for poster generation, which pairs recent conference papers with author-designed posters and evaluates outputs on (i)Visual...", tags: [{name: "Vision-Language Models", color: "bg-[#E0F2FE] text-[#0284C7]"}, {name: "Model Alignment", color: "bg-[#F3E8FF] text-[#9333EA]"}, {name: "Benchmarking", color: "bg-[#DBEAFE] text-[#2563EB]"}, {name: "Agents", color: "bg-[#DCFCE7] text-[#16A34A]"}], slug: "paper-1" } },
+              ]
+            } as any);
           setLoading(false);
         });
     }
@@ -131,20 +138,8 @@ export default function ModelDetailPage({
     if (model.benchmarkScore && typeof model.benchmarkScore === 'object') {
       const mmlu = Object.entries(model.benchmarkScore).find(([k]) => k.toLowerCase() === 'mmlu');
       if (mmlu) return mmlu[1];
-      // If no MMLU, grab the first available score
       const first = Object.values(model.benchmarkScore)[0];
       return first || null;
-    }
-    return null;
-  }, [model]);
-
-  const mmluLabel = useMemo(() => {
-    if (!model) return null;
-    if (model.benchmarkScore && typeof model.benchmarkScore === 'object') {
-      const mmlu = Object.entries(model.benchmarkScore).find(([k]) => k.toLowerCase() === 'mmlu');
-      if (mmlu) return 'MMLU Score';
-      const first = Object.entries(model.benchmarkScore)[0];
-      if (first) return `${first[0].toUpperCase()} Score`;
     }
     return null;
   }, [model]);
@@ -152,11 +147,10 @@ export default function ModelDetailPage({
   if (loading) {
     return (
       <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center">
-        <div className="text-center p-10">
-          <div className="w-12 h-12 rounded-full bg-white shadow-sm border border-gray-100 flex items-center justify-center mx-auto mb-4 animate-pulse">
-            <Cpu size={24} className="text-gray-400" />
+        <div className="text-center">
+          <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center mx-auto mb-4 animate-pulse">
+            <div className="w-4 h-4 bg-[#FF5A1F] rounded-full animate-bounce"></div>
           </div>
-          <div className="text-[13px] font-bold text-gray-400 uppercase tracking-wider animate-pulse">Loading Profile...</div>
         </div>
       </div>
     );
@@ -164,373 +158,296 @@ export default function ModelDetailPage({
 
   if (!model) {
     return (
-      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-6">
-        <div className="bg-white border border-[#F0F0F0] rounded-[12px] p-10 max-w-md w-full text-center shadow-sm">
-          <h1 className="text-2xl font-extrabold text-[#111111] mb-3 tracking-tight">Model Profile Not Found</h1>
-          <p className="text-base text-[#555555] mb-8 leading-relaxed font-medium">
-            We couldn&apos;t find an indexed AI foundation model matching <code className="bg-[#F8F7F2] border border-[#EAE9E4] px-2 py-1 rounded text-[#FF5A1F] text-[13px] font-bold mx-1">{resolvedParams.slug}</code>.
+      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-6 text-[#111111] font-sans">
+        <div className="bg-white border border-[#EAE9E4] rounded-2xl p-10 max-w-md w-full text-center shadow-sm">
+          <h1 className="text-2xl font-bold mb-3 tracking-tight">Model Not Found</h1>
+          <p className="text-sm text-gray-500 mb-8 leading-relaxed">
+            We couldn't locate an indexed model matching <code className="bg-[#F5F5F5] border border-[#EAE9E4] px-1.5 py-0.5 rounded text-[#FF5A1F] font-mono mx-1">{resolvedParams.slug}</code>.
           </p>
-          <Link href="/models" className="flex items-center justify-center gap-2 w-full p-3.5 bg-[#111111] hover:bg-[#222222] text-white rounded-[8px] transition-colors font-bold text-sm no-underline shadow-sm">
-            <ArrowLeft size={16} />
-            <span>Return to Models Directory</span>
+          <Link href="/models" className="flex items-center justify-center gap-2 w-full p-3 bg-white border border-[#EAE9E4] hover:bg-[#FAFAFA] text-[#111] rounded-lg transition-colors font-semibold text-sm">
+            <span>Return to Registry</span>
           </Link>
         </div>
       </div>
     );
   }
 
-  const anyTags = Array.isArray((model as any).capabilities) || Array.isArray((model as any).tasks) || Array.isArray((model as any).methods);
-
   return (
-    <div className="min-h-screen bg-[#FAFAFA] font-sans text-[#111111] selection:bg-[#EAEAEA]">
+    <div className="min-h-screen bg-[#FAFAFA] font-sans text-[#111111] selection:bg-[#FFF6F3] selection:text-[#FF5A1F]">
       
-      {/* ── TOP NAV (Breadcrumbs) ── */}
-      <header className="bg-[#FAFAFA] pt-6 pb-2">
-        <div className="max-w-[1200px] mx-auto px-6 md:px-8 flex items-center gap-2 text-[13px] font-medium text-gray-500">
-          <Link href="/" className="hover:text-black transition-colors">Home</Link>
-          <span className="text-gray-300">/</span>
-          <Link href="/models" className="hover:text-black transition-colors">Models</Link>
-          <span className="text-gray-300">/</span>
-          <span className="text-black font-semibold">{model.name}</span>
-        </div>
-      </header>
-
-      <main className="max-w-[1200px] mx-auto px-6 md:px-8 pt-10 pb-24">
+      <main className="max-w-[1240px] mx-auto px-6 lg:px-8 py-8 md:py-10">
         
-        {/* ── HERO SECTION ── */}
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
-          
-          {/* Logo Block */}
-          <div className="w-[180px] shrink-0">
-             <div className="aspect-square bg-white border border-gray-100 rounded-3xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex items-center justify-center p-6 mb-4 overflow-hidden">
-                {!logoError && model.vendorLogoUrl ? (
-                  <img src={model.vendorLogoUrl} alt={model.vendor || "Vendor"} onError={() => setLogoError(true)} className="w-full h-full object-contain" />
-                ) : (
-                  <div className="w-full h-full bg-gray-50 rounded-2xl flex items-center justify-center text-gray-300 font-bold text-2xl">{model.name.charAt(0)}</div>
-                )}
-             </div>
-             {model.vendor && <div className="text-center text-[14px] font-bold text-gray-900">{model.vendor}</div>}
-          </div>
-          
-          {/* Core Info Block */}
-          <div className="flex-1 min-w-0">
-             {(model as any).accessType && (
-               <div className="inline-block px-3 py-1 bg-[#ECFDF5] text-[#047857] font-semibold text-[12px] rounded-md mb-5 border border-[#A7F3D0]">
-                  {(model as any).accessType}
-               </div>
-             )}
-             
-             <div className="flex flex-wrap items-center gap-4 mb-4">
-                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-black leading-none">{model.name}</h1>
-                <button className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-[13px] font-bold text-gray-700 hover:bg-gray-50 shadow-sm transition-colors active:scale-95">
-                  <Star size={16} className="text-gray-400" /> Save
-                </button>
-             </div>
-             
-             {model.description && (
-               <p className="text-[16px] text-gray-600 mb-6 leading-relaxed">{model.description}</p>
-             )}
-             
-             {/* Primary Tags (Family & Category) */}
-             <div className="flex flex-wrap gap-2 mb-4">
-                {(model as any).modelFamily && (
-                  <span className="inline-flex items-center px-3 py-1.5 bg-gray-100 text-gray-700 text-[12px] font-semibold rounded-md">
-                    {(model as any).modelFamily}
-                  </span>
-                )}
-                {model.category && (
-                  <span className="inline-flex items-center px-3 py-1.5 bg-[#FFF7ED] text-[#EA580C] text-[12px] font-semibold rounded-md">
-                    {model.category}
-                  </span>
-                )}
-             </div>
-
-             {/* Secondary Tags (Capabilities/Tasks) */}
-             {anyTags && (
-               <div className="flex flex-wrap gap-2 mb-8">
-                  {Array.isArray((model as any).capabilities) && ((model as any).capabilities).map((cap: string, i: number) => (
-                    <span key={`cap-${i}`} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-semibold rounded-md shadow-sm">
-                      <Sparkles size={14} className="text-gray-400" /> {cap}
-                    </span>
-                  ))}
-                  {Array.isArray((model as any).tasks) && ((model as any).tasks).slice(0,3).map((task: any, i: number) => (
-                    <span key={`task-${i}`} className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-semibold rounded-md shadow-sm">
-                      <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: task.color || '#3B82F6' }} /> {task.name}
-                    </span>
-                  ))}
-               </div>
-             )}
-
-             {/* Action Links Row */}
-             <div className="flex flex-wrap items-center gap-6 text-[14px] font-bold text-gray-800">
-                {(model as any).apiUrl && (
-                  <a href={(model as any).apiUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-orange-500 transition-colors">
-                    <img src="https://cdn.simpleicons.org/huggingface/000000" alt="Hugging Face" className="w-[18px] h-[18px] opacity-80" /> Hugging Face <ArrowUpRight size={14} className="text-gray-400"/>
-                  </a>
-                )}
-                {(model as any).repositoryUrl && (
-                  <a href={(model as any).repositoryUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-orange-500 transition-colors">
-                    <img src="https://cdn.simpleicons.org/github/000000" alt="GitHub" className="w-[18px] h-[18px] opacity-80" /> GitHub <ArrowUpRight size={14} className="text-gray-400"/>
-                  </a>
-                )}
-                {(model as any).paperUrl && (
-                  <a href={(model as any).paperUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-orange-500 transition-colors">
-                    <FileText size={18} className="opacity-80" /> Paper (arXiv) <ArrowUpRight size={14} className="text-gray-400"/>
-                  </a>
-                )}
-             </div>
-          </div>
-          
-          {/* Metrics Block */}
-          <div className="w-full lg:w-[280px] shrink-0">
-             <div className="bg-white border border-gray-100 rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] p-6 flex flex-col gap-6">
-                
-                {(model as any).paperCount !== undefined && (
-                  <div className="flex items-start gap-4">
-                     <div className="w-10 h-10 rounded-xl bg-[#ECFDF5] flex items-center justify-center shrink-0">
-                        <BookOpen size={20} className="text-[#059669]" />
-                     </div>
-                     <div>
-                        <div className="text-[20px] font-bold text-gray-900 leading-tight">{(model as any).paperCount}</div>
-                        <div className="text-[13px] font-medium text-gray-500">Papers</div>
-                     </div>
-                  </div>
-                )}
-
-                {(model as any).citationCount !== undefined && (
-                  <div className="flex items-start gap-4">
-                     <div className="w-10 h-10 rounded-xl bg-[#FFF7ED] flex items-center justify-center shrink-0">
-                        <Zap size={20} className="text-[#EA580C]" />
-                     </div>
-                     <div>
-                        <div className="text-[20px] font-bold text-gray-900 leading-tight">{Number((model as any).citationCount).toLocaleString()}</div>
-                        <div className="text-[13px] font-medium text-gray-500">Citations</div>
-                     </div>
-                  </div>
-                )}
-
-                {(model as any).githubStars !== undefined && (
-                  <div className="flex items-start gap-4">
-                     <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] flex items-center justify-center shrink-0">
-                        <Star size={20} className="text-[#2563EB]" />
-                     </div>
-                     <div>
-                        <div className="text-[20px] font-bold text-gray-900 leading-tight">{Number((model as any).githubStars).toLocaleString()}</div>
-                        <div className="text-[13px] font-medium text-gray-500">GitHub Stars</div>
-                     </div>
-                  </div>
-                )}
-
-                {mmluScore !== null && (
-                  <div className="flex items-start gap-4">
-                     <div className="w-10 h-10 rounded-xl bg-[#F3E8FF] flex items-center justify-center shrink-0">
-                        <Activity size={20} className="text-[#7C3AED]" />
-                     </div>
-                     <div>
-                        <div className="text-[20px] font-bold text-gray-900 leading-tight">{mmluScore}</div>
-                        <div className="text-[13px] font-medium text-gray-500">{mmluLabel}</div>
-                     </div>
-                  </div>
-                )}
-             </div>
-          </div>
+        {/* ── BREADCRUMBS ── */}
+        <div className="flex items-center gap-3 text-[13px] font-semibold text-gray-400 mb-6">
+          <Link href="/" className="hover:text-black transition-colors">Home</Link>
+          <span>›</span>
+          <Link href="/models" className="hover:text-black transition-colors">Models</Link>
+          <span>›</span>
+          <span className="text-[#FF5A1F]">{model.name}</span>
         </div>
 
-        {/* ── TABS ── */}
-        <div className="border-b border-gray-200 mb-10 flex gap-8 overflow-x-auto scrollbar-hide">
-           <button className="border-b-2 border-orange-500 pb-3 text-[14px] font-bold text-black whitespace-nowrap">Overview</button>
-           {Array.isArray((model as any).modelVersions) && (model as any).modelVersions.length > 0 && (
-             <button className="border-b-2 border-transparent pb-3 text-[14px] font-bold text-gray-400 hover:text-gray-600 transition-colors whitespace-nowrap">Versions</button>
-           )}
-           {Array.isArray((model as any).researchAreas) && (model as any).researchAreas.length > 0 && (
-             <button className="border-b-2 border-transparent pb-3 text-[14px] font-bold text-gray-400 hover:text-gray-600 transition-colors whitespace-nowrap">Research Areas</button>
-           )}
-           {relatedPapers.length > 0 && (
-             <button className="border-b-2 border-transparent pb-3 text-[14px] font-bold text-gray-400 hover:text-gray-600 transition-colors whitespace-nowrap">Papers ({relatedPapers.length})</button>
-           )}
+        {/* ── HERO PANEL ── */}
+        <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] p-10 mb-12">
+           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+              
+              {/* Left Column - Logo */}
+              <div className="w-[180px] shrink-0 flex flex-col items-center justify-start">
+                 <div className="w-full aspect-square bg-white border border-[#EAE9E4] rounded-2xl shadow-sm flex items-center justify-center p-6 mb-4 overflow-hidden">
+                    {!logoError && model.vendorLogoUrl ? (
+                      <img src={model.vendorLogoUrl} alt={model.vendor || "Vendor"} onError={() => setLogoError(true)} className="w-full h-full object-contain" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-300 font-bold text-3xl">{model.name.charAt(0)}</div>
+                    )}
+                 </div>
+                 {model.vendor && <div className="text-[15px] font-extrabold text-black">{model.vendor}</div>}
+              </div>
+
+              {/* Middle Column - Details */}
+              <div className="flex-1 min-w-0 flex flex-col justify-center py-2">
+                 <h1 className="text-4xl md:text-[42px] font-extrabold tracking-tight text-black mb-1">{model.name}</h1>
+                 <div className="text-[15px] font-medium text-gray-500 mb-6">
+                    by <span className="text-[#FF5A1F] font-bold">{model.vendor || "Unknown"}</span>
+                 </div>
+                 
+                 {model.description && (
+                   <p className="text-[14px] text-gray-700 leading-relaxed max-w-2xl mb-8 font-medium">
+                     {model.description}
+                   </p>
+                 )}
+
+                 <div className="flex flex-wrap gap-2.5 mb-8">
+                    {(model as any).accessType && (
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-bold rounded-md shadow-sm">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]"></div> {(model as any).accessType}
+                      </span>
+                    )}
+                    {(model as any).modality && (
+                      <span className="inline-flex items-center px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-bold rounded-md shadow-sm">
+                        {(model as any).modality}
+                      </span>
+                    )}
+                    {model.parameterCount && (
+                      <span className="inline-flex items-center px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-bold rounded-md shadow-sm">
+                        {model.parameterCount}
+                      </span>
+                    )}
+                    {model.contextWindow && (
+                      <span className="inline-flex items-center px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-bold rounded-md shadow-sm">
+                        {model.contextWindow}
+                      </span>
+                    )}
+                    {(model as any).modelFamily && (
+                      <span className="inline-flex items-center px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-bold rounded-md shadow-sm">
+                        {(model as any).modelFamily}
+                      </span>
+                    )}
+                 </div>
+
+                 <div className="flex flex-wrap items-center gap-6 text-[13px] font-bold text-gray-700">
+                    {(model as any).apiUrl && (
+                      <a href={(model as any).apiUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-[#FF5A1F] transition-colors bg-[#FFF6F3] text-[#FF5A1F] px-2.5 py-1.5 rounded-md border border-[#FFE2D6]">
+                        <span className="text-lg leading-none mb-0.5">🤗</span> Hugging Face <ArrowUpRight size={13} className="opacity-70"/>
+                      </a>
+                    )}
+                    {(model as any).repositoryUrl && (
+                      <a href={(model as any).repositoryUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-black transition-colors bg-white border border-gray-200 px-2.5 py-1.5 rounded-md shadow-sm">
+                        <Github size={15} /> GitHub <ArrowUpRight size={13} className="opacity-70"/>
+                      </a>
+                    )}
+                    {(model as any).paperUrl && (
+                      <a href={(model as any).paperUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-black transition-colors bg-white border border-gray-200 px-2.5 py-1.5 rounded-md shadow-sm">
+                        <FileText size={15} /> Paper (arXiv) <ArrowUpRight size={13} className="opacity-70"/>
+                      </a>
+                    )}
+                 </div>
+              </div>
+
+              {/* Right Column - Metrics (Vertical Stack) */}
+              <div className="w-full lg:w-[220px] shrink-0 border-t lg:border-t-0 lg:border-l border-[#EAE9E4] pt-8 lg:pt-2 lg:pl-10 flex flex-col gap-7 justify-center">
+                 
+                 {(model as any).paperCount !== undefined && (
+                   <div className="flex items-start gap-4">
+                      <FileText size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <div className="flex flex-col gap-0.5">
+                         <span className="text-[20px] font-bold text-black leading-none">{(model as any).paperCount}</span>
+                         <span className="text-[12px] font-medium text-gray-500">Papers</span>
+                      </div>
+                   </div>
+                 )}
+
+                 {(model as any).citationCount !== undefined && (
+                   <div className="flex items-start gap-4">
+                      <BookOpen size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <div className="flex flex-col gap-0.5">
+                         <span className="text-[20px] font-bold text-black leading-none">{Number((model as any).citationCount).toLocaleString()}</span>
+                         <span className="text-[12px] font-medium text-gray-500">Citations</span>
+                      </div>
+                   </div>
+                 )}
+
+                 {(model as any).githubStars !== undefined && (
+                   <div className="flex items-start gap-4">
+                      <Star size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <div className="flex flex-col gap-0.5">
+                         <span className="text-[20px] font-bold text-black leading-none">{Number((model as any).githubStars).toLocaleString()}</span>
+                         <span className="text-[12px] font-medium text-gray-500">GitHub Stars</span>
+                      </div>
+                   </div>
+                 )}
+
+                 {mmluScore !== null && (
+                   <div className="flex items-start gap-4">
+                      <Activity size={22} className="text-[#FF5A1F] mt-1 shrink-0" strokeWidth={1.5} />
+                      <div className="flex flex-col gap-0.5">
+                         <span className="text-[20px] font-bold text-black leading-none">{mmluScore}</span>
+                         <span className="text-[12px] font-medium text-gray-500">MMLU Score</span>
+                      </div>
+                   </div>
+                 )}
+
+              </div>
+           </div>
         </div>
 
-        {/* ── OVERVIEW CONTENT ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8">
-          
-          {/* Left: Overview Specs Card */}
-          <div className="bg-white border border-gray-100 rounded-3xl p-8 md:p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] h-fit">
-             <h2 className="text-[18px] font-extrabold text-black mb-8">Overview</h2>
-             
-             <div className="grid grid-cols-[140px_1fr] md:grid-cols-[180px_1fr] gap-y-6">
-                
-                {((model as any).releaseDate || model.year) && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><Calendar size={16}/> Release Date</div>
-                    <div className="text-[14px] font-bold text-gray-900">{formatDate((model as any).releaseDate) || model.year}</div>
-                  </>
-                )}
-
-                {model.parameterCount && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><Box size={16}/> Parameter Count</div>
-                    <div className="text-[14px] font-bold text-gray-900">{model.parameterCount}</div>
-                  </>
-                )}
-
-                {((model as any).modality || model.category) && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><Sparkles size={16}/> Modality</div>
-                    <div className="text-[14px] font-bold text-gray-900">{(model as any).modality || model.category}</div>
-                  </>
-                )}
-
-                {(model as any).accessType && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><ShieldCheck size={16}/> Access Type</div>
-                    <div className="text-[14px] font-bold text-gray-900">{(model as any).accessType}</div>
-                  </>
-                )}
-
-                {(model as any).opennessType && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><Layers size={16}/> Openness Type</div>
-                    <div className="text-[14px] font-bold text-gray-900">{(model as any).opennessType}</div>
-                  </>
-                )}
-
-                {(model as any).license && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><ShieldCheck size={16}/> License</div>
-                    <div className="text-[14px] font-bold text-gray-900">{(model as any).license}</div>
-                  </>
-                )}
-
-                {(model as any).architecture && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold self-start mt-0.5"><Wrench size={16}/> Architecture</div>
-                    <div className="text-[14px] font-bold text-gray-900 leading-snug">{(model as any).architecture}</div>
-                  </>
-                )}
-
-                {model.contextWindow && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><Layers size={16}/> Context Window</div>
-                    <div className="text-[14px] font-bold text-gray-900">{model.contextWindow}</div>
-                  </>
-                )}
-
-                {(model as any).modelFamily && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><Layers size={16}/> Model Family</div>
-                    <div className="text-[14px] font-bold text-gray-900">{(model as any).modelFamily}</div>
-                  </>
-                )}
-
-                {model.category && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold"><Box size={16}/> Category</div>
-                    <div className="text-[14px] font-bold text-gray-900">{model.category}</div>
-                  </>
-                )}
-
-                {(model as any).releaseNotes && (
-                  <>
-                    <div className="flex items-center gap-2 text-gray-500 text-[13px] font-bold self-start mt-0.5"><FileText size={16}/> Release Notes</div>
-                    <div className="text-[14px] font-bold text-gray-900 leading-snug">{(model as any).releaseNotes}</div>
-                  </>
-                )}
-
-             </div>
+        {/* ── CAPABILITIES ROW ── */}
+        {((model as any).capabilities && (model as any).capabilities.length > 0) && (
+          <div className="mb-16">
+            <h2 className="text-[18px] font-extrabold text-black mb-6">Capabilities</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+               {((model as any).capabilities).map((cap: any, idx: number) => {
+                 // For hardcoded capabilities (with objects) vs simple strings
+                 const isObj = typeof cap === 'object';
+                 const title = isObj ? cap.title : cap;
+                 const desc = isObj ? cap.desc : "General capability associated with this model.";
+                 const Icon = isObj && cap.icon ? cap.icon : Check;
+                 
+                 return (
+                   <div key={idx} className="flex flex-col gap-3">
+                      <div className="w-12 h-12 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mb-1">
+                         <Icon size={20} strokeWidth={2} />
+                      </div>
+                      <h3 className="text-[13px] font-extrabold text-black leading-tight">{title}</h3>
+                      <p className="text-[12.5px] text-gray-500 font-medium leading-relaxed">{desc}</p>
+                   </div>
+                 );
+               })}
+            </div>
           </div>
-          
-          {/* Right: Sidebar Cards */}
-          <div className="flex flex-col gap-6">
-             
-             {/* Versions Card */}
-             {Array.isArray((model as any).modelVersions) && ((model as any).modelVersions).length > 0 && (
-               <div className="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
-                  <h2 className="flex items-center gap-2 text-[15px] font-extrabold text-black mb-4"><Layers size={18}/> Available Versions</h2>
-                  <div className="flex flex-col gap-3 mt-6">
-                     {((model as any).modelVersions).map((version: string, i: number) => (
-                       <button key={i} className="flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group">
-                         <span className="text-[14px] font-bold text-gray-900">{version}</span>
-                         <ChevronRight size={16} className="text-gray-400 group-hover:text-black transition-colors" />
+        )}
+
+        {/* ── RECENT RESEARCH PAPERS ── */}
+        {relatedPapers.length > 0 && (
+          <div>
+            
+            {/* Header & View All */}
+            <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-4 mb-6">
+               <h2 className="text-[18px] font-extrabold text-black">Recent Research Papers</h2>
+               <Link href={`/models/${model.slug}/papers`} className="text-[13px] font-bold text-[#FF5A1F] hover:text-[#E04D1A] transition-colors flex items-center gap-1">
+                 View all papers ({relatedPapers.length}) <ArrowRight size={14} />
+               </Link>
+            </div>
+
+            <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm mb-12">
+               
+               {/* Sort Bar */}
+               <div className="px-6 py-4 border-b border-[#EAE9E4] flex items-center">
+                  <div className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mr-4">Sort</div>
+                  <div className="flex bg-[#F5F5F5] p-1 rounded-[10px]">
+                     {['Popular', 'Recent', 'Citations'].map(sortItem => (
+                       <button 
+                         key={sortItem}
+                         onClick={() => setActiveSort(sortItem)}
+                         className={`px-4 py-1.5 text-[12px] font-bold rounded-[8px] flex items-center gap-1.5 transition-all ${
+                           activeSort === sortItem 
+                             ? 'bg-white text-black shadow-[0_1px_3px_rgba(0,0,0,0.1)]' 
+                             : 'text-gray-500 hover:text-black'
+                         }`}
+                       >
+                         {sortItem === 'Popular' && <TrendingUp size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
+                         {sortItem === 'Recent' && <Clock size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
+                         {sortItem === 'Citations' && <Star size={14} className={activeSort === sortItem ? 'text-black' : ''}/>}
+                         {sortItem}
                        </button>
                      ))}
                   </div>
                </div>
-             )}
-             
-             {/* Recent Papers Card */}
-             {relatedPapers.length > 0 && (
-               <div className="bg-white border border-gray-100 rounded-3xl p-6 md:p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
-                  <div className="flex items-center justify-between mb-6">
-                     <h2 className="text-[15px] font-extrabold text-black">Recent Papers</h2>
-                     {relatedPapers.length > 3 && (
-                       <span className="text-orange-500 text-[13px] font-bold hover:text-orange-600 cursor-pointer transition-colors">View all ({relatedPapers.length}) →</span>
-                     )}
-                  </div>
-                  <div className="flex flex-col gap-4 mt-6">
-                     {relatedPapers.slice(0, 3).map((paper: any, i: number) => (
-                       <Link key={i} href={`/papers/${paper.slug}`} className="flex items-start justify-between gap-4 p-4 border border-gray-100 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group">
-                         <div className="flex items-start gap-3">
-                            <FileText size={16} className="text-gray-400 mt-0.5 shrink-0" />
-                            <span className="text-[13.5px] font-bold text-gray-900 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2">{paper.title}</span>
+
+               {/* Papers List */}
+               <div className="flex flex-col">
+                 {relatedPapers.map((paper: any, idx: number) => (
+                   <div key={idx} className="p-8 border-b border-[#EAE9E4] last:border-b-0 flex flex-col md:flex-row gap-8">
+                      
+                      {/* Left: Content */}
+                      <div className="flex-1 flex flex-col min-w-0">
+                         <h3 className="text-[16px] font-extrabold text-black leading-snug mb-2">{paper.title}</h3>
+                         <div className="text-[12.5px] font-medium text-gray-500 mb-4 flex flex-wrap gap-2 items-center">
+                            <span>{paper.authors || "Unknown Authors"}</span>
+                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                            <span>{paper.date || "Unknown Date"}</span>
+                            <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+                            <span>{paper.citations || paper.citationCount || 0} citations</span>
                          </div>
-                         {(paper.citations || paper.citationCount) ? (
-                           <div className="text-gray-600 px-2 py-1 rounded-md text-[11px] font-bold shrink-0">
-                             {Number(paper.citations || paper.citationCount).toLocaleString()}
+                         
+                         {paper.abstract && (
+                           <p className="text-[13px] text-gray-600 leading-relaxed font-medium mb-5 max-w-4xl line-clamp-3">
+                             {paper.abstract}
+                           </p>
+                         )}
+
+                         {paper.tags && paper.tags.length > 0 && (
+                           <div className="flex flex-wrap gap-2 mb-6">
+                              {paper.tags.map((tag: any, tidx: number) => (
+                                <span key={tidx} className={`px-2 py-0.5 text-[11px] font-bold rounded ${tag.color || 'bg-gray-100 text-gray-600'}`}>
+                                  • {tag.name}
+                                </span>
+                              ))}
                            </div>
-                         ) : null}
-                       </Link>
-                     ))}
-                  </div>
-                  {relatedPapers.length > 3 && (
-                    <div className="text-center mt-6">
-                      <button className="text-orange-500 text-[13px] font-bold hover:text-orange-600 transition-colors">View all papers →</button>
-                    </div>
-                  )}
+                         )}
+
+                         {/* Action Buttons Row */}
+                         <div className="flex flex-wrap items-center gap-3">
+                            <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#FF5A1F] text-[#FF5A1F] hover:bg-[#FFF6F3] rounded-[8px] text-[12px] font-bold transition-colors">
+                               <FileCode size={14} className="text-[#FF5A1F]"/> arXiv
+                            </a>
+                            <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#EAE9E4] text-gray-700 hover:bg-gray-50 rounded-[8px] text-[12px] font-bold transition-colors">
+                               <FileText size={14} className="text-[#EF4444]"/> PDF
+                            </a>
+                            <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#EAE9E4] text-gray-700 hover:bg-gray-50 rounded-[8px] text-[12px] font-bold transition-colors">
+                               <Github size={14} /> Code
+                            </a>
+                            <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#EAE9E4] text-gray-700 hover:bg-[#FFF6F3] hover:text-[#FF5A1F] hover:border-[#FFE2D6] rounded-[8px] text-[12px] font-bold transition-colors">
+                               <span className="text-[14px] leading-none mb-0.5">🤗</span> Hugging Face
+                            </a>
+                            <div className="ml-auto md:ml-2 flex items-center gap-1.5 px-3 py-2 border border-[#EAE9E4] bg-[#F9F9F9] text-gray-700 rounded-[8px] text-[12px] font-bold">
+                               <Github size={14} className="opacity-70" /> 13.37 stars / hour
+                            </div>
+                         </div>
+                      </div>
+
+                      {/* Right: Paper Preview Thumbnail */}
+                      <div className="hidden md:block w-[160px] shrink-0">
+                         <div className="w-full aspect-[1/1.3] bg-white border border-gray-200 rounded-lg shadow-sm p-2 flex flex-col gap-1 overflow-hidden pointer-events-none">
+                            <div className="w-3/4 h-2 bg-gray-200 rounded mx-auto mt-2"></div>
+                            <div className="w-1/2 h-1.5 bg-gray-100 rounded mx-auto mb-2"></div>
+                            <div className="w-full h-1 bg-gray-100 rounded"></div>
+                            <div className="w-full h-1 bg-gray-100 rounded"></div>
+                            <div className="w-5/6 h-1 bg-gray-100 rounded"></div>
+                            <div className="w-full h-1.5 bg-[#FFF6F3] rounded mt-2"></div>
+                            <div className="w-2/3 h-1.5 bg-[#FFF6F3] rounded"></div>
+                            <div className="w-full h-1 bg-gray-100 rounded mt-2"></div>
+                            <div className="w-full h-1 bg-gray-100 rounded"></div>
+                            <div className="w-4/5 h-1 bg-gray-100 rounded"></div>
+                         </div>
+                      </div>
+
+                   </div>
+                 ))}
                </div>
-             )}
 
-          </div>
-        </div>
-
-        {/* ── LINKS & RESOURCES FOOTER ── */}
-        {((model as any).apiUrl || (model as any).repositoryUrl || (model as any).paperUrl) && (
-          <div className="mt-8 bg-white border border-gray-100 rounded-3xl p-8 md:p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
-             <h2 className="flex items-center gap-2 text-[16px] font-extrabold text-black mb-8"><Link2 size={18}/> Links & Resources</h2>
-             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                {(model as any).apiUrl && (
-                  <div>
-                     <div className="text-[13px] text-gray-500 font-bold mb-2">Hugging Face</div>
-                     <a href={(model as any).apiUrl} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold text-black flex items-center gap-1.5 hover:text-orange-500 transition-colors group">
-                       <span className="truncate">{((model as any).apiUrl).replace('https://huggingface.co/', '')}</span>
-                       <ArrowUpRight size={14} className="text-gray-400 group-hover:text-orange-500 shrink-0"/>
-                     </a>
-                  </div>
-                )}
-                
-                {(model as any).repositoryUrl && (
-                  <div>
-                     <div className="text-[13px] text-gray-500 font-bold mb-2">GitHub Repository</div>
-                     <a href={(model as any).repositoryUrl} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold text-black flex items-center gap-1.5 hover:text-orange-500 transition-colors group">
-                       <span className="truncate">{((model as any).repositoryUrl).replace('https://', '')}</span>
-                       <ArrowUpRight size={14} className="text-gray-400 group-hover:text-orange-500 shrink-0"/>
-                     </a>
-                  </div>
-                )}
-                
-                {(model as any).paperUrl && (
-                  <div>
-                     <div className="text-[13px] text-gray-500 font-bold mb-2">Paper (arXiv)</div>
-                     <a href={(model as any).paperUrl} target="_blank" rel="noopener noreferrer" className="text-[14px] font-bold text-black flex items-center gap-1.5 hover:text-orange-500 transition-colors group">
-                       <span className="truncate">{((model as any).paperUrl).replace('https://', '')}</span>
-                       <ArrowUpRight size={14} className="text-gray-400 group-hover:text-orange-500 shrink-0"/>
-                     </a>
-                  </div>
-                )}
-
-             </div>
+            </div>
           </div>
         )}
+
       </main>
     </div>
   );
