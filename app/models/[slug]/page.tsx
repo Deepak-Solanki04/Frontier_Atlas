@@ -5,7 +5,7 @@ import Link from "next/link";
 import { 
   FileText, Star, Activity, BookOpen, MessageSquare, 
   BarChart2, Share2, Image as ImageIcon, Sparkles, 
-  ArrowRight, TrendingUp, Clock, Github, FileCode, Check
+  ArrowRight, TrendingUp, Clock, FileCode, Check
 } from "lucide-react";
 import { fetchApi } from "@/lib/api";
 import { type ModelItem } from "@/lib/models";
@@ -251,7 +251,7 @@ export default function ModelDetailPage({
                     )}
                     {(model as any).repositoryUrl && (
                       <a href={(model as any).repositoryUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 hover:text-black transition-colors bg-white border border-gray-200 px-2.5 py-1.5 rounded-md shadow-sm">
-                        <Github size={15} /> GitHub <ArrowUpRight size={13} className="opacity-70"/>
+                        <img src="https://cdn.simpleicons.org/github/000000" className="w-[15px] h-[15px] opacity-80" alt="GitHub" /> GitHub <ArrowUpRight size={13} className="opacity-70"/>
                       </a>
                     )}
                     {(model as any).paperUrl && (
@@ -413,13 +413,13 @@ export default function ModelDetailPage({
                                <FileText size={14} className="text-[#EF4444]"/> PDF
                             </a>
                             <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#EAE9E4] text-gray-700 hover:bg-gray-50 rounded-[8px] text-[12px] font-bold transition-colors">
-                               <Github size={14} /> Code
+                               <img src="https://cdn.simpleicons.org/github/000000" className="w-3.5 h-3.5 opacity-80" alt="GitHub" /> Code
                             </a>
                             <a href="#" className="flex items-center gap-1.5 px-4 py-2 border border-[#EAE9E4] text-gray-700 hover:bg-[#FFF6F3] hover:text-[#FF5A1F] hover:border-[#FFE2D6] rounded-[8px] text-[12px] font-bold transition-colors">
                                <span className="text-[14px] leading-none mb-0.5">🤗</span> Hugging Face
                             </a>
                             <div className="ml-auto md:ml-2 flex items-center gap-1.5 px-3 py-2 border border-[#EAE9E4] bg-[#F9F9F9] text-gray-700 rounded-[8px] text-[12px] font-bold">
-                               <Github size={14} className="opacity-70" /> 13.37 stars / hour
+                               <img src="https://cdn.simpleicons.org/github/000000" className="w-3.5 h-3.5 opacity-70" alt="GitHub" /> 13.37 stars / hour
                             </div>
                          </div>
                       </div>
