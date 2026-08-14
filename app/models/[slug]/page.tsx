@@ -222,8 +222,8 @@ export default function ModelDetailPage({
         </div>
 
         {/* ── HERO PANEL ── */}
-        <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] p-10 mb-12">
-           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+        <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] p-7 mb-10 max-w-6xl">
+           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
               
               {/* Left Column - Logo */}
               <div className="w-[240px] shrink-0 flex flex-col items-center justify-start">
@@ -347,7 +347,36 @@ export default function ModelDetailPage({
         {/* ── CAPABILITIES & BENCHMARKS SPLIT ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
           
-          {/* LEFT: BENCHMARKS */}
+          {/* LEFT: CAPABILITIES */}
+          {((model as any).capabilities && (model as any).capabilities.length > 0) && (
+            <div>
+              <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-3 mb-5">
+                 <h2 className="text-[22px] font-bold text-[#111827]">Capabilities</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-6">
+                 {((model as any).capabilities).map((cap: any, idx: number) => {
+                   const isObj = typeof cap === 'object';
+                   const title = isObj ? cap.title : cap;
+                   const desc = isObj ? cap.desc : "General capability associated with this model.";
+                   
+                   const iconKey = isObj && cap.iconName ? cap.iconName : "Check";
+                   const Icon = (Icons as any)[iconKey] || Icons.Check;
+                   
+                   return (
+                     <div key={idx} className="flex flex-col gap-2">
+                        <div className="w-9 h-9 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mb-0.5">
+                           <Icon size={16} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="text-[14px] font-bold leading-tight text-[#111111]">{title}</h3>
+                        <p className="text-[12.5px] leading-relaxed text-[#666]">{desc}</p>
+                     </div>
+                   );
+                 })}
+              </div>
+            </div>
+          )}
+
+          {/* RIGHT: BENCHMARKS */}
           {((model as any).benchmarks && (model as any).benchmarks.length > 0) && (
              <div>
                 <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-3 mb-5">
@@ -389,35 +418,6 @@ export default function ModelDetailPage({
                    </div>
                 </div>
              </div>
-          )}
-
-          {/* RIGHT: CAPABILITIES */}
-          {((model as any).capabilities && (model as any).capabilities.length > 0) && (
-            <div>
-              <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-3 mb-5">
-                 <h2 className="text-[22px] font-bold text-[#111827]">Capabilities</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-6">
-                 {((model as any).capabilities).map((cap: any, idx: number) => {
-                   const isObj = typeof cap === 'object';
-                   const title = isObj ? cap.title : cap;
-                   const desc = isObj ? cap.desc : "General capability associated with this model.";
-                   
-                   const iconKey = isObj && cap.iconName ? cap.iconName : "Check";
-                   const Icon = (Icons as any)[iconKey] || Icons.Check;
-                   
-                   return (
-                     <div key={idx} className="flex flex-col gap-2">
-                        <div className="w-9 h-9 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mb-0.5">
-                           <Icon size={16} strokeWidth={2.5} />
-                        </div>
-                        <h3 className="text-[14px] font-bold leading-tight text-[#111111]">{title}</h3>
-                        <p className="text-[12.5px] leading-relaxed text-[#666]">{desc}</p>
-                     </div>
-                   );
-                 })}
-              </div>
-            </div>
           )}
         </div>
 
