@@ -493,6 +493,68 @@ response = client.chat.completions.create(
             </div>
          </div>
 
+         {/* ── MODEL LINEAGE & VARIANTS ── */}
+         <div className="mb-16">
+            <h2 className="text-[27px] font-bold text-[#111827] mb-6">Model Lineage & Variants</h2>
+            <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-8">
+               <div className="flex flex-col md:flex-row gap-12">
+                  
+                  {/* Lineage Timeline */}
+                  <div className="flex-1">
+                     <h3 className="text-[13px] font-bold text-gray-400 uppercase tracking-wider mb-6">Evolution Timeline</h3>
+                     <div className="flex items-center">
+                        <div className="flex flex-col items-center">
+                           <div className="w-3.5 h-3.5 bg-gray-300 rounded-full mb-3 shadow-[0_0_0_4px_#F5F5F5]"></div>
+                           <span className="text-[13.5px] font-bold text-gray-500 leading-tight">v1.0</span>
+                           <span className="text-[11px] font-bold text-gray-400 mt-0.5 uppercase tracking-wider">Jan 2025</span>
+                        </div>
+                        <div className="flex-1 h-px bg-gray-200 -mt-8 mx-2"></div>
+                        <div className="flex flex-col items-center">
+                           <div className="w-3.5 h-3.5 bg-[#FF5A1F] rounded-full mb-3 shadow-[0_0_0_4px_#FFF6F3]"></div>
+                           <span className="text-[13.5px] font-bold text-[#111111] leading-tight">v1.5</span>
+                           <span className="text-[11px] font-bold text-[#FF5A1F] mt-0.5 uppercase tracking-wider">Current</span>
+                        </div>
+                        <div className="flex-1 h-px bg-gray-200 -mt-8 mx-2 border-t border-dashed border-gray-300 bg-transparent"></div>
+                        <div className="flex flex-col items-center opacity-40">
+                           <div className="w-3.5 h-3.5 bg-white border-[2.5px] border-gray-400 rounded-full mb-3"></div>
+                           <span className="text-[13.5px] font-bold text-gray-500 leading-tight">v2.0</span>
+                           <span className="text-[11px] font-bold text-gray-400 mt-0.5 uppercase tracking-wider">Training</span>
+                        </div>
+                     </div>
+                  </div>
+
+                  {/* Available Variants */}
+                  <div className="flex-1">
+                     <h3 className="text-[13px] font-bold text-gray-400 uppercase tracking-wider mb-6">Available Checkpoints</h3>
+                     <div className="flex flex-col gap-3">
+                        <div className="flex items-center justify-between p-3.5 rounded-lg border border-[#FF5A1F] bg-[#FFF6F3] shadow-sm">
+                           <div className="flex items-center gap-3">
+                              <Icons.MessageSquare size={16} className="text-[#FF5A1F]" strokeWidth={2.5} />
+                              <span className="text-[14px] font-bold text-[#111111]">Instruct / Chat</span>
+                           </div>
+                           <span className="text-[10px] font-bold tracking-wider bg-[#FF5A1F] text-white px-2 py-1 rounded-sm">RECOMMENDED</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 rounded-lg border border-[#EAE9E4] bg-white hover:border-gray-300 transition-colors cursor-pointer">
+                           <div className="flex items-center gap-3">
+                              <Icons.Database size={16} className="text-gray-500" strokeWidth={2} />
+                              <span className="text-[14px] font-bold text-[#333]">Base Foundation</span>
+                           </div>
+                           <span className="text-[10px] font-bold tracking-wider bg-gray-100 text-gray-500 px-2 py-1 rounded-sm">RAW COMPLETION</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3.5 rounded-lg border border-[#EAE9E4] bg-white hover:border-gray-300 transition-colors cursor-pointer">
+                           <div className="flex items-center gap-3">
+                              <Icons.Cpu size={16} className="text-gray-500" strokeWidth={2} />
+                              <span className="text-[14px] font-bold text-[#333]">Quantized (GGUF)</span>
+                           </div>
+                           <span className="text-[10px] font-bold tracking-wider bg-gray-100 text-gray-500 px-2 py-1 rounded-sm">LOCAL EDGE</span>
+                        </div>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+
         {/* ── RECENT RESEARCH PAPERS ── */}
         {relatedPapers.length > 0 && (
           <div>
