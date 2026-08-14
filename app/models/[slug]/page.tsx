@@ -473,8 +473,8 @@ client = openai.Client(
 response = client.chat.completions.create(
     model=<span className="text-[#16A34A]">"{model.slug}"</span>,
     messages=[
-        {<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"system"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"You are an expert AI assistant."</span>},
-        {<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"user"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"Explain quantum entanglement."</span>}
+        {"{"}<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"system"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"You are an expert AI assistant."</span>{"}"},
+        {"{"}<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"user"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"Explain quantum entanglement."</span>{"}"}
     ]
 )
 
