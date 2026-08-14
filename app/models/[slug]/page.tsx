@@ -222,8 +222,8 @@ export default function ModelDetailPage({
         </div>
 
         {/* ── HERO PANEL ── */}
-        <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] p-7 mb-10 max-w-6xl">
-           <div className="flex flex-col lg:flex-row gap-8 lg:gap-10">
+        <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-[0_2px_12px_rgba(0,0,0,0.02)] p-6 mb-10 max-w-5xl mx-auto">
+           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-center lg:items-stretch">
               
               {/* Left Column - Logo */}
               <div className="w-[240px] shrink-0 flex flex-col items-center justify-start">
@@ -239,18 +239,18 @@ export default function ModelDetailPage({
 
               {/* Middle Column - Details */}
               <div className="flex-1 min-w-0 flex flex-col justify-center py-2">
-                 <h1 className="text-[35px] font-extrabold text-[#111827] leading-none mb-3">{model.name}</h1>
-                 <div className="text-[15.5px] font-medium text-gray-600 mb-6">
+                 <h1 className="text-[35px] font-extrabold text-[#111827] leading-none mb-2">{model.name}</h1>
+                 <div className="text-[15.5px] font-medium text-gray-600 mb-4">
                     by <span className="text-[#FF5A1F] font-bold">{model.vendor || "Unknown"}</span>
                  </div>
                  
                  {model.description && (
-                   <p className="text-[15.5px] text-gray-600 leading-relaxed max-w-2xl mb-8">
+                   <p className="text-[15.5px] text-gray-600 leading-relaxed max-w-2xl mb-5">
                      {model.description}
                    </p>
                  )}
 
-                 <div className="flex flex-wrap gap-2.5 mb-8">
+                 <div className="flex flex-wrap gap-2 mb-5">
                     {(model as any).accessType && (
                       <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 text-gray-700 text-[12px] font-bold rounded-md shadow-sm">
                         <div className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F]"></div> {(model as any).accessType}
@@ -298,7 +298,7 @@ export default function ModelDetailPage({
               </div>
 
               {/* Right Column - Metrics (Vertical Stack) */}
-              <div className="w-full lg:w-[220px] shrink-0 border-t lg:border-t-0 lg:border-l border-[#EAE9E4] pt-8 lg:pt-2 lg:pl-10 flex flex-col gap-7 justify-center">
+              <div className="w-full lg:w-[220px] shrink-0 border-t lg:border-t-0 lg:border-l border-[#EAE9E4] pt-8 lg:pt-2 lg:pl-6 flex flex-col gap-6 justify-center">
                  
                  {(model as any).paperCount !== undefined && (
                    <div className="flex items-start gap-4">
