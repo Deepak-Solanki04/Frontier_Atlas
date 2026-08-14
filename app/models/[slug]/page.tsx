@@ -344,78 +344,82 @@ export default function ModelDetailPage({
            </div>
         </div>
 
-        {/* ── CAPABILITIES ROW ── */}
-        {((model as any).capabilities && (model as any).capabilities.length > 0) && (
-          <div className="mb-16">
-            <h2 className="text-[27px] font-bold text-[#111827] mb-6">Capabilities</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-               {((model as any).capabilities).map((cap: any, idx: number) => {
-                 // For hardcoded capabilities (with objects) vs simple strings
-                 const isObj = typeof cap === 'object';
-                 const title = isObj ? cap.title : cap;
-                 const desc = isObj ? cap.desc : "General capability associated with this model.";
-                 
-                 // Get the matching inline SVG or default to Check
-                 const iconKey = isObj && cap.iconName ? cap.iconName : "Check";
-                 const Icon = (Icons as any)[iconKey] || Icons.Check;
-                 
-                 return (
-                   <div key={idx} className="flex flex-col gap-3">
-                      <div className="w-12 h-12 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mb-1">
-                         <Icon size={20} strokeWidth={2} />
-                      </div>
-                      <h3 className="text-[15.5px] font-medium leading-5 text-[#111111] mb-1.5">{title}</h3>
-                      <p className="text-[13.5px] leading-5 text-[#666] mb-3">{desc}</p>
+        {/* ── CAPABILITIES & BENCHMARKS SPLIT ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
+          
+          {/* LEFT: BENCHMARKS */}
+          {((model as any).benchmarks && (model as any).benchmarks.length > 0) && (
+             <div>
+                <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-3 mb-5">
+                   <h2 className="text-[22px] font-bold text-[#111827]">Benchmarks</h2>
+                   <div className="text-[11px] text-gray-400 font-mono uppercase tracking-wider">
+                      Released {model.releaseDate ? new Date(model.releaseDate).toISOString().split('T')[0].replace(/-/g, ' ') : "2026 07 09"}
                    </div>
-                 );
-               })}
+                </div>
+
+                <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-6">
+                   <div className="flex flex-col gap-6">
+                      {((model as any).benchmarks).map((bm: any, idx: number) => (
+                         <div key={idx} className="flex flex-col">
+                            <div className="flex justify-between items-end mb-2">
+                               <div className="flex items-center gap-2">
+                                  <span className="text-[14px] font-bold text-[#111111]">{bm.name}</span>
+                                  <span className="text-[9px] font-bold tracking-wider uppercase text-[#8B8B8B] bg-[#F5F5F5] px-1.5 py-0.5 rounded-sm">{bm.category}</span>
+                               </div>
+                               <span className="text-[14px] font-extrabold text-[#111111]">{bm.score}%</span>
+                            </div>
+                            {/* Progress Bar Container */}
+                            <div className="w-full h-2 bg-[#F0F0F0] rounded-full overflow-hidden mb-2">
+                               <div className="h-full bg-gradient-to-r from-[#FF5A1F] to-[#FF8A5E] rounded-full" style={{ width: `${bm.score}%` }}></div>
+                            </div>
+                            {/* Description */}
+                            <p className="text-[12.5px] text-[#666] leading-relaxed">{bm.description}</p>
+                         </div>
+                      ))}
+                   </div>
+                   
+                   {/* Expand / Collapse (Mock) */}
+                   <div className="mt-6 flex items-center gap-2 cursor-pointer text-[#FF5A1F] hover:text-[#E04D1A] transition-colors text-[12.5px] font-bold">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                      Show 4 more
+                   </div>
+
+                   <div className="mt-6 pt-4 border-t border-[#EAE9E4] text-[11px] text-gray-400 leading-relaxed">
+                      Scores are sourced from official model cards, Artificial Analysis, and public leaderboards.
+                   </div>
+                </div>
+             </div>
+          )}
+
+          {/* RIGHT: CAPABILITIES */}
+          {((model as any).capabilities && (model as any).capabilities.length > 0) && (
+            <div>
+              <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-3 mb-5">
+                 <h2 className="text-[22px] font-bold text-[#111827]">Capabilities</h2>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-6">
+                 {((model as any).capabilities).map((cap: any, idx: number) => {
+                   const isObj = typeof cap === 'object';
+                   const title = isObj ? cap.title : cap;
+                   const desc = isObj ? cap.desc : "General capability associated with this model.";
+                   
+                   const iconKey = isObj && cap.iconName ? cap.iconName : "Check";
+                   const Icon = (Icons as any)[iconKey] || Icons.Check;
+                   
+                   return (
+                     <div key={idx} className="flex flex-col gap-2">
+                        <div className="w-9 h-9 bg-[#FFF6F3] text-[#FF5A1F] rounded-full flex items-center justify-center mb-0.5">
+                           <Icon size={16} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="text-[14px] font-bold leading-tight text-[#111111]">{title}</h3>
+                        <p className="text-[12.5px] leading-relaxed text-[#666]">{desc}</p>
+                     </div>
+                   );
+                 })}
+              </div>
             </div>
-          </div>
-        )}
-
-         {/* ── BENCHMARKS ── */}
-         {((model as any).benchmarks && (model as any).benchmarks.length > 0) && (
-           <div className="mb-16">
-              <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-4 mb-6">
-                 <h2 className="text-[27px] font-bold text-[#111827]">Benchmarks</h2>
-                 <div className="text-[12px] text-gray-400 font-mono uppercase tracking-wider">
-                    Released {model.releaseDate ? new Date(model.releaseDate).toISOString().split('T')[0].replace(/-/g, ' ') : "2026 07 09"}
-                 </div>
-              </div>
-
-              <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-8">
-                 <div className="flex flex-col gap-8">
-                    {((model as any).benchmarks).map((bm: any, idx: number) => (
-                       <div key={idx} className="flex flex-col">
-                          <div className="flex justify-between items-end mb-2">
-                             <div className="flex items-center gap-3">
-                                <span className="text-[15.5px] font-bold text-[#111111]">{bm.name}</span>
-                                <span className="text-[10px] font-bold tracking-wider uppercase text-[#8B8B8B] bg-[#F5F5F5] px-2 py-0.5 rounded-sm">{bm.category}</span>
-                             </div>
-                             <span className="text-[16px] font-extrabold text-[#111111]">{bm.score}%</span>
-                          </div>
-                          {/* Progress Bar Container */}
-                          <div className="w-full h-2.5 bg-[#F0F0F0] rounded-full overflow-hidden mb-3">
-                             <div className="h-full bg-gradient-to-r from-[#FF5A1F] to-[#FF8A5E] rounded-full" style={{ width: `${bm.score}%` }}></div>
-                          </div>
-                          {/* Description */}
-                          <p className="text-[13.5px] text-[#666] leading-relaxed">{bm.description}</p>
-                       </div>
-                    ))}
-                 </div>
-                 
-                 {/* Expand / Collapse (Mock) */}
-                 <div className="mt-8 flex items-center gap-2 cursor-pointer text-[#FF5A1F] hover:text-[#E04D1A] transition-colors text-[13.5px] font-bold">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    Show 4 more benchmarks
-                 </div>
-
-                 <div className="mt-8 pt-5 border-t border-[#EAE9E4] text-[12px] text-gray-400 leading-relaxed max-w-4xl">
-                    Scores are sourced from official model cards, Artificial Analysis, and public leaderboards. Benchmarks measure specific skills and do not capture every aspect of model quality. Always test on your own workload.
-                 </div>
-              </div>
-           </div>
-         )}
+          )}
+        </div>
 
          {/* ── APPLIED USE CASES ── */}
          <div className="mb-16">
@@ -460,10 +464,10 @@ export default function ModelDetailPage({
                      Copy Code
                   </button>
                </div>
-               <div className="p-6 overflow-x-auto text-[13px] font-mono leading-relaxed text-[#333]">
-<pre><code><span className="text-[#0284C7]">import</span> openai
+               <div className="p-6 overflow-x-hidden text-[13px] font-mono leading-relaxed text-[#333]">
+<pre className="whitespace-pre-wrap break-words"><code><span className="text-[#0284C7]">import</span> openai
 
-<span className="text-gray-500"># Initialize the standard client pointing to the Frontier API</span>
+<span className="text-gray-500"># Initialize standard client</span>
 client = openai.Client(
     base_url=<span className="text-[#16A34A]">"https://api.frontier.ai/v1"</span>,
     api_key=<span className="text-[#16A34A]">"YOUR_API_KEY"</span>
@@ -473,8 +477,14 @@ client = openai.Client(
 response = client.chat.completions.create(
     model=<span className="text-[#16A34A]">"{model.slug}"</span>,
     messages=[
-        {"{"}<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"system"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"You are an expert AI assistant."</span>{"}"},
-        {"{"}<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"user"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"Explain quantum entanglement."</span>{"}"}
+        {"{"}
+            <span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"system"</span>, 
+            <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"You are an expert AI assistant."</span>
+        {"}"},
+        {"{"}
+            <span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"user"</span>, 
+            <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"Explain quantum entanglement."</span>
+        {"}"}
     ]
 )
 
