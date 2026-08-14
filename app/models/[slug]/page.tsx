@@ -417,6 +417,72 @@ export default function ModelDetailPage({
            </div>
          )}
 
+         {/* ── APPLIED USE CASES ── */}
+         <div className="mb-16">
+            <h2 className="text-[27px] font-bold text-[#111827] mb-6">Applied Use Cases</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+               {[
+                 { title: "Automated Data Analysis", desc: "Process complex datasets and generate actionable business intelligence.", icon: "BarChart2" },
+                 { title: "Code Generation & Review", desc: "Accelerate development with AI-assisted pair programming and code audits.", icon: "FileCode" },
+                 { title: "Complex Reasoning", desc: "Solve multi-step problems in highly specialized academic or technical domains.", icon: "Activity" }
+               ].map((uc, idx) => {
+                 const Icon = (Icons as any)[uc.icon] || Icons.Check;
+                 return (
+                   <div key={idx} className="bg-white border border-[#EAE9E4] hover:border-[#FF5A1F] transition-colors rounded-[16px] shadow-sm p-6 flex flex-col gap-4">
+                      <div className="w-10 h-10 bg-[#FFF6F3] text-[#FF5A1F] rounded-lg flex items-center justify-center">
+                         <Icon size={20} strokeWidth={2} />
+                      </div>
+                      <div>
+                         <h3 className="text-[15.5px] font-bold text-[#111111] mb-2">{uc.title}</h3>
+                         <p className="text-[13.5px] text-[#666] leading-relaxed">{uc.desc}</p>
+                      </div>
+                   </div>
+                 );
+               })}
+            </div>
+         </div>
+
+         {/* ── DEVELOPER INTEGRATION (API) ── */}
+         <div className="mb-16">
+            <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-4 mb-6">
+               <h2 className="text-[27px] font-bold text-[#111827]">Developer Integration</h2>
+               <div className="text-[13px] font-bold text-[#FF5A1F] cursor-pointer hover:text-[#E04D1A] flex items-center gap-1">
+                  View API Documentation <Icons.ArrowUpRight size={14} />
+               </div>
+            </div>
+            
+            <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm overflow-hidden">
+               <div className="flex items-center justify-between px-6 py-4 bg-[#FAFAFA] border-b border-[#EAE9E4]">
+                  <div className="flex items-center gap-2 text-[12px] font-bold text-gray-500 uppercase tracking-wider">
+                     <Icons.FileCode size={14} /> Python (OpenAI SDK)
+                  </div>
+                  <button className="text-[12px] font-bold text-gray-600 hover:text-black transition-colors px-3 py-1 bg-white border border-[#EAE9E4] rounded-md shadow-sm">
+                     Copy Code
+                  </button>
+               </div>
+               <div className="p-6 overflow-x-auto text-[13px] font-mono leading-relaxed text-[#333]">
+<pre><code><span className="text-[#0284C7]">import</span> openai
+
+<span className="text-gray-500"># Initialize the standard client pointing to the Frontier API</span>
+client = openai.Client(
+    base_url=<span className="text-[#16A34A]">"https://api.frontier.ai/v1"</span>,
+    api_key=<span className="text-[#16A34A]">"YOUR_API_KEY"</span>
+)
+
+<span className="text-gray-500"># Generate a completion</span>
+response = client.chat.completions.create(
+    model=<span className="text-[#16A34A]">"{model.slug}"</span>,
+    messages=[
+        {<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"system"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"You are an expert AI assistant."</span>},
+        {<span className="text-[#16A34A]">"role"</span>: <span className="text-[#16A34A]">"user"</span>, <span className="text-[#16A34A]">"content"</span>: <span className="text-[#16A34A]">"Explain quantum entanglement."</span>}
+    ]
+)
+
+<span className="text-[#9333EA]">print</span>(response.choices[<span className="text-[#EA580C]">0</span>].message.content)</code></pre>
+               </div>
+            </div>
+         </div>
+
         {/* ── RECENT RESEARCH PAPERS ── */}
         {relatedPapers.length > 0 && (
           <div>
