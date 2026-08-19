@@ -557,6 +557,93 @@ response = client.chat.completions.create(
             </div>
          </div>
 
+         {/* ── PRICING & ARCHITECTURE SPLIT ── */}
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
+            {/* LEFT: API Pricing & Limits */}
+            <div>
+               <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-3 mb-5">
+                  <h2 className="text-[22px] font-bold text-[#111827]">API Pricing & Limits</h2>
+               </div>
+               <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-6">
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                     <div className="bg-[#FAFAFA] border border-[#EAE9E4] rounded-xl p-4 flex flex-col justify-center">
+                        <span className="text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-1">Input Tokens</span>
+                        <div className="flex items-baseline gap-1">
+                           <span className="text-[22px] font-extrabold text-[#111111]">$0.15</span>
+                           <span className="text-[12px] font-medium text-gray-500">/ 1M</span>
+                        </div>
+                     </div>
+                     <div className="bg-[#FAFAFA] border border-[#EAE9E4] rounded-xl p-4 flex flex-col justify-center">
+                        <span className="text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-1">Output Tokens</span>
+                        <div className="flex items-baseline gap-1">
+                           <span className="text-[22px] font-extrabold text-[#111111]">$0.60</span>
+                           <span className="text-[12px] font-medium text-gray-500">/ 1M</span>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div className="flex flex-col gap-0 border border-[#EAE9E4] rounded-xl overflow-hidden">
+                     <div className="flex items-center justify-between p-3.5 bg-white border-b border-[#EAE9E4]">
+                        <span className="text-[13px] font-bold text-gray-700">Context Window</span>
+                        <span className="text-[13px] font-mono text-[#111111] font-bold bg-gray-100 px-2 py-0.5 rounded-sm">128,000 tokens</span>
+                     </div>
+                     <div className="flex items-center justify-between p-3.5 bg-[#FAFAFA] border-b border-[#EAE9E4]">
+                        <span className="text-[13px] font-bold text-gray-700">Max Output</span>
+                        <span className="text-[13px] font-mono text-[#111111] font-bold bg-white border border-gray-200 px-2 py-0.5 rounded-sm">4,096 tokens</span>
+                     </div>
+                     <div className="flex items-center justify-between p-3.5 bg-white">
+                        <span className="text-[13px] font-bold text-gray-700">Rate Limit (Tier 1)</span>
+                        <span className="text-[13px] font-mono text-[#111111] font-bold bg-gray-100 px-2 py-0.5 rounded-sm">10,000 RPM</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            {/* RIGHT: System Architecture */}
+            <div>
+               <div className="flex items-end justify-between border-b border-[#EAE9E4] pb-3 mb-5">
+                  <h2 className="text-[22px] font-bold text-[#111827]">System Architecture</h2>
+               </div>
+               <div className="flex flex-col gap-4">
+                  <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-5 flex items-start gap-4 hover:border-[#FF5A1F] transition-colors">
+                     <div className="w-10 h-10 bg-[#FFF6F3] text-[#FF5A1F] rounded-lg flex items-center justify-center shrink-0">
+                        <Icons.Cpu size={20} strokeWidth={2} />
+                     </div>
+                     <div>
+                        <h4 className="text-[14px] font-bold text-[#111111] mb-1">Sparse Mixture of Experts (MoE)</h4>
+                        <p className="text-[12.5px] text-[#666] leading-relaxed">
+                           Uses an 8-expert MoE architecture where 2 experts are active per token. Total parameter count is 47B with 14B active parameters during inference for massive efficiency.
+                        </p>
+                     </div>
+                  </div>
+                  
+                  <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-5 flex items-start gap-4 hover:border-[#FF5A1F] transition-colors">
+                     <div className="w-10 h-10 bg-[#FFF6F3] text-[#FF5A1F] rounded-lg flex items-center justify-center shrink-0">
+                        <Icons.Database size={20} strokeWidth={2} />
+                     </div>
+                     <div>
+                        <h4 className="text-[14px] font-bold text-[#111111] mb-1">15 Trillion Training Tokens</h4>
+                        <p className="text-[12.5px] text-[#666] leading-relaxed">
+                           Pre-trained on a custom, highly curated mix of 15T tokens with a knowledge cutoff of December 2025. Strong emphasis on code and multilingual data.
+                        </p>
+                     </div>
+                  </div>
+                  
+                  <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm p-5 flex items-start gap-4 hover:border-[#FF5A1F] transition-colors">
+                     <div className="w-10 h-10 bg-[#FFF6F3] text-[#FF5A1F] rounded-lg flex items-center justify-center shrink-0">
+                        <Icons.Activity size={20} strokeWidth={2} />
+                     </div>
+                     <div>
+                        <h4 className="text-[14px] font-bold text-[#111111] mb-1">Grouped-Query Attention (GQA)</h4>
+                        <p className="text-[12.5px] text-[#666] leading-relaxed">
+                           Optimized with GQA and Rotary Position Embeddings (RoPE) to maintain near-perfect retrieval across the entire 128k context window without latency spikes.
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
         {/* ── RECENT RESEARCH PAPERS ── */}
         {relatedPapers.length > 0 && (
           <div>
