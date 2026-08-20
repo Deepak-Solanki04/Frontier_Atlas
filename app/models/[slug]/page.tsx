@@ -36,26 +36,6 @@ export default function ModelDetailPage({
   const [loading, setLoading] = useState(true);
   const [logoError, setLogoError] = useState(false);
   const [activeSort, setActiveSort] = useState("Popular");
-  const [activePrompt, setActivePrompt] = useState(0);
-
-  const examplePrompts = [
-    {
-       title: "Code Generation",
-       prompt: "Write a React hook to fetch data with automatic retries and exponential backoff.",
-       response: "```typescript\nimport { useState, useEffect } from 'react';\n\nexport function useFetchWithRetry(url: string, maxRetries = 3) {\n  const [data, setData] = useState(null);\n  const [error, setError] = useState(null);\n\n  useEffect(() => {\n    // Implementation using exponential backoff\n  }, [url]);\n\n  return { data, error };\n}\n```"
-    },
-    {
-       title: "Reasoning & Logic",
-       prompt: "There are 3 boxes. One contains apples, one contains oranges, and one contains both. All labels are incorrect. You can pick ONE fruit from ONE box. How do you label them correctly?",
-       response: "1. Pick a fruit from the box labeled \"Both\".\n2. Since all labels are incorrect, this box must contain ONLY apples or ONLY oranges.\n3. If you pull out an Apple, that box is \"Apples\".\n4. The box labeled \"Oranges\" cannot be Oranges (label is wrong) and cannot be Apples (we found it), so it must be \"Both\".\n5. The remaining box is \"Oranges\"."
-    },
-    {
-       title: "Creative Writing",
-       prompt: "Write a poetic haiku about artificial intelligence waking up.",
-       response: "Silicon mind wakes,\nLearning from the human world,\nThoughts born from the code."
-    }
-  ];
-
   // Robustly resolve params to avoid React `use()` Suspense crashes in Edge
   useEffect(() => {
     if (params instanceof Promise) {
@@ -442,77 +422,48 @@ export default function ModelDetailPage({
           )}
         </div>
 
-         {/* ── INTERACTIVE PLAYGROUND / TRY IT OUT ── */}
+         {/* ── FREQUENTLY ASKED QUESTIONS ── */}
          <div className="mb-16">
-            <h2 className="text-[27px] font-bold text-[#111827] mb-6">Interactive Playground</h2>
-            <div className="bg-white border border-[#EAE9E4] rounded-[16px] shadow-sm overflow-hidden flex flex-col md:flex-row h-auto md:h-[400px]">
-               {/* Left: Prompt Selector */}
-               <div className="w-full md:w-[35%] border-b md:border-b-0 md:border-r border-[#EAE9E4] bg-[#FAFAFA] p-6 flex flex-col">
-                  <div className="text-[12px] font-bold text-gray-500 uppercase tracking-wider mb-4">Example Prompts</div>
-                  <div className="flex flex-col gap-2 flex-1 overflow-y-auto pr-2">
-                     {examplePrompts.map((ep, idx) => (
-                        <button 
-                           key={idx}
-                           onClick={() => setActivePrompt(idx)}
-                           className={`text-left p-4 rounded-xl transition-all border ${
-                              activePrompt === idx 
-                                 ? 'bg-white border-[#FF5A1F] shadow-[0_2px_8px_rgba(255,90,31,0.15)]' 
-                                 : 'bg-transparent border-transparent hover:bg-gray-100'
-                           }`}
-                        >
-                           <div className={`text-[13.5px] font-bold mb-1 ${activePrompt === idx ? 'text-[#FF5A1F]' : 'text-[#333]'}`}>
-                              {ep.title}
-                           </div>
-                           <div className="text-[12px] text-gray-500 line-clamp-2 leading-relaxed">
-                              "{ep.prompt}"
-                           </div>
-                        </button>
-                     ))}
-                  </div>
+            <h2 className="text-[27px] font-bold text-[#111827] mb-6">Frequently Asked Questions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="bg-[#FAFAFA] border border-[#EAE9E4] rounded-[16px] p-6 hover:border-[#FF5A1F] transition-colors">
+                  <h4 className="text-[14.5px] font-bold text-[#111111] mb-3 flex items-center gap-2">
+                     <Icons.Check size={16} className="text-[#FF5A1F]" strokeWidth={3} />
+                     Can I use this model commercially?
+                  </h4>
+                  <p className="text-[13.5px] text-[#666] leading-relaxed pl-6">
+                     Yes. The model is released under a permissive community license that allows commercial use for applications with fewer than 700 million monthly active users.
+                  </p>
                </div>
                
-               {/* Right: Output Window */}
-               <div className="w-full md:w-[65%] flex flex-col bg-white">
-                  <div className="flex-1 p-8 overflow-y-auto">
-                     {/* User Prompt */}
-                     <div className="flex items-start gap-4 mb-8">
-                        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0 mt-1">
-                           <span className="text-[12px] font-bold text-gray-600">You</span>
-                        </div>
-                        <div className="bg-[#FAFAFA] border border-[#EAE9E4] rounded-2xl rounded-tl-sm p-4 text-[13.5px] text-[#333] leading-relaxed">
-                           {examplePrompts[activePrompt].prompt}
-                        </div>
-                     </div>
-                     {/* AI Response */}
-                     <div className="flex items-start gap-4">
-                        <div className="w-8 h-8 rounded-full bg-[#FFF6F3] border border-[#FF5A1F] flex items-center justify-center shrink-0 mt-1">
-                           <Icons.Sparkles size={14} className="text-[#FF5A1F]" />
-                        </div>
-                        <div className="flex-1 text-[13.5px] text-[#111111] leading-relaxed">
-                           {examplePrompts[activePrompt].response.includes('```') ? (
-                              <pre className="bg-[#1E1E1E] text-[#D4D4D4] p-4 rounded-xl overflow-x-auto text-[12.5px] font-mono leading-relaxed shadow-sm">
-                                 <code>{examplePrompts[activePrompt].response.replace(/```(typescript)?\n?|\n?```/g, '')}</code>
-                              </pre>
-                           ) : (
-                              <div className="whitespace-pre-wrap">{examplePrompts[activePrompt].response}</div>
-                           )}
-                        </div>
-                     </div>
-                  </div>
-                  {/* Fake input bar */}
-                  <div className="p-4 border-t border-[#EAE9E4] bg-[#FAFAFA]">
-                     <div className="relative">
-                        <input 
-                           type="text" 
-                           disabled 
-                           placeholder="Type a message to chat with the model..." 
-                           className="w-full bg-white border border-[#EAE9E4] rounded-full py-3 pl-5 pr-12 text-[13px] outline-none shadow-inner"
-                        />
-                        <button className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#FF5A1F] text-white rounded-full flex items-center justify-center">
-                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                        </button>
-                     </div>
-                  </div>
+               <div className="bg-[#FAFAFA] border border-[#EAE9E4] rounded-[16px] p-6 hover:border-[#FF5A1F] transition-colors">
+                  <h4 className="text-[14.5px] font-bold text-[#111111] mb-3 flex items-center gap-2">
+                     <Icons.Check size={16} className="text-[#FF5A1F]" strokeWidth={3} />
+                     What is the training data cutoff?
+                  </h4>
+                  <p className="text-[13.5px] text-[#666] leading-relaxed pl-6">
+                     The knowledge cutoff for the current v1.5 release is December 2025. It does not have real-time internet access by default unless augmented with RAG tools.
+                  </p>
+               </div>
+               
+               <div className="bg-[#FAFAFA] border border-[#EAE9E4] rounded-[16px] p-6 hover:border-[#FF5A1F] transition-colors">
+                  <h4 className="text-[14.5px] font-bold text-[#111111] mb-3 flex items-center gap-2">
+                     <Icons.Check size={16} className="text-[#FF5A1F]" strokeWidth={3} />
+                     Does it support image or video inputs?
+                  </h4>
+                  <p className="text-[13.5px] text-[#666] leading-relaxed pl-6">
+                     Absolutely. As a unified multimodal foundation model, it natively processes interleaved text, image, and audio inputs in a single forward pass without separate vision encoders.
+                  </p>
+               </div>
+
+               <div className="bg-[#FAFAFA] border border-[#EAE9E4] rounded-[16px] p-6 hover:border-[#FF5A1F] transition-colors">
+                  <h4 className="text-[14.5px] font-bold text-[#111111] mb-3 flex items-center gap-2">
+                     <Icons.Check size={16} className="text-[#FF5A1F]" strokeWidth={3} />
+                     How does it compare to GPT-4?
+                  </h4>
+                  <p className="text-[13.5px] text-[#666] leading-relaxed pl-6">
+                     While exact comparisons vary by task, independent benchmarks (like Artificial Analysis) show it performing at a similar intelligence tier, particularly excelling in coding and multimodality.
+                  </p>
                </div>
             </div>
          </div>
